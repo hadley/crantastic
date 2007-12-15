@@ -58,7 +58,7 @@ tryNA <- function (expr, default = NA) {
 # http://cran.r-project.org/doc/manuals/R-exts.html#Package-structure
 special.files <- function(pkg) {
   extract(pkg)
-  files <- c("README", "NEWS", "CHANGELOG", "DESCRIPTION")
+  files <- c("README", "NEWS", "CHANGELOG")
   
   paths <- file.path(local.dir(pkg, TRUE), files)
   paths2 <- file.path(local.dir(pkg, TRUE), "inst", files)

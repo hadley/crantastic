@@ -1,0 +1,12 @@
+<h1>Editing package</h1>
+
+<%= error_messages_for :package %>
+
+<% form_for(@package) do |f| %>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @package %> |
+<%= link_to 'Back', packages_path %>
