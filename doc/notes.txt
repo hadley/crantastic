@@ -1,0 +1,65 @@
+Package
+PackageRating
+PackageTag
+Version
+User
+
+* look at licensing issues of user contributed content
+
+Package ----------
+
+* pretty much every view should have an rss feed - list of packages for given tag, events (comments, ratings, tags and versions) for a package, search feeds etc
+
+* scripted links: 
+ * google scholar search
+ * google search packagename cran OR r-project -inurl:contrib -inurl:doc/packages 
+ * mailing list search
+ * r coop search
+ * cran
+
+* needs external links (maybe just an html box?)
+ * references
+ * books
+ * websites
+
+* related packages: by author, by topic
+* packages that dependent on this package, package that this package depends on
+* ratings display in aggregate, and individually
+* timeline of packages releases, average time between etc
+
+* rss streams events
+
+Version ----------
+
+* easy access to changelogs (both human and computer generated - e.g.
+cranberries), news, etc.
+
+User -------------
+
+* since the package description usually contains the email addresses of maintainers and contributers, it should be easy to associate these with users (and then display comments left by package owners in a different style)
+
+* http://site.gravatar.com/
+
+* list of packages, comments, tags
+
+* rss streams events
+
+Rating -----------
+
+* use hreview microformat http://microformats.org/wiki/hreview
+
+Tag --------------
+
+* make sure to use rel="tag" when linking to tag page
+
+
+# every few hours, run cranberries
+18 5,9,13,17 * * *    edd     cd /home/edd/cranberries && ./cranberries.r
+
+Distant future ==================
+
+* messages from the mailing lists (r-help, and announcements)
+* documentation
+* lists of papers that cite that package (relatively difficult with
+current bibliographic data sources, but hopefully will be easier in
+the future) - scripted google scholar search
