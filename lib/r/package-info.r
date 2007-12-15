@@ -55,7 +55,7 @@ tryNA <- function (expr, default = NA) {
 }
 
 
-# From http://cran.r-project.org/doc/manuals/R-exts.html#Package-structure
+# http://cran.r-project.org/doc/manuals/R-exts.html#Package-structure
 special.files <- function(pkg) {
   extract(pkg)
   files <- c("README", "NEWS", "CHANGELOG", "DESCRIPTION")
@@ -69,13 +69,16 @@ special.files <- function(pkg) {
   )
 }
 
+# http://cran.r-project.org/doc/manuals/R-exts.html#The-DESCRIPTION-file
 details <- function(pkg) {
+  fields <- c("Title", "License", "Description", "Author", "Maintainer", "Date", "URL")
+  
   desc <- packageDescription(pkg$package, local.dir(reshape73))
   desc <- unclass(desc)
   names(desc) <- tolower(names(desc))
   attr(desc, "file") <- NULL
   
-  desc
+  desc[fields]
 }
 
 callDiffstat <- function(pkg, oldv, newv, oldd) {
