@@ -1,5 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :packages
+
+  map.resources :packages do |p|
+    p.resources :versions 
+  end
 
   # map.root :controller => "welcome"
 
