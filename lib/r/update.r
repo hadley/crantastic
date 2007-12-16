@@ -1,8 +1,6 @@
-#!/usr/bin/env r
+source("db.r")
+source("package-info.r")
 
-verbose <- FALSE
-
- 
 ## compare AP to EP and update db if necessary
 update.packages <- function(AP, EP, repos) {
   for (j in 1:nrow(AP))

@@ -2,6 +2,7 @@ library(digest)
 
 reshape74 <- list(package = "reshape", version = "0.7.4")
 reshape73 <- list(package = "reshape", version = "0.7.3")
+sqlite <- list(package = "RSQLite", version = "0.6-3")
 
 localMirror <- "~/cran"
 local.file <- function(pkg) {
@@ -13,13 +14,14 @@ local.dir <- function(pkg, extracted = FALSE) {
   if (extracted) file.path(path, pkg$package) else path
 }
 
-cranArchive <- "http://cran.r-project.org/src/contrib/Archive/"
+
+# http://rh-mirror.linux.iastate.edu/CRAN/src/contrib
 package.download <- function(pkg) {
   path <- local.file(pkg)
   if (file.exists(path)) return(TRUE)
 
   cranpath <- file.path(
-    options()$repos,  "src/contrib/Archive/", 
+    options()$repos,  "src/contrib/Archive", 
     toupper(substr(pkg$package,1,1)), 
     paste(pkg$package, "_", pkg$version, ".tar.gz", sep = "")
   )
@@ -48,12 +50,12 @@ diff <- function(old, new) {
   
 }
 
-tryNA <- function (expr, default = NA) {
+tryNULL <- function (expr, default = NULL) {
   result <- default
   tryCatch(result <- expr, error = function(e) {})
   result
 }
-
+compact <- function(x) x[!sapply(x, is.null)]
 
 # http://cran.r-project.org/doc/manuals/R-exts.html#Package-structure
 special.files <- function(pkg) {
@@ -65,37 +67,35 @@ special.files <- function(pkg) {
   names(paths) <- tolower(files)
   
   suppressWarnings(
-    lapply(paths, function(path) tryNA(paste(readLines(path), collapse="\n")))
+    compact(lapply(paths, function(path) tryNULL(paste(readLines(path), collapse="\n"))))
   )
 }
 
 # http://cran.r-project.org/doc/manuals/R-exts.html#The-DESCRIPTION-file
 details <- function(pkg) {
-  fields <- c("Title", "License", "Description", "Author", "Maintainer", "Date", "URL")
+  fields <- c("title", "license", "description", "author", "maintainer",  "date", "url")
   
   desc <- packageDescription(pkg$package, local.dir(reshape73))
   desc <- unclass(desc)
   names(desc) <- tolower(names(desc))
   attr(desc, "file") <- NULL
   
-  desc[fields]
+  desc[intersect(fields, names(desc))]
 }
 
-callDiffstat <- function(pkg, oldv, newv, oldd) {
-  oldtar <- file.path(localMirror, paste(pkg, "_", oldv, ".tar.gz", sep=""))
+diff.versions <- function(new, old = NULL) {
+  if (is.null(old)) return("")
+  extract(old)
+  extract(new)
+  system(paste(
+    "../python/diff_path.py", local.dir(old, TRUE), local.dir(new, TRUE)
+  ), intern = TRUE)
+}
 
-  newtar <- file.path(localMirror, paste(pkg, "_", newv, ".tar.gz", sep=""))
-  tempdir <- tempfile("cranberry")
-  oldtmp <- file.path(tempdir, paste(pkg, oldv, sep="-"))
-  newtmp <- file.path(tempdir, paste(pkg, newv, sep="-"))
-  cmd <- paste("mkdir ", tempdir, oldtmp, newtmp, "; ",
-               "tar -C ", oldtmp, " -x -z -f ", oldtar, "; ",
-               "tar -C ", newtmp, " -x -z -f ", newtar, "; ",
-               "diff -r ", oldtmp, " ", newtmp, " | diffstat; ",
-               "rm -rf ", tempdir)
-  if (verbose) cat(cmd, "\n")
-  con <- pipe(cmd)
-  diffstat <- readLines(con)
-  close(con)
-  invisible(diffstat)
-}  
+package.data <- function(new, old = NULL) {
+  c(
+    details(pkg),
+    special.files(pkg),
+    diff = diff.versions(new, old)
+  )
+}
