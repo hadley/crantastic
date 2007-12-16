@@ -9,6 +9,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define() do
-  
+ActiveRecord::Schema.define(:version => 2) do
+
+  create_table "package", :force => true do |t|
+    t.string "name"
+    t.text   "description"
+  end
+
+  create_table "version", :force => true do |t|
+    t.integer  "package_id"
+    t.string   "name"
+    t.string   "title"
+    t.string   "license"
+    t.string   "version"
+    t.string   "requires"
+    t.string   "depends"
+    t.string   "suggests"
+    t.string   "maintainer"
+    t.string   "author"
+    t.string   "url"
+    t.date     "date"
+    t.text     "readme"
+    t.text     "changelog"
+    t.text     "news"
+    t.text     "diff"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
 end
