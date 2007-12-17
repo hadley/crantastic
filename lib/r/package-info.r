@@ -1,8 +1,8 @@
 library(digest)
 
-reshape74 <- list(package = "reshape", version = "0.7.4")
-reshape73 <- list(package = "reshape", version = "0.7.3")
-sqlite <- list(package = "RSQLite", version = "0.6-3")
+reshape74 <- list(name = "reshape", version = "0.7.4")
+reshape73 <- list(name = "reshape", version = "0.7.3")
+sqlite <- list(name = "RSQLite", version = "0.6-3")
 
 localMirror <- "~/cran"
 local.file <- function(pkg) {
@@ -10,8 +10,8 @@ local.file <- function(pkg) {
 }
 
 local.dir <- function(pkg, extracted = FALSE) {
-  path <- file.path(localMirror, paste(pkg$package, "_", pkg$version, sep=""))
-  if (extracted) file.path(path, pkg$package) else path
+  path <- file.path(localMirror, paste(pkg$name, "_", pkg$version, sep=""))
+  if (extracted) file.path(path, pkg$name) else path
 }
 
 
@@ -22,8 +22,8 @@ package.download <- function(pkg) {
 
   cranpath <- file.path(
     options()$repos,  "src/contrib/Archive", 
-    toupper(substr(pkg$package,1,1)), 
-    paste(pkg$package, "_", pkg$version, ".tar.gz", sep = "")
+    toupper(substr(pkg$name,1,1)), 
+    paste(pkg$name, "_", pkg$version, ".tar.gz", sep = "")
   )
   download.file(cranpath, path, quiet = TRUE) == 0
 }
@@ -75,7 +75,7 @@ special.files <- function(pkg) {
 details <- function(pkg) {
   fields <- c("title", "license", "description", "author", "maintainer",  "date", "url")
   
-  desc <- packageDescription(pkg$package, local.dir(reshape73))
+  desc <- packageDescription(pkg$name, local.dir(reshape73))
   desc <- unclass(desc)
   names(desc) <- tolower(names(desc))
   attr(desc, "file") <- NULL
@@ -94,8 +94,9 @@ diff.versions <- function(new, old = NULL) {
 
 package.data <- function(new, old = NULL) {
   c(
-    details(pkg),
-    special.files(pkg),
-    diff = diff.versions(new, old)
+    new,
+    details(new),
+    special.files(new)#,
+    # diff = diff.versions(new, old)
   )
 }

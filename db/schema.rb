@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 2) do
     t.integer  "package_id"
     t.string   "name"
     t.string   "title"
+    t.string   "description"
     t.string   "license"
     t.string   "version"
     t.string   "requires"

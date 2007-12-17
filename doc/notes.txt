@@ -56,6 +56,11 @@ Tag --------------
 # every few hours, run cranberries
 18 5,9,13,17 * * *    edd     cd /home/edd/cranberries && ./cranberries.r
 
+Style --------------------------
+
+Need to try something new, maybe inspired by http://www.lokeshdhakar.com/.  No cross column header - content on left, site nav on right
+
+
 Distant future ==================
 
 * messages from the mailing lists (r-help, and announcements)

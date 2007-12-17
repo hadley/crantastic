@@ -2,7 +2,7 @@ class CreateVersions < ActiveRecord::Migration
   def self.up
     create_table :version do |t|
       t.integer :package_id
-      t.string :name, :title, :license, :version
+      t.string :name, :title, :description, :license, :version
       t.string :requires, :depends, :suggests
       t.string :maintainer, :author
       t.string :url
