@@ -8,7 +8,7 @@ h1.title {
   font-weight: bold;
 }
 h1.title a:link, h1.title a:visited {color: white; text-decoration: none;}
-
+h1.title a:hover {text-decoration: underline;}
 h1 {
   color: #FD3933;
   font-size: 3em;

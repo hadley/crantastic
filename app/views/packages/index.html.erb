@@ -1,4 +1,4 @@
-<% @title = "Packages" %>
+<% @title = @packages.length.to_s + " R packages"; @plural = true %>
 
 <% cache do %>
   <p>We know about <%= @packages.length %> packages:</p>

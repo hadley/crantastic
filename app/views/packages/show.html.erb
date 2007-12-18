@@ -2,7 +2,7 @@
 
 <h1><%= h @package.name %></h1>
 <% if @version.url -%>
-  <p><%= @version.urls.map{|url| link_to url, url}.join(", ") %></p>
+  <p><%= @version.urls.map{|url| link_to url, url}.join("<br />") %></p>
 <% end -%>
 
 <p><%= h @version.title %></p>

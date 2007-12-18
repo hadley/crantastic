@@ -4,7 +4,7 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= @title %>.  It's crantastic!</title>
+  <title><%= @title %>.  <%= @plural.nil? ? "It's" : "They're" %> crantastic!</title>
   <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/reset-fonts-grids/reset-fonts-grids.css', :media => "all" %>
   <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/base/base-min.css', :media => "all" %>
   <%= stylesheet_link_tag 'style', :media => "all" %>
