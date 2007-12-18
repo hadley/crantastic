@@ -27,6 +27,7 @@ h1 .version {font-size: 30%;}
   padding: 0.5em;
   margin-bottom: 1em;
 }
+.box a:link, .box a:visited {background-color: #fff; padding: 3px;}
 
 hr {
   border-top: none;
