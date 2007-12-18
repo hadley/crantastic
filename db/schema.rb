@@ -9,11 +9,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 2) do
+ActiveRecord::Schema.define(:version => 3) do
 
   create_table "package", :force => true do |t|
-    t.string "name"
-    t.text   "description"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
   end
 
   create_table "version", :force => true do |t|

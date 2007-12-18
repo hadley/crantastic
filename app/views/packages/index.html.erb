@@ -1,4 +1,5 @@
 <% @title = @packages.length.to_s + " R packages"; @plural = true %>
+<% @atom = formatted_packages_path(:format => :atom) %>
 
 <% cache do %>
   <p>We know about <%= @packages.length %> packages:

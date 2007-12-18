@@ -11,9 +11,9 @@ add_version_to_db <- function(pkg) {
 
 insert_version <- function(pkg) {
   pkg$package_id <- package_id(pkg)
+  pkg$created_at <- date()
   res <- dbSendPreparedQuery(db, insert_sql("version", pkg), bind.data = as.data.frame(pkg))
-  dbClearResult(res)
-  
+  dbClearResult(res) 
 }
 
 package_id <- function(pkg) {
@@ -22,7 +22,12 @@ package_id <- function(pkg) {
   id <- get_id()
   if (length(id) > 0) return(id)
   
-  res <- dbSendPreparedQuery(db, insert_sql("package", pkg["name"]), bind.data = as.data.frame(pkg["name"]))
+  update <- data.frame(
+    name = pkg$name,
+    created_at = date()
+  )
+  
+  res <- dbSendPreparedQuery(db, insert_sql("package", update), bind.data = as.data.frame(update))
   dbClearResult(res)
   
   get_id()
