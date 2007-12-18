@@ -1,18 +1,7 @@
-<h1>Listing packages</h1>
+<% @title = "Packages" %>
 
-<table>
-  <tr>
-  </tr>
+<h1>We know about <%= @packages.length %> packages:</h1>
 
-<% for package in @packages %>
-  <tr>
-    <td><%= link_to 'Show', package %></td>
-    <td><%= link_to 'Edit', edit_package_path(package) %></td>
-    <td><%= link_to 'Destroy', package, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New package', new_package_path %>
+<% for package in @packages -%>
+<%= link_to package.name, package %>
+<% end -%>

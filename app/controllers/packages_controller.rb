@@ -2,7 +2,7 @@ class PackagesController < ApplicationController
   # GET /package
   # GET /package.xml
   def index
-    @package = Package.find(:all)
+    @packages = Package.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb

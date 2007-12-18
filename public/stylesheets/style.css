@@ -15,6 +15,10 @@ h1.title {
   padding: 0.5em;
   margin-bottom: 1em;
 }
+/*.box a:link, .box a:visited {color: #8EE233;}*/
+
+a:link {color: #FD3933;}
+a:visited {color: #F7807B;}
 
 /* Rails defaults ------------------------*/
 
