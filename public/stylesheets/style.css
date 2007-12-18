@@ -1,4 +1,3 @@
-
 h1.title {
   background-color: #FD3933;
   color: #fff;
@@ -18,7 +17,7 @@ h1 {
   margin-bottom: 0;
 }
 h1 .version {font-size: 30%;}
-
+/*#sidebar {position: fixed; margin-right: 1em; }*/
 .wrap {margin-right: 2em; margin-top: 9.5em;}
 
 .flash {background-color: #CEFD9B; padding: 0.5em; margin-bottom: 1em;}
@@ -33,7 +32,7 @@ hr {
   border-top: none;
   border-bottom: 1px solid #ccc;}
 
-#ft {margin-top: 10em; color: #666; border-top: 1px solid #ccc; padding-top: 0.5em;}
+#ft {margin-top: 10em; color: #666; border-top: 1px solid #ccc; padding-top: 0.5em; width: 750px;}
 /*.box a:link, .box a:visited {color: #8EE233;}*/
 
 a:link {color: #FD3933;}
