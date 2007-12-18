@@ -32,7 +32,14 @@
   </div>
   
   <div class="box">
-    Log in or sign up
+    <% form_tag session_path do -%>
+    <p><label for="login">User name</label>:
+    <%= text_field_tag 'login' %></p>
+    <p><label for="password">Password</label>:
+    <%= password_field_tag 'password' %></p>
+
+    <p><%= submit_tag 'Log in' %> or <%= link_to "Sign up!", signup_path%></p>
+    <% end -%>
   </div>
   <div class="box">
     Search
