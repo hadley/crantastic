@@ -32,7 +32,7 @@ hr {
   border-top: none;
   border-bottom: 1px solid #ccc;}
 
-#ft {margin-top: 10em; color: #666; border-top: 1px solid #ccc; padding-top: 0.5em; width: 750px;}
+#ft {margin-top: 10em; color: #666; border-top: 1px solid #ccc; padding-top: 0.5em; }
 /*.box a:link, .box a:visited {color: #8EE233;}*/
 
 a:link {color: #FD3933;}
