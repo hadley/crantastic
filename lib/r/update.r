@@ -6,7 +6,7 @@ update.packages <- function() {
   known_versions <- load.packages()
   latest <- latest.versions()
   invisible(lapply(latest, function(pkg) {
-    tryCatch(update.package(pkg, known_versions))
+    try(update.package(pkg, known_versions))
   }))
 }
 

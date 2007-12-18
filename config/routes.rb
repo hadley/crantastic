@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
     p.resources :versions 
   end
 
-  # map.root :controller => "welcome"
+  map.root :controller => "about", :action => "index"
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
