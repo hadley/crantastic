@@ -6,6 +6,7 @@ h1.title {
   padding-left: 5px;
   font-size: 4em;
   font-weight: bold;
+  margin-bottom: 0.5em;
 }
 h1.title a:link, h1.title a:visited {color: white; text-decoration: none;}
 h1.title a:hover {text-decoration: underline;}
@@ -14,8 +15,11 @@ h1 {
   font-size: 3em;
   font-weight: normal;
   margin-top: 0;
-  margin-bottom: 0.5em;
+  margin-bottom: 0;
 }
+h1 .version {font-size: 30%;}
+
+.wrap {margin-right: 2em;}
 
 .flash {padding-top: 2em;}
 .box {
@@ -23,6 +27,10 @@ h1 {
   padding: 0.5em;
   margin-bottom: 1em;
 }
+
+hr {
+  border-top: none;
+  border-bottom: 1px solid #ccc;}
 
 #ft {margin-top: 10em; color: #666; border-top: 1px solid #ccc; padding-top: 0.5em;}
 /*.box a:link, .box a:visited {color: #8EE233;}*/

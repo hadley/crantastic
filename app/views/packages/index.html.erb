@@ -1,10 +1,10 @@
 <% @title = @packages.length.to_s + " R packages"; @plural = true %>
 
 <% cache do %>
-  <p>We know about <%= @packages.length %> packages:</p>
+  <p>We know about <%= @packages.length %> packages:
 
-
-  <% for package in @packages -%>
+  <%- for package in @packages -%>
   <%= link_to package.name, package %>
-  <% end -%>
+  <%- end -%>
+  </p>
 <% end %>
