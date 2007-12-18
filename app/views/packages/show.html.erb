@@ -1,3 +1,19 @@
+<% @title = @package.name + " package" %>
 
-<%= link_to 'Edit', edit_package_path(@package) %> |
-<%= link_to 'Back', packages_path %>
+<h1><%= h @package.name %></h1>
+<% if @version.url -%>
+  <p><%= @version.urls.map{|url| link_to url, url}.join(", ") %></p>
+<% end -%>
+
+<p><%= h @version.title %></p>
+<p><%= h @version.description %></p>
+
+<p><%= link_to "CRAN", @package.cran_url%>
+
+<h2><%=h @package.name %> has <%= pluralize @package.versions.length, "version" %>:</h2>
+
+<ul>
+<% for version in @package.versions -%>
+  <li><%= link_to version.vname, [@package, version] %></li>
+<% end -%>
+</ul>

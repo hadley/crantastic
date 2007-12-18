@@ -1,8 +1,9 @@
 class PackagesController < ApplicationController
+  
   # GET /package
   # GET /package.xml
   def index
-    @packages = Package.find(:all)
+    @packages = Package.find(:all, :order => "lower(name)")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +15,7 @@ class PackagesController < ApplicationController
   # GET /package/1.xml
   def show
     @package = Package.find(params[:id])
+    @version = @package.latest
 
     respond_to do |format|
       format.html # show.html.erb

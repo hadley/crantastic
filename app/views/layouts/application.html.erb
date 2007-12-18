@@ -5,9 +5,9 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= @title %>.  It's crantastic!</title>
-  <%= stylesheet_link_tag 'style', :media => "all" %>
   <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/reset-fonts-grids/reset-fonts-grids.css', :media => "all" %>
   <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/base/base-min.css', :media => "all" %>
+  <%= stylesheet_link_tag 'style', :media => "all" %>
 </head>
 <body>
 
@@ -27,11 +27,15 @@
   <div class="box">
     Global navigation
     <ul>
-      <li><%= link_to "Packages", packages_path %>
+      <li><%= link_to "Packages", packages_path %></li>
+    </ul>
   </div>
   
   <div class="box">
-      Log in or sign up
+    Log in or sign up
+  </div>
+  <div class="box">
+    Search
   </div>
   
 </div> 

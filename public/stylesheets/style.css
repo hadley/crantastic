@@ -5,6 +5,13 @@ h1.title {
   padding-top: 2em;
   padding-left: 5px;
   font-size: 4em;
+  font-weight: bold;
+}
+
+h1 {
+  color: #FD3933;
+  font-size: 3em;
+  font-weight: normal;
   margin-top: 0;
   margin-bottom: 0.5em;
 }

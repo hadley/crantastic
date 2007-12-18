@@ -1,7 +1,10 @@
 <% @title = "Packages" %>
 
-<h1>We know about <%= @packages.length %> packages:</h1>
+<% cache do %>
+  <p>We know about <%= @packages.length %> packages:</p>
 
-<% for package in @packages -%>
-<%= link_to package.name, package %>
-<% end -%>
+
+  <% for package in @packages -%>
+  <%= link_to package.name, package %>
+  <% end -%>
+<% end %>
