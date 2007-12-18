@@ -1,3 +1,5 @@
+/* Header and sidebar ------------------------------------------------ */
+
 h1.title {
   background-color: #FD3933;
   color: #fff;
@@ -5,10 +7,29 @@ h1.title {
   padding-left: 5px;
   font-size: 4em;
   font-weight: bold;
-  margin-bottom: 0.5em;
 }
 h1.title a:link, h1.title a:visited {color: white; text-decoration: none;}
 h1.title a:hover {text-decoration: underline;}
+
+.box {
+  background-color: #CEFD9B;
+  padding: 0.5em;
+  margin-bottom: 1em;
+}
+.box a:link, .box a:visited {
+  background-color: #fff; 
+  padding: 4px; 
+  color: #333; 
+  font-weight: bold; 
+  text-decoration: none;
+}
+.box a:hover {text-decoration: underline;}
+
+.box ul {margin: 0.7em 0.2em;}
+.box ul li {list-style: none; margin-top: 1em; display: inline; margin-right: 0.4em;}
+
+/* Typography --------------------------------------------------------- */
+
 h1 {
   color: #FD3933;
   font-size: 3em;
@@ -17,28 +38,24 @@ h1 {
   margin-bottom: 0;
 }
 h1 .version {font-size: 30%;}
-/*#sidebar {position: fixed; margin-right: 1em; }*/
-.wrap {margin-right: 2em; margin-top: 9.5em;}
-
-.flash {background-color: #CEFD9B; padding: 0.5em; margin-bottom: 1em;}
-.box {
-  background-color: #CEFD9B;
-  padding: 0.5em;
-  margin-bottom: 1em;
-}
-.box a:link, .box a:visited {background-color: #fff; padding: 3px; color: #FD3933;}
 
 hr {
   border-top: none;
-  border-bottom: 1px solid #ccc;}
-
-#ft {margin-top: 10em; color: #666; border-top: 1px solid #ccc; padding-top: 0.5em; }
-/*.box a:link, .box a:visited {color: #8EE233;}*/
+  border-bottom: 1px solid #ccc;
+}
 
 a:link {color: #FD3933;}
 a:visited {color: #F7807B;}
 
-/* Rails defaults ------------------------*/
+/* Page structure  ----------------------------------------------------- */
+
+.wrap {margin-right: 2em; margin-top: 9.5em;}
+
+#ft {margin-top: 10em; color: #666; border-top: 1px solid #ccc; padding-top: 0.5em; }
+
+/* Forms and flash ------------------------------------------------------ */
+
+.flash {background-color: #CEFD9B; padding: 0.5em; margin-bottom: 1em;}
 
 input {
   border: #ccc 2px solid;

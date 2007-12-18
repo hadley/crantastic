@@ -32,6 +32,10 @@
   <div class="box">
     <ul>
       <li><%= link_to "Packages", packages_path %></li>
+      <li><%= link_to "Users", users_path %></li>
+      <% if logged_in? -%>
+      <li><%= link_to "Log out", logout_url() %></li>
+      <% end -%>
     </ul>
   </div>
   

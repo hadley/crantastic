@@ -3,6 +3,10 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
   end
   
+  def index
+    @users = User.find :all
+  end
+  
   def create
     puts "Creating user"
     cookies.delete :auth_token
