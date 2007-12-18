@@ -1,7 +1,7 @@
 <p><%= h @version.title %>.</p>
 <p><%= @version.urls.map{|url| link_to url, url}.join("<br />") %></p>
 
-<p><%= @version.description %></p>
+<p><%= auto_link @version.description %></p>
 
 <hr />
 

@@ -19,15 +19,15 @@ h1 {
 }
 h1 .version {font-size: 30%;}
 
-.wrap {margin-right: 2em;}
+.wrap {margin-right: 2em; margin-top: 9.5em;}
 
-.flash {padding-top: 9.5em;}
+.flash {background-color: #CEFD9B; padding: 0.5em; margin-bottom: 1em;}
 .box {
   background-color: #CEFD9B;
   padding: 0.5em;
   margin-bottom: 1em;
 }
-.box a:link, .box a:visited {background-color: #fff; padding: 3px;}
+.box a:link, .box a:visited {background-color: #fff; padding: 3px; color: #FD3933;}
 
 hr {
   border-top: none;
@@ -41,59 +41,13 @@ a:visited {color: #F7807B;}
 
 /* Rails defaults ------------------------*/
 
-.fieldWithErrors {
+input {
+  border: #ccc 2px solid;
   padding: 2px;
-  background-color: red;
-  display: table;
 }
 
-#errorExplanation {
-  width: 400px;
-  border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
+.fieldWithErrors input {
+  border-color: #FD3933;
 }
 
-#errorExplanation h2 {
-  text-align: left;
-  font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: -7px;
-  background-color: #c00;
-  color: #fff;
-}
-
-#errorExplanation p {
-  color: #333;
-  margin-bottom: 0;
-  padding: 5px;
-}
-
-#errorExplanation ul li {
-  font-size: 12px;
-  list-style: square;
-}
-
-div.uploadStatus {
-  margin: 5px;
-}
-
-div.progressBar {
-  margin: 5px;
-}
-
-div.progressBar div.border {
-  background-color: #fff;
-  border: 1px solid gray;
-  width: 100%;
-}
-
-div.progressBar div.background {
-  background-color: #333;
-  height: 18px;
-  width: 0%;
-}
-
+span.error {color: #FD3933; font-size: 0.9em;}

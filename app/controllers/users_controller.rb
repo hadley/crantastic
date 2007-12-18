@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
-  # render new.rhtml
   def new
+    @user = User.new(params[:user])
   end
 
   def create
+    puts "Creating user"
     cookies.delete :auth_token
 
     @user = User.new(params[:user])
@@ -21,6 +22,8 @@ class UsersController < ApplicationController
     if logged_in? && !current_user.active?
       current_user.activate
       flash[:notice] = "Signup complete!"
+    else 
+      flash[:notice] = "Incorrect activation url"
     end
     redirect_back_or_default('/')
   end
