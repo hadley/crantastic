@@ -24,7 +24,7 @@ class Version < ActiveRecord::Base
   def parse_requirements(reqs)
     reqs.split(",").map{|full| full.split(" ")[0]}.map do |name|    
       Package.find_by_name name
-    end.compact rescue []
+    end.compact.sort_by{|v| v.name.downcase } rescue []
   end
     
 end

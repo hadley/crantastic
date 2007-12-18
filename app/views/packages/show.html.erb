@@ -1,26 +1,19 @@
 <% @title = "The " + @package.name + " package" %>
 
 <h1><%= h @package.name %> <span class="version">(<%= @version.version%>)</span></h1>
-<p><%= h @version.title %></p>
 
-<p><%= @version.urls.map{|url| link_to url, url}.join("<br />") %></p>
+<%= render :partial => "versions/description" %>
 
-<p><%= h @version.description %></p>
+<% if @package.versions.length > 1 %>
+  <hr />
+  <h2><%=h @package.name %> has <%= pluralize @package.versions.length - 1, "previous version" %></h2>
 
-<hr />
+  <ul>
+  <% for version in @package.versions[1..100] -%>
+    <li><%= link_to version.vname, [@package, version] %>.  Released <%= time_ago_in_words @version.date rescue "" %> ago.</li>
+  <% end -%>
+  </ul>
+<% end %>
 
-<p><strong>Author</strong>: <%=h @version.author  %><br />
-   <strong>Maintainer</strong>: <%=h @version.maintainer  %></p>
-<p><strong>License</strong>: <%=h @version.license  %></p>
 
-<p><%= (@version.depends.map{|p| link_to p.name, p} + @version.suggests.map{|p| content_tag(:em, link_to(p.name, p))}).join(", ")  %></p>
-
-<hr />
-
-<h2><%=h @package.name %> has <%= pluralize @package.versions.length, "version" %>:</h2>
-
-<ul>
-<% for version in @package.versions -%>
-  <li><%= link_to version.vname, [@package, version] %>.  Released <%= time_ago_in_words @version.date rescue "" %> ago.</li>
-<% end -%>
-</ul>
+<p><strong>Search for</strong> <%= @package.name %> on <%= link_to "google", @package.google_url %>, <%= link_to "google scholar", @package.scholar_url %>, <%= link_to "r-help", @package.rhelp_url %>, <%= link_to "r-devel", @package.rdevel_url %></p>

@@ -3,7 +3,7 @@ class PackagesController < ApplicationController
   # GET /package
   # GET /package.xml
   def index
-    @packages = Package.find(:all, :order => "lower(name)")
+    @packages = Package.find(:all, :order => "lower(package.name)") #, :include => :versions
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,0 +1,24 @@
+<p><%= h @version.title %>.</p>
+<p><%= @version.urls.map{|url| link_to url, url}.join("<br />") %></p>
+
+<p><%= @version.description %></p>
+
+<hr />
+
+<p><strong>Author</strong>: <%=h @version.author  %><br />
+   <strong>Maintainer</strong>: <%=h @version.maintainer  %></p>
+<p><strong>License</strong>: <%=h @version.license  %></p>
+
+<p><strong>Uses</strong>: <%= (@version.depends.map{|p| link_to p.name, p} + @version.suggests.map{|p| content_tag(:em, link_to(p.name, p))}).join(", ")  %></p>
+
+<% unless @version.date.blank? -%>
+<p>Released <%= time_ago_in_words @version.date %> ago.</p>
+<% end -%>
+
+<hr />
+
+<!-- <ul>
+  <li><%= textilize @version.readme %></li>
+  <li><%= textilize @version.changelog %></li>
+  <li><%= textilize @version.news %></li>
+</ul> -->
