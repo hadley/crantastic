@@ -1,17 +1,34 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= @title %>.  It's crantastic!</title>
-  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'style', :media => "all" %>
+  <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/reset-fonts-grids/reset-fonts-grids.css', :media => "all" %>
+  <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/base/base-min.css', :media => "all" %>
 </head>
 <body>
 
-<p style="color: green"><%= flash[:notice] %></p>
+<div id="doc" class="yui-t6">
+<div id="bd">
 
-<%= yield  %>
+<div id="yui-main"><div class="yui-b">
+
+  <div class="flash"><%= flash[:notice] %></div>
+  <%= yield  %>
+  
+    
+</div></div> 
+<div class="yui-b">
+  <h1 class="title">Crantastic</h1>
+  
+</div> 
+</div>
+
+<div id="ft">
+</div>
 
 </body>
 </html>
