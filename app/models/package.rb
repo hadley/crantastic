@@ -5,7 +5,4 @@ class Package < ActiveRecord::Base
     versions[0]
   end
   
-  def cran_url
-    "http://cran.r-project.org/src/contrib/Descriptions/#{name}.html"
-  end
 end

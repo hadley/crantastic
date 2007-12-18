@@ -1,4 +1,4 @@
-<% @title = @package.name + " package" %>
+<% @title = "The " + @package.name + " package" %>
 
 <h1><%= h @package.name %></h1>
 <% if @version.url -%>
@@ -7,8 +7,6 @@
 
 <p><%= h @version.title %></p>
 <p><%= h @version.description %></p>
-
-<p><%= link_to "CRAN", @package.cran_url%>
 
 <h2><%=h @package.name %> has <%= pluralize @package.versions.length, "version" %>:</h2>
 
