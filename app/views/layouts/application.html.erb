@@ -34,6 +34,7 @@
     </ul>
   </div>
   
+  <% unless logged_in? -%>
   <div class="box">
     <% form_tag session_path do -%>
     <p><label for="login">User name</label>:
@@ -43,6 +44,7 @@
 
     <p><%= submit_tag 'Log in' %> or <%= link_to "Sign up!", signup_path%></p>
     <% end -%>
+  <% end -%>
   </div>
   <div class="box">
     Search
