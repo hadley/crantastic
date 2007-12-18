@@ -15,16 +15,25 @@ local.dir <- function(pkg, extracted = FALSE) {
 }
 
 
-# http://rh-mirror.linux.iastate.edu/CRAN/src/contrib
+# http://rh-mirror.linux.iastate.edu/CRAN/src
+# http://rh-mirror.linux.iastate.edu/CRAN/src/contrib/A
 package.download <- function(pkg) {
   path <- local.file(pkg)
   if (file.exists(path)) return(TRUE)
 
-  cranpath <- file.path(
-    options()$repos,  "src/contrib/Archive", 
-    toupper(substr(pkg$name,1,1)), 
-    paste(pkg$name, "_", pkg$version, ".tar.gz", sep = "")
-  )
+  if (is.null(attr(pkg, "archive"))) {
+    cranpath <- file.path(
+      options()$repos,  "src/contrib", 
+      paste(pkg$name, "_", pkg$version, ".tar.gz", sep = "")
+    )
+  } else {
+    cranpath <- file.path(
+      options()$repos,  "src/contrib/Archive", 
+      toupper(substr(pkg$name,1,1)), 
+      paste(pkg$name, "_", pkg$version, ".tar.gz", sep = "")
+    )
+  }
+  
   download.file(cranpath, path, quiet = TRUE) == 0
 }
 
@@ -44,11 +53,6 @@ cleanup <- function(pkg) {
   system(paste("rm -rf", local.dir(pkg))) == 0
 }
 
-diff <- function(old, new) {
-  extract(old)
-  extract(new)
-  
-}
 
 tryNULL <- function (expr, default = NULL) {
   result <- default
@@ -73,9 +77,9 @@ special.files <- function(pkg) {
 
 # http://cran.r-project.org/doc/manuals/R-exts.html#The-DESCRIPTION-file
 details <- function(pkg) {
-  fields <- c("title", "license", "description", "author", "maintainer",  "date", "url")
+  fields <- c("title", "license", "description", "author", "maintainer",  "date", "url", "depends", "suggests")
   
-  desc <- packageDescription(pkg$name, local.dir(reshape73))
+  desc <- packageDescription(pkg$name, local.dir(pkg))
   desc <- unclass(desc)
   names(desc) <- tolower(names(desc))
   attr(desc, "file") <- NULL
@@ -93,10 +97,14 @@ diff.versions <- function(new, old = NULL) {
 }
 
 package.data <- function(new, old = NULL) {
-  c(
+  extract(new)
+  pkg <- c(
     new,
     details(new),
     special.files(new)#,
     # diff = diff.versions(new, old)
   )
+  cleanup(new)
+  
+  pkg
 }

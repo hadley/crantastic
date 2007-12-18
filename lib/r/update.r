@@ -2,36 +2,39 @@ source("db.r")
 source("package-info.r")
 
 ## compare AP to EP and update db if necessary
-update.packages <- function(AP, EP, repos) {
-  for (j in 1:nrow(AP))
-    update.package(AP[j, ], EP, repos)
+update.packages <- function() {
+  known_versions <- load.packages()
+  latest <- latest.versions()
+  invisible(lapply(latest, function(pkg) {
+    tryCatch(update.package(pkg, known_versions))
+  }))
 }
 
-update.package <- function(new, existing, repos) {  
-  if (new$package %in% existing$package) {
+update.package <- function(new, known) {  
+  if (new$name %in% known$name) {
     # Look up in list of known packages
-    cur <- existing[cur$package == existing$package, ]
+    cur <- known[new$name == known$name, ]
     
     if (cur$version != new$version)  {
-      cat("Updated package", cur$package, " (", cur$version, " -> ", pkg$version," )\n")
-
-      addPackageToDB(repos$id, AP[j, ])
+      browser()
+      cat("Updated package", cur$package, " (", cur$version, " -> ", pkg$version," )\n", sep="")
+      add_version_to_db(pkg)
     } else {
-      if (verbose) cat(curPkg, "with version", curVer, "already in db\n")      
+      cat("Existing package: ", cur$name, " (", cur$version, ")\n", sep="")      
     }
     
   } else {
-    cat("New package: ", curPkg, " (", curVer, ")\n")
-    addPackageToDB(repos$id, AP[j, ])
+    cat("New package: ", new$name, " (", new$version, ")\n", sep="")
+    add_version_to_db(new)
   }
 }
 
-update <- function(dbcon) {
-  for (i in 1:nrow(repos)) {
-    r <- repos[i, ]
+latest.versions <- function() {
+  pkgs <- available.packages()
+  rownames(pkgs) <- NULL
+  pkgs <- as.data.frame(pkgs, stringsAsFactors = FALSE)
+  names(pkgs) <- tolower(names(pkgs))
+  names(pkgs)[1] <- "name"
 
-    EP <- existing.packages(dbcon, r$id)
-    AP <- available.packages(contrib.url(r$url))
-    update.packages(AP, EP, r)
-  }
+  apply(pkgs[, c("name", "version")], 1, as.list)
 }

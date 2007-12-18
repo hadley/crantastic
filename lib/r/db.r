@@ -1,13 +1,19 @@
 require(RSQLite, quiet=TRUE)
 
-versions <- NULL
-
 if (exists("db")) dbDisconnect(db)
 db <- dbConnect(dbDriver("SQLite"), dbname = "/Users/hadley/Documents/crantastic/db/development.sqlite3")
 
+add_version_to_db <- function(pkg) {
+  package.download(pkg)
+  pkg <- package.data(pkg)
+  insert_version(pkg)
+}
+
 insert_version <- function(pkg) {
   pkg$package_id <- package_id(pkg)
-  dbGetQuery(db, insert_sql("version", pkg))
+  res <- dbSendPreparedQuery(db, insert_sql("version", pkg), bind.data = as.data.frame(pkg))
+  dbClearResult(res)
+  
 }
 
 package_id <- function(pkg) {
@@ -16,8 +22,8 @@ package_id <- function(pkg) {
   id <- get_id()
   if (length(id) > 0) return(id)
   
-  sql <- insert_sql("package", pkg["name"])  
-  dbGetQuery(db, sql)
+  res <- dbSendPreparedQuery(db, insert_sql("package", pkg["name"]), bind.data = as.data.frame(pkg["name"]))
+  dbClearResult(res)
   
   get_id()
 }
@@ -26,7 +32,7 @@ insert_sql <- function(table, values) {
   paste(
     "INSERT INTO ", table, 
     "(", paste(names(values), collapse=", "), ") ",
-    "VALUES (", paste(shQuote(values), collapse=", "), ");",
+    "VALUES (", paste(rep("?", length(values)), collapse=", "), ");",
     sep=""
   )
 }
@@ -37,7 +43,7 @@ load.packages <- function() {
   sql <- paste(
     "SELECT * ",
     "FROM version ",
-    "WHERE id in (select max(id) from version v where v.id = package_id) ",
+    "WHERE id in (select max(id) from version v where v.package_id = version.package_id) ",
     "ORDER BY name", sep="")
   dbGetQuery(db, sql)
 }
