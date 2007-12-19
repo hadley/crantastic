@@ -31,7 +31,7 @@ update.package <- function(new, known) {
 }
 
 latest.versions <- function() {
-  pkgs <- available.packages(contrib.url("http://cran.r-project.org"))
+  pkgs <- available.packages(contrib.url("http://cran.r-project.org", type="source"))
   rownames(pkgs) <- NULL
   pkgs <- as.data.frame(pkgs, stringsAsFactors = FALSE)
   names(pkgs) <- tolower(names(pkgs))

@@ -9,7 +9,7 @@
 
   <ul>
   <% for version in @package.versions[1..100] -%>
-    <li><%= link_to version.vname, [@package, version] %>.  Released <%= time_ago_in_words @version.date rescue "" %> ago.</li>
+    <li><%= link_to version.vname, [@package, version] %>.  Released <%= time_ago_in_words version.date rescue "" %> ago.</li>
   <% end -%>
   </ul>
 <% end %>
