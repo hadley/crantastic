@@ -1,6 +1,8 @@
 source("db.r")
 source("package-info.r")
 
+options(warn =1 )
+
 ## compare AP to EP and update db if necessary
 update.packages <- function() {
   known_versions <- load.packages()
@@ -16,21 +18,20 @@ update.package <- function(new, known) {
     cur <- known[new$name == known$name, ]
     
     if (cur$version != new$version)  {
-      browser()
-      cat("Updated package", cur$package, " (", cur$version, " -> ", pkg$version," )\n", sep="")
-      add_version_to_db(pkg)
+      cat("Updated package: ", cur$name, " (", cur$version, " -> ", new$version,")\n", sep="")
+      add_version_to_db(new)
     } else {
-      cat("Existing package: ", cur$name, " (", cur$version, ")\n", sep="")      
+      #  cat("Existing package: ", cur$name, " (", cur$version, ")\n", sep="")      
     }
     
   } else {
-    cat("New package: ", new$name, " (", new$version, ")\n", sep="")
+    cat("New package: ", new$name, " (", new$version, ")\n", sep="")      
     add_version_to_db(new)
   }
 }
 
 latest.versions <- function() {
-  pkgs <- available.packages()
+  pkgs <- available.packages(contrib.url("http://cran.r-project.org"))
   rownames(pkgs) <- NULL
   pkgs <- as.data.frame(pkgs, stringsAsFactors = FALSE)
   names(pkgs) <- tolower(names(pkgs))

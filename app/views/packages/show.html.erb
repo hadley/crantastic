@@ -5,7 +5,6 @@
 <%= render :partial => "versions/description" %>
 
 <% if @package.versions.length > 1 %>
-  <hr />
   <h2><%=h @package.name %> has <%= pluralize @package.versions.length - 1, "previous version" %></h2>
 
   <ul>

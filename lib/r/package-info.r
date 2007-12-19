@@ -19,22 +19,24 @@ local.dir <- function(pkg, extracted = FALSE) {
 # http://rh-mirror.linux.iastate.edu/CRAN/src/contrib/A
 package.download <- function(pkg) {
   path <- local.file(pkg)
-  if (file.exists(path)) return(TRUE)
+  if (file.exists(path) && file.info(path)$size > 0) return(TRUE)
 
   if (is.null(attr(pkg, "archive"))) {
     cranpath <- file.path(
-      options()$repos,  "src/contrib", 
+      "http://cran.r-project.org",  "src/contrib", 
       paste(pkg$name, "_", pkg$version, ".tar.gz", sep = "")
     )
   } else {
     cranpath <- file.path(
-      options()$repos,  "src/contrib/Archive", 
+      "http://cran.r-project.org",  "src/contrib/Archive", 
       toupper(substr(pkg$name,1,1)), 
       paste(pkg$name, "_", pkg$version, ".tar.gz", sep = "")
     )
   }
   
-  download.file(cranpath, path, quiet = TRUE) == 0
+  status <- download.file(cranpath, path, quiet = TRUE) == 0
+  if (!status) unlink(path)
+  status
 }
 
 extract <- function(pkg) {

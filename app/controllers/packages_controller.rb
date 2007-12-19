@@ -11,7 +11,7 @@ class PackagesController < ApplicationController
       end
       
       format.atom do
-        @packages = Package.find(:all, :order => "package.created_at", :include => :versions)        
+        @packages = Package.find(:all, :order => "package.created_at", :include => :versions, :conditions => "package.created_at IS NOT NULL")        
       end
     end
   end
