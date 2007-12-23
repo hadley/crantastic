@@ -1,0 +1,28 @@
+<p>
+  <b>Package:</b>
+  <%=h @review.package_id %>
+</p>
+
+<p>
+  <b>Rating:</b>
+  <%=h @review.rating %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @review.user_id %>
+</p>
+
+<p>
+  <b>Review:</b>
+  <%=h @review.review %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @review.title %>
+</p>
+
+
+<%= link_to 'Edit', edit_review_path(@review) %> |
+<%= link_to 'Back', reviews_path %>

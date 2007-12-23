@@ -9,12 +9,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 5) do
+ActiveRecord::Schema.define(:version => 6) do
 
   create_table "package", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "created_at"
+  end
+
+  create_table "review", :force => true do |t|
+    t.integer  "package_id"
+    t.integer  "user_id"
+    t.integer  "rating"
+    t.text     "review"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user", :force => true do |t|
