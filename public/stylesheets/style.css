@@ -52,7 +52,8 @@ p.rating {float: right; width: 1em; font-size: 5em; text-align: right;}
 
 .wrap {margin-right: 2em; margin-top: 9.5em;}
 
-#ft {margin-top: 10em; color: #666; border-top: 1px solid #ccc; padding-top: 0.5em; }
+#ft {padding-top: 10em;}
+#ft p {color: #666; border-top: 1px solid #ccc; padding-top: 0.5em; }
 
 /* Forms and flash ------------------------------------------------------ */
 

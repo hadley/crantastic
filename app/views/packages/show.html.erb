@@ -14,5 +14,23 @@
   </ul>
 <% end %>
 
+<h2>Reviews</h2>
 
+<% if @package.reviews.length == 0 %>
+<p>No one has written a review of <%= @package.name %> yet.  Want to be the first? <%= link_to "Write one now.", new_review_path(:package_id => @package.id) %></p>
+<% else -%>
+
+<ul>
+<% for review in @package.reviews %>
+  <li>
+    <p><strong><%=h review.title %></strong></p>
+    <p><%= textilize review.review %></p>
+    <p><%= link_to review.user.login, review.user  %> gave <%= link_to review.package.name, review.package %> a <%=h review.rating %>.</p>
+  </li>
+<% end %>
+</ul>
+
+<% end -%>
+
+<hr />
 <p><strong>Search for</strong> <%= @package.name %> on <%= link_to "google", @package.google_url %>, <%= link_to "google scholar", @package.scholar_url %>, <%= link_to "r-help", @package.rhelp_url %>, <%= link_to "r-devel", @package.rdevel_url %></p>

@@ -56,7 +56,7 @@ module AuthenticatedSystem
     # to access the requested action.  For example, a popup window might
     # simply close itself.
     def access_denied
-      flash[:notice] = "You need to log in to access this page."
+      flash[:notice] = "You need to log in to access this page.  Don't have a login?  Then <a href='/users/new/'>sign up now</a>!"
       
       respond_to do |accepts|
         accepts.html do
