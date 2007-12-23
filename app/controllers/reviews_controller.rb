@@ -1,4 +1,12 @@
 class ReviewsController < ApplicationController
+  before_filter :login_required, :only => [ :new, :create  ]
+  before_filter :authorization_required, :only => [ :edit, :update  ]
+  
+  def authorized?
+    review = Review.find(params[:id])
+    review.user == current_user
+  end
+  
   # GET /review
   # GET /review.xml
   def index
@@ -25,6 +33,9 @@ class ReviewsController < ApplicationController
   # GET /review/new.xml
   def new
     @review = Review.new
+    @review.user = current_user
+    
+    
 
     respond_to do |format|
       format.html # new.html.erb

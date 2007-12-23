@@ -20,18 +20,8 @@ module AuthenticatedSystem
     
     # Check if the user is authorized
     #
-    # Override this method in your controllers if you want to restrict access
-    # to only a few actions or if you want to check if the user
-    # has the correct rights.
-    #
-    # Example:
-    #
-    #  # only allow nonbobs
-    #  def authorized?
-    #    current_user.login != "bob"
-    #  end
     def authorized?
-      logged_in?
+        logged_in?
     end
 
     # Filter method to enforce a login requirement.
@@ -49,7 +39,12 @@ module AuthenticatedSystem
     #   skip_before_filter :login_required
     #
     def login_required
-      authorized? || access_denied
+      logged_in? || access_denied
+    end
+    
+    # Filter method to enforce an authorization requirement.
+    def authorization_required
+      authorized? || unauthorized
     end
 
     # Redirect as appropriate when an access request fails.
@@ -61,10 +56,12 @@ module AuthenticatedSystem
     # to access the requested action.  For example, a popup window might
     # simply close itself.
     def access_denied
+      flash[:notice] = "You need to log in to access this page."
+      
       respond_to do |accepts|
         accepts.html do
           store_location
-          redirect_to :controller => '/sessions', :action => 'new'
+          redirect_to login_url()
         end
         accepts.xml do
           headers["Status"]           = "Unauthorized"
@@ -74,6 +71,22 @@ module AuthenticatedSystem
       end
       false
     end  
+    
+    def unauthorized
+      flash[:notice] = "You are not authorised to see that page."
+      
+      respond_to do |accepts|
+        accepts.html do
+          redirect_back_or_default("/")
+        end
+        accepts.xml do
+          headers["Status"]           = "Unauthorized"
+          headers["WWW-Authenticate"] = %(Basic realm="Web Password")
+          render :text => "Unauthorized", :status => '401 Unauthorized'
+        end
+      end
+      false
+    end
     
     # Store the URI of the current request in the session.
     #

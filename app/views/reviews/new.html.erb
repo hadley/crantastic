@@ -1,36 +1,3 @@
 <h1>New review</h1>
 
-<%= error_messages_for :review %>
-
-<% form_for(@review) do |f| %>
-  <p>
-    <b>Package</b><br />
-    <%= f.text_field :package_id %>
-  </p>
-
-  <p>
-    <b>Rating</b><br />
-    <%= f.text_field :rating %>
-  </p>
-
-  <p>
-    <b>User</b><br />
-    <%= f.text_field :user_id %>
-  </p>
-
-  <p>
-    <b>Review</b><br />
-    <%= f.text_area :review %>
-  </p>
-
-  <p>
-    <b>Title</b><br />
-    <%= f.text_field :title %>
-  </p>
-
-  <p>
-    <%= f.submit "Create" %>
-  </p>
-<% end %>
-
-<%= link_to 'Back', reviews_path %>
+<%= render :partial => "form" , :locals => { :review => @review }%>
