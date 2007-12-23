@@ -1,0 +1,20 @@
+<% @title = "The user " + @user.login %>
+
+<h1><%= @user.login %></h1>
+
+<% if current_user == @user -%>
+<p>(That's you! <%= link_to 'Edit your details', edit_user_path(@user) %>) </p>
+<% end -%>
+
+<h2>Reviews</h2>
+<% if @user.reviews.length == 0 -%>
+<p><%= @user.login %> hasn't written any reviews yet.</p>
+<% else -%>
+<p><%= @user.login %> has written <%= pluralize @user.reviews.length, "review"%>:</p>
+
+<ul>
+<% for review in @user.reviews -%>  
+<li><%= link_to review.user.login, review.user  %> gave <%= link_to review.package.name, review.package %> a <%=h review.rating %>, and says "<%= link_to truncate(review.description, 50), review %>"</li>
+<% end -%>
+</ul>
+<% end -%>
