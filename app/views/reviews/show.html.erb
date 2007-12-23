@@ -1,28 +1,10 @@
-<p>
-  <b>Package:</b>
-  <%=h @review.package_id %>
-</p>
-
-<p>
-  <b>Rating:</b>
-  <%=h @review.rating %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%=h @review.user_id %>
-</p>
-
-<p>
-  <b>Review:</b>
-  <%=h @review.review %>
-</p>
-
-<p>
-  <b>Title:</b>
-  <%=h @review.title %>
-</p>
+<h1>A review of <%= link_to @review.package.name, @review.package %> <span class="byline">by <%= link_to @review.user.login, @review.user  %></span></h1>
 
 
-<%= link_to 'Edit', edit_review_path(@review) %> |
-<%= link_to 'Back', reviews_path %>
+<p class="rating"><%=h @review.rating %></p>
+<p><strong><%=h @review.title %></strong></p>
+<%= textilize @review.review %>
+
+<% if current_user == @review.user -%>
+  <%= link_to 'Edit', edit_review_path(@review) %>
+<% end -%>

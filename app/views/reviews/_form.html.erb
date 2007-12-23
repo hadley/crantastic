@@ -1,25 +1,25 @@
+<!-- 
+  User: <%= @review.user.login %>
+-->
 <% form_for(@review) do |f| %>
   <p>
-    <b>Package</b><br />
-    <%= f.text_field :package_id %>
+    <b>Rating out of 5</b><br />
+    <%= select :review, :rating, 1..5 %>
   </p>
 
   <p>
-    <b>Rating</b><br />
-    <%= f.text_field :rating %>
+    <b>A brief summary</b><br />
+    <%= f.text_field :title, :maxlength => 100 %>
   </p>
 
   <p>
     <b>Review</b><br />
-    <%= f.text_area :review %>
+    <%= f.text_area :review, :rows => 10 %>
   </p>
 
-  <p>
-    <b>Title</b><br />
-    <%= f.text_field :title %>
-  </p>
+  <%= f.hidden_field :package_id %>
 
   <p>
-    <%= f.submit "Update" %>
+    <%= f.submit @review.new_record? ? "Enter this review" : "Update" %>
   </p>
 <% end %>

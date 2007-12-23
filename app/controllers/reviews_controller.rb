@@ -10,7 +10,7 @@ class ReviewsController < ApplicationController
   # GET /review
   # GET /review.xml
   def index
-    @reviews = Review.find(:all)
+    @reviews = Review.find(:all, :limit => 10, :include => [:user, :package])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,9 +34,8 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @review.user = current_user
+    @review.package = Package.find(params[:package_id])
     
-    
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @review }
@@ -52,6 +51,7 @@ class ReviewsController < ApplicationController
   # POST /review.xml
   def create
     @review = Review.new(params[:review])
+    @review.user = current_user
 
     respond_to do |format|
       if @review.save

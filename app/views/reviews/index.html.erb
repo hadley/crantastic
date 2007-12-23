@@ -1,28 +1,8 @@
-<h1>Listing reviews</h1>
+<% @title = "Recent reviews"; @plural = true %>
+<h1>Recent reviews</h1>
 
-<table>
-  <tr>
-    <th>Package</th>
-    <th>Rating</th>
-    <th>User</th>
-    <th>Review</th>
-    <th>Title</th>
-  </tr>
-
+<ul>
 <% for review in @reviews %>
-  <tr>
-    <td><%=h review.package_id %></td>
-    <td><%=h review.rating %></td>
-    <td><%=h review.user_id %></td>
-    <td><%=h review.review %></td>
-    <td><%=h review.title %></td>
-    <td><%= link_to 'Show', review %></td>
-    <td><%= link_to 'Edit', edit_review_path(review) %></td>
-    <td><%= link_to 'Destroy', review, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+  <li><%= link_to review.user.login, review.user  %> gave <%= link_to review.package.name, review.package %> a <%=h review.rating %>, and says "<%= link_to truncate(review.description, 50), review %>"</li>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New review', new_review_path %>
+</ul>

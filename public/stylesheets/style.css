@@ -37,7 +37,7 @@ h1 {
   margin-top: 0;
   margin-bottom: 0;
 }
-h1 .version {font-size: 30%;}
+h1 .version, h1 .byline {font-size: 30%;}
 
 hr {
   border-top: none;
@@ -46,6 +46,7 @@ hr {
 
 a:link {color: #FD3933;}
 a:visited {color: #F7807B;}
+p.rating {float: right; width: 1em; font-size: 5em; text-align: right;}
 
 /* Page structure  ----------------------------------------------------- */
 
@@ -57,10 +58,12 @@ a:visited {color: #F7807B;}
 
 .flash {background-color: #CEFD9B; padding: 0.5em; margin-bottom: 1em;}
 
-input {
+input, textarea {
   border: #ccc 2px solid;
   padding: 2px;
 }
+
+textarea {width: 100%;}
 
 .fieldWithErrors input {
   border-color: #FD3933;
