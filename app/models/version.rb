@@ -26,5 +26,9 @@ class Version < ActiveRecord::Base
       Package.find_by_name name
     end.compact.sort_by{|v| v.name.downcase } rescue []
   end
+
+  def maintainer
+    Author.new_from_string(attributes["maintainer"])
+  end
     
 end

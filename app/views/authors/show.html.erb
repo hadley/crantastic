@@ -1,13 +1,5 @@
-<p>
-  <b>Name:</b>
-  <%=h @author.name %>
-</p>
+<h1><%=h @author.name %></h1>
 
-<p>
-  <b>Email:</b>
-  <%=h @author.email %>
-</p>
-
-
-<%= link_to 'Edit', edit_author_path(@author) %> |
-<%= link_to 'Back', authors_path %>
+<% if logged_in? -%>
+  <%= link_to @author.email, "mailto:" + @author.email %>
+<% end -%>
