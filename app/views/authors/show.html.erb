@@ -8,7 +8,9 @@
 
 <ul>
 <% for version in @author.versions -%>
-  <li><%= link_to version.name, version.package %></li>
+  <li><%= link_to version.name, version.package %>. <%= version.title %>.  
+  <% unless version.date.blank? -%>(<%= time_ago_in_words version.date %> ago)<% end -%>
+  </li>
 <% end -%>
 </ul>
   

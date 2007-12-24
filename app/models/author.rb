@@ -1,5 +1,5 @@
 class Author < ActiveRecord::Base
-  has_many :versions, :foreign_key => :maintainer_id
+  has_many :versions, :foreign_key => :maintainer_id, :order => :name
   
   def Author.find_or_create(name = nil, email = nil) 
     author = Author.find_by_email(email) || Author.find_by_name(name)

@@ -25,8 +25,8 @@ h1.title a:hover {text-decoration: underline;}
 }
 .box a:hover {text-decoration: underline;}
 
-.box ul {margin: 0.7em 0.2em;}
-.box ul li {list-style: none; margin-top: 1em; display: inline; margin-right: 0.4em;}
+.box ul {margin: 0.25em 0.2em;}
+.box ul li {list-style: none; margin-top: 1em; display: inline; margin-right: 0.4em; margin-bottom: 1em; line-height: 2.5;}
 
 /* Typography --------------------------------------------------------- */
 
