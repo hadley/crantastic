@@ -9,6 +9,7 @@
   <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/base/base-min.css', :media => "all" %>
   <%= stylesheet_link_tag 'style', :media => "all" %>
   <%= auto_discovery_link_tag :atom, @atom if @atom %>
+
 </head>
 <body>
 
@@ -64,5 +65,14 @@
 </div>
 
 
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-67989-10");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
 </body>
 </html>
