@@ -1,0 +1,22 @@
+<h1>Listing authors</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+  </tr>
+
+<% for author in @authors %>
+  <tr>
+    <td><%=h author.name %></td>
+    <td><%=h author.email %></td>
+    <td><%= link_to 'Show', author %></td>
+    <td><%= link_to 'Edit', edit_author_path(author) %></td>
+    <td><%= link_to 'Destroy', author, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New author', new_author_path %>
