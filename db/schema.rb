@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 7) do
+ActiveRecord::Schema.define(:version => 8) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 7) do
     t.text     "diff"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "maintainer_id"
   end
 
 end

@@ -2,7 +2,7 @@
 <% @atom = formatted_packages_path(:format => :atom) %>
 
 <% cache do %>
-  <p>We know about <%= @packages.length %> packages:
+  <p>There are <%= @packages.length %> packages listed on crantastic:
 
   <%- for package in @packages -%>
   <%= link_to package.name, package %>

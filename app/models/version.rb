@@ -1,5 +1,6 @@
 class Version < ActiveRecord::Base
   belongs_to :package
+  belongs_to :maintainer, :class_name => "Author"
   
   def urls
     (url.split(",") rescue []) + [cran_url]
@@ -27,8 +28,11 @@ class Version < ActiveRecord::Base
     end.compact.sort_by{|v| v.name.downcase } rescue []
   end
 
-  def maintainer
-    Author.new_from_string(attributes["maintainer"])
+  def cache_maintainer!
+    author = Author.new_from_string(attributes["maintainer"])
+    
+    self.maintainer = author
+    save
   end
     
 end

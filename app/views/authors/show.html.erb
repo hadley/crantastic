@@ -3,3 +3,12 @@
 <% if logged_in? -%>
   <%= link_to @author.email, "mailto:" + @author.email %>
 <% end -%>
+
+<h2>Packages</h2>
+
+<ul>
+<% for version in @author.versions -%>
+  <li><%= link_to version.name, version.package %></li>
+<% end -%>
+</ul>
+  

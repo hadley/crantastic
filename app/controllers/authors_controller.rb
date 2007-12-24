@@ -2,7 +2,7 @@ class AuthorsController < ApplicationController
   # GET /author
   # GET /author.xml
   def index
-    @author = Author.find(:all)
+    @authors = Author.find(:all, :order => "name")
 
     respond_to do |format|
       format.html # index.html.erb

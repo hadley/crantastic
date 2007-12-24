@@ -1,22 +1,5 @@
-<h1>Listing authors</h1>
+<p>There are <%= @authors.length %> package maintainers on crantastic.</p>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-  </tr>
-
-<% for author in @authors %>
-  <tr>
-    <td><%=h author.name %></td>
-    <td><%=h author.email %></td>
-    <td><%= link_to 'Show', author %></td>
-    <td><%= link_to 'Edit', edit_author_path(author) %></td>
-    <td><%= link_to 'Destroy', author, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New author', new_author_path %>
+<p><% for author in @authors -%>
+<%= link_to author.name, author %>
+<% end -%></p>
