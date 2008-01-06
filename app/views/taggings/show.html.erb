@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @tagging.user_id %>
+</p>
+
+<p>
+  <b>Package:</b>
+  <%=h @tagging.package_id %>
+</p>
+
+<p>
+  <b>Tag:</b>
+  <%=h @tagging.tag %>
+</p>
+
+
+<%= link_to 'Edit', edit_tagging_path(@tagging) %> |
+<%= link_to 'Back', taggings_path %>

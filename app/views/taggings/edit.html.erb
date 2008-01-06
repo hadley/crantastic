@@ -1,0 +1,27 @@
+<h1>Editing tagging</h1>
+
+<%= error_messages_for :tagging %>
+
+<% form_for(@tagging) do |f| %>
+  <p>
+    <b>User</b><br />
+    <%= f.text_field :user_id %>
+  </p>
+
+  <p>
+    <b>Package</b><br />
+    <%= f.text_field :package_id %>
+  </p>
+
+  <p>
+    <b>Tag</b><br />
+    <%= f.text_field :tag %>
+  </p>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @tagging %> |
+<%= link_to 'Back', taggings_path %>

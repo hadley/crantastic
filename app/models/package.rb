@@ -1,6 +1,7 @@
 class Package < ActiveRecord::Base
   has_many :versions, :order => "id DESC"
   has_many :reviews
+  has_many :tags
   
   def latest
     versions[0]
