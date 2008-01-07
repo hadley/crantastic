@@ -1,1 +1,9 @@
-<h1>Tags</h1>
+<% @title = "Tags"; @plural = true %>
+
+<p>crantastic users have tagged <%= pluralize Tagging.count, "packages" %> with:</p>
+
+<ul>
+<% for tag in @tags -%>
+  <li><%= link_to tag["tag"], tag_url(tag["tag"]) %> (<%= tag["count"] %>)</li>
+<% end -%>
+</ul>

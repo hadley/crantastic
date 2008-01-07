@@ -13,11 +13,11 @@ class TagsController < ApplicationController
   # GET /tag/1
   # GET /tag/1.xml
   def show
-    @tag = Tagging.find_by_tag(params[:id])
+    @taggings = Tagging.find_all_by_tag(params[:id], :include =>"package")
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @tag }
+      format.xml  { render :xml => @taggings }
     end
   end
 end

@@ -1,7 +1,7 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
   has_many :reviews
-  has_many :tags
+  has_many :taggings
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password

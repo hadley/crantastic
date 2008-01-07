@@ -38,6 +38,7 @@
       <li><%= link_to "Reviews", reviews_path %></li>
       <li><%= link_to "Tags", tags_path %></li>
       <% if logged_in? -%>
+      <li><%= link_to "My&nbsp;profile", current_user %></li>
       <li><%= link_to "Log out", logout_path %></li>
       <% end -%>
     </ul>

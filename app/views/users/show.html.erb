@@ -18,3 +18,16 @@
 <% end -%>
 </ul>
 <% end -%>
+
+<h2>Tags</h2>
+<% if @user.taggings.length == 0 -%>
+<p><%= @user.login %> hasn't tagged any packages yet.</p>
+<% else -%>
+
+<p><%= @user.login %> has tagged <%= pluralize @user.taggings.length, "package"%></p>
+<ul>
+<% for tag, taggings in @user.taggings.group_by(&:tag) -%>  
+<li>with <%= link_to tag, tag_url(tag) %>: <%= taggings.map{|t| link_to t.package.name, t.package}.join(", ") %></li>
+<% end -%>
+</ul>
+<% end -%>
