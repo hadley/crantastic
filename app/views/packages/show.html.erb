@@ -2,6 +2,13 @@
 
 <h1><%= h @package.name %> <span class="version">(<%= @version.version%>)</span></h1>
 
+<ul class="tags">
+<% for tag in @package.taggings %>
+  <li><%= link_to tag.tag, tag_path(tag.tag) %></li>
+<% end %>
+  <li><%= link_to "Add yours", new_tagging_path(:package_id => @package.id), :class => "add" %></li>
+</ul>
+
 <%= render :partial => "versions/description" %>
 
 <% if @package.versions.length > 1 %>

@@ -33,9 +33,10 @@
   <div class="box">
     <ul>
       <li><%= link_to "Packages", packages_path %></li>
-      <li><%= link_to "Users", users_path %></li>
+      <!-- <li><%= link_to "Users", users_path %></li> -->
       <li><%= link_to "Authors", authors_path %></li>
       <li><%= link_to "Reviews", reviews_path %></li>
+      <li><%= link_to "Tags", tags_path %></li>
       <% if logged_in? -%>
       <li><%= link_to "Log out", logout_path %></li>
       <% end -%>

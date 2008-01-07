@@ -16,18 +16,23 @@ h1.title a:hover {text-decoration: underline;}
   padding: 0.5em;
   margin-bottom: 1em;
 }
-.box a:link, .box a:visited {
+ul.tags a:link, ul.tags a:visited, .box a:link, .box a:visited {
   background-color: #fff; 
   padding: 4px; 
   color: #333; 
   font-weight: bold; 
   text-decoration: none;
 }
+
+ul.tags a:link, ul.tags a:visited {background-color: #CEFD9B; color: #333;}
+
 .box a:hover {text-decoration: underline;}
 
-.box ul {margin: 0.25em 0.2em;}
-.box ul li {list-style: none; margin-top: 1em; display: inline; margin-right: 0.4em; margin-bottom: 1em; line-height: 2.5;}
+ul.tags, .box ul {margin: 0.25em 0.2em;}
+ul.tags li, .box ul li {list-style: none; margin-top: 1em; display: inline; margin-right: 0.4em; margin-bottom: 1em; line-height: 2.5;}
 
+ul.tags {margin-left: 0;}
+ul.tags a.add:link, ul.tags a.add:visited {background-color: white; border: 1px solid #ccc;}
 /* Typography --------------------------------------------------------- */
 
 h1 {

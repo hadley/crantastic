@@ -1,8 +1,16 @@
 class TaggingsController < ApplicationController
+  before_filter :login_required, :only => [ :new, :create  ]
+  before_filter :authorization_required, :only => [ :edit, :update  ]
+
+  def authorized?
+    tagging = Tagging.find(params[:id])
+    tagging.user == current_user
+  end
+
   # GET /tagging
   # GET /tagging.xml
   def index
-    @tagging = Tagging.find(:all)
+    @taggings = Tagging.find(:all)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +33,8 @@ class TaggingsController < ApplicationController
   # GET /tagging/new.xml
   def new
     @tagging = Tagging.new
+    @tagging.user = current_user
+    @tagging.package = Package.find(params[:package_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,11 +51,12 @@ class TaggingsController < ApplicationController
   # POST /tagging.xml
   def create
     @tagging = Tagging.new(params[:tagging])
+    @tagging.user = current_user
 
     respond_to do |format|
       if @tagging.save
         flash[:notice] = 'Tagging was successfully created.'
-        format.html { redirect_to(@tagging) }
+        format.html { redirect_to(@tagging.package) }
         format.xml  { render :xml => @tagging, :status => :created, :location => @tagging }
       else
         format.html { render :action => "new" }
@@ -62,7 +73,7 @@ class TaggingsController < ApplicationController
     respond_to do |format|
       if @tagging.update_attributes(params[:tagging])
         flash[:notice] = 'Tagging was successfully updated.'
-        format.html { redirect_to(@tagging) }
+        format.html { redirect_to(@tagging.package) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

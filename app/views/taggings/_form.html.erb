@@ -1,0 +1,14 @@
+<!-- 
+  User: <%= @tagging.user.login %>
+-->
+<% form_for(@tagging) do |f| %>
+  <p>
+    <%= f.text_field :tag, :maxlength => 20 %>
+  </p>
+
+  <%= f.hidden_field :package_id %>
+
+  <p>
+    <%= f.submit @tagging.new_record? ? "Add this tag" : "Update" %>
+  </p>
+<% end %>

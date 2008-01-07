@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 8) do
+ActiveRecord::Schema.define(:version => 9) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -30,6 +30,14 @@ ActiveRecord::Schema.define(:version => 8) do
     t.integer  "rating"
     t.text     "review"
     t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tagging", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "package_id"
+    t.string   "tag"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
