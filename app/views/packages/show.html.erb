@@ -6,7 +6,7 @@
 <% for tag in @package.taggings %>
   <li><%= link_to tag.tag, tag_path(tag.tag) %></li>
 <% end %>
-  <li><%= link_to "Add yours", new_tagging_path(:package_id => @package.id), :class => "add" %></li>
+  <li><%= link_to "Add tag", new_tagging_path(:package_id => @package.id), :class => "add" %></li>
 </ul>
 
 <%= render :partial => "versions/description" %>
