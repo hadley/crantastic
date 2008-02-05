@@ -1,4 +1,4 @@
-require(RSQLite, quiet=TRUE)
+suppressMessages(require(RSQLite, quiet=TRUE))
 
 if (exists("db")) dbDisconnect(db)
 db <- dbConnect(dbDriver("SQLite"), dbname = "/Users/hadley/Documents/crantastic/db/development.sqlite3")
