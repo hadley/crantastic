@@ -1,7 +1,14 @@
 suppressMessages(require(RSQLite, quiet=TRUE))
 
+FILE <- (function() {
+  attr(body(sys.function()), "srcfile")
+})()$filename
+PATH <- normalizePath(dirname(FILE))
+
+dbpath <- normalizePath(file.path(PATH, "/../../db/development.sqlite3"))
+
 if (exists("db")) dbDisconnect(db)
-db <- dbConnect(dbDriver("SQLite"), dbname = "/Users/hadley/Documents/crantastic/db/development.sqlite3")
+db <- dbConnect(dbDriver("SQLite"), dbname = dbpath)
 
 add_version_to_db <- function(pkg) {
   package.download(pkg)
