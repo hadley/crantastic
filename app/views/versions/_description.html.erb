@@ -5,7 +5,9 @@
 
 <hr />
 
-<%= debug @version.maintainer %>
+<!-- 
+<%= debug @version.maintainer %> 
+-->
 
 <p><strong>Maintainer</strong>: <%= link_to @version.maintainer.name, @version.maintainer rescue nil %><br />
    <strong>Authors</strong>: <%=h @version.author  %></p>
