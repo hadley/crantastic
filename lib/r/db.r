@@ -7,14 +7,14 @@ PATH <- normalizePath(dirname(FILE))
 
 dbpath <- normalizePath(file.path(PATH, "/../../db/"))
 
-if (Sys.info()$["nodename"] == "hadley") {
-  dbname <- "production.db"
+if (Sys.info()["nodename"] == "hadley") {
+  dbname <- "production.sqlite3"
 } else {
-  dbname <- "development.db"
+  dbname <- "development.sqlite3"
 }
 
 if (exists("db")) dbDisconnect(db)
-db <- dbConnect(dbDriver("SQLite"), dbname = dbpath)
+db <- dbConnect(dbDriver("SQLite"), dbname = file.path(dbpath, dbname))
 
 add_version_to_db <- function(pkg) {
   package.download(pkg)
