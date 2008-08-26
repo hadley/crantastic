@@ -5,7 +5,13 @@ FILE <- (function() {
 })()$filename
 PATH <- normalizePath(dirname(FILE))
 
-dbpath <- normalizePath(file.path(PATH, "/../../db/development.sqlite3"))
+dbpath <- normalizePath(file.path(PATH, "/../../db/"))
+
+if (Sys.info()$["nodename"] == "hadley") {
+  dbname <- "production.db"
+} else {
+  dbname <- "development.db"
+}
 
 if (exists("db")) dbDisconnect(db)
 db <- dbConnect(dbDriver("SQLite"), dbname = dbpath)
