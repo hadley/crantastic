@@ -7,7 +7,7 @@ class Version < ActiveRecord::Base
   end
   
   def cran_url
-    "http://cran.r-project.org/src/contrib/Descriptions/#{name}.html"
+    "http://cran.r-project.org/web/packages/#{name}"
   end
   
   def vname
