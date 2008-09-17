@@ -1,0 +1,4 @@
+A record of important events in the life time of crantastic.  (Particularly for comparison to google analytics)
+
+2008-02-05:  Crantastic mentioned on R-help
+2008-09-17:  Changed packages urls to package name instead of numeric id
