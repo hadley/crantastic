@@ -19,7 +19,16 @@ class PackagesController < ApplicationController
   # GET /package/1
   # GET /package/1.xml
   def show
-    @package = Package.find(params[:id])
+    id = params[:id]
+    if (id.to_i != 0) 
+      pkg = Package.find(id)
+      response.headers["Status"] = "301 Moved Permanently"
+      redirect_to url_for(pkg)
+      return
+    end
+    
+    
+    @package = Package.find_by_name(id)
     @version = @package.latest
 
     respond_to do |format|
