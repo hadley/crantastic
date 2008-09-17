@@ -1,7 +1,7 @@
 source("db.r")
 source("package-info.r")
 
-options(warn =1 )
+options(warn = 1)
 
 ## compare AP to EP and update db if necessary
 update.packages <- function() {
@@ -21,7 +21,7 @@ update.package <- function(new, known) {
       cat("Updated package: ", cur$name, " (", cur$version, " -> ", new$version,")\n", sep="")
       add_version_to_db(new)
     } else {
-      #  cat("Existing package: ", cur$name, " (", cur$version, ")\n", sep="")      
+      cat("Existing package: ", cur$name, " (", cur$version, ")\n", sep="")      
     }
     
   } else {
