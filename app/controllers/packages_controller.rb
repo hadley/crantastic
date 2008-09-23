@@ -27,8 +27,7 @@ class PackagesController < ApplicationController
       return
     end
     
-    
-    @package = Package.find_by_name(id)
+    @package = Package.find_by_name(id.gsub("-", "."))
     @version = @package.latest
 
     respond_to do |format|

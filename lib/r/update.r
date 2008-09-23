@@ -16,12 +16,13 @@ update.package <- function(new, known) {
   if (new$name %in% known$name) {
     # Look up in list of known packages
     cur <- known[new$name == known$name, ]
+    browser()
     
     if (cur$version != new$version)  {
       cat("Updated package: ", cur$name, " (", cur$version, " -> ", new$version,")\n", sep="")
       add_version_to_db(new)
     } else {
-      cat("Existing package: ", cur$name, " (", cur$version, ")\n", sep="")      
+      # cat("Existing package: ", cur$name, " (", cur$version, ")\n", sep="")      
     }
     
   } else {

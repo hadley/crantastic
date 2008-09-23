@@ -1,6 +1,10 @@
 class Version < ActiveRecord::Base
   belongs_to :package
   belongs_to :maintainer, :class_name => "Author"
+
+  # def to_param
+  #   version.gsub(".", "-")
+  # end
   
   def urls
     (url.split(",") rescue []) + [cran_url]

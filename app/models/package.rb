@@ -4,7 +4,7 @@ class Package < ActiveRecord::Base
   has_many :taggings
 
   def to_param
-    name
+    name.gsub(".", "-")
   end
   
   def latest

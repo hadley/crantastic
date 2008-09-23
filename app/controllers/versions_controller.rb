@@ -14,7 +14,7 @@ class VersionsController < ApplicationController
   # GET /version/1.xml
   def show
     @version = Version.find(params[:id])
-    @package = Package.find(params[:package_id])
+    @package = Package.find_by_name(params[:package_id])
 
     respond_to do |format|
       format.html # show.html.erb
