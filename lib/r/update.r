@@ -16,7 +16,6 @@ update.package <- function(new, known) {
   if (new$name %in% known$name) {
     # Look up in list of known packages
     cur <- known[new$name == known$name, ]
-    browser()
     
     if (cur$version != new$version)  {
       cat("Updated package: ", cur$name, " (", cur$version, " -> ", new$version,")\n", sep="")
