@@ -17,4 +17,7 @@ Rails::Initializer.run do |config|
   }
 
   config.active_record.observers = :user_observer
+
+  # GEM DEPENDENCIES
+  config.gem 'RedCloth'
 end
