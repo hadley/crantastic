@@ -2,11 +2,11 @@ class VersionsController < ApplicationController
   # GET /version
   # GET /version.xml
   def index
-    @version = Version.find(:all)
+    @versions = Version.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @version }
+      format.xml  { render :xml => @versions }
     end
   end
 
