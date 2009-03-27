@@ -1,3 +1,30 @@
+# == Schema Information
+#
+# Table name: version
+#
+#  id            :integer         not null, primary key
+#  package_id    :integer
+#  name          :string(255)
+#  title         :string(255)
+#  description   :string(255)
+#  license       :string(255)
+#  version       :string(255)
+#  requires      :string(255)
+#  depends       :string(255)
+#  suggests      :string(255)
+#  maintainer    :string(255)
+#  author        :string(255)
+#  url           :string(255)
+#  date          :date
+#  readme        :text
+#  changelog     :text
+#  news          :text
+#  diff          :text
+#  created_at    :datetime
+#  updated_at    :datetime
+#  maintainer_id :integer
+#
+
 class Version < ActiveRecord::Base
   belongs_to :package
   belongs_to :maintainer, :class_name => "Author"

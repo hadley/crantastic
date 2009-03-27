@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: package
+#
+#  id          :integer         not null, primary key
+#  name        :string(255)
+#  description :text
+#  created_at  :datetime
+#
+
 class Package < ActiveRecord::Base
   has_many :versions, :order => "id DESC"
   has_many :reviews
