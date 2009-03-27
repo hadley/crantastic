@@ -13,7 +13,6 @@ class Package < ActiveRecord::Base
     
     paginate :conditions => [ 'LOWER(name) LIKE ?', search_term],
              :include => {:versions => :maintainer},
-             :per_page => Package.per_page,
              :page => search_results_page
   end
 
