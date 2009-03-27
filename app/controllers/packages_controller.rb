@@ -1,17 +1,36 @@
 class PackagesController < ApplicationController
-  
-  # GET /package
-  # GET /package.xml
-  def index
-     #, :include => :versions
+  @@package_table = Package.table_name
 
+  def index
+    page_no = params[:page] || 1
+    @search_term = String(params[:search])
+    
     respond_to do |format|
       format.html do 
-        @packages = Package.find(:all, :order => "lower(package.name)")
+        @packages = Package.search(@search_term, params[:page])
+      end
+      format.js do 
+        @packages = Package.search(@search_term, params[:page])
+        render :partial => "packages/list"
       end
       
       format.atom do
-        @packages = Package.find(:all, :order => "package.created_at", :include => :versions, :conditions => "package.created_at IS NOT NULL")        
+        @packages = Package.find(:all, :order => "#{@@package_table}.created_at", :include => :versions, :conditions => "#{@@package_table}.created_at IS NOT NULL")        
+      end
+    end
+  end
+
+  # GET /packages
+  # GET /packages.xml
+  def index_old
+    #, :include => :versions
+    respond_to do |format|
+      format.html do 
+        @packages = Package.find(:all, :order => "lower(#{@@package_table}.name)")
+      end
+      
+      format.atom do
+        @packages = Package.find(:all, :order => "#{@@package_table}.created_at", :include => :versions, :conditions => "#{@@package_table}.created_at IS NOT NULL")        
       end
     end
   end

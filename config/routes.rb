@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :authors
   map.resources :reviews
 
-  map.resources :packages do |p|
+  map.resources :packages, :collection => { :index_old => :get}, :member => {:index => :post}, :except => [:create, :update] do |p|
     p.resources :versions 
   end
 

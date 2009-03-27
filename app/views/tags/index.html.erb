@@ -1,9 +1,12 @@
 <% @title = "Tags"; @plural = true %>
+<h1>All Tags</h1>
 
-<p>crantastic users have tagged <%= pluralize Tagging.count, "packages" %> with:</p>
+<div class="content">
+  <p>Crantastic users have tagged <%= pluralize Tagging.count, "packages" %> with following tags:</p>
 
-<ul>
-<% for tag in @tags -%>
-  <li><%= link_to tag["tag"], tag_url(tag["tag"]) %> (<%= tag["count"] %>)</li>
-<% end -%>
-</ul>
+  <ul>
+  <% for tag in @tags -%>
+    <li><%= link_to tag["tag"], tag_url(tag["tag"]) %> (<%= tag["count"] %>)</li>
+  <% end -%>
+  </ul>
+</div>
