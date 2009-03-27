@@ -1,0 +1,8 @@
+--- 
+vendor/plugins/resource_controller: 
+  squashed: true
+  url: git://github.com/giraffesoft/resource_controller.git
+  branch: master
+  type: git
+  revision: ce9143f25fa11d9ee850b3b193e69f3dd732ed85
+  remote: braid/vendor/plugins/resource-controller
