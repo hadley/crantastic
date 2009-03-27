@@ -5,6 +5,7 @@
  
 <div class="content">
   <p>  There are <%= Package.count %> packages listed on crantastic.</p>
+  <p> Want to view all packages in one page? <%= link_to "Click here", all_packages_url -%></p>
 
   Search Package by Name: <input id="search" name="search" type="text" />
   <%= image_tag("spinner.gif",

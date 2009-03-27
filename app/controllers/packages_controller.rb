@@ -22,11 +22,11 @@ class PackagesController < ApplicationController
 
   # GET /packages
   # GET /packages.xml
-  def index_old
+  def all
     #, :include => :versions
     respond_to do |format|
       format.html do 
-        @packages = Package.find(:all, :order => "lower(#{@@package_table}.name)")
+        @packages = Package.all
       end
       
       format.atom do
