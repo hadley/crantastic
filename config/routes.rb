@@ -5,7 +5,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :reviews
   map.resources :users
   map.resource  :session
-  map.resources :packages
+  map.resources :packages do |p|
+    p.resources :versions
+  end
 
   map.root :controller => "about", :action => "index"
 
