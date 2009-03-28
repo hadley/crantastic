@@ -1,5 +1,6 @@
 <% @title = "Recent reviews"; @plural = true %>
 
+<h1><%= @title -%></h1>
 <p>crantastic users have written <%= pluralize Review.count, "review" %>.  These are the most recent reviews:</p>
 
 <ul>
