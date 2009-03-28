@@ -1,0 +1,20 @@
+<% form_for @user do |f| -%>
+<p><label for="login">User name</label>
+<%= error_message_for @user, :login %><br/>
+<%= f.text_field :login %></p>
+
+
+<p><label for="email">Email</label>
+<%= error_message_for @user, :email %><br/>
+<%= f.text_field :email %></p>
+
+<p><label for="password">Password</label>
+<%= error_message_for @user, :password  %><br/>
+<%= f.password_field :password %></p>
+
+<p><label for="password_confirmation">Confirm password</label>
+<%= error_message_for @user, :password_confirmation  %><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p><%= f.submit (@user.new_record? ? 'Sign up' : 'Edit') %></p>
+<% end -%>
