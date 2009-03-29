@@ -102,3 +102,40 @@ table.general tr.even {
 .float-r {float:right;}
 .float-l {float:left;}
 .clear{clear:both;}
+
+/*Error Fields */
+.fieldWithErrors {
+  display: inline;
+}
+.fieldWithErrors input, .fieldWithErrors select {
+  background-color: #ffdfdf;
+}
+.fieldWithErrors .error {
+  display: none;
+}
+.errorExplanation {
+  padding:2px;
+  border:1px solid red;
+  background-color:#f0f0f0;
+	margin-bottom:10px;
+}
+.errorExplanation h2{
+  color:red;
+  margin-left: 22px;
+}
+.errorExplanation h4{
+  color:red;
+  margin-left: 22px;
+}
+.errorExplanation p{
+  color:#792525;
+  margin-left: 22px;
+  font-family: "Helvetica";
+}
+.errorExplanation ul {
+  padding-left: 20px;
+  padding-top: 10px;
+}
+.errorExplanation ul li {
+  color:red;
+}
