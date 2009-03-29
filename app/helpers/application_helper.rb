@@ -26,4 +26,13 @@ module ApplicationHelper
     content_tag :span, errors, :class => :error
   end
   
+  # Returns the current environment of rails 
+  def rails_env
+    ENV['RAILS_ENV']
+  end
+
+  def clear_div
+    %{<div class="clear"></div>}
+  end
+ 
 end

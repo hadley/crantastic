@@ -3,9 +3,9 @@
 <h1><%= h @package.name %> <span class="version">(<%= @version.version%>)</span></h1>
 
 <ul class="tags">
-<% for tag in @package.taggings %>
-  <li><%= link_to tag.tag, tag_path(tag.tag) %></li>
-<% end %>
+  <% for tag in @package.taggings %>
+    <li><%= link_to tag.tag, tag_path(tag.tag) %></li>
+  <% end %>
   <li><%= link_to "Add tag", new_tagging_path(:package_id => @package.id), :class => "add" %></li>
 </ul>
 
@@ -24,19 +24,19 @@
 <h2>Reviews</h2>
 
 <% if @package.reviews.length == 0 %>
-<p>No one has written a review of <%= @package.name %> yet.  Want to be the first? <%= link_to "Write one now.", new_review_path(:package_id => @package.id) %></p>
+  <p>No one has written a review of <%= @package.name %> yet.  Want to be the first? <%= link_to "Write one now.", new_review_path(:package_id => @package.id) %></p>
 <% else -%>
-
-<ul>
-<% for review in @package.reviews %>
-  <li>
-    <p><strong><%=h review.title %></strong></p>
-    <p><%= textilize review.review %></p>
-    <p><%= link_to review.user.login, review.user  %> gave <%= link_to review.package.name, review.package %> a <%=h review.rating %>.</p>
-  </li>
-<% end %>
+  <ul>
+  <% for review in @package.reviews %>
+    <li>
+      <p><strong><%=h review.title %></strong></p>
+      <p><%= textilize review.review %></p>
+      <p><%= link_to review.user.login, review.user  %> gave <%= link_to review.package.name, review.package %> a <%=h review.rating %>.</p>
+    </li>
+  <% end %>
 </ul>
-
+  <div class="float-r"><%= link_to "Write a review", new_review_path(:package_id => @package.id) %></div>
+  <%= clear_div -%>
 <% end -%>
 
 <hr />

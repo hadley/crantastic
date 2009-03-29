@@ -9,9 +9,22 @@
 #
 
 class Package < ActiveRecord::Base
+  default_scope :order => "LOWER(name)"
   has_many :versions, :order => "id DESC"
   has_many :reviews
   has_many :taggings
+  
+  ## No. of packages to show per page.
+  def self.per_page; 50; end
+  
+  ## Search On Name of Package.
+  def self.search(search_term, search_results_page)
+    search_term = '%' + String(search_term).downcase + '%'
+    
+    paginate :conditions => [ 'LOWER(name) LIKE ?', search_term],
+             :include => {:versions => :maintainer},
+             :page => search_results_page
+  end
 
   def to_param
     name.gsub(".", "-")
@@ -38,8 +51,5 @@ class Package < ActiveRecord::Base
    "http://finzi.psych.upenn.edu/cgi-bin/namazu.cgi" +  
      "?idxname=R-devel&query=" + CGI.escape(name)
   end
-  
-  
-  
   
 end

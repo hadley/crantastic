@@ -1,6 +1,8 @@
-<!-- 
+<% if false %>
   User: <%= @review.user.login %>
--->
+<% end -%>
+<%= error_messages_for :review, :object => @review -%>
+
 <% form_for(@review) do |f| %>
   <p>
     <b>Rating out of 5</b><br />

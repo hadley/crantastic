@@ -1,0 +1,39 @@
+Total packages in this search: <%= @packages.total_entries -%>
+
+<% pagination_links = capture do %> 
+  <div class="float-r">
+    <% @search_term ||= ''-%>
+    <%= will_paginate @packages,
+      :renderer => "RemoteLinkRenderer",
+      :remote => {:with => "'search=' + escape('#{@search_term}')", :update => 'packages_list'}
+    %>
+  </div>
+  <%= clear_div -%>
+<% end -%>
+
+<%= pagination_links-%>
+
+<% unless @packages.empty? -%>
+<table class="general">
+  <tr>
+    <th style="white-space:nowrap;">Package Name</th>
+    <th>Version</th>
+    <th>Author</th>
+  </tr>
+  <%- for package in @packages -%>
+  <tr class="<%=cycle("odd", "even")-%>">
+    <td><%= link_to package.name, package %></td>
+    <% latest_package = package.latest-%>
+    <% maintainer = latest_package.try(:maintainer) -%>
+    <td><%= latest_package.version -%></td>
+    <td style="white-space:nowrap"><%= link_to maintainer.try(:name), maintainer unless maintainer.try(:name).nil? -%></td>
+  </tr>
+  <%- end -%>
+</table>
+<% else -%>
+  <div class="no_search_results">
+    No packages found for given search.
+  </div>
+<% end -%>
+
+<%= pagination_links -%>

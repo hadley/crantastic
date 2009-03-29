@@ -3,11 +3,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :taggings
   map.resources :authors
   map.resources :reviews
-  map.resources :users
-  map.resource  :session
-  map.resources :packages do |p|
+
+  map.resources :packages, :collection => {:all => :get}, :member => {:index => :post}, :except => [:create, :update] do |p|
     p.resources :versions
   end
+
+  map.resources :users
+  map.resource  :session
 
   map.root :controller => "about", :action => "index"
 

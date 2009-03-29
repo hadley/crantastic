@@ -40,7 +40,8 @@ h1 {
   font-size: 3em;
   font-weight: normal;
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom:10px;
+	border-bottom:2px solid #ddd;
 }
 h1 .version, h1 .byline {font-size: 30%;}
 
@@ -76,3 +77,65 @@ textarea {width: 100%;}
 }
 
 span.error {color: #FD3933; font-size: 0.9em;}
+
+table.general {
+	margin-top:4px;
+}
+
+table.general, table.general tr, table.general tr td, table.general tr th {
+	border:0;
+	text-align:left;
+	width:100%;
+}
+table.general tr th{
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	padding:3px;
+	padding-left:8px;
+}
+table.general tr.odd {
+  background-color:#FAFAFA;
+}
+table.general tr.even {
+	background-color: #F0F1F7;
+}
+.float-r {float:right;}
+.float-l {float:left;}
+.clear{clear:both;}
+
+/*Error Fields */
+.fieldWithErrors {
+  display: inline;
+}
+.fieldWithErrors input, .fieldWithErrors select {
+  background-color: #ffdfdf;
+}
+.fieldWithErrors .error {
+  display: none;
+}
+.errorExplanation {
+  padding:2px;
+  border:1px solid red;
+  background-color:#f0f0f0;
+	margin-bottom:10px;
+}
+.errorExplanation h2{
+  color:red;
+  margin-left: 22px;
+}
+.errorExplanation h4{
+  color:red;
+  margin-left: 22px;
+}
+.errorExplanation p{
+  color:#792525;
+  margin-left: 22px;
+  font-family: "Helvetica";
+}
+.errorExplanation ul {
+  padding-left: 20px;
+  padding-top: 10px;
+}
+.errorExplanation ul li {
+  color:red;
+}

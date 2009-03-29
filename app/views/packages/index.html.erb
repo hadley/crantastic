@@ -1,11 +1,31 @@
-<% @title = @packages.length.to_s + " R packages"; @plural = true %>
-<% @atom = formatted_packages_path(:format => :atom) %>
+<% @title = "#{Package.count} R packages"; @plural = true %>
+<% @atom = packages_path(:format => :atom) %>
 
-<% cache do %>
-  <p>There are <%= @packages.length %> packages listed on crantastic:
+<h1>R Packages</h1>
+ 
+<div class="content">
+  <p>  There are <%= Package.count %> packages listed on crantastic.</p>
+  <p> Want to view all packages in one page? <%= link_to "Click here", all_packages_url -%></p>
 
-  <%- for package in @packages -%>
-  <%= link_to package.name, package %>
-  <%- end -%>
-  </p>
-<% end %>
+  Search Package by Name: <input id="search" name="search" type="text" />
+  <%= image_tag("spinner.gif",
+                :align => "absmiddle",
+                :border => 0,
+                :id => "spinner",
+                :style =>"display: none;" ) 
+  -%>
+  
+  <%= observe_field 'search', :frequency => 2,
+    :update => 'packages_list',
+    :before => "Element.show('spinner')",
+    :success => "Element.hide('spinner')",
+    :url => {:controller => 'packages', :action => 'index'},
+    :with => "'search='+escape(value)" 
+  -%>
+
+  <br /><br/>
+  <div id="packages_list">
+    <%= render :partial => "packages/list" -%>
+  </div>
+
+</div>
