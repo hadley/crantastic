@@ -15,8 +15,6 @@ Rails::Initializer.run do |config|
     :session_key => '_crantastic_session',
     :secret      => 'c4ac317cbe898d0d3f36b98a7817b1139897b106be50e928e96fe26b7b5699cf52cc9cc242ddbd888792c07d61c386b10653804e44e0d64e1cf99f5d9611cccb'
   }
-  
-  config.active_record.observers = :user_observer
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -28,12 +26,10 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "sqlite3-ruby", :lib => "sqlite3"
-  # config.gem "aws-s3", :lib => "aws/s3"
-  # config.gem "will_paginate"
-  config.gem 'mislav-will_paginate', :lib => "will_paginate", :source => 'http://gems.github.com' 
-  config.gem 'RedCloth', :lib => 'redcloth' #, :source => "http://code.whytheluckystiff.net"
-  
+  config.gem "sqlite3-ruby", :lib => "sqlite3"
+  config.gem 'mislav-will_paginate', :lib => "will_paginate", :source => 'http://gems.github.com'
+  config.gem 'RedCloth'
+
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -43,7 +39,7 @@ Rails::Initializer.run do |config|
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
 
   # Activate observers that should always be running
-  # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+  config.active_record.observers = :user_observer
 
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.
