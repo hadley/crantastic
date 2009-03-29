@@ -24,9 +24,9 @@
   <% end -%>
 
   <%= yield  %>
-  
-    
-</div></div></div> 
+
+
+</div></div></div>
 <div class="yui-b">
   <div id="sidebar">
   <h1 class="title"><a href="/">crantastic!</a></h1>
@@ -44,7 +44,7 @@
       <% end -%>
     </ul>
   </div>
-  
+
   <% unless logged_in? -%>
   <div class="box">
     <% form_tag session_path do -%>
@@ -60,12 +60,29 @@
   <!-- <div class="box">
     Search
   </div> -->
-  
+
 </div></div>
 <div id="ft">
   <p>Brought to you by <a href="http://had.co.nz">Hadley Wickham</a>.  Like it?  Hate it? Let me know at <a href="mailto:cranatic@gmail.com">cranatic@gmail.com</a>.</p>
 </div>
 </div>
+
+<script type="text/javascript">
+var uservoiceJsHost = ("https:" == document.location.protocol) ? "https://uservoice.com" : "http://cdn.uservoice.com";
+document.write(unescape("%3Cscript src='" + uservoiceJsHost + "/javascripts/widgets/tab.js' type='text/javascript'%3E%3C/script%3E"))
+</script>
+<script type="text/javascript">
+UserVoice.Tab.show({
+  key: 'crantastic',
+  host: 'crantastic.uservoice.com',
+  forum: 'general',
+  alignment: 'left', /* 'left', 'right' */
+  background_color:'#f00',
+  text_color: 'white', /* 'white', 'black' */
+  hover_color: '#06C',
+  lang: 'en' /* 'en', 'de', 'nl', 'es', 'fr' */
+})
+</script>
 
 <%= render :partial => "layouts/google_analytics" -%>
 </body>
