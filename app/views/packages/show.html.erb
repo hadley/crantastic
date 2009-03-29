@@ -34,7 +34,9 @@
       <p><%= link_to review.user.login, review.user  %> gave <%= link_to review.package.name, review.package %> a <%=h review.rating %>.</p>
     </li>
   <% end %>
-  </ul>
+</ul>
+  <div class="float-r"><%= link_to "Write a review", new_review_path(:package_id => @package.id) %></div>
+  <%= clear_div -%>
 <% end -%>
 
 <hr />
