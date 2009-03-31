@@ -9,6 +9,9 @@
 #
 
 class Package < ActiveRecord::Base
+  include NoFuzz
+  fuzzy :name
+
   has_many :versions, :order => "id DESC"
   has_many :reviews
   has_many :taggings
@@ -23,11 +26,23 @@ class Package < ActiveRecord::Base
 
   ## Search On Name of Package.
   def self.search(search_term, search_results_page)
-    search_term = '%' + String(search_term).downcase + '%'
+    search_term.strip.downcase!
 
-    paginate :conditions => [ 'LOWER(name) LIKE ?', search_term],
-             :include => {:versions => :maintainer},
-             :page => search_results_page
+    if search_term.ends_with? '~' # fuzzy search
+      # It's kinda bad to do two database hits here, I think it can be resolved
+      # by using paginate's :finder argument and creating a new method that
+      # calls out to fuzzy_find.
+      ids = Package.fuzzy_find(search_term[0...-1]).collect { |i| i.id }
+      paginate ids,
+               :include => {:versions => :maintainer},
+               :page => search_results_page
+    else
+      search_term = '%' + search_term + '%'
+
+      paginate :conditions => [ 'LOWER(name) LIKE ?', search_term],
+               :include => {:versions => :maintainer},
+               :page => search_results_page
+    end
   end
 
   def to_param

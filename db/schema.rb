@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 9) do
+ActiveRecord::Schema.define(:version => 20090330150303) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(:version => 9) do
     t.text     "description"
     t.datetime "created_at"
   end
+
+  create_table "package_trigram", :force => true do |t|
+    t.integer "package_id",                :null => false
+    t.string  "tg",                        :null => false
+    t.integer "score",      :default => 1, :null => false
+  end
+
+  add_index "package_trigram", ["package_id"], :name => "index_package_trigram_on_package_id"
+  add_index "package_trigram", ["tg"], :name => "index_package_trigram_on_tg"
 
   create_table "review", :force => true do |t|
     t.integer  "package_id"

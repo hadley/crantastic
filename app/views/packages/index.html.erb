@@ -2,25 +2,27 @@
 <% @atom = packages_path(:format => :atom) %>
 
 <h1>R Packages</h1>
- 
-<div class="content">
-  <p>  There are <%= Package.count %> packages listed on crantastic.</p>
-  <p> Want to view all packages in one page? <%= link_to "Click here", all_packages_url -%></p>
 
-  Search Package by Name: <input id="search" name="search" type="text" />
+<div class="content">
+  <p>There are <%= Package.count %> packages listed on crantastic.</p>
+  <p>Want to view all packages in one page? <%= link_to "Click here", all_packages_url -%></p>
+
+  <span>Search Package by Name: <input id="search" name="search" type="text" /><br /><br />
+     You can use the tilde character (~) at the end of your query to activate
+     fuzzy matching.</span>
   <%= image_tag("spinner.gif",
                 :align => "absmiddle",
                 :border => 0,
                 :id => "spinner",
-                :style =>"display: none;" ) 
+                :style =>"display: none;" )
   -%>
-  
+
   <%= observe_field 'search', :frequency => 2,
     :update => 'packages_list',
     :before => "Element.show('spinner')",
     :success => "Element.hide('spinner')",
     :url => {:controller => 'packages', :action => 'index'},
-    :with => "'search='+escape(value)" 
+    :with => "'search='+escape(value)"
   -%>
 
   <br /><br/>
