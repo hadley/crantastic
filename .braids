@@ -1,4 +1,11 @@
 --- 
+vendor/plugins/no_fuzz: 
+  squashed: true
+  url: git://github.com/Chrononaut/no_fuzz.git
+  branch: master
+  type: git
+  revision: c7d94e596baf7c02604bc6b6e2f0e4a90d9367d0
+  remote: braid/vendor/plugins/no-fuzz
 vendor/plugins/resource_controller: 
   squashed: true
   url: git://github.com/giraffesoft/resource_controller.git

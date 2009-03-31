@@ -1,0 +1,5 @@
+Description:
+    Creates a migration and a modle for trigram indexing for a given model.
+
+Example:
+    ./script/generate no_fuzz MODELNAME

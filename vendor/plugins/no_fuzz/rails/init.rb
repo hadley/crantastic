@@ -1,0 +1,1 @@
+require 'no_fuzz'
