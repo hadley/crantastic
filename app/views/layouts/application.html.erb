@@ -39,10 +39,18 @@
       <li><%= link_to "Reviews", reviews_path %></li>
       <li><%= link_to "Tags", tags_path %></li>
       <% if logged_in? -%>
-      <li><%= link_to "My&nbsp;profile", current_user %></li>
+      <li><%= link_to "My profile", current_user %></li>
       <li><%= link_to "Log out", logout_path %></li>
       <% end -%>
     </ul>
+  </div>
+
+  <div class="box">
+    <% form_tag search_path, :method => 'GET' do -%>
+    <%= text_field_tag 'q' %>
+
+    <%= submit_tag 'Search' %>
+    <% end -%>
   </div>
 
   <% unless logged_in? -%>
@@ -57,9 +65,6 @@
     <% end -%>
   <% end -%>
   </div>
-  <!-- <div class="box">
-    Search
-  </div> -->
 
 </div></div>
 <div id="ft">
