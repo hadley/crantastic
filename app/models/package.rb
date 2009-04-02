@@ -53,6 +53,10 @@ class Package < ActiveRecord::Base
       @res = Package.all(:conditions =>
                          ['LOWER(package.name) LIKE ? OR LOWER(version.description) LIKE ?', q, q],
                          :limit => limit, :include => :versions)
+      if @res.empty?
+        # Try a fuzzy search if no results were found
+        @res = Package.fuzzy_find(q, limit)
+      end
     end
     @res
   end
