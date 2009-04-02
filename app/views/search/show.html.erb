@@ -1,5 +1,9 @@
 <h1>Search</h1>
 
+<% if @packages.empty? %>
+<p>Sorry, no results were found. Please try another search query.</p>
+<% else %>
 <ol>
 <%= render :partial => "package", :collection => @packages %>
 </ol>
+<% end %>
