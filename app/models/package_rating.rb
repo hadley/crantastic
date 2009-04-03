@@ -22,6 +22,6 @@ class PackageRating < ActiveRecord::Base
 
   # Calculates the average rating for a given package
   def self.calculate_average(pkg)
-    average('rating', :conditions => "package_id = #{pkg.id}").to_i.round
+    average('rating', :conditions => "package_id = #{pkg.id}").to_f.round
   end
 end
