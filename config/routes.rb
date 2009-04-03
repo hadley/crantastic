@@ -1,15 +1,16 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :tags
-  map.resources :taggings
   map.resources :authors
   map.resources :reviews
-  map.resource  :search, :controller => "search"
+  map.resources :tags
+  map.resources :taggings
+  map.resources :users
 
   map.resources :packages, :collection => {:all => :get}, :member => {:index => :post}, :except => [:create, :update] do |p|
     p.resources :versions
+    p.resources :ratings
   end
 
-  map.resources :users
+  map.resource  :search, :controller => "search"
   map.resource  :session
 
   map.root :controller => "about", :action => "index"
