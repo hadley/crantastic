@@ -21,6 +21,21 @@
   </ul>
 <% end %>
 
+
+<h2>Rating:</h2>
+<% if logged_in? %>
+  <% form_tag package_ratings_path(@package) do -%>
+  <%= select_rating %>
+  <% end %>
+<% else %>
+  <%= select_rating(false) %>
+<% end %>
+  &nbsp; <%= @package.average_rating %>/5
+  (<%= pluralize(@package.package_ratings.size.to_s, " vote") %>)
+<% if r = current_user.rating_for(@package) %>
+<span style='color:red;font-style:italic'>You voted <%= r.rating %></span> <% end %>
+<%= clear_div -%>
+
 <h2>Reviews</h2>
 
 <% if @package.reviews.length == 0 %>

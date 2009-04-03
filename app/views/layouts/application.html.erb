@@ -7,6 +7,8 @@
   <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/reset-fonts-grids/reset-fonts-grids.css', :media => "all" %>
   <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/base/base-min.css', :media => "all" %>
   <%= stylesheet_link_tag 'style', :media => "all" %>
+  <%= stylesheet_link_tag 'jquery.rating', :media => "screen, projection" %>
+  <%= javascript_include_tag 'jquery', 'jquery.MetaData', 'jquery.rating' -%>
   <%= javascript_include_tag :defaults -%>
   <%= auto_discovery_link_tag :atom, @atom if @atom %>
   <meta name="verify-v1" content="YtXicWGGldm5yUfU718DJMAreQ9gf2gtsSCe5VysH10=" />

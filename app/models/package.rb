@@ -13,6 +13,7 @@ class Package < ActiveRecord::Base
   fuzzy :name
 
   has_many :versions, :order => "id DESC"
+  has_many :package_ratings
   has_many :reviews
   has_many :taggings
 
@@ -59,6 +60,11 @@ class Package < ActiveRecord::Base
       end
     end
     @res
+  end
+
+  # Rounded average rating for this package
+  def average_rating
+    PackageRating.calculate_average(self)
   end
 
   def to_param

@@ -1,2 +1,8 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+jQuery(function(){
+        jQuery('.starselect').rating({
+                callback: function(value, link){
+                    jQuery(this.form).submit();
+                }
+            });
+        jQuery('div.rating-cancel').remove();
+    });
