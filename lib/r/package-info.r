@@ -3,6 +3,7 @@ library(digest)
 reshape74 <- list(name = "reshape", version = "0.7.4")
 reshape73 <- list(name = "reshape", version = "0.7.3")
 sqlite <- list(name = "RSQLite", version = "0.6-3")
+mpcmod <- list(name = "MCPMod", version = "0.1-4")
 
 localMirror <- "~/cran"
 local.file <- function(pkg) {
@@ -106,6 +107,8 @@ package.data <- function(new, old = NULL) {
     special.files(new)#,
     # diff = diff.versions(new, old)
   )
+  
+  pkg <- lapply(pkg, iconv, sub = "?")
   cleanup(new)
   
   pkg
