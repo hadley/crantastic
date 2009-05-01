@@ -87,6 +87,8 @@ details <- function(pkg) {
   names(desc) <- tolower(names(desc))
   attr(desc, "file") <- NULL
   
+  desc$date <- as.character(strptime(desc$date, "%Y-%m-%d"))
+  
   desc[intersect(fields, names(desc))]
 }
 
