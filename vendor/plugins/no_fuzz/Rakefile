@@ -13,7 +13,7 @@ Echoe.new('no_fuzz') do |p|
   p.author = "Bjørn Arild Mæland"
   p.email = "bjorn.maeland@gmail.com"
   p.summary = "No Fuzz"
-  p.url = "http://www.github.com/Chrononaut/no_fuzz/"
+  p.url = "http://github.com/Chrononaut/no_fuzz"
   p.ignore_pattern = FileList[".gitignore"]
   p.include_rakefile = true
 end

@@ -29,6 +29,6 @@ def load_schema
   end
 
   ActiveRecord::Base.establish_connection(config[db_adapter])
-  #load(File.dirname(__FILE__) + "/schema.rb")
+  load(File.dirname(__FILE__) + "/schema.rb")
   require File.dirname(__FILE__) + '/../rails/init.rb'
 end

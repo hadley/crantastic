@@ -2,7 +2,6 @@
 # - scores
 #   I.e fuzzy {:first_name => 1, :last_name => 2}, last_name gives double score
 #   Currently everything gets scored with 1
-# - normalization
 # - weighting of fuzzy_find results
 
 module NoFuzz
@@ -18,7 +17,7 @@ module NoFuzz
     def fuzzy(*fields)
       # put the parameters as instance variable of the model
       @@model.instance_variable_set(:@fuzzy_fields, fields)
-      @@model.instance_variable_set(:@fuzzy_ref_id, "#{@@model}_id".downcase)
+      @@model.instance_variable_set(:@fuzzy_ref_id, "#{@@model.to_s.demodulize.underscore}_id")
       @@model.instance_variable_set(:@fuzzy_trigram_model, "#{@@model}Trigram".constantize)
     end
 
@@ -33,7 +32,8 @@ module NoFuzz
         self.all.each do |i|
           word = ' ' + i.send(f)
           (0..word.length-3).each do |idx|
-            tg = word[idx,3]
+            tg = word[idx,3].downcase # Force normalization by downcasing for
+                                      # now - should be overridable by the user
             trigram_model.create(:tg => tg, fuzzy_ref_id => i.id)
           end
         end

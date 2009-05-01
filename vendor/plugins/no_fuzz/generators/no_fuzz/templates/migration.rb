@@ -1,4 +1,4 @@
-class <%= migration_name -%> < ActiveRecord::Migration
+class <%= migration_class_name -%> < ActiveRecord::Migration
   def self.up
     create_table :<%= table_name -%>, :force => true do |t|
       t.integer :<%= foreign_key -%>, :null => false
