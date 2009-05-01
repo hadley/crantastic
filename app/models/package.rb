@@ -13,10 +13,11 @@ class Package < ActiveRecord::Base
   fuzzy :name
 
   has_many :versions, :order => "id DESC"
+  has_many :package_ratings
   has_many :reviews
   has_many :taggings
 
-  default_scope :order => "LOWER(name)"
+  default_scope :order => "LOWER(package.name)"
   # Used for the Package atom-feed:
   named_scope :recent, :order => "#{self.table_name}", :include => :versions,
                        :conditions => "#{self.table_name}.created_at IS NOT NULL"
@@ -25,24 +26,45 @@ class Package < ActiveRecord::Base
   def self.per_page; 50; end
 
   ## Search On Name of Package.
-  def self.search(search_term, search_results_page)
-    search_term.strip.downcase!
+  def self.paginating_search(q, search_results_page)
+    q.strip.downcase!
 
-    if search_term.ends_with? '~' # fuzzy search
-      # It's kinda bad to do two database hits here, I think it can be resolved
+    if q.ends_with? '~' # fuzzy search
+      # TODO It's kinda bad to do two database hits here, I think it can be resolved
       # by using paginate's :finder argument and creating a new method that
       # calls out to fuzzy_find.
-      ids = Package.fuzzy_find(search_term[0...-1]).collect { |i| i.id }
+      ids = Package.fuzzy_find(q[0...-1]).collect { |i| i.id }
       paginate ids,
                :include => {:versions => :maintainer},
                :page => search_results_page
     else
-      search_term = '%' + search_term + '%'
+      q = '%' + q + '%'
 
-      paginate :conditions => [ 'LOWER(name) LIKE ?', search_term],
+      paginate :conditions => [ 'LOWER(name) LIKE ?', q],
                :include => {:versions => :maintainer},
                :page => search_results_page
     end
+  end
+
+  def self.search(q, limit=50)
+    if q.ends_with? '~' # fuzzy search
+      @res = Package.fuzzy_find(q[0...-1], limit)
+    else
+      q = '%' + q + '%'
+      @res = Package.all(:conditions =>
+                         ['LOWER(package.name) LIKE ? OR LOWER(version.description) LIKE ?', q, q],
+                         :limit => limit, :include => :versions)
+      if @res.empty?
+        # Try a fuzzy search if no results were found
+        @res = Package.fuzzy_find(q, limit)
+      end
+    end
+    @res
+  end
+
+  # Rounded average rating for this package
+  def average_rating
+    PackageRating.calculate_average(self)
   end
 
   def to_param

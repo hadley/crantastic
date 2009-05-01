@@ -17,10 +17,10 @@ h1.title a:hover {text-decoration: underline;}
   margin-bottom: 1em;
 }
 ul.tags a:link, ul.tags a:visited, .box a:link, .box a:visited {
-  background-color: #fff; 
-  padding: 4px; 
-  color: #333; 
-  font-weight: bold; 
+  background-color: #fff;
+  padding: 4px;
+  color: #333;
+  font-weight: bold;
   text-decoration: none;
 }
 
@@ -41,7 +41,7 @@ h1 {
   font-weight: normal;
   margin-top: 0;
   margin-bottom:10px;
-	border-bottom:2px solid #ddd;
+  border-bottom:2px solid #ddd;
 }
 h1 .version, h1 .byline {font-size: 30%;}
 
@@ -79,25 +79,25 @@ textarea {width: 100%;}
 span.error {color: #FD3933; font-size: 0.9em;}
 
 table.general {
-	margin-top:4px;
+  margin-top:4px;
 }
 
 table.general, table.general tr, table.general tr td, table.general tr th {
-	border:0;
-	text-align:left;
-	width:100%;
+  border:0;
+  text-align:left;
+  width:100%;
 }
 table.general tr th{
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
-	padding:3px;
-	padding-left:8px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding:3px;
+  padding-left:8px;
 }
 table.general tr.odd {
   background-color:#FAFAFA;
 }
 table.general tr.even {
-	background-color: #F0F1F7;
+  background-color: #F0F1F7;
 }
 .float-r {float:right;}
 .float-l {float:left;}
@@ -117,7 +117,7 @@ table.general tr.even {
   padding:2px;
   border:1px solid red;
   background-color:#f0f0f0;
-	margin-bottom:10px;
+  margin-bottom:10px;
 }
 .errorExplanation h2{
   color:red;
@@ -138,4 +138,8 @@ table.general tr.even {
 }
 .errorExplanation ul li {
   color:red;
+}
+
+img.spinner {
+  align: absmiddle;
 }

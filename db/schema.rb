@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
+# This file is auto-generated from the current state of the database. Instead of editing this file,
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(:version => 20090430133227) do
     t.text     "description"
     t.datetime "created_at"
   end
+
+  create_table "package_rating", :force => true do |t|
+    t.integer  "package_id"
+    t.integer  "user_id"
+    t.integer  "rating"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "package_rating", ["user_id"], :name => "index_package_rating_on_user_id"
 
   create_table "package_trigram", :force => true do |t|
     t.integer "package_id",                :null => false

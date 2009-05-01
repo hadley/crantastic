@@ -3,13 +3,10 @@ class PackagesController < ApplicationController
   def index
     page_no = params[:page] || 1
     @search_term = String(params[:search])
-
+    @packages = Package.paginating_search(@search_term, page_no)
     respond_to do |format|
-      format.html do
-        @packages = Package.search(@search_term, params[:page])
-      end
+      format.html {}
       format.js do
-        @packages = Package.search(@search_term, params[:page])
         render :partial => "packages/list"
       end
 

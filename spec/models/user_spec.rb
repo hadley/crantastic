@@ -9,6 +9,8 @@ describe User do
     u.should be_active
     u.activated_at.should be_kind_of Time
   end
+
+
 end
 
 describe UserMailer do

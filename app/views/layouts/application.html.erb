@@ -1,13 +1,14 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
- "http://www.w3.org/TR/html4/strict.dtd">
-
-<html>
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= "#{@title}. " unless @title.blank? %><%= @plural.nil? ? "It's" : "They're" %> crantastic!</title>
   <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/reset-fonts-grids/reset-fonts-grids.css', :media => "all" %>
   <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/base/base-min.css', :media => "all" %>
   <%= stylesheet_link_tag 'style', :media => "all" %>
+  <%= stylesheet_link_tag 'jquery.rating', :media => "screen, projection" %>
+  <%= javascript_include_tag 'jquery', 'jquery.MetaData', 'jquery.rating' -%>
   <%= javascript_include_tag :defaults -%>
   <%= auto_discovery_link_tag :atom, @atom if @atom %>
   <meta name="verify-v1" content="YtXicWGGldm5yUfU718DJMAreQ9gf2gtsSCe5VysH10=" />
@@ -39,10 +40,18 @@
       <li><%= link_to "Reviews", reviews_path %></li>
       <li><%= link_to "Tags", tags_path %></li>
       <% if logged_in? -%>
-      <li><%= link_to "My&nbsp;profile", current_user %></li>
+      <li><%= link_to "My profile", current_user %></li>
       <li><%= link_to "Log out", logout_path %></li>
       <% end -%>
     </ul>
+  </div>
+
+  <div class="box">
+    <% form_tag search_path, :method => 'GET' do -%>
+    <p style='margin:0'><%= text_field_tag 'q' %>
+
+    <%= submit_tag 'Search' %></p>
+    <% end -%>
   </div>
 
   <% unless logged_in? -%>
@@ -57,9 +66,6 @@
     <% end -%>
   <% end -%>
   </div>
-  <!-- <div class="box">
-    Search
-  </div> -->
 
 </div></div>
 <div id="ft">
