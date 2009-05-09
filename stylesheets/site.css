@@ -1,0 +1,18 @@
+div#container { width: 700px; margin: 0 auto; }
+div#header { margin-bottom: 25px; text-align: center; }
+div#content { text-align: left; }
+div#footer { margin-top: 25px; font-size: 0.9em; color: #aaa; }
+
+h1 { color: #FD3933; font-size: 3em; font-weight: normal; margin-top: 0; margin-bottom: 0; }
+h1.title { background-color: #FD3933; color: #fff; padding-top: 2em; padding-left: 5px; font-size: 4em; font-weight: bold; }
+h1.title a:link, h1.title a:visited { color: white; text-decoration: none; }
+h1.title a:hover { text-decoration: underline; }
+
+.box { background-color: #CEFD9B; padding: 0.5em; margin-bottom: 1em; }
+.box a:link, .box a:visited { color: #000; font-weight: bold; text-decoration: none; }
+.box a:hover { text-decoration: underline; }
+.box ul { margin: 0.25em 0.2em; }
+.box ul li { list-style: none; margin-top: 1em; display: inline; margin-right: 0.4em; margin-bottom: 1em; line-height: 2.5; }
+
+a:link { color: #FD3933; }
+a:visited { color: #F7807B; }
