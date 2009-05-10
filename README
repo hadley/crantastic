@@ -1,3 +1,0 @@
-Add the following line to your crontab to automatically update crantastic ever four hours when CRAN is actively being updated.
-
-18 5,9,13,17 * * *  hadley  cd /home/hadley/public/crantastic.org/lib/r && ./run-update.r
