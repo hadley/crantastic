@@ -1,5 +1,5 @@
 *.swp
 *~
 log
-db/test.sqlite3
+db/*.sqlite3
 _site
