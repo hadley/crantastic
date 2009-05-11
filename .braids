@@ -1,15 +1,22 @@
 --- 
-vendor/plugins/no_fuzz: 
-  squashed: true
-  branch: master
-  url: git://github.com/Chrononaut/no_fuzz.git
-  type: git
-  revision: d25c9f3d7c7f6c9a3e1ae5e63e6cdc5efa18f1fa
-  remote: braid/vendor/plugins/no-fuzz
 vendor/plugins/resource_controller: 
   squashed: true
-  branch: master
   url: git://github.com/giraffesoft/resource_controller.git
   type: git
   revision: defdce1a6f83edddbfca7260edcf6deed1381fa9
+  branch: master
   remote: braid/vendor/plugins/resource-controller
+vendor/plugins/no_fuzz: 
+  squashed: true
+  url: git://github.com/Chrononaut/no_fuzz.git
+  type: git
+  revision: d25c9f3d7c7f6c9a3e1ae5e63e6cdc5efa18f1fa
+  branch: master
+  remote: braid/vendor/plugins/no-fuzz
+vendor/plugins/db_branch: 
+  squashed: true
+  url: git://github.com/Chrononaut/db_branch.git
+  type: git
+  revision: 75bee0ef96907757d22fb3b13662e10f88e1f611
+  branch: master
+  remote: braid/vendor/plugins/db-branch
