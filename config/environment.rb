@@ -24,12 +24,10 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  # config.gem "bj"
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   config.gem 'RedCloth'
   config.gem "sqlite3-ruby", :lib => "sqlite3"
   config.gem 'mislav-will_paginate', :lib => "will_paginate", :source => 'http://gems.github.com'
-  config.gem 'thoughtbot-hoptoad_notifier', :lib => "hoptoad_notifier", :source => "http://gems.github.com"
+  config.gem 'markbates-hoptoad_notifier', :lib => "hoptoad_notifier", :source => "http://gems.github.com"
   config.gem "thoughtbot-factory_girl",  :lib => "factory_girl", :source => "http://gems.github.com"
 
   # Only load the plugins named here, in the order given (default is alphabetical).

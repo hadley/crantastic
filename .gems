@@ -1,5 +1,5 @@
 RedCloth
 sqlite3-ruby
 mislav-will_paginate --source http://gems.github.com
-thoughtbot-hoptoad_notifier --source http://gems.github.com
+markbates-hoptoad_notifier --source http://gems.github.com
 thoughtbot-factory_girl --source http://gems.github.com
