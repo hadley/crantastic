@@ -5,5 +5,5 @@ ActionMailer::Base.smtp_settings = {
   :domain => 'crantastic.org',
   :authentication => :plain,
   :user_name => 'cranatic',
-  :password => 'crantastic is fantastic'
+  :password => ENV['GMAIL']
 }
