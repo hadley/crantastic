@@ -1,8 +1,7 @@
 module PackagesHelper
   def select_rating(enabled=true)
     output = []
-    r = current_user.rating_for(@package)
-    r = r ? r.rating : 0
+
     1.upto(5) do |i|
       opts = {:type => "radio", :class => "starselect", :value => i.to_s, :name => "rating"}
       opts.merge!({:disabled => "disabled"}) if enabled != true

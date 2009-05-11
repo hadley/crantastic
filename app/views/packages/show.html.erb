@@ -32,7 +32,7 @@
 <% end %>
   &nbsp; <%= @package.average_rating %>/5
   (<%= pluralize(@package.package_ratings.size.to_s, " vote") %>)
-<% if r = current_user.rating_for(@package) %>
+<% if logged_in? && r = current_user.rating_for(@package) %>
 <span style='color:red;font-style:italic'>You voted <%= r.rating %></span> <% end %>
 <%= clear_div -%>
 
