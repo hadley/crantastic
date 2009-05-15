@@ -1,4 +1,4 @@
-require "ftools"
+require "fileutils"
 
 module Sevenwire
   class DbBranch

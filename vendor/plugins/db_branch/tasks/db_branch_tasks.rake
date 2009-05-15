@@ -72,7 +72,10 @@ namespace :db do
           `#{cli}`
           puts "Data loaded from #{original_config['database']} into #{branch_config['database']}"
         when 'sqlite3'
-          File::copy(original_config['database'], branch_config['database'], true)
+          if File.exists?(original_config['database'])
+            FileUtils.copy_file(original_config['database'], branch_config['database'])
+            puts "Data loaded from #{original_config['database']} into #{branch_config['database']}"
+          end
         else
           puts "Don't know how to dump and load using #{original_config['adapter']}, how about adding support for it?"
         end
