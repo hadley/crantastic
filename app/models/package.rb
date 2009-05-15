@@ -40,7 +40,7 @@ class Package < ActiveRecord::Base
     else
       q = '%' + q + '%'
 
-      paginate :conditions => [ 'LOWER(name) LIKE ?', q],
+      paginate :conditions => [ 'LOWER(package.name) LIKE ?', q],
                :include => {:versions => :maintainer},
                :page => search_results_page
     end
