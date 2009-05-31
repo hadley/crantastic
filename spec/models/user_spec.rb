@@ -1,15 +1,15 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
+
   it "should store activation time when activated" do
     u = User.new
     u.should_receive(:save).with(false)
     u.activated_at.should be_nil
     u.activate
     u.should be_active
-    u.activated_at.should be_kind_of Time
+    u.activated_at.should be_kind_of(Time)
   end
-
 
 end
 
@@ -30,8 +30,9 @@ describe UserMailer do
       @email.to.should == [@user.email]
     end
 
-    it "should include an activation code" do
-      @email.body.should =~ /#{@user.activation_code}/
+    it "should include an activation link" do
+      # localhost for test environment, crantastic.org for production
+      @email.body.match(" http://localhost:3000/activate/#{@user.activation_code} ").should_not be_nil
     end
   end
 
