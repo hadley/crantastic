@@ -14,6 +14,8 @@ class Author < ActiveRecord::Base
 
   has_many :versions, :foreign_key => :maintainer_id, :order => :name
 
+  default_scope :order => "LOWER(name)"
+
   validates_uniqueness_of :email, :scope => :name,
                                   :case_sensitive => false, :allow_nil => true
   validates_length_of :name, :in => 2..255
