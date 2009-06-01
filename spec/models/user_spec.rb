@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
 
+  should_allow_values_for :email, "test@test.com", "john.doe@acme.co.uk"
+  should_not_allow_values_for :email, "test", "test@test", "test@"
+
   it "should store activation time when activated" do
     u = User.new
     u.should_receive(:save).with(false)
