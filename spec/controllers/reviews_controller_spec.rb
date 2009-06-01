@@ -17,9 +17,9 @@ describe ReviewsController do
   end
 
   it "should let logged in users write new reviews" do
-    Package.create!(:name => "TestPkg", :id => 1)
+    Package.create!(:name => "TestPkg")
     login_as_user(:id => 1, :login => "test")
-    get :new, :package_id => 1
+    get :new, :package_id => "TestPkg"
     response.should be_success
   end
 
