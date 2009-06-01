@@ -13,11 +13,18 @@
 #
 
 class Review < ActiveRecord::Base
+
   belongs_to :user
   belongs_to :package
 
-  before_validation :strip_title_and_review
+  default_scope :order => "created_at DESC" # Latest first
+  named_scope :recent, :limit => 10, :include => [:user, :package]
 
+  before_validation :strip_title_and_review # NOTE: consider before_save
+
+  validates_presence_of :package_id
+  validates_presence_of :user_id
+  validates_numericality_of :rating, :greater_than => 0, :less_than => 6
   validates_length_of :title, :minimum => 3, :message => "(Brief Summary) is too short(minimum is 3 characters)"
   validates_length_of :review, :minimum => 3
 
@@ -25,10 +32,10 @@ class Review < ActiveRecord::Base
     [title, review].join(". ")
   end
 
-private
+  private
   def strip_title_and_review
-    self.title.strip!
-    self.review.strip!
+    self.title.strip! unless title.blank?
+    self.review.strip! unless review.blank?
   end
-  
+
 end
