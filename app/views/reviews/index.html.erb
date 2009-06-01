@@ -1,7 +1,12 @@
-<% @title = "Recent reviews"; @plural = true %>
+<%
+@title = (parent_object.nil?) ? "Recent reviews" : "Reviews for #{parent_object}"
+@plural = true
+%>
 
 <h1><%= @title -%></h1>
+<% unless parent_object %>
 <p>crantastic users have written <%= pluralize Review.count, "review" %>.  These are the most recent reviews:</p>
+<% end %>
 
 <ul>
 <% for review in @reviews %>

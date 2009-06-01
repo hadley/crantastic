@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :packages, :collection => {:all => :get}, :member => {:index => :post}, :except => [:create, :update] do |p|
     p.resources :versions
     p.resources :ratings
+    p.resources :reviews
   end
 
   map.resource  :search, :controller => "search"

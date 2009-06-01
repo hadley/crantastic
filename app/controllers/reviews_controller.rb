@@ -15,7 +15,11 @@ class ReviewsController < ApplicationController
 
   private
   def collection
-    @collection ||= Review.recent
+    @collection ||= end_of_association_chain.recent
+  end
+
+  def parent_object
+    Package.find_by_name(params[:package_id]) # No numeric ids for packages
   end
 
   def authorized?
