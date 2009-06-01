@@ -1,3 +1,7 @@
+# Load some files from lib/ which aren't picked up by const_missing
+require "lib/core_extensions"
+require "lib/rfc822"
+
 # Be sure to restart your server when you modify this file
 
 # Uncomment below to force Rails into production mode when
