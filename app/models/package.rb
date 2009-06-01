@@ -75,6 +75,10 @@ class Package < ActiveRecord::Base
     name.gsub(".", "-")
   end
 
+  def to_s
+    name
+  end
+
   def latest
     versions[0]
   end

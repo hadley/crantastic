@@ -48,4 +48,8 @@ describe Package do
     u.rate!(p.id, 2) # supports numerical ids as well
     u.rating_for(p).rating.should == 2
   end
+
+  it "should have name as to_s representation" do
+    Package.new(:name => "bio.infer").to_s.should == "bio.infer"
+  end
 end
