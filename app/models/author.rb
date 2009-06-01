@@ -10,28 +10,39 @@
 #
 
 class Author < ActiveRecord::Base
+  include RFC822
+
   has_many :versions, :foreign_key => :maintainer_id, :order => :name
-  
-  def Author.find_or_create(name = nil, email = nil) 
+
+  validates_uniqueness_of :email, :scope => :name,
+                                  :case_sensitive => false, :allow_nil => true
+  validates_length_of :name, :in => 2..255
+  validates_format_of :email, :with => EmailAddress, :allow_nil => true
+
+  def self.find_or_create(name = nil, email = nil)
     author = Author.find_by_email(email) || Author.find_by_name(name)
-    
+
     return author if author
-    
-    Author.create(:name => name, :email => email)  
+
+    Author.create(:name => name, :email => email)
   end
-  
+
+  # Input is mainly from the "Maintainer"-field in CRAN's DESCRIPTION
+  # files. E.g. "Christian Buchta <christian.buchta at wu-wien.ac.at>".
+  # E-mail address is not guaranteed to be valid, as can be seen above.
+  #
+  # @return [Author] An Author-object corresponding to the input string
   def Author.new_from_string(string)
     return Author.find_or_create_by_name("Unknown") if string.blank?
-    
+
     name, email = string.split(/[<>]/).map(&:strip)
     if name =~ /@/
       email = name
       name = nil
     end
-    
-    email.downcase! unless email.blank?
-    
+
+    email.downcase! unless email.blank? # NOTE: is this necessary?
+
     Author.find_or_create(name, email)
   end
-  
 end
