@@ -22,6 +22,10 @@ class Package < ActiveRecord::Base
   named_scope :recent, :order => "#{self.table_name}", :include => :versions,
                        :conditions => "#{self.table_name}.created_at IS NOT NULL"
 
+  validates_presence_of :name
+  validates_uniqueness_of :name
+  validates_length_of :name, :in => 2..255
+
   ## No. of packages to show per page.
   def self.per_page; 50; end
 
