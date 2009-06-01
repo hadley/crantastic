@@ -4,6 +4,12 @@ include AuthHelper
 
 describe ReviewsController do
 
+  it "should render the index successfully" do
+    Review.should_receive(:recent)
+    get :index
+    response.should render_template(:index)
+  end
+
   it "should redirect to login when attempting to write an review without logging in first" do
     get :new
     response.should be_redirect
@@ -11,7 +17,7 @@ describe ReviewsController do
   end
 
   it "should let logged in users write new reviews" do
-    Package.should_receive(:find).with("1")
+    Package.create!(:name => "TestPkg", :id => 1)
     login_as_user(:id => 1, :login => "test")
     get :new, :package_id => 1
     response.should be_success
@@ -36,6 +42,11 @@ describe ReviewsController do
     get :edit, :id => 1
     response.should_not be_success
     response.should be_redirect
+  end
+
+  it "should do a 404 for unknown ids" do
+    get :show, :id => 9999
+    response.status.should == "404 Not Found"
   end
 
 end
