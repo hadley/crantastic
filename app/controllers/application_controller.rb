@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       render :template => "static/error_404", :status => 404
     else
       @message = exception
-      render :template => "static/error_500", :status => "500"
+      render :template => "static/error_500", :status => 500
     end
   end
 

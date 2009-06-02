@@ -9,7 +9,6 @@ class StaticController < ApplicationController
   end
 
   def error_404
-    @title = "404"
   end
 
   def welcome
