@@ -1,4 +1,5 @@
 RedCloth
+maruku
 haml-edge
 sqlite3-ruby
 mislav-will_paginate --source http://gems.github.com
