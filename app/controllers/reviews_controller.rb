@@ -7,9 +7,7 @@ class ReviewsController < ApplicationController
   before_filter :login_required, :only => [ :new, :create  ]
   before_filter :authorization_required, :only => [ :edit, :update  ]
 
-  show.failure.wants.html do
-    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404
-  end
+  show.failure.wants.html { rescue_404 }
 
   create.before { object.user = current_user } # Set Review ownership
 

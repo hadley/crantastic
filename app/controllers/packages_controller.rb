@@ -39,17 +39,14 @@ class PackagesController < ApplicationController
     end
 
     @package = Package.find_by_name(id.gsub("-", "."))
-    if @package.nil?
-      render :file => "#{RAILS_ROOT}/public/404.html", :status => 404
-      return
-    end
-
     @version = @package.latest
 
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @package }
     end
+  rescue
+    rescue_404
   end
 
 end

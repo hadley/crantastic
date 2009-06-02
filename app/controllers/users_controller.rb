@@ -4,9 +4,7 @@ class UsersController < ApplicationController
 
   create.before { cookies.delete :auth_token }
   create.wants.html { redirect_to thanks_path }
-  show.failure.wants.html do
-    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404
-  end
+  show.failure.wants.html { rescue_404 }
 
   def activate
     self.current_user = User.find_by_activation_code(params[:activation_code])
