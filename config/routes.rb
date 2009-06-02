@@ -14,7 +14,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resource  :search, :controller => "search"
   map.resource  :session
 
-  map.root :controller => "about", :action => "index"
+  map.root :controller => "static", :action => "welcome"
+
+  map.with_options :controller => "static" do |static|
+    static.about "about", :action => "about"
+    static.welcome "welcome", :action => "welcome"
+  end
 
   map.signup   '/signup', :controller => 'users', :action => 'new'
   map.thanks   '/thanks', :controller => 'users', :action => 'signup'
