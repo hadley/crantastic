@@ -13,11 +13,13 @@ describe PackagesController do
     Package.should_receive(:find).with("1")
     get :show, :id => 1
     response.should be_redirect
+    response.status.should == "301 Moved Permanently"
   end
 
   it "should do a 404 for unknown packages" do
     get :show, :id => "blabla"
     response.status.should == "404 Not Found"
+    response.should_not be_redirect
   end
 
 end

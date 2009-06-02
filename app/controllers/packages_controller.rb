@@ -31,10 +31,8 @@ class PackagesController < ApplicationController
 
   def show
     id = params[:id]
-    if (id.to_i != 0)
-      pkg = Package.find(id)
-      response.headers["Status"] = "301 Moved Permanently"
-      redirect_to url_for(pkg)
+    if id.to_i != 0
+      redirect_to url_for(Package.find(id)), :status => 301
       return
     end
 
