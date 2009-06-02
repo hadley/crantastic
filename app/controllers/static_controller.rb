@@ -5,6 +5,11 @@
 class StaticController < ApplicationController
 
   def about
+    @title = "About"
+  end
+
+  def error_404
+    @title = "404"
   end
 
   def welcome

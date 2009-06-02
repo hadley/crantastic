@@ -18,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.with_options :controller => "static" do |static|
     static.about "about", :action => "about"
+    static.error_404 "error_404", :action => "error_404"
     static.welcome "welcome", :action => "welcome"
   end
 
@@ -29,4 +30,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+
+  map.error '*url', :controller => 'static', :action => 'error_404'
 end
