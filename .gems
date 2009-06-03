@@ -2,6 +2,7 @@ RedCloth
 maruku
 haml-edge
 sqlite3-ruby
+gravtastic --version ">= 2.1.0"
 mislav-will_paginate --source http://gems.github.com
 markbates-hoptoad_notifier --source http://gems.github.com
 thoughtbot-factory_girl --source http://gems.github.com
