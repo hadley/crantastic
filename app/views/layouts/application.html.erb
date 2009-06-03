@@ -5,7 +5,11 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= "#{@title}. " unless @title.blank? %><%= @plural.nil? ? "It's" : "They're" %> crantastic!</title>
   <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/reset-fonts-grids/reset-fonts-grids.css', :media => "all" %>
-  <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/base/base-min.css', :media => "all" %>
+  <%= stylesheet_link_tag 'screen', :media => "screen, projection" %>
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <!--[if IE]>
+      <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <![endif]-->
   <%= stylesheet_link_tag 'style', :media => "all" %>
   <%= stylesheet_link_tag 'jquery.rating', :media => "screen, projection" %>
   <%= javascript_include_tag 'jquery', 'jquery.MetaData', 'jquery.rating' -%>
