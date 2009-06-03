@@ -1,4 +1,5 @@
 <h1><%=h @author.name %></h1>
+<%= image_tag @author.gravatar_url, :style => "float: right;" %>
 
 <% if logged_in? -%>
   <%= link_to @author.email, "mailto:" + @author.email %>
@@ -8,9 +9,8 @@
 
 <ul>
 <% for version in @author.versions -%>
-  <li><%= link_to version.name, version.package %>. <%= version.title %>.  
+  <li><%= link_to version.name, version.package %>. <%= version.title %>.
   <% unless version.date.blank? -%>(<%= time_ago_in_words version.date %> ago)<% end -%>
   </li>
 <% end -%>
 </ul>
-  

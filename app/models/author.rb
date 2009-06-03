@@ -11,6 +11,7 @@
 
 class Author < ActiveRecord::Base
   include RFC822
+  is_gravtastic # Enables the Gravtastic plugin for the Author model
 
   has_many :versions, :foreign_key => :maintainer_id, :order => :name
 
