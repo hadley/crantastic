@@ -13,14 +13,14 @@ developers/contributors.
 ## Development dependencies
 
 To keep the size of the Heroku slug at a reasonable size, some dependencies that
-only are required in development have not been added to environment.rb. This
+only are required in development have not been added to `environment.rb`. This
 means that if you want to run the app locally you should install the following gems:
 
 - chriseppstein-compass
 - remarkable_rails
 
-Note that you should only add/edit stylesheets in the =app/stylesheets= folder.
-=public/stylesheets= should only contain compiled Sass styhesleets.
+Note that you should only add/edit stylesheets in the `app/stylesheets` folder.
+`public/stylesheets` should only contain compiled Sass styhesleets.
 
 ## Working with Heroku
 
@@ -28,13 +28,13 @@ Note that you should only add/edit stylesheets in the =app/stylesheets= folder.
 
     git remote add heroku git@heroku.com:crantastic.git
 
-Confirm that it's working by running 'heroku info'.
+Confirm that it's working by running `heroku info`.
 
 ### Pulling the latest database from crantastic.org
 
     heroku db:pull
 
-This will overwrite db/development.sqlite3.
+This will overwrite `db/development.sqlite3`.
 
 ## Updating packages from CRAN
 
