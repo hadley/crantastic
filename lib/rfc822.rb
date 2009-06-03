@@ -1,3 +1,4 @@
+# encoding: ASCII-8BIT
 #
 # RFC822 Email Address Regex
 # --------------------------
