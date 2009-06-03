@@ -18,6 +18,7 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
   include RFC822
+  is_gravtastic # Enables the Gravtastic plugin for the User model
 
   has_many :reviews
   has_many :taggings
