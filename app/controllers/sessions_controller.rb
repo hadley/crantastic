@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
   # When no user_data was found (invalid token supplied), data is empty.
   def rpx_token
     data = RPXNow.user_data(params[:token], ENV['RPX_API_KEY'])
-    p data
 
     if data.blank? # Login failed
       flash[:notice] = "Error"
