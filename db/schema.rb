@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090430133227) do
+ActiveRecord::Schema.define(:version => 20090604003520) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -73,6 +73,13 @@ ActiveRecord::Schema.define(:version => 20090430133227) do
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
   end
+
+  create_table "user_identifier", :force => true do |t|
+    t.integer "user_id",    :null => false
+    t.string  "identifier", :null => false
+  end
+
+  add_index "user_identifier", ["identifier"], :name => "index_user_identifier_on_identifier", :unique => true
 
   create_table "version", :force => true do |t|
     t.integer  "package_id"

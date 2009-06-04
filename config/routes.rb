@@ -11,8 +11,9 @@ ActionController::Routing::Routes.draw do |map|
     p.resources :reviews
   end
 
-  map.resource  :search, :controller => "search"
-  map.resource  :session
+  map.resource :search, :controller => "search"
+  map.resource :session
+  map.connect "session/rpx_token", :controller => "sessions", :action => "rpx_token"
 
   map.root :controller => "static", :action => "welcome"
 

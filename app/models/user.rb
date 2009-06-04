@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
 
   has_many :reviews
   has_many :taggings
+  has_many :identifiers, :class_name => "UserIdentifier"
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password
@@ -58,6 +59,13 @@ class User < ActiveRecord::Base
   # Returns true if the user has just been activated.
   def pending?
     @activated
+  end
+
+  # Add an identifier for RPX for this user account
+  def add_identifier(identifier)
+    self.identifiers << UserIdentifier.create!(:user_id => self.id, :identifier => identifier)
+    RPXNow.map(identifier, self.id.to_s, ENV['RPX_API_KEY']) # Map the PK
+    self.activate unless self.active?
   end
 
   # Rates a package, discarding the users previous rating in the process
@@ -130,7 +138,7 @@ class User < ActiveRecord::Base
     end
 
     def password_required?
-      crypted_password.blank? || !password.blank?
+      false
     end
 
     def make_activation_code
