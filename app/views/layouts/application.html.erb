@@ -60,13 +60,10 @@
 
   <% unless logged_in? -%>
   <div class="box">
-    <% form_tag session_path do -%>
-    <p><label for="login">User name</label>:
-    <%= text_field_tag 'login' %></p>
-    <p><label for="password">Password</label>:
-    <%= password_field_tag 'password' %></p>
-
-    <p><%= submit_tag 'Log in' %> or <%= link_to "Sign up!", signup_path%></p>
+    <% form_tag new_session_path, :method => 'GET' do -%>
+    <p style='margin:0'>
+      <%= submit_tag 'Log in' %>&nbsp; or
+      &nbsp;<%= link_to "Sign up!", signup_path%></p>
     <% end -%>
   <% end -%>
   </div>
