@@ -4,12 +4,18 @@
 
 <p><strong>or log in with an existing Crantastic account</strong></p>
 
-<% form_tag session_path do -%>
+<% form_tag session_path, :id => "new_session" do -%>
 <p><label for="login">Login</label><br/>
-<%= text_field_tag 'login' %></p>
+<%= text_field_tag 'login', nil, :class => "required" %></p>
 
 <p><label for="password">Password</label><br/>
-<%= password_field_tag 'password' %></p>
+<%= password_field_tag 'password', nil, :class => "required" %></p>
 
 <p><%= submit_tag 'Log in' %></p>
 <% end -%>
+
+<script>
+  jQuery(document).ready(function(){
+    jQuery("form#new_session").validate();
+  });
+</script>
