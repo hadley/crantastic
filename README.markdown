@@ -10,6 +10,11 @@ links of interests are:
 The rest of this document contains various pieces of information relevant for
 developers/contributors.
 
+## Coding conventions
+
+The [YARD](http://github.com/lsegal/yard/tree/master) meta-tag formatting format
+is usued for documentation, whenever it feels necessary.
+
 ## Development dependencies
 
 To keep the size of the Heroku slug at a reasonable size, some dependencies that

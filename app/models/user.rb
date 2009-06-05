@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
 
   # Rates a package, discarding the users previous rating in the process
   # TODO should check for valid package id, probably in the PackageRating model
+  #
+  # @param [Fixnum, Package] package
+  # @param [Fixnum] rating
+  # @return [PackageRating]
   def rate!(package, rating)
     package = package.id if package.kind_of?(Package)
     r = rating_for(package)
@@ -78,6 +82,9 @@ class User < ActiveRecord::Base
   end
 
   # This users' rating for a package
+  #
+  # @param [Fixnum] package The primary key (id) of the package to rate
+  # @return [PackageRating] The PackageRating object
   def rating_for(package)
     PackageRating.find(:first,
                        :conditions => {:package_id => package,
@@ -86,7 +93,9 @@ class User < ActiveRecord::Base
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
-    u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL', login] # need to get the salt
+    # We explicitly don't allow logins with blank passwords.
+    return nil if password.blank?
+    u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL', login]
     u && u.authenticated?(password) ? u : nil
   end
 
@@ -138,12 +147,13 @@ class User < ActiveRecord::Base
     end
 
     def password_required?
+      # Not required since we allow OpenID etc. But we don't allow regular
+      # logins with blank passwords.
       false
     end
 
     def make_activation_code
-
-      self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )[1..10]
+      self.activation_code = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by {rand}.join)[1..10]
     end
 
 end
