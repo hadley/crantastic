@@ -5,3 +5,4 @@ db/*.sqlite3
 tmp
 _site
 config/database.branch.*
+test/*
