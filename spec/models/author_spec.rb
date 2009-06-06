@@ -5,7 +5,6 @@ describe Author do
   should_allow_values_for :name, "John Doe", :allow_nil => true
   should_validate_length_of :name, :minimum => 2, :maximum => 255
   should_allow_values_for :email, "john@doe.co.uk", :allow_nil => true
-  should_not_allow_values_for :email, "test", "test@test", "test@"
   should_have_many :versions
 
   it "should have unique values for email scoped on name" do
