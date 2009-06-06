@@ -34,7 +34,7 @@ Rails::Initializer.run do |config|
   config.gem "sqlite3-ruby", :lib => "sqlite3"
   config.gem 'gravtastic', :version => '>= 2.1.0'
   config.gem 'treetop'
-  config.gem 'Chrononaut-treetop-dcf', :lib => 'dcf', :source => 'http://gems.github.com'
+  config.gem 'Chrononaut-treetop-dcf', :version => '>= 0.1.2', :lib => 'dcf', :source => 'http://gems.github.com'
   config.gem 'grosser-rpx_now', :lib => 'rpx_now', :source => 'http://gems.github.com'
   config.gem 'mislav-will_paginate', :lib => "will_paginate", :source => 'http://gems.github.com'
   config.gem 'markbates-hoptoad_notifier', :lib => "hoptoad_notifier", :source => "http://gems.github.com"
