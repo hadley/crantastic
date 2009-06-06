@@ -15,10 +15,16 @@ module CRAN
     def to_hash
       { :name => name, :version => version }
     end
+
+    def <=>(other)
+      self.name <=> other.name
+    end
   end
 
   # Enumerable list of CRAN packages.
   class Packages
+    include Enumerable
+
     # @param [String] location Location of the Package data file. Expected to be gzipped.
     def initialize(location)
       @packages = []
@@ -29,6 +35,10 @@ module CRAN
 
     def each
       @packages.each { |i| yield i }
+    end
+
+    def [](i)
+      @packages[i]
     end
   end
 

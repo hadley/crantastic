@@ -16,7 +16,7 @@ task :cron => :environment do
 
   i = 0
   latest_versions.each do |new|
-    # Limit the number of updates per hour to avoid long running processes
+    # Limit the number of updates per hour to avoid long-running processes
     exit(0) if i == 7
     cur = known_versions.find { |pkg| pkg.name == new.name }
     if cur
@@ -40,8 +40,7 @@ def add_version_to_db(pkg)
   Minitar.unpack(gz, File.join(RAILS_ROOT, "/tmp"))
   pkgdir = File.join(RAILS_ROOT, "/tmp/#{pkg.name}/")
 
-  # Force binary encoding for the DESCRIPTION file
-  data = Dcf.parse(File.open(pkgdir + "DESCRIPTION", "r:binary").read).first
+  data = Dcf.parse(File.read(pkgdir + "DESCRIPTION")).first
   data = data.downcase_keys.symbolize_keys
 
   fields = [:title, :license, :description, :author,
