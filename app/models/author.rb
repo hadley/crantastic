@@ -10,7 +10,6 @@
 #
 
 class Author < ActiveRecord::Base
-  include RFC822
   is_gravtastic # Enables the Gravtastic plugin for the Author model
 
   has_many :versions, :foreign_key => :maintainer_id, :order => :name
@@ -20,7 +19,6 @@ class Author < ActiveRecord::Base
   validates_uniqueness_of :email, :scope => :name,
                                   :case_sensitive => false, :allow_nil => true
   validates_length_of :name, :in => 2..255
-  validates_format_of :email, :with => EmailAddress, :allow_nil => true
 
   def self.find_or_create(name = nil, email = nil)
     author = Author.find_by_email(email) || Author.find_by_name(name)
