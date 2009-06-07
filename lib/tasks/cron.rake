@@ -38,6 +38,7 @@ module Cron
         end
       end
       Log.log!("Cron task finished.")
+      return true
     end
 
     def add_version_to_db(pkg)

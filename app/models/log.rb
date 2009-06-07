@@ -17,4 +17,8 @@ class Log < ActiveRecord::Base
     puts msg unless quiet
     Log.create!(:message => msg)
   end
+
+  def to_s
+    "#{self.created_at.strftime("%d %h, %H:%M:%S")}: #{self.message}"
+  end
 end
