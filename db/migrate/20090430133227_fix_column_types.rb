@@ -8,5 +8,10 @@ class FixColumnTypes < ActiveRecord::Migration
   end
 
   def self.down
+    change_column :version, :description, :string
+    change_column :version, :license, :string
+    change_column :version, :depends, :string
+    change_column :version, :suggests, :string
+    change_column :version, :author, :string
   end
 end
