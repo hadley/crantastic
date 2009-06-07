@@ -29,7 +29,7 @@ module CRAN
     def initialize(location)
       @packages = []
       Dcf.parse(Zlib::GzipReader.new(open(location)).read).each do |pkg|
-        @packages << Package.new(pkg["Package"], pkg["Version"])
+        @packages << CRAN::Package.new(pkg["Package"], pkg["Version"])
       end
     end
 
