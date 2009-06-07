@@ -9,11 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090605223154) do
+ActiveRecord::Schema.define(:version => 20090607204608) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
     t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "log", :force => true do |t|
+    t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
