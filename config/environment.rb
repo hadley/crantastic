@@ -1,3 +1,7 @@
+# UTF-8
+$KCODE = 'u'
+require 'jcode'
+
 # Load some files from lib/ which aren't picked up by const_missing
 require "lib/core_extensions"
 require "lib/rfc822"
