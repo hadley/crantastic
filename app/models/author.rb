@@ -36,7 +36,7 @@ class Author < ActiveRecord::Base
   def Author.new_from_string(string)
     return Author.find_or_create_by_name("Unknown") if string.blank?
 
-    name, email = string.split(/[<>]/).map(&:strip)
+    name, email = string.mb_chars.split(/[<>]/).map(&:strip)
     if name =~ /@/
       email = name
       name = nil

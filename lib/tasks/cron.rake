@@ -51,10 +51,13 @@ def add_version_to_db(pkg)
   # No standard for what the changelog file should be called so we try a bunch
   data[:changelog] = read_from_files(pkgdir, %w(CHANGELOG ChangeLog Changes)).values.first
 
+  data.merge!(pkg.to_hash)
+
+  # We must convert every value to UTF-8
+  data = data.inject({}) { |b, (k,v)| b[k] = v.latin1_to_utf8 if v; b }
+
   # Find or create maintainer
   data[:maintainer] = Author.new_from_string(data[:maintainer])
-
-  data.merge!(pkg.to_hash)
 
   Package.find_by_name(pkg.name).versions << Version.create!(data)
   FileUtils.rm_rf(pkgdir)

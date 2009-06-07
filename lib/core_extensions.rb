@@ -13,3 +13,9 @@ class Hash
     end
   end
 end
+
+class String
+  def latin1_to_utf8
+    Iconv.conv("UTF-8", "ISO-8859-1", self) rescue self
+  end
+end
