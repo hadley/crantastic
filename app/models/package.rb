@@ -12,10 +12,10 @@ class Package < ActiveRecord::Base
   include NoFuzz
   fuzzy :name
 
-  has_many :versions, :order => "id DESC"
-  has_many :package_ratings
-  has_many :reviews
-  has_many :taggings
+  has_many :versions, :order => "id DESC", :dependent => :destroy
+  has_many :package_ratings, :dependent => :destroy
+  has_many :reviews, :dependent => :destroy
+  has_many :taggings, :dependent => :destroy
 
   default_scope :order => "LOWER(package.name)"
   # Used for the Package atom-feed:
