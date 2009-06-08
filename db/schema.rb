@@ -60,10 +60,10 @@ ActiveRecord::Schema.define(:version => 20090608185426) do
   end
 
   create_table "tag", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                           :null => false
     t.string   "full_name"
     t.text     "description"
-    t.boolean  "task_view"
+    t.boolean  "task_view",   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
