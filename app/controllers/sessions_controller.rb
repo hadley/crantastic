@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   def new
   end
 
-  # Login via RPX.
+  # Login or signup via RPX.
   # user_data returns e.g.
   # {:name=>'John Doe', :username => 'john', :email=>'john@doe.com',
   #  :identifier=>'blug.google.com/openid/dsdfsdfs3f3'}
@@ -21,13 +21,27 @@ class SessionsController < ApplicationController
     if data[:id] # User is already mapped to a primary key in our db
       self.current_user = User.find(data[:id])
     else
-      self.current_user = User.find_by_email(data[:email]) ||
-                          User.create!(:email => data[:email], :login => data[:username])
+      user = User.find_by_email(data[:email])
 
-      self.current_user.add_identifier(data[:identifier])
+      # If the user wasn't already registered:
+      if user.nil?
+        user = User.new(:email => data[:email], :login => data[:username])
+        if user.valid?
+          user.save!
+        else
+          # Maybe not the most elegant way to do it, but it works for now
+          user.login = ActiveSupport::SecureRandom.hex(5)
+          user.save!
+          flash[:notice] = "Your preferred username was not available. You have been
+                            assigned a random username instead -- you can change it to
+                            something else by editing your details."
+        end
+      end
+      self.current_user = user
+      self.current_user.add_identifier(data[:identifier]) # Add PK mapping
     end
 
-    flash[:notice] = "Logged in successfully"
+    flash[:notice] = "Logged in successfully" unless flash[:notice]
     redirect_to user_url(self.current_user)
   end
 
