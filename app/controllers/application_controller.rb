@@ -15,7 +15,8 @@ class ApplicationController < ActionController::Base
     rescue_action_in_public ActionController::UnknownAction.new
   end
 
-  def rescue_action_in_public(exception)
+  # Custom error processing after Hoptoad has been notified
+  def rescue_action_in_public_without_hoptoad(exception)
     case exception
     when ::ActionController::UnknownAction, ::ActiveRecord::RecordNotFound then
       render :template => "static/error_404", :status => 404
