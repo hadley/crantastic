@@ -2,8 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Tag do
 
-  should_allow_values_for :name, "Machine Learning", "AI", "NLP", :allow_nil => false
-  should_not_allow_values_for :name, "", " AI", "asdf  ", :allow_nil => false
+  should_allow_values_for :name, "Machine Learning", "Point-and-click",
+                                 "AI", "NLP", :allow_nil => false
+  should_not_allow_values_for :name, "", " AI", "asdf ", "sdf<h1>f", :allow_nil => false
   should_validate_length_of :name, :minimum => 2, :maximum => 100
 
   before(:each) do

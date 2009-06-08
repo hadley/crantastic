@@ -7,7 +7,7 @@ class Tag < ActiveRecord::Base
 
   validates_presence_of :name
   validates_uniqueness_of :name
-  validates_format_of :name, :with => /^[A-Za-z][a-zA-Z\d ]*[A-Za-z\d]$/
+  validates_format_of :name, :with => /^[A-Za-z\-][a-zA-Z\-\d ]*[A-Za-z\d]$/
   validates_length_of :name, :in => 2..100
 
   # LIKE is used for cross-database case-insensitivity
