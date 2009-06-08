@@ -32,8 +32,11 @@ class Tag < ActiveRecord::Base
     name.tr(" ", "-")
   end
 
+  # Returns the number of packages tagged with this tag.
   # NOTE: this could be cached later on
+  #
+  # @return [Fixnum]
   def count
-    Tagging.count(:tag_id, :conditions => "tag_id = #{self.id}")
+    Tagging.count(:package_id, :conditions => "tag_id = #{self.id}")
   end
 end
