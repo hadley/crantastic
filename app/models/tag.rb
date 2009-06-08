@@ -11,6 +11,7 @@ class Tag < ActiveRecord::Base
   validates_length_of :name, :in => 2..100
 
   # LIKE is used for cross-database case-insensitivity
+  # (borrowed from acts_as_taggable_on)
   def self.find_or_create_with_like_by_name(name)
     find(:first, :conditions => ["name LIKE ?", name]) || create(:name => name)
   end
@@ -19,8 +20,8 @@ class Tag < ActiveRecord::Base
     self.find_by_name(id.tr("-", " ")) or raise ActiveRecord::RecordNotFound
   end
 
-  def ==(object)
-    super || (object.is_a?(Tag) && name == object.name)
+  def ==(other)
+    other.is_a?(Tag) && other.name == self.name
   end
 
   def to_s

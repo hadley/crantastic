@@ -13,10 +13,23 @@ describe Tag do
       :description => "value for description",
       :task_view => false
     }
+
+    @tag = Tag.new
   end
 
   it "should create a new instance given valid attributes" do
     Tag.create!(@valid_attributes)
+  end
+
+  it "should equal a tag with the same name" do
+    @tag.name = "awesome"
+    new_tag = Tag.new(:name => "awesome")
+    new_tag.should == @tag
+  end
+
+  it "should return its name when to_s is called" do
+    @tag.name = "cool"
+    @tag.to_s.should == "cool"
   end
 
 end
