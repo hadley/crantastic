@@ -17,12 +17,17 @@ class ApplicationController < ActionController::Base
 
   def rescue_action_in_public(exception)
     case exception
-    when ::ActionController::UnknownAction then
+    when ::ActionController::UnknownAction, ::ActiveRecord::RecordNotFound then
       render :template => "static/error_404", :status => 404
     else
       @message = exception
       render :template => "static/error_500", :status => 500
     end
+  end
+
+  # Force local request to make sure rescue_action_in_public is triggered
+  def local_request?
+    false
   end
 
 end
