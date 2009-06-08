@@ -1,7 +1,7 @@
 class CreateLogs < ActiveRecord::Migration
   def self.up
     create_table :log do |t|
-      t.string :message
+      t.string :message, :null => false
 
       t.timestamps
     end

@@ -13,12 +13,16 @@
 class Tagging < ActiveRecord::Base
   belongs_to :user
   belongs_to :package
+  belongs_to :tag
 
-  # TODO: this regexp needs to cover more cases
-  validates_format_of :tag, :with => /^[^ ].*[a-zA-Z0-9]$/
-  validates_length_of :tag, :minimum => 2
+  validates_existence_of :package_id
+  validates_existence_of :user_id
+  validates_existence_of :tag_id
 
-  def self.tags
-    connection.execute "SELECT DISTINCT tag, count(*) as count FROM tagging GROUP BY tag"
+  # Calculates the total number of packages that has been tagged.
+  #
+  # @return [Fixnum]
+  def self.package_count
+    Tagging.count("DISTINCT(package_id)")
   end
 end

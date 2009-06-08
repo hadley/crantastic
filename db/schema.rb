@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090607204608) do
+ActiveRecord::Schema.define(:version => 20090608185426) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -59,13 +59,24 @@ ActiveRecord::Schema.define(:version => 20090607204608) do
     t.datetime "updated_at"
   end
 
-  create_table "tagging", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "package_id"
-    t.string   "tag"
+  create_table "tag", :force => true do |t|
+    t.string   "name"
+    t.string   "full_name"
+    t.text     "description"
+    t.boolean  "task_view"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tagging", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "package_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "tag_id"
+  end
+
+  add_index "tagging", ["user_id", "package_id", "tag_id"], :name => "index_tagging_on_user_id_and_package_id_and_tag_id"
 
   create_table "user", :force => true do |t|
     t.string   "login"

@@ -36,14 +36,14 @@ class PackagesController < ApplicationController
       return
     end
 
-    @package = Package.find_by_name(id.gsub("-", "."))
+    @package = Package.find_by_param(id)
     @version = @package.latest
 
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @package }
     end
-  rescue
+  rescue ActiveRecord::RecordNotFound
     rescue_404
   end
 

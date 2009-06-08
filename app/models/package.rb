@@ -26,6 +26,10 @@ class Package < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_length_of :name, :in => 2..255
 
+  def self.find_by_param(id)
+    self.find_by_name(id.gsub("-", ".")) or raise ActiveRecord::RecordNotFound
+  end
+
   ## No. of packages to show per page.
   def self.per_page; 50; end
 
@@ -64,6 +68,15 @@ class Package < ActiveRecord::Base
       end
     end
     @res
+  end
+
+  # Returns an array of Tag objects that this package has been tagged with.
+  #
+  # @return [Array]
+  def tags
+    Tag.find_by_sql("SELECT * FROM tag WHERE id IN
+                              (SELECT DISTINCT(tag_id) FROM tagging
+                                      WHERE package_id = #{self.id})") || []
   end
 
   # Rounded average rating for this package

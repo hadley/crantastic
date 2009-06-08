@@ -1,23 +1,15 @@
 class TagsController < ApplicationController
-  # GET /tag
-  # GET /tag.xml
-  def index
-    @tags = Tagging.tags
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @tag }
-    end
+  resource_controller
+
+  actions :index, :show
+
+  show.failure.wants.html { rescue_404 }
+
+  private
+  def object
+    # Need to use =find_by_param= since we don't use numeric ids for tags.
+    Tag.find_by_param(params[:id])
   end
 
-  # GET /tag/1
-  # GET /tag/1.xml
-  def show
-    @taggings = Tagging.find_all_by_tag(params[:id], :include =>"package")
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @taggings }
-    end
-  end
 end

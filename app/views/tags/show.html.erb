@@ -1,8 +1,8 @@
-<% @title = params[:id] %>
-<h1><%= params[:id] %></h1>
+<% @title = @tag.name %>
+<h1><%= @title %></h1>
 
 <ul>
-<% for tagging in @taggings -%>
-  <li><%= link_to tagging.package.name, tagging.package %></li>
+<% for package in @tag.packages.uniq -%>
+  <li><%= link_to package.name, package %></li>
 <% end -%>
 </ul>
