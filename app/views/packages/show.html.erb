@@ -16,7 +16,12 @@
 
   <ul>
   <% for version in @package.versions[1..100] -%>
-    <li><%= link_to version.vname, [@package, version] %>.  Released <%= time_ago_in_words version.date rescue "" %> ago.</li>
+    <li>
+      <%= link_to version.vname, [@package, version] %>.
+      <% unless version.date.blank? -%>
+      Released <%= time_ago_in_words version.date %> ago.
+      <% end %>
+    </li>
   <% end -%>
   </ul>
 <% end %>
@@ -32,8 +37,11 @@
 <% end %>
   &nbsp; <%= @package.average_rating %>/5
   (<%= pluralize(@package.package_ratings.size.to_s, " vote") %>)
+
 <% if logged_in? && r = current_user.rating_for(@package) %>
-<span style='color:red;font-style:italic'>You voted <%= r.rating %></span> <% end %>
+  <span style='color:red;font-style:italic'>You voted <%= r.rating %></span>
+<% end %>
+
 <%= clear_div -%>
 
 <h2>Reviews</h2>
