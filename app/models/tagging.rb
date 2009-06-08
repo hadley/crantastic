@@ -19,6 +19,9 @@ class Tagging < ActiveRecord::Base
   validates_existence_of :user_id
   validates_existence_of :tag_id
 
+  # Users shouldn't be able to tag a package multiple times with the same tag.
+  validates_uniqueness_of :tag_id, :scope => :user_id
+
   # Calculates the total number of packages that has been tagged.
   #
   # @return [Fixnum]
