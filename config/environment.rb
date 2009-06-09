@@ -38,13 +38,13 @@ Rails::Initializer.run do |config|
   config.gem 'haml-edge', :lib => "haml"
   config.gem "sqlite3-ruby", :lib => "sqlite3"
   config.gem 'gravtastic', :version => '>= 2.1.0'
-  config.gem 'chriseppstein-compass', :version => '>= 0.6.15', :lib => 'compass', :source => 'http://gems.github.com'
   config.gem 'grosser-rpx_now', :lib => 'rpx_now', :source => 'http://gems.github.com'
   config.gem 'mislav-will_paginate', :lib => "will_paginate", :source => 'http://gems.github.com'
   config.gem 'markbates-hoptoad_notifier', :lib => "hoptoad_notifier", :source => "http://gems.github.com"
   config.gem "giraffesoft-resource_controller", :lib => "resource_controller", :source => "http://gems.github.com"
 
   # Required, but do not attempt to load. Only needed during tests and/or rake tasks.
+  config.gem 'chriseppstein-compass', :version => '>= 0.6.15', :lib => false, :source => 'http://gems.github.com'
   config.gem "thoughtbot-factory_girl", :lib => false, :source => "http://gems.github.com"
   config.gem "remarkable_rails", :lib => false
   config.gem 'treetop', :lib => false
