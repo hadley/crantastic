@@ -1,6 +1,6 @@
 <% @title = "Version " + @version.version + " of the" + @package.name + " package" %>
 
 
-<h1><%= h @package.name %> <span class="version">(<%= @version.version%>)</span></h1>
+<h1><%= link_to h(@package.name), package_url(@package) %> <span class="version">(<%= @version.version%>)</span></h1>
 
 <%= render :partial => "versions/description" , :locals => { :version => @version }%>
