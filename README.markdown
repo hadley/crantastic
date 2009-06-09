@@ -17,12 +17,7 @@ is usued for documentation, whenever it feels necessary.
 
 ## Development dependencies
 
-To keep the size of the Heroku slug at a reasonable size, some dependencies that
-only are required in development have not been added to `environment.rb`. This
-means that if you want to run the app locally you should install the following gems:
-
-- chriseppstein-compass
-- remarkable_rails
+Run `sudo rake gems:install` to install all gem dependencies.
 
 Note that you should only add/edit stylesheets in the `app/stylesheets` folder.
 `public/stylesheets` should only contain compiled Sass styhesleets.
