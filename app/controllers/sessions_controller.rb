@@ -22,7 +22,9 @@ class SessionsController < ApplicationController
     if data[:id] # User is already mapped to a primary key in our db
       self.current_user = User.find(data[:id])
     else
-      user = User.find_by_email(data[:email])
+      # Dont find by email if the provided email was blank (which is the case
+      # with logins from e.g. Twitter)
+      user = (data[:email].blank?) ? nil : User.find_by_email(data[:email])
 
       # If the user wasn't already registered:
       if user.nil?
