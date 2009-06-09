@@ -2,12 +2,15 @@
 
 #sudo gem install archive-tar-minitar
 # http://libarchive.rubyforge.org/ would be better - check if it works on Heroku
-require "archive/tar/minitar"
-require "fileutils"
-require "yaml"
-require "zlib"
-require "open-uri"
-require "dcf"
+begin
+  require "archive/tar/minitar"
+  require "fileutils"
+  require "yaml"
+  require "zlib"
+  require "open-uri"
+  require "dcf"
+rescue LoadError
+end
 
 module Cron
 
