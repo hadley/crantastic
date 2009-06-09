@@ -1,24 +1,20 @@
 class VersionsController < ApplicationController
-  # GET /version
-  # GET /version.xml
-  def index
-    @versions = Version.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @versions }
-    end
+  resource_controller
+
+  actions :index, :show
+
+  belongs_to :package
+
+  # We don't currently have an index page for Versions, so simply do a 404.
+  index.wants.html { rescue_404 }
+
+  show.failure.wants.html { rescue_404 }
+
+  private
+  def parent_object
+    # Find the parent package object with the param instead of numeric id
+    Package.find_by_param(params[:package_id])
   end
 
-  # GET /version/1
-  # GET /version/1.xml
-  def show
-    @version = Version.find(params[:id])
-    @package = Package.find_by_name(params[:package_id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @version }
-    end
-  end
 end
