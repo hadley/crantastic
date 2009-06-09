@@ -5,9 +5,11 @@
   <p>Crantastic users have tagged <%= pluralize Tagging.package_count,
      "packages" %> with the following tags:</p>
 
-  <ul>
-  <% for tag in @tags -%>
-    <li><%= link_to tag, tag_url(tag) %> (<%= tag.count %>)</li>
-  <% end -%>
+  <ul id="tag-cloud">
+    <% tag_cloud(@tags, (1..5).collect { |i| "level-#{i}" }) do |tag,level| -%>
+      <li class="<%= level %>">
+        <%= link_to h(tag), tag_url(tag) %> (<%= tag.count %>)
+      </li>
+    <% end -%>
   </ul>
 </div>
