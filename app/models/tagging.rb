@@ -1,13 +1,14 @@
 # == Schema Information
+# Schema version: 20090608185426
 #
 # Table name: tagging
 #
 #  id         :integer         not null, primary key
 #  user_id    :integer
 #  package_id :integer
-#  tag        :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  tag_id     :integer
 #
 
 class Tagging < ActiveRecord::Base

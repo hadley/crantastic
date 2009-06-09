@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20090608185426
+#
+# Table name: tag
+#
+#  id          :integer         not null, primary key
+#  name        :string(255)     not null
+#  full_name   :string(255)
+#  description :text
+#  task_view   :boolean
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class Tag < ActiveRecord::Base
   default_scope :order => "name ASC"
 
