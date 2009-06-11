@@ -7,7 +7,11 @@
   <p>There are <%= Package.count %> packages listed on crantastic.</p>
   <p>Want to view all packages in one page? <%= link_to "Click here", all_packages_url -%></p>
 
-  <span>Search Package by Name: <input id="search" name="search" type="text" /><br /><br />
+  <span>Search Package by Name:
+  <form action="/packages" method="get">
+    <input id="search" name="search" type="text" />
+  </form>
+  <br /><br />
      You can use the tilde character (~) at the end of your query to activate
      fuzzy matching.</span>
   <%= image_tag("spinner.gif",
