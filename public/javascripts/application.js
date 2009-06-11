@@ -1,3 +1,20 @@
+$(document).ready(function() {
+        // Try to focus first text input
+        $('input[@type=text]:first').focus();
+
+      $('div.pagination a').livequery('click', function() {
+          $('#packages_list').load(this.href);
+          return false;
+      });
+
+      $('input#package-search').delayedObserver(function(value, object) {
+              $("#packages_list").load('/packages',
+                                       { search: escape($(this).val())
+              });
+              $('#spinner').hide();
+          }, 0.5);
+    });
+
 jQuery(function(){
         jQuery('.starselect').rating({
                 callback: function(value, link){
@@ -5,20 +22,6 @@ jQuery(function(){
                 }
             });
         jQuery('div.rating-cancel').remove();
-    });
-
-$(document).ready(function() {
-      $('div.pagination a').livequery('click', function() {
-          $('#packages_list').load(this.href);
-          return false;
-      });
-
-      $('input#search').delayedObserver(function(value, object) {
-              $("#packages_list").load('/packages',
-                                       { search: escape($("input#search").val())
-              });
-              $('#spinner').hide();
-          }, 0.5);
     });
 
 $(document).ajaxSend(function(event, request, settings) {
