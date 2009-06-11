@@ -19,14 +19,6 @@
                 :style =>"display: none;" )
   -%>
 
-  <%= observe_field 'search', :frequency => 2,
-    :update => 'packages_list',
-    :before => "Element.show('spinner')",
-    :success => "Element.hide('spinner')",
-    :url => {:controller => 'packages', :action => 'index'},
-    :with => "'search='+escape(value)"
-  -%>
-
   <br /><br/>
   <div id="packages_list">
     <%= render :partial => "packages/list" -%>

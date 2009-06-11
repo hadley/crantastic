@@ -1,12 +1,9 @@
 Total packages in this search: <%= @packages.total_entries -%>
 
-<% pagination_links = capture do %> 
+<% pagination_links = capture do %>
   <div class="float-r">
     <% @search_term ||= ''-%>
-    <%= will_paginate @packages,
-      :renderer => "RemoteLinkRenderer",
-      :remote => {:with => "'search=' + escape('#{@search_term}')", :update => 'packages_list'}
-    %>
+    <%= will_paginate @packages %>
   </div>
   <%= clear_div -%>
 <% end -%>
