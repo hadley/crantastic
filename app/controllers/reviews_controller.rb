@@ -17,7 +17,12 @@ class ReviewsController < ApplicationController
   end
 
   def parent_object
-    Package.find_by_name(params[:package_id]) # No numeric ids for packages
+    return nil if params[:package_id].blank?
+    if params[:package_id].to_i == 0
+      Package.find_by_param(params[:package_id])
+    else
+      Package.find(params[:package_id])
+    end
   end
 
   def authorized?
