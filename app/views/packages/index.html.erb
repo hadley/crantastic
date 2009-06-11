@@ -7,19 +7,23 @@
   <p>There are <%= Package.count %> packages listed on crantastic.</p>
   <p>Want to view all packages in one page? <%= link_to "Click here", all_packages_url -%></p>
 
-  <span>Search Package by Name:
-  <form action="/packages" method="get">
+  <p>
+<span class="float-l" style="margin-right: 5px;">Search Package by Name:</span>
+
+  <form action="/packages" method="get" class="float-l">
     <input id="search" name="search" type="text" />
   </form>
-  <br /><br />
-     You can use the tilde character (~) at the end of your query to activate
-     fuzzy matching.</span>
-  <%= image_tag("spinner.gif",
-                :id => "spinner",
-                :style =>"display: none;" )
-  -%>
+    <%= image_tag("spinner.gif",
+                  :id => "spinner",
+                  :class => 'float-l',
+                  :style => "margin-left: 5px; display: none;") -%>
+  </p>
+  <%= clear_div %>
+  <br />
 
-  <br /><br/>
+     <p>You can use the tilde character (~) at the end of your query to activate
+     fuzzy matching.</p>
+
   <div id="packages_list">
     <%= render :partial => "packages/list" -%>
   </div>

@@ -2,8 +2,10 @@ class PackagesController < ApplicationController
 
   def index
     page_no = params[:page] || 1
-    @search_term = String(params[:search])
-    @packages = Package.paginating_search(@search_term, page_no)
+    @search_term = String(params[:search]) || ''
+    @search_result = Package.paginating_search(@search_term, page_no)
+    @packages = @search_result.first
+
     respond_to do |format|
       format.html {}
       format.js do

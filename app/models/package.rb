@@ -42,29 +42,28 @@ class Package < ActiveRecord::Base
       # by using paginate's :finder argument and creating a new method that
       # calls out to fuzzy_find.
       ids = Package.fuzzy_find(q[0...-1]).collect { |i| i.id }
-      paginate ids,
-               :include => {:versions => :maintainer},
-               :page => search_results_page
+      [paginate(ids,
+               {:include => {:versions => :maintainer},
+               :page => search_results_page}), "fuzzy"]
     else
-      q = '%' + q + '%'
-
-      paginate :conditions => [ 'LOWER(package.name) LIKE ?', q],
-               :include => {:versions => :maintainer},
-               :page => search_results_page
+      res = paginate({ :conditions => [ 'LOWER(package.name) LIKE ?', '%' + q + '%'],
+                       :include => {:versions => :maintainer},
+                       :page => search_results_page })
+      res.empty? ? self.paginating_search(q + '~', search_results_page) : [res]
     end
   end
 
-  def self.search(q, limit=50)
+  def self.search(q, limit=self.per_page)
     if q.ends_with? '~' # fuzzy search
-      @res = Package.fuzzy_find(q[0...-1], limit)
+      @res = [Package.fuzzy_find(q[0...-1], limit), "fuzzy"]
     else
-      q = '%' + q + '%'
-      @res = Package.all(:conditions =>
-                         ['LOWER(package.name) LIKE ? OR LOWER(version.description) LIKE ?', q, q],
-                         :limit => limit, :include => :versions)
-      if @res.empty?
+      qq = '%' + q + '%'
+      @res = [Package.all(:conditions =>
+                          ['LOWER(package.name) LIKE ? OR LOWER(version.description) LIKE ?', qq, qq],
+                          :limit => limit, :include => :versions)]
+      if @res.first.empty?
         # Try a fuzzy search if no results were found
-        @res = Package.fuzzy_find(q, limit)
+        @res = [Package.fuzzy_find(q, limit), "fuzzy"]
       end
     end
     @res
