@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
   # When no user_data was found (invalid token supplied), data is empty.
   def rpx_token
     data = RPXNow.user_data(params[:token], ENV['RPX_API_KEY'])
-    p data
 
     if data.blank? # Login failed
       flash[:notice] = "Error"
@@ -40,12 +39,12 @@ class SessionsController < ApplicationController
                             something else by editing your details."
         end
       end
+      user.add_identifier(data[:identifier]) # Add PK mapping
       self.current_user = user
-      self.current_user.add_identifier(data[:identifier]) # Add PK mapping
     end
 
     flash[:notice] = "Logged in successfully" unless flash[:notice]
-    redirect_to user_url(self.current_user)
+    redirect_to session[:return_to] || user_url(self.current_user)
   end
 
   def create
@@ -53,7 +52,10 @@ class SessionsController < ApplicationController
     if logged_in?
       if params[:remember_me] == "1"
         self.current_user.remember_me
-        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+        cookies[:auth_token] = {
+          :value => self.current_user.remember_token,
+          :expires => self.current_user.remember_token_expires_at
+        }
       end
       redirect_to request.referer
       flash[:notice] = "Logged in successfully"
