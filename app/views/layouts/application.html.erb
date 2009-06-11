@@ -4,14 +4,14 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= "#{@title}. " unless @title.blank? %><%= @plural.nil? ? "It's" : "They're" %> crantastic!</title>
-  <%= stylesheet_link_tag 'http://yui.yahooapis.com/2.4.0/build/reset-fonts-grids/reset-fonts-grids.css', :media => "all" %>
-  <%= stylesheet_link_tag 'screen', :media => "screen, projection" %>
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+  <%= stylesheet_link_tag 'application', :media => "screen, projection" %>
+  <%= stylesheet_link_tag 'jquery.rating', :media => "screen, projection" %>
+  <%= stylesheet_link_tag 'print', :media => "print" %>
   <!--[if IE]>
       <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <![endif]-->
-  <%= stylesheet_link_tag 'style', :media => "all" %>
-  <%= stylesheet_link_tag 'jquery.rating', :media => "screen, projection" %>
+
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" -%>
   <%= javascript_include_tag 'jquery.MetaData', 'jquery.rating.pack', 'jquery.validate.pack' -%>
   <%= javascript_include_tag :defaults -%>
@@ -20,21 +20,17 @@
 </head>
 <body>
 
-<div id="doc" class="yui-t6">
-<div id="bd">
+<div class="container">
 
-<div id="yui-main"><div class="yui-b"><div class="wrap">
+  <div id="main" class="span-13">
+    <% unless flash[:notice].blank? %>
+      <div class="flash"><%= flash[:notice] %></div>
+    <% end -%>
 
-  <% unless flash[:notice].blank? %>
-  <div class="flash"><%= flash[:notice] %></div>
-  <% end -%>
+    <%= yield  %>
+  </div>
 
-  <%= yield  %>
-
-
-</div></div></div>
-<div class="yui-b">
-  <div id="sidebar">
+  <div id="sidebar" class="span-7 last">
   <h1 class="title"><a href="/">crantastic!</a></h1>
 
   <div class="box">
@@ -66,11 +62,11 @@
       <%= submit_tag 'Log in' %>&nbsp; or
       &nbsp;<%= link_to "Sign up!", signup_path%></p>
     <% end -%>
-  <% end -%>
   </div>
+  <% end -%>
+</div>
 
-</div></div>
-<div id="ft">
+<div id="footer" class="span-20">
   <p>Brought to you by <a href="http://had.co.nz">Hadley Wickham</a>
   and <a href="http://chrononaut.net/">Bj&oslash;rn M&aelig;land</a>.
   Like it? Hate it? Let me know at

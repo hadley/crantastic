@@ -1,3 +1,10 @@
+@import base.sass
+
++blueprint
+// Remove the scaffolding when you're ready to start doing visual design.
+// Or leave it in if you're happy with how blueprint looks out-of-the-box
++blueprint-scaffolding
+
 h1.title
   :background-color #FD3933
   :color #fff
@@ -14,44 +21,30 @@ h1.title
     &:hover
       :text-decoration underline
 
-
 .box
   :background-color #CEFD9B
   :padding 0.5em
   :margin-bottom 1em
-
-
-ul.tags a
-  &:link, &:visited
-    :background-color #fff
-    :padding 4px
-    :color #333
-    :font-weight bold
-    :text-decoration none
-
-
-.box a
-  &:link, &:visited
-    :background-color #fff
-    :padding 4px
-    :color #333
-    :font-weight bold
-    :text-decoration none
-
+  a
+    &:link, &:visited
+      :background-color #fff
+      :padding 4px
+      :color #333
+      :font-weight bold
+      :text-decoration none
+    &:hover
+      :text-decoration underline
 
 ul.tags a
   &:link, &:visited
     :background-color #CEFD9B
+    :padding 4px
     :color #333
-
-
-.box a:hover
-  :text-decoration underline
-
+    :font-weight bold
+    :text-decoration none
 
 ul.tags, .box ul
   :margin 0.25em 0.2em
-
 
 ul.tags li, .box ul li
   :list-style none
@@ -82,12 +75,6 @@ h1
   .version, .byline
     :font-size 30%
 
-
-hr
-  :border-top none
-  :border-bottom 1px solid #ccc
-
-
 a
   &:link
     :color #FD3933
@@ -103,8 +90,7 @@ p.rating
   :text-align right
 
 
-.wrap
-  :margin-right 2em
+#main
   :margin-top 9.5em
 
   h1
@@ -114,7 +100,7 @@ p.rating
       &:hover
         :text-decoration underline
 
-#ft
+#footer
   :padding-top 10em
 
   p
@@ -127,21 +113,6 @@ p.rating
   :background-color #CEFD9B
   :padding 0.5em
   :margin-bottom 1em
-
-
-input
-  :border #ccc 2px solid
-  :padding 2px
-
-
-textarea
-  :border #ccc 2px solid
-  :padding 2px
-  :width 100%
-
-
-.fieldWithErrors input
-  :border-color #FD3933
 
 
 span.error
@@ -180,29 +151,6 @@ table.general
     &.even
       :background-color #F0F1F7
 
-
-.float-r
-  :float right
-
-
-.float-l
-  :float left
-
-
-.clear
-  :clear both
-
-
-.fieldWithErrors
-  :display inline
-
-  input, select
-    :background-color #ffdfdf
-
-  .error
-    :display none
-
-
 .errorExplanation
   :padding 2px
   :border 1px solid red
@@ -240,3 +188,6 @@ ul#tag-cloud
     :font-size 1.6em
   .level-5
     :font-size 1.8em
+
+@import form
+@import jquery.rating
