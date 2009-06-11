@@ -97,6 +97,8 @@ module CRAN
 
       Package.find_by_name(pkg.name).versions << Version.create!(data)
       FileUtils.rm_rf(pkgdir)
+    rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError
+      Log.log! "Problem downloading #{pkg}, skipping to next pkg"
     end
 
     def read_from_files(pkgdir, files)
