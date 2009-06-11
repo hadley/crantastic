@@ -1,11 +1,23 @@
+!base_size = 1.0em
+
 !blueprint_grid_columns = 20
 !blueprint_grid_width = 30px
 !blueprint_grid_margin = 10px
 
-!font_color           = #333
+// Colors
+!white = #FFFFFF
+!red = #FD3933
+!pink = #F7807B
+!green = #CEFD9B
+
+// Blueprint Colors
+// http://wiki.github.com/chriseppstein/compass/blueprint-documentation-colors-module
+!font_color = #333
+!link_color = !red
+!link_hover_color = !red - #222
+!link_visited_color = !pink
 
 @import compass/reset.sass
 @import compass/utilities.sass
-//@import blueprint.sass
 @import blueprint/screen.sass
 @import blueprint/modules/scaffolding.sass

@@ -22,7 +22,7 @@
 
 <div class="container">
 
-  <div id="main" class="span-13">
+  <div id="main">
     <% unless flash[:notice].blank? %>
       <div class="flash"><%= flash[:notice] %></div>
     <% end -%>
@@ -30,13 +30,12 @@
     <%= yield  %>
   </div>
 
-  <div id="sidebar" class="span-7 last">
+  <div id="sidebar">
   <h1 class="title"><a href="/">crantastic!</a></h1>
 
   <div class="box">
     <ul>
       <li><%= link_to "Packages", packages_path %></li>
-      <!-- <li><%= link_to "Users", users_path %></li> -->
       <li><%= link_to "Authors", authors_path %></li>
       <li><%= link_to "Reviews", reviews_path %></li>
       <li><%= link_to "Tags", tags_path %></li>
@@ -66,7 +65,7 @@
   <% end -%>
 </div>
 
-<div id="footer" class="span-20">
+<div id="footer">
   <p>Brought to you by <a href="http://had.co.nz">Hadley Wickham</a>
   and <a href="http://chrononaut.net/">Bj&oslash;rn M&aelig;land</a>.
   Like it? Hate it? Let me know at
