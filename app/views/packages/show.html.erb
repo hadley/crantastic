@@ -26,7 +26,6 @@
   </ul>
 <% end %>
 
-
 <h2>Rating:</h2>
 <% if logged_in? %>
   <% form_tag package_ratings_path(@package) do -%>
@@ -47,7 +46,7 @@
 <h2>Reviews</h2>
 
 <% if @package.reviews.length == 0 %>
-  <p>No one has written a review of <%= @package.name %> yet.  Want to be the first? <%= link_to "Write one now.", new_review_path(:package_id => @package.id) %></p>
+  <p>No one has written a review of <%= @package.name %> yet.  Want to be the first? <%= link_to "Write one now.", new_package_review_path(@package) %></p>
 <% else -%>
   <ul>
   <% for review in @package.reviews %>
@@ -58,7 +57,7 @@
     </li>
   <% end %>
 </ul>
-  <div class="float-r"><%= link_to "Write a review", new_review_path(:package_id => @package.id) %></div>
+  <div class="float-r"><%= link_to "Write a review", new_package_review_path(@package) %></div>
   <%= clear_div -%>
 <% end -%>
 
