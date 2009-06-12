@@ -4,3 +4,7 @@ Factory.define :user do |u|
   u.password 'test'
   u.password_confirmation 'test'
 end
+
+Factory.define :package do |pkg|
+  pkg.name "TestPkg"
+end
