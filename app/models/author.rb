@@ -19,6 +19,7 @@ class Author < ActiveRecord::Base
   validates_uniqueness_of :email, :scope => :name,
                                   :case_sensitive => false, :allow_nil => true
   validates_length_of :name, :in => 2..255
+  validates_length_of :email, :in => 0..255
 
   def self.find_or_create(name = nil, email = nil)
     author = Author.find_by_email(email) || Author.find_by_name(name)
