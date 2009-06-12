@@ -10,6 +10,10 @@
 
 <ul>
 <% for review in @reviews %>
-  <li><%= link_to review.user.login, review.user  %> gave <%= link_to review.package.name, review.package %> a <%=h review.rating %>, and says "<%= link_to truncate(review.description, 50), review %>"</li>
+  <li><%= link_to review.user.login, review.user  %> gave
+    <%= link_to review.package.name, review.package %>
+    a <%=h review.rating %>, and says
+    "<%= link_to truncate(review.description, :length => 50), review %>"
+  </li>
 <% end %>
 </ul>
