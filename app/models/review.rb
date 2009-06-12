@@ -25,7 +25,8 @@ class Review < ActiveRecord::Base
   validates_presence_of :package_id
   validates_presence_of :user_id
   validates_numericality_of :rating, :greater_than => 0, :less_than => 6
-  validates_length_of :title, :minimum => 3, :message => "(Brief Summary) is too short(minimum is 3 characters)"
+  validates_length_of :title, :within => 3..255,
+                      :message => "(Brief Summary) is too short (minimum is 3 characters)"
   validates_length_of :review, :minimum => 3
 
   def description
