@@ -6,7 +6,7 @@
      "packages" %> with the following tags:</p>
 
   <ul id="tag-cloud">
-    <% tag_cloud(@tags, %w(s l xl xxl)) do |tag,level| -%>
+    <% tag_cloud(@tags, %w(xs s l xl xxl)) do |tag,level| -%>
       <li class="<%= level %>">
         <%= link_to h(tag), tag_url(tag) %> (<%= tag.count %>)
       </li>

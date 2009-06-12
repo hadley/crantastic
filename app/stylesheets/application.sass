@@ -130,9 +130,12 @@ img.spinner
   :align absmiddle
 
 ul#tag-cloud
-  +tag-cloud(!base_size)
+  +tag-cloud(1.05em)
   li
-    :margin 4px
+    :margin 9px
+    a
+      &:hover
+        :background-color = !green
 
 ol
   li
