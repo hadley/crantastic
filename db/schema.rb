@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090608185426) do
+ActiveRecord::Schema.define(:version => 20090612152958) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20090608185426) do
   end
 
   create_table "log", :force => true do |t|
-    t.string   "message"
+    t.string   "message",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -102,13 +102,13 @@ ActiveRecord::Schema.define(:version => 20090608185426) do
     t.integer  "package_id"
     t.string   "name"
     t.string   "title"
-    t.text     "description"
-    t.text     "license"
+    t.text     "description",   :limit => 255
+    t.text     "license",       :limit => 255
     t.string   "version"
     t.string   "requires"
-    t.text     "depends"
-    t.text     "suggests"
-    t.text     "author"
+    t.text     "depends",       :limit => 255
+    t.text     "suggests",      :limit => 255
+    t.text     "author",        :limit => 255
     t.string   "url"
     t.date     "date"
     t.text     "readme"
