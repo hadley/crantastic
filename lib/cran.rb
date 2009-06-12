@@ -16,8 +16,9 @@ module CRAN
       { :name => name, :version => version }
     end
 
+    # Packages should be sorted alphabetically, ignoring case
     def <=>(other)
-      self.name <=> other.name
+      self.name.downcase <=> other.name.downcase
     end
   end
 
@@ -48,7 +49,7 @@ module CRAN
     def start(max=-1)
       Log.log!("Starting cron task: UpdatePackages")
       known_versions = Package.all
-      latest_versions = CRAN::Packages.new("http://cran.r-project.org/src/contrib/PACKAGES.gz")
+      latest_versions = CRAN::Packages.new("http://cran.r-project.org/src/contrib/PACKAGES.gz").sort
 
       i = 0
       latest_versions.each do |new|

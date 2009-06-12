@@ -1,4 +1,4 @@
-# This file will get executed once per hour.
+# The 'cron' task gets executed once per hour by Heroku.
 
 desc "Cron task, updates package versions"
 task :cron => :environment do
@@ -13,5 +13,13 @@ task :cron => :environment do
     Log.log! e.to_s
   rescue Exception => e
     Log.log! e.to_s
+  end
+end
+
+# A copy of the cron task, under the crantastic name space
+desc "Cron task, updates package versions"
+namespace :crantastic do
+  task :cron => :environment do
+    CRAN::UpdatePackages.new.start(10)
   end
 end
