@@ -15,9 +15,11 @@ developers/contributors.
 The [YARD](http://github.com/lsegal/yard/tree/master) meta-tag formatting format
 is usued for documentation, whenever it feels necessary.
 
-## Development dependencies
+## Dependencies
 
-Run `sudo rake gems:install` to install all gem dependencies.
+Run `rake gems:install` to install gem dependencies for the main site.
+Do `RAILS_ENV=test rake gems:install` to install the dependencies for the
+testing environment.
 
 Note that you should only add/edit stylesheets in the `app/stylesheets` folder.
 `public/stylesheets` should only contain compiled Sass styhesleets.
@@ -38,7 +40,4 @@ This will overwrite `db/development.sqlite3`.
 
 ## Updating packages from CRAN
 
-Add the following line to your crontab to automatically update crantastic ever
-four hours when CRAN is actively being updated.
-
-    18 5,9,13,17 * * *  hadley  cd /home/hadley/public/crantastic.org/lib/r && ./run-update.r
+`rake cron` or `rake update_all_packages`

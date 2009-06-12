@@ -9,7 +9,6 @@ markbates-hoptoad_notifier --source http://gems.github.com
 giraffesoft-resource_controller --source http://gems.github.com
 chriseppstein-compass --version ">= 0.6.15" --source http://gems.github.com
 thoughtbot-factory_girl --source http://gems.github.com
-remarkable_rails
 treetop
 archive-tar-minitar
 Chrononaut-treetop-dcf --version ">= 0.1.2" --source http://gems.github.com
