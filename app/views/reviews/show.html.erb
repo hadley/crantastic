@@ -1,7 +1,8 @@
-<h1>A review of <%= link_to @review.package.name, @review.package %> <span class="byline">by <%= link_to @review.user.login, @review.user  %></span></h1>
-
+<h1>A review of <%= link_to @review.package.name, @review.package %>
+<span class="byline">by <%= link_to @review.user.login, @review.user  %></span></h1>
 
 <p class="rating"><%=h @review.rating %></p>
+
 <p><strong><%=h @review.title %></strong></p>
 <%= textilize @review.review %>
 

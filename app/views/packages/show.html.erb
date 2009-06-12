@@ -42,7 +42,7 @@
 <% end %>
 
 <%= clear_div -%>
-
+<br />
 <h2>Reviews</h2>
 
 <% if @package.reviews.length == 0 %>
@@ -51,9 +51,14 @@
   <ul>
   <% for review in @package.reviews %>
     <li>
-      <p><strong><%=h review.title %></strong></p>
-      <p><%= textilize review.review %></p>
-      <p><%= link_to review.user.login, review.user  %> gave <%= link_to review.package.name, review.package %> a <%=h review.rating %>.</p>
+      <p><strong><%= h review.title %></strong></p>
+      <p><%= textilize(truncate(review.review, :length => 150)) %></p>
+      <p><%= link_to review.user.login, review.user  %> gave
+        <%= link_to review.package.name, review.package %> a
+        <%= h review.rating %>.
+
+        <%= link_to "Read the full review", review %>.
+      </p>
     </li>
   <% end %>
 </ul>
