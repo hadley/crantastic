@@ -3,7 +3,7 @@
 <% if @packages.empty? %>
 <p>Sorry, no results were found. Please try another search query.</p>
 <% else %>
-<ol>
+<ol id="search-results">
 <%= render :partial => "package", :collection => @packages %>
 </ol>
 <% end %>

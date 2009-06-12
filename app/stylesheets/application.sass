@@ -11,6 +11,10 @@
 .float-r
   +float("right")
 
+h1, h2
+  a
+    +hover-link
+
 h1.title
   :background-color = !red
   :padding-top 2em
@@ -19,9 +23,19 @@ h1.title
   :font-weight bold
 
   a
-    +hover-link
     &:link, &:visited
       :color = !white
+
+h1
+  :color = !red
+  :font-size 3em
+  :font-weight normal
+  :margin-top 0
+  :margin-bottom 10px
+  :border-bottom 2px solid #ddd
+
+  .version, .byline
+    :font-size 30%
 
 .box
   :background-color = !green
@@ -35,6 +49,9 @@ h1.title
       :color #333
       :font-weight bold
 
+.box ul
+  +horizontal-list
+
 ul.tags a
   &:link, &:visited
     :background-color = !green
@@ -47,11 +64,6 @@ ul.tags, .box ul
   :margin 0.25em 0.2em
 
 ul.tags li, .box ul li
-  :list-style none
-  :margin-top 1em
-  :display inline
-  :margin-right 0.4em
-  :margin-bottom 1em
   :line-height 2.5
 
 ul.tags
@@ -62,34 +74,21 @@ ul.tags
       :background-color = !white
       :border 1px solid #ccc
 
-h1
-  :color = !red
-  :font-size 3em
-  :font-weight normal
-  :margin-top 0
-  :margin-bottom 10px
-  :border-bottom 2px solid #ddd
-
-  .version, .byline
-    :font-size 30%
-
 p.rating
   :float right
   :width 1em
   :font-size 5em
   :text-align right
 
+#container
+  +container
+
 #main
   +column(13)
   :margin-top 9.5em
 
-  h1
-    a
-      +hover-link
-
 #sidebar
-  +column(7)
-  +last
+  +column(7, true)
 
 #footer
   +column(20)
