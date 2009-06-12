@@ -92,10 +92,17 @@ module CRAN
       # We must convert every value to UTF-8
       data = data.inject({}) { |b, (k,v)| b[k] = v.latin1_to_utf8 if v; b }
 
+      begin
+        data[:date] = Date.parse(data[:date])
+      rescue
+        data[:date] = nil
+      end
+
       # Find or create maintainer
       data[:maintainer] = Author.new_from_string(data[:maintainer])
 
-      Package.find_by_name(pkg.name).versions << Version.create!(data)
+      data[:package] = Package.find_by_name(pkg.name)
+      Version.create!(data)
       FileUtils.rm_rf(pkgdir)
     rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError
       Log.log! "Problem downloading #{pkg}, skipping to next pkg"
