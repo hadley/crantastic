@@ -25,15 +25,17 @@
 #  maintainer_id :integer
 #
 
+# TODO: consider removing the 'requires' field
 class Version < ActiveRecord::Base
   belongs_to :package
   belongs_to :maintainer, :class_name => "Author"
 
+  validates_existence_of :package_id
   validates_presence_of :version
-
-  # def to_param
-  #   version.gsub(".", "-")
-  # end
+  validates_length_of :name, :in => 2..255
+  validates_length_of :version, :in => 1..25
+  validates_length_of :title, :in => 0..255, :allow_nil => true
+  validates_length_of :url, :in => 0..255, :allow_nil => true
 
   def urls
     (url.split(",") rescue []) + [cran_url]
