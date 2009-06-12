@@ -38,10 +38,9 @@ Rails::Initializer.run do |config|
   config.gem 'markbates-hoptoad_notifier', :lib => "hoptoad_notifier", :source => "http://gems.github.com"
   config.gem "giraffesoft-resource_controller", :lib => "resource_controller", :source => "http://gems.github.com"
 
-  # Required, but do not attempt to load. Only needed during tests and/or rake tasks.
+  # Required, but do not attempt to load
   config.gem 'chriseppstein-compass', :version => '>= 0.6.15', :lib => false, :source => 'http://gems.github.com'
   config.gem "thoughtbot-factory_girl", :lib => false, :source => "http://gems.github.com"
-  config.gem "remarkable_rails", :lib => false
   config.gem 'treetop', :lib => false
   config.gem 'archive-tar-minitar', :lib => false
   config.gem 'Chrononaut-treetop-dcf', :version => '>= 0.1.2', :lib => false, :source => 'http://gems.github.com'
@@ -52,7 +51,7 @@ Rails::Initializer.run do |config|
 
   # Skip frameworks you're not going to use. To use Rails without a database,
   # you must remove the Active Record framework.
-  # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
+  config.frameworks -= [ :active_resource ]
 
   # Activate observers that should always be running
   config.active_record.observers = :user_observer
