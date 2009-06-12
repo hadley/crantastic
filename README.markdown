@@ -40,4 +40,4 @@ This will overwrite `db/development.sqlite3`.
 
 ## Updating packages from CRAN
 
-`rake cron` or `rake update_all_packages`
+Run `rake crantastic:cron` or `rake crantastic:update_all_packages`.

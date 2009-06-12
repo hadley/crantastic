@@ -77,7 +77,11 @@ module CRAN
       Archive::Tar::Minitar.unpack(gz, File.join(RAILS_ROOT, "/tmp"))
       pkgdir = File.join(RAILS_ROOT, "/tmp/#{pkg.name}/")
 
-      data = Dcf.parse(File.read(pkgdir + "DESCRIPTION")).first
+      description = Dcf.parse(File.read(pkgdir + "DESCRIPTION"))
+      throw Exception.new("Couldn't parse DESCRIPTION for #{pkg.name}. " +
+                          "Look at http://cran.r-project.org/web/packages/#{pkg.name}/DESCRIPTION " +
+                          "for clues.") if description.nil?
+      data = description.first
       data = data.downcase_keys.symbolize_keys
 
       fields = [:title, :license, :description, :author,
