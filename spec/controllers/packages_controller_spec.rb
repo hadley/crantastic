@@ -22,4 +22,23 @@ describe PackagesController do
     response.should_not be_redirect
   end
 
+  describe "XHTML Markup" do
+
+    it "should have an XHTML Strict compilant index page" do
+      get :index
+      response.body.strip_entities.should be_xhtml_strict
+    end
+
+    it "should have an XHTML Strict compilant show page" do
+      get :show, :id => 1
+      response.body.strip_entities.should be_xhtml_strict
+    end
+
+    it "should have an XHTML Strict compilant all page" do
+      get :all
+      response.body.strip_entities.should be_xhtml_strict
+    end
+
+  end
+
 end
