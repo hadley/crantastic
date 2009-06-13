@@ -8,3 +8,7 @@ end
 Factory.define :package do |pkg|
   pkg.name "TestPkg"
 end
+
+Factory.define :author do |author|
+  author.name "John"
+end
