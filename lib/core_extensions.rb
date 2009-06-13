@@ -20,4 +20,8 @@ class String
   def latin1_to_utf8
     Iconv.conv("UTF-8", "ISO-8859-1", self) rescue self
   end
+
+  def strip_entities
+    self.gsub(/&#?[A-Za-z0-9]+;/, '')
+  end
 end
