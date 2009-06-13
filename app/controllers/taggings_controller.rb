@@ -11,12 +11,22 @@ class TaggingsController < ApplicationController
     # Tags are found using case-insensitive LIKE statement. This way,
     # e.g. "Visual Interface" and "Visual interface" will be hooked up to the
     # same tag. The tag will be created if it wasn't already in the db.
-    @tagging.tag = Tag.find_or_create_with_like_by_name(params[:tag_name])
+
+    tags = Tag.parse_and_find_or_create(params[:tag_name])
+
+    # Hack hack hack. Not sure of how I could do this more elegantly with resource_controller
+    if tags.size > 1
+      tags[1..-1].each do |t|
+        Tagging.create!(:user => self.current_user, :tag => t, :package => parent_object)
+      end
+    end
+
+    @tagging.tag = tags.first
     @tagging.user = current_user # Set tagging ownership
   end
 
   create do
-    flash 'Tagging was successfully created.'
+    flash 'Tagging(s) was successfully created.'
     wants.html { redirect_to(@tagging.package) }
     wants.xml { render :xml => @tagging, :status => :created, :location => @tagging }
 

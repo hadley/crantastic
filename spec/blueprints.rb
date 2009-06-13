@@ -3,10 +3,11 @@ require "sham"
 
 Sham.name { (1..10).map { ('a'..'z').to_a.rand }.join }
 Sham.login { (1..10).map { ('a'..'z').to_a.rand }.join }
-Sham.real_name  { Faker::Name.name }
+Sham.full_name  { Faker::Name.name }
 Sham.email { Faker::Internet.email }
 Sham.title { Faker::Lorem.sentence }
 Sham.body  { Faker::Lorem.paragraph }
+Sham.description { Sham.body }
 
 User.blueprint do
   login
@@ -18,7 +19,8 @@ end
 Version.blueprint do
   name
   version { "1.0" }
-  package { Package.make }
+
+  package
 end
 
 Package.blueprint do
@@ -26,10 +28,21 @@ Package.blueprint do
 end
 
 Author.blueprint do
-  name { Sham.real_name }
+  name { Sham.full_name }
   email
 end
 
 Review.blueprint do
+  title
+  review { Sham.body }
   rating { (1..5).to_a.rand }
+
+  package
+  user
+end
+
+Tag.blueprint do
+  name
+  full_name
+  description
 end

@@ -24,6 +24,13 @@ class Tag < ActiveRecord::Base
   validates_format_of :name, :with => /^[A-Za-z\-][a-zA-Z\-\d ]*[A-Za-z\d]$/
   validates_length_of :name, :in => 2..100
 
+  ###
+  # @param tags [String] A list of tags, separated by comma
+  # @return [Array] An array of Tag instances
+  def self.parse_and_find_or_create(tags)
+    tags.split(",").map.collect { |tag| self.find_or_create_with_like_by_name(tag.strip) }
+  end
+
   # LIKE is used for cross-database case-insensitivity
   # (borrowed from acts_as_taggable_on)
   def self.find_or_create_with_like_by_name(name)
@@ -31,7 +38,7 @@ class Tag < ActiveRecord::Base
   end
 
   def self.find_by_param(id)
-    self.find_by_name(id.tr("-", " ")) or raise ActiveRecord::RecordNotFound
+    self.find_by_name(id) or raise ActiveRecord::RecordNotFound
   end
 
   def ==(other)
@@ -43,9 +50,10 @@ class Tag < ActiveRecord::Base
   end
 
   def to_param
-    name.tr(" ", "-")
+    name
   end
 
+  ###
   # Returns the number of packages tagged with this tag.
   # NOTE: this could be cached later on
   #

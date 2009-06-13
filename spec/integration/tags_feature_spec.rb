@@ -31,4 +31,21 @@ describe "Tags" do
     response.should have_tag("li", "Add tags")
   end
 
+  it "should add multiple tags to a package" do
+    visit package_url(Package.first)
+    click_link "Add tags"
+
+    response.request.path.should == login_path
+    login_with_valid_credentials
+    response.request.path.should == new_package_tagging_path(Package.first)
+
+    fill_in "tag_name", :with => "Machine Learning, NLP"
+    click_button "Tag it!"
+
+    response.request.path.should == package_path(Package.first)
+    response.should have_tag("li", "Machine Learning")
+    response.should have_tag("li", "NLP")
+    response.should have_tag("li", "Add tags")
+  end
+
 end
