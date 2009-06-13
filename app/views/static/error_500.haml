@@ -2,3 +2,6 @@
 
 %p
   Sorry! Internal server error. We have been notified of the issue.
+
+- if RAILS_ENV != "production"
+  %pre= exception
