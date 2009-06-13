@@ -13,6 +13,11 @@ $(document).ready(function() {
               });
               $('#spinner').hide();
           }, 0.5);
+
+      $('#add-tag').click(function() {
+              $('#add-tag-form').toggle().find('#tag_name').focus();
+              return false;
+          });
     });
 
 jQuery(function(){

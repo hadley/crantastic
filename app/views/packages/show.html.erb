@@ -3,12 +3,20 @@
 <h1><%= h @package.name %> <span class="version">(<%= @version.version%>)</span></h1>
 
 <ul class="tags">
-  <% for tag in @package.tags %>
-    <li><%= link_to tag, tag_path(tag) %></li>
+  <% @package.tags.each_with_index do |tag, i| %>
+    <li<%= i.zero? ? ' class="first"' : "" %>>
+      <%= link_to(tag, tag_path(tag)) %>
+    </li>
   <% end %>
-  <li><%= link_to "Add tag", new_tagging_path(:package_id => @package.id), :class => "add" %></li>
+  <li>
+    <%= link_to "Add tags", new_tagging_path(:package_id => @package.id),
+                                            :class => "add", :id => "add-tag" %>
+    <span id="add-tag-form" style="display:none;">
+      <%= render :partial => "taggings/form",
+                 :locals => { :tagging => @tagging } %>
+    </span>
+  </li>
 </ul>
-
 <%= render :partial => "versions/description" %>
 
 <% if @package.versions.length > 1 %>

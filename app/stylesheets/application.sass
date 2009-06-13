@@ -17,8 +17,7 @@ h1, h2
 
 h1.title
   :background-color = !red
-  :padding-top 2em
-  :padding-left 5px
+  :padding 2em 0 0 5px
   :font-size 4em
   :font-weight bold
 
@@ -30,16 +29,15 @@ h1
   :color = !red
   :font-size 3em
   :font-weight normal
-  :margin-top 0
   :margin-bottom 10px
   :border-bottom 2px solid #ddd
 
-  .version, .byline
-    :font-size 30%
+.version, .byline
+  :font-size 30%
 
 .box
   :background-color = !green
-  :padding 0.5em
+  :padding 0.5em 0.5em 0.5em 0.4em
   :margin-bottom 1em
   a
     +hover-link
@@ -49,7 +47,7 @@ h1
       :color #333
       :font-weight bold
 
-.box ul
+.box ul, ul.tags
   +horizontal-list
 
 ul.tags a
@@ -60,19 +58,17 @@ ul.tags a
     :font-weight bold
     :text-decoration none
 
-ul.tags, .box ul
-  :margin 0.25em 0.2em
-
-ul.tags li, .box ul li
-  :line-height 2.5
-
 ul.tags
-  :margin-left 0
-
-  a.add
+  .add
     &:link, &:visited
       :background-color = !white
       :border 1px solid #ccc
+
+ul.tags, .box ul
+  :margin 0.25em 0
+
+ul.tags li, .box ul li
+  :line-height 2.5em
 
 p.rating
   :float right
@@ -89,6 +85,9 @@ p.rating
 
 #sidebar
   +column(7, true)
+
+  #search-box
+    padding-left: 0.5em
 
 #footer
   +column(20)
