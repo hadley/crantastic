@@ -26,10 +26,10 @@ Total packages in this search: <%= @packages.total_entries -%>
   <%- for package in @packages -%>
   <tr class="<%=cycle("odd", "even")-%>">
     <td><%= link_to package.name, package %></td>
-    <% latest_package = package.latest-%>
+    <% latest_package = package.latest -%>
     <% maintainer = latest_package.try(:maintainer) -%>
-    <td><%= latest_package.version -%></td>
-    <td style="white-space:nowrap"><%= link_to maintainer.try(:name), maintainer unless maintainer.try(:name).nil? -%></td>
+    <td><%= latest_package.version unless latest_package.nil? -%></td>
+    <td style="white-space:nowrap"><%= link_to maintainer.name, maintainer unless maintainer.nil? -%></td>
   </tr>
   <%- end -%>
 </table>

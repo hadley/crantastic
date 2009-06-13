@@ -9,8 +9,8 @@
     </li>
   <% end %>
   <li>
-    <%= link_to "Add tags", new_tagging_path(:package_id => @package.id),
-                                            :class => "add", :id => "add-tag" %>
+    <%= link_to "Add tags", new_package_tagging_path(@package),
+                              :class => "add", :id => "add-tag" %>
     <span id="add-tag-form" style="display:none;">
       <%= render :partial => "taggings/form",
                  :locals => { :tagging => @tagging } %>
