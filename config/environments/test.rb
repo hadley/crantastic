@@ -21,8 +21,12 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
+config.gem "remarkable_rails"
+config.gem "webrat"
+config.gem "markup_validity"
+config.gem "faker"
+
 config.gem "rspec",            :lib => false
 config.gem "rspec-rails",      :lib => false
-config.gem "remarkable_rails"
-config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
-config.gem "webrat"
+config.gem "notahat-machinist", :lib => false,
+                                :source => "http://gems.github.com"
