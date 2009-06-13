@@ -2,14 +2,16 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe "Login" do
 
-  before(:each) do
-    @pkg = Factory.create(:package, :name => "Test")
+  include WebratHelpers
 
+  setup do
+    Factory.create(:version)
     UserMailer.should_receive(:deliver_signup_notification)
-    @u = Factory.create(:user, :login => 'john')
     UserMailer.should_receive(:deliver_activation)
-    @u.activate
+    Factory.create(:user, :login => 'john').activate
+  end
 
+  before(:each) do
     visit login_url
   end
 
@@ -17,7 +19,7 @@ describe "Login" do
     login_with_valid_credentials
 
     assert_contain "Logged in successfully"
-    response.should have_tag("h1", @u.login)
+    response.should have_tag("h1", "john")
     response.should have_tag("a", "Edit your details")
   end
 
@@ -30,26 +32,20 @@ describe "Login" do
   end
 
   it "should redirect to the intended page after login" do
-    visit new_package_review_path(@pkg)
+    visit new_package_review_path(Package.first)
     response.request.path.should == login_path
     login_with_valid_credentials
-    response.request.path.should == new_package_review_path(@pkg)
+    response.request.path.should == new_package_review_path(Package.first)
   end
 
   it "should redirect to root url after logging out" do
     login_with_valid_credentials
 
-    response.request.path.should == user_path(@u)
+    response.request.path.should == user_path(User.first)
     click_link "Log out"
 
     assert_contain "You have been logged out."
     response.request.path.should == root_path
-  end
-
-  def login_with_valid_credentials
-    fill_in "login", :with => "john"
-    fill_in "password", :with => "test"
-    click_button "login"
   end
 
 end

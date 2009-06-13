@@ -89,3 +89,11 @@ module AuthHelper
     login_as(User, id_or_attributes, &block)
   end
 end
+
+module WebratHelpers
+  def login_with_valid_credentials
+    fill_in "login", :with => "john"
+    fill_in "password", :with => "test"
+    click_button "login"
+  end
+end
