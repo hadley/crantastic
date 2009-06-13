@@ -8,16 +8,20 @@
   <p>Want to view all packages in one page? <%= link_to "Click here", all_packages_url -%></p>
 
   <p>
-<span class="float-l" style="margin-right: 5px;">Search Package by Name:</span>
+    <span class="float-l" style="margin-right: 5px;">Search Package by
+    Name:</span>
+  </p>
 
-  <form action="/packages" method="get" class="float-l">
-    <input id="package-search" name="search" type="text" />
-  </form>
+  <div class="float-l">
+    <form action="/packages" method="get">
+      <div><input id="package-search" name="search" type="text" /></div>
+    </form>
+
     <%= image_tag("spinner.gif",
                   :id => "spinner",
                   :class => 'float-l',
                   :style => "margin-left: 5px; display: none;") -%>
-  </p>
+  </div>
   <%= clear_div %>
   <br />
 

@@ -50,7 +50,7 @@
 
   <div id="search-box" class="box">
     <% form_tag search_path, :method => 'GET' do -%>
-    <p style='margin:0'><%= text_field_tag 'q' %>
+    <p style="margin: 0;"><%= text_field_tag 'q' %>
 
     <%= submit_tag 'Search' %></p>
     <% end -%>
@@ -59,9 +59,9 @@
   <% unless logged_in? -%>
   <div class="box">
     <% form_tag new_session_path, :method => 'GET' do -%>
-    <p style='margin:0'>
-      <%= submit_tag 'Log in' %>&nbsp; or
-      &nbsp;<%= link_to "Sign up!", signup_path%></p>
+    <p style="margin: 0;">
+      <%= submit_tag 'Log in' %>&nbsp; or &nbsp;<%= link_to "Sign up!", signup_path %>
+    </p>
     <% end -%>
   </div>
   <% end -%>
