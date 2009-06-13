@@ -11,10 +11,10 @@
   <li>
     <%= link_to "Add tags", new_package_tagging_path(@package),
                               :class => "add", :id => "add-tag" %>
-    <span id="add-tag-form" style="display:none;">
+    <div id="add-tag-form" style="display:none;">
       <%= render :partial => "taggings/form",
                  :locals => { :tagging => @tagging } %>
-    </span>
+    </div>
   </li>
 </ul>
 <%= render :partial => "versions/description" %>
@@ -36,9 +36,11 @@
 
 <h2>Rating:</h2>
 <% if logged_in? %>
-  <% form_tag package_ratings_path(@package) do -%>
-  <%= select_rating %>
-  <% end %>
+  <div>
+    <% form_tag package_ratings_path(@package) do -%>
+      <%= select_rating %>
+    <% end %>
+  </div>
 <% else %>
   <%= select_rating(false) %>
 <% end %>

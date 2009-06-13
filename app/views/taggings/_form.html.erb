@@ -1,5 +1,5 @@
 <% form_for(@tagging) do |f| %>
-  <%= text_field_tag :tag_name, nil, :size => 12 %>
+  <div><%= text_field_tag :tag_name, nil, :size => 12 %>
   <%= f.hidden_field :package_id %>
-  <%= f.submit @tagging.new_record? ? "Tag it!" : "Update" %>
+  <%= f.submit @tagging.new_record? ? "Tag it!" : "Update" %></div>
 <% end %>
