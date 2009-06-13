@@ -49,4 +49,27 @@ describe ReviewsController do
     response.status.should == "404 Not Found"
   end
 
+  describe "XHTML Markup" do
+
+    integrate_views
+
+    before(:each) do
+      UserMailer.should_receive(:deliver_signup_notification)
+    end
+
+    it "should have an XHTML Strict compilant index page" do
+      Review.should_receive(:recent).and_return([Review.make])
+      get :index
+      response.body.strip_entities.should be_xhtml_strict
+    end
+
+    it "should have an XHTML Strict compilant show page" do
+      r = Review.make
+      Review.should_receive(:find).and_return(r)
+      get :show, :id => 1
+      response.body.strip_entities.should be_xhtml_strict
+    end
+
+  end
+
 end
