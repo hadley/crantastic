@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
   belongs_to :user, :package
 
   before_filter :login_required, :only => [ :new, :create  ]
-  before_filter :authorization_required, :only => [ :edit, :update  ]
+  before_filter :authorization_required, :only => [ :edit, :update, :destroy  ]
 
   show.failure.wants.html { rescue_404 }
 
