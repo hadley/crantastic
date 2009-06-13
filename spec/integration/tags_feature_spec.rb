@@ -5,10 +5,10 @@ describe "Tags" do
   include WebratHelpers
 
   setup do
-    Factory.create(:version)
+    Version.make
     UserMailer.should_receive(:deliver_signup_notification)
     UserMailer.should_receive(:deliver_activation)
-    Factory.create(:user, :login => 'john').activate
+    User.make(:login => "john").activate
   end
 
   before(:each) do

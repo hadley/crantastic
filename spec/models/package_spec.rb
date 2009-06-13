@@ -25,8 +25,8 @@ describe Package do
 
   it "should calculate its average rating" do
     UserMailer.should_receive(:deliver_signup_notification).twice
-    u1 = Factory.create(:user, :login => 'Sally')
-    u2 = Factory.create(:user, :login => 'Jolly')
+    u1 = User.make
+    u2 = User.make(:login => "somethingelse")
 
     p = Package.create!(:name => "aaMI")
     p.average_rating.should == 0
@@ -38,9 +38,8 @@ describe Package do
 
   it "should discard old ratings" do
     UserMailer.should_receive(:deliver_signup_notification)
-    u = Factory.create(:user)
-
-    p = Package.create!(:name => "abind")
+    u = User.make
+    p = Package.make
 
     u.rate!(p, 1)
     u.rating_for(p).rating.should == 1
