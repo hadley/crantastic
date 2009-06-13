@@ -9,6 +9,8 @@ ActionController::Routing::Routes.draw do |map|
     p.resources :versions
     p.resources :ratings
     p.resources :reviews
+    p.resources :taggings
+    p.resources :tags
   end
 
   map.resource :search, :controller => "search"

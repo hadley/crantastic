@@ -1,18 +1,11 @@
 class TaggingsController < ApplicationController
+
   before_filter :login_required, :only => [ :new, :create  ]
-  before_filter :authorization_required, :only => [ :edit, :update  ]
+  before_filter :authorization_required, :only => [ :edit, :update, :destroy  ]
 
   resource_controller
 
-  def authorized?
-    tagging = Tagging.find(params[:id])
-    tagging.user == current_user
-  end
-
-  new_action.before do
-    @tagging = Tagging.new
-    @tagging.package = Package.find(params[:package_id])
-  end
+  belongs_to :user, :package
 
   create.before do
     # Tags are found using case-insensitive LIKE statement. This way,
@@ -33,4 +26,15 @@ class TaggingsController < ApplicationController
              apply a tag once to a given package."
     end
   end
+
+  private
+  def authorized?
+    tagging = Tagging.find(params[:id])
+    tagging.user == current_user
+  end
+
+  def parent_object
+    Package.find_by_param(params[:package_id])
+  end
+
 end
