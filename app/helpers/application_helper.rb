@@ -13,8 +13,8 @@ module ApplicationHelper
   end
 
   def title
-    plural = (@title.pluralize == @title) if @title
-    "#{@title + ". " if @title}#{plural ? "They're" : "It's"} crantastic!"
+    @plural = (@title.pluralize == @title) if @title and !@plural
+    "#{@title + ". " if @title}#{@plural ? "They're" : "It's"} crantastic!"
   end
 
 end

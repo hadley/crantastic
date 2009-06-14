@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= "#{@title}. " unless @title.blank? %><%= @plural.nil? ? "It's" : "They're" %> crantastic!</title>
+  <title><%= title %></title>
 
   <%= stylesheet_link_tag 'application', :media => "screen, projection" %>
   <%= stylesheet_link_tag 'jquery.rating', :media => "screen, projection" %>
@@ -23,7 +23,6 @@
 <body>
 
 <div id="container">
-
   <div id="main">
     <% unless flash[:notice].blank? %>
       <div class="flash"><%= flash[:notice] %></div>

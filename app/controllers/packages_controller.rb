@@ -5,6 +5,8 @@ class PackagesController < ApplicationController
     @search_term = String(params[:search]) || ''
     @search_result = Package.paginating_search(@search_term, page_no)
     @packages = @search_result.first
+    @title = "#{Package.count} R packages"
+    @atom = packages_path(:format => :atom)
 
     respond_to do |format|
       format.html {}
@@ -22,6 +24,8 @@ class PackagesController < ApplicationController
     respond_to do |format|
       format.html do
         @packages = Package.all
+        @title = "#{Package.count} R packages"
+        @atom = packages_path(:format => :atom)
       end
 
       format.atom do

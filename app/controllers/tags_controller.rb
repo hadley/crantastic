@@ -4,6 +4,7 @@ class TagsController < ApplicationController
 
   actions :index, :show
 
+  index.wants.html { @title = "Tags" }
   show.failure.wants.html { rescue_404 }
 
   private

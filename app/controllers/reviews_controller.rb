@@ -7,6 +7,11 @@ class ReviewsController < ApplicationController
   before_filter :login_required, :only => [ :new, :create  ]
   before_filter :authorization_required, :only => [ :edit, :update, :destroy  ]
 
+  index.wants.html do
+    @title = (parent_object.nil?) ? "Recent reviews" : "Reviews for #{parent_object}"
+    @plural = true
+  end
+
   show.failure.wants.html { rescue_404 }
 
   create.before do
