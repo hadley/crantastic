@@ -6,7 +6,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
 
   map.resources :packages, :collection => {:all => :get}, :member => {:index => :post}, :except => [:create, :update] do |p|
-    p.resources :versions
+    p.resources :versions do |v|
+      v.resources :reviews
+    end
     p.resources :ratings
     p.resources :reviews
     p.resources :taggings

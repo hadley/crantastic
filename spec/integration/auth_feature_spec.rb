@@ -32,10 +32,12 @@ describe "Login" do
   end
 
   it "should redirect to the intended page after login" do
-    visit new_package_review_path(Package.first)
+    visit package_path(Package.first)
+    click_link "Write one now."
     response.request.path.should == login_path
     login_with_valid_credentials
-    response.request.path.should == new_package_review_path(Package.first)
+    response.request.path.should ==
+      new_package_version_review_path(Package.first, Package.first.latest)
   end
 
   it "should redirect to root url after logging out" do

@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20090613223342
 #
 # Table name: review
 #
@@ -10,12 +11,14 @@
 #  title      :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  version_id :integer
 #
 
 class Review < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :package
+  belongs_to :version
 
   default_scope :order => "created_at DESC" # Latest first
   named_scope :recent, :limit => 10, :include => [:user, :package]

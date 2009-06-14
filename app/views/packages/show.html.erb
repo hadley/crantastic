@@ -56,7 +56,12 @@
 <h2>Reviews</h2>
 
 <% if @package.reviews.length == 0 %>
-  <p>No one has written a review of <%= @package.name %> yet.  Want to be the first? <%= link_to "Write one now.", new_package_review_path(@package) %></p>
+  <p>
+    No one has written a review of <%= @package.name %> yet.
+    Want to be the first?
+    <%= link_to "Write one now.",
+          new_package_version_review_path(@package, @package.latest) %>
+  </p>
 <% else -%>
   <ul>
   <% for review in @package.reviews %>
@@ -67,12 +72,13 @@
         <%= link_to review.package.name, review.package %> a
         <%= h review.rating %>.
 
-        <%= link_to "Read the full review", review %>.
+        <%= link_to "Read the full review", package_review_path(review.package, review) %>.
       </p>
     </li>
   <% end %>
 </ul>
-  <div class="float-r"><%= link_to "Write a review", new_package_review_path(@package) %></div>
+  <div class="float-r"><%= link_to "Write a review",
+                             new_package_version_review_path(@package, @package.latest) %></div>
   <%= clear_div -%>
 <% end -%>
 
