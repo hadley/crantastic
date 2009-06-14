@@ -12,4 +12,9 @@ module ApplicationHelper
     content_tag(:div, nil, :class => :clear)
   end
 
+  def title
+    plural = (@title.pluralize == @title) if @title
+    "#{@title + ". " if @title}#{plural ? "They're" : "It's"} crantastic!"
+  end
+
 end
