@@ -39,6 +39,10 @@ class Version < ActiveRecord::Base
   validates_length_of :title, :in => 0..255, :allow_nil => true
   validates_length_of :url, :in => 0..255, :allow_nil => true
 
+  def to_s
+    version
+  end
+
   def urls
     (url.split(",") rescue []) + [cran_url]
   end

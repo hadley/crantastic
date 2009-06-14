@@ -11,7 +11,7 @@
 <ul>
 <% for review in @reviews %>
   <li><%= link_to review.user.login, review.user  %> gave
-    <%= link_to review.package.name, review.package %>
+    <%= package_version(review.package, review.version) %>
     a <%=h review.rating %>, and says
     "<%= link_to(truncate(review.description, :length => 50),
                  package_review_path(review.package, review)) %>"

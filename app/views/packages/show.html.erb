@@ -1,6 +1,6 @@
 <% @title = "The " + @package.name + " package" %>
 
-<h1><%= h @package.name %> <span class="version">(<%= @version.version%>)</span></h1>
+<h1><%= package_version(@package, @package.latest, false) %></h1>
 
 <ul class="tags">
   <% @package.tags.each_with_index do |tag, i| %>
