@@ -13,7 +13,8 @@
   <li><%= link_to review.user.login, review.user  %> gave
     <%= link_to review.package.name, review.package %>
     a <%=h review.rating %>, and says
-    "<%= link_to truncate(review.description, :length => 50), review %>"
+    "<%= link_to(truncate(review.description, :length => 50),
+                 package_review_path(review.package, review)) %>"
   </li>
 <% end %>
 </ul>
