@@ -92,8 +92,9 @@ class Package < ActiveRecord::Base
   end
 
   def latest
-    versions[0]
+    @latest ||= versions[0]
   end
+  alias :latest_version :latest
 
   def google_url
     "http://www.google.com/search?q=" + CGI.escape("#{name} cran OR r-project -inurl:contrib -inurl:doc/packages -inurl:CRAN")
