@@ -36,7 +36,6 @@ Rails::Initializer.run do |config|
 
   # Required, but do not attempt to load
   config.gem 'chriseppstein-compass', :version => '>= 0.6.15', :lib => false, :source => 'http://gems.github.com'
-  config.gem "thoughtbot-factory_girl", :lib => false, :source => "http://gems.github.com"
   config.gem 'treetop', :lib => false
   config.gem 'archive-tar-minitar', :lib => false
   config.gem 'Chrononaut-treetop-dcf', :version => '>= 0.1.2', :lib => false, :source => 'http://gems.github.com'
