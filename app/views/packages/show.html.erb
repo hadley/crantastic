@@ -34,24 +34,40 @@
   </ul>
 <% end %>
 
-<h2>Rating:</h2>
-<% if logged_in? %>
+<div class="float-l" style="margin-right: 50px;">
+<h2>Rating (overall):</h2>
   <div>
     <% form_tag package_ratings_path(@package) do -%>
       <%= select_rating %>
     <% end %>
   </div>
-<% else %>
-  <%= select_rating(false) %>
-<% end %>
   &nbsp; <%= @package.average_rating %>/5
-  (<%= pluralize(@package.package_ratings.size.to_s, " vote") %>)
+  (<%= pluralize(@package.rating_count.to_s, " vote") %>)
 
 <% if logged_in? && r = current_user.rating_for(@package) %>
-  <span style='color:red;font-style:italic'>You voted <%= r.rating %></span>
+  <br /><span style='color:red;font-style:italic'>You voted <%= r.rating %></span>
 <% end %>
+</div>
 
+<div class="float-l">
+<h2>Rating (documentation):</h2>
+  <div>
+    <% form_tag package_ratings_path(@package) do -%>
+      <%= select_rating("documentation") %>
+    <% end %>
+  </div>
+  &nbsp; <%= @package.average_rating("documentation") %>/5
+  (<%= pluralize(@package.rating_count("documentation").to_s, " vote") %>)
+
+<% if logged_in? && r = current_user.rating_for(@package, "documentation") %>
+  <br /><span style='color:red;font-style:italic'>You voted <%= r.rating %></span>
+<% end %>
+</div>
 <%= clear_div -%>
+<% unless logged_in? %>
+<br />
+<p>You must be <%= link_to "logged in", login_path %> to vote.</p>
+<% end %>
 <br />
 <h2>Reviews</h2>
 

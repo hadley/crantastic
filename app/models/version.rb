@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090613223342
+# Schema version: 20090615123240
 #
 # Table name: version
 #
@@ -7,13 +7,13 @@
 #  package_id    :integer
 #  name          :string(255)
 #  title         :string(255)
-#  description   :text(255)
-#  license       :text(255)
+#  description   :text
+#  license       :text
 #  version       :string(255)
 #  requires      :string(255)
-#  depends       :text(255)
-#  suggests      :text(255)
-#  author        :text(255)
+#  depends       :text
+#  suggests      :text
+#  author        :text
 #  url           :string(255)
 #  date          :date
 #  readme        :text

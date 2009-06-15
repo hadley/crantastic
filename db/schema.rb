@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090613223342) do
+ActiveRecord::Schema.define(:version => 20090615123240) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -36,8 +36,10 @@ ActiveRecord::Schema.define(:version => 20090613223342) do
     t.integer  "rating"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "aspect",     :limit => 25, :default => "overall", :null => false
   end
 
+  add_index "package_rating", ["aspect"], :name => "index_package_rating_on_aspect"
   add_index "package_rating", ["user_id"], :name => "index_package_rating_on_user_id"
 
   create_table "package_trigram", :force => true do |t|
@@ -60,6 +62,10 @@ ActiveRecord::Schema.define(:version => 20090613223342) do
     t.integer  "version_id"
   end
 
+  create_table "schema_info", :id => false, :force => true do |t|
+    t.integer "version"
+  end
+
   create_table "tag", :force => true do |t|
     t.string   "name",                           :null => false
     t.string   "full_name"
@@ -77,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20090613223342) do
     t.integer  "tag_id"
   end
 
-  add_index "tagging", ["user_id", "package_id", "tag_id"], :name => "index_tagging_on_user_id_and_package_id_and_tag_id"
+  add_index "tagging", ["package_id", "tag_id", "user_id"], :name => "index_tagging_on_user_id_and_package_id_and_tag_id"
 
   create_table "user", :force => true do |t|
     t.string   "login"
@@ -103,13 +109,13 @@ ActiveRecord::Schema.define(:version => 20090613223342) do
     t.integer  "package_id"
     t.string   "name"
     t.string   "title"
-    t.text     "description",   :limit => 255
-    t.text     "license",       :limit => 255
+    t.text     "description"
+    t.text     "license"
     t.string   "version"
     t.string   "requires"
-    t.text     "depends",       :limit => 255
-    t.text     "suggests",      :limit => 255
-    t.text     "author",        :limit => 255
+    t.text     "depends"
+    t.text     "suggests"
+    t.text     "author"
     t.string   "url"
     t.date     "date"
     t.text     "readme"

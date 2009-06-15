@@ -21,4 +21,13 @@ describe PackageRating do
     PackageRating.create(@valid_attributes).should be_valid
     PackageRating.create(@valid_attributes).should_not be_valid
   end
+
+  it "should be possible for a user to have two active votes for one package with different aspects" do
+    PackageRating.create(@valid_attributes).should be_valid
+    PackageRating.create(@valid_attributes.merge(:aspect => "documentation")).should be_valid
+  end
+
+  it "should have a default rating aspect" do
+    PackageRating.create!(@valid_attributes).aspect.should == "overall"
+  end
 end

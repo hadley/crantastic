@@ -78,9 +78,15 @@ class Package < ActiveRecord::Base
                                       WHERE package_id = #{self.id})") || []
   end
 
+  # @return [Fixnum] Number of ratings for this package for the given aspect
+  def rating_count(aspect="overall")
+    PackageRating.count(:conditions => ["package_id = ? AND aspect = ?",
+                                        self.id, aspect])
+  end
+
   # Rounded average rating for this package
-  def average_rating
-    PackageRating.calculate_average(self)
+  def average_rating(aspect="overall")
+    PackageRating.calculate_average(self, aspect)
   end
 
   def to_param

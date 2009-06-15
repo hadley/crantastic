@@ -70,26 +70,33 @@ class User < ActiveRecord::Base
   end
 
   # Rates a package, discarding the users previous rating in the process
-  # TODO should check for valid package id, probably in the PackageRating model
   #
   # @param [Fixnum, Package] package
   # @param [Fixnum] rating
   # @return [PackageRating]
-  def rate!(package, rating)
+  def rate!(package, rating, aspect="overall")
     package = package.id if package.kind_of?(Package)
-    r = rating_for(package)
-    r.destroy if r
-    PackageRating.create!(:package_id => package, :user_id => self.id, :rating => rating)
+    r = rating_for(package, aspect)
+    if r
+      r.update_attribute(:rating, rating)
+    else
+      PackageRating.create!(:package_id => package, :user_id => self.id,
+                            :rating => rating, :aspect => aspect)
+    end
   end
 
   # This users' rating for a package
   #
   # @param [Fixnum] package The primary key (id) of the package to rate
+  # @param [String] aspect "general" or "documentation"
   # @return [PackageRating] The PackageRating object
-  def rating_for(package)
+  def rating_for(package_id, aspect="overall")
     PackageRating.find(:first,
-                       :conditions => {:package_id => package,
-                                       :user_id => self.id})
+                       :conditions => {
+                         :package_id => package_id,
+                         :user_id => self.id,
+                         :aspect => aspect
+                       })
   end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
