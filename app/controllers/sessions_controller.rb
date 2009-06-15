@@ -44,7 +44,7 @@ class SessionsController < ApplicationController
     end
 
     flash[:notice] = "Logged in successfully!" unless flash[:notice]
-    redirect_to session[:return_to] || user_url(self.current_user)
+    redirect_back_or_default(user_url(self.current_user))
   end
 
   def create
@@ -57,7 +57,7 @@ class SessionsController < ApplicationController
           :expires => self.current_user.remember_token_expires_at
         }
       end
-      redirect_to session[:return_to] || user_url(self.current_user)
+      redirect_back_or_default(user_url(self.current_user))
       flash[:notice] = "Logged in successfully"
     else
       flash[:notice] = "Invalid user name or password. Maybe you meant to <a href=\"/signup/\">sign up</a> instead?"

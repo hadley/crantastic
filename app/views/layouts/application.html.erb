@@ -57,7 +57,7 @@
 
   <% unless logged_in? -%>
   <div class="box">
-    <% form_tag new_session_path, :method => 'GET' do -%>
+    <% form_tag login_path, :method => 'GET' do -%>
     <p style="margin: 0;">
       <%= submit_tag 'Log in' %>&nbsp; or &nbsp;<%= link_to "Sign up!", signup_path %>
     </p>

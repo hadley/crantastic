@@ -1,5 +1,7 @@
 class PackagesController < ApplicationController
 
+  before_filter :store_location # Redirect back here after logging in
+
   def index
     page_no = params[:page] || 1
     @search_term = String(params[:search]) || ''
