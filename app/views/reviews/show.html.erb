@@ -3,11 +3,12 @@
   <span class="byline">by <%= link_to @review.user.login, @review.user %></span>
 </h1>
 
-<p class="rating"><%=h @review.rating %></p>
+<% if @review.rating %><p class="rating"><%=h @review.rating %></p><% end %>
 
 <p><strong><%=h @review.title %></strong></p>
 <%= textilize @review.review %>
 
 <% if current_user == @review.user -%>
-  <%= link_to 'Edit', edit_review_path(@review) %>
+<%= link_to 'Edit',
+      edit_package_version_review_path(@review.package, @review.package.latest, @review) %>
 <% end -%>

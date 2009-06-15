@@ -30,4 +30,8 @@ class PackageRating < ActiveRecord::Base
                                       aspect, package_id]).to_f.round
   end
 
+  def to_s
+    rating.to_s
+  end
+
 end

@@ -13,15 +13,4 @@ describe Review do
     r.title.should == "title"
   end
 
-  it "should only allow valid values for rating (1-5)" do
-    r = Review.new(:rating => 0)
-    r.should have(1).error_on(:rating)
-    1.upto(5) do |i|
-      r.rating = i
-      r.should have(0).errors_on(:rating)
-    end
-    r.rating = 6
-    r.should have(1).error_on(:rating)
-  end
-
 end

@@ -84,10 +84,14 @@
     <li>
       <p><strong><%= h review.title %></strong></p>
       <p><%= textilize(truncate(review.review, :length => 150)) %></p>
-      <p><%= link_to review.user.login, review.user  %> gave
+      <p><% if review.rating %>
+        <%= link_to review.user.login, review.user  %> gave
         <%= link_to review.package.name, review.package %> a
         <%= h review.rating %>.
-
+        <% else %>
+        <%= link_to review.user.login, review.user  %> did not rate
+        <%= link_to review.package.name, review.package %>.
+        <% end %>
         <%= link_to "Read the full review", package_review_path(review.package, review) %>.
       </p>
     </li>

@@ -5,9 +5,10 @@
 
 <ul>
 <% for review in @reviews %>
-  <li><%= link_to review.user.login, review.user  %> gave
+<li><%= link_to review.user.login, review.user  %>
+    <% if review.rating %>gave
     <%= package_version(review.package, review.version) %>
-    a <%=h review.rating %>, and says
+    a <%=h review.rating %>, and <% end %> says
     "<%= link_to(truncate(review.description, :length => 50),
                  package_review_path(review.package, review)) %>"
   </li>
