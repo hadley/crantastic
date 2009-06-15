@@ -97,8 +97,8 @@
             <%= package_version(review.package, review.version) %> a
             <%= h review.rating %>.
           <% else %>
-            <%= link_to review.user.login, review.user  %> did not rate
-            <%= package_version(review.package, review.version) %>.
+            <%= link_to review.user.login, review.user %> did not rate
+            <%= package_version(review.package, review.version) -%>.
           <% end %>
           <%= link_to "Read the full review", package_review_path(review.package, review) %>.
         </p>

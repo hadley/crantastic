@@ -16,8 +16,8 @@ module PackagesHelper
   ###
   # Helper for displaying "Package (version)"
   def package_version(pkg, version, link_to_pkg=true)
-    out = (link_to_pkg ? link_to(h(pkg.name), pkg) : pkg.name) + " "
-    out += content_tag(:span, "(#{h(version)})", :class => "version") if version
+    out = (link_to_pkg ? link_to(h(pkg.name), pkg) : pkg.name)
+    out += " " + content_tag(:span, "(#{h(version)})", :class => "version") if version
     out
   end
 
