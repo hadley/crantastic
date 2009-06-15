@@ -11,6 +11,9 @@ class StaticController < ApplicationController
   def error_404
   end
 
+  def error_500
+  end
+
   # We don't want the staging server to get indexed by crawlers, so we must
   # serve a dynamic robots.txt file.
   def robots_txt
