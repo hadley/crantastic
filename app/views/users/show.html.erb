@@ -15,7 +15,15 @@
 
 <ul>
 <% for review in @user.reviews -%>
-<li><%= link_to review.user.login, review.user  %> gave <%= link_to review.package.name, review.package %> a <%=h review.rating %>, and says "<%= link_to truncate(review.description, :length => 50), review %>"</li>
+<li>
+  <%= link_to review.user.login, review.user %>
+  <% if review.rating -%>
+  gave <%= package_version(review.package, review.version) %> a <%=h review.rating %>, and
+  <% else %>
+  did not rate <%= package_version(review.package, review.version) %>, but
+  <% end -%>
+  says "<%= link_to truncate(review.description, :length => 50), review %>"
+</li>
 <% end -%>
 </ul>
 <% end -%>
@@ -28,7 +36,8 @@
 <p><%= @user.login %> has tagged <%= pluralize @user.taggings.length, "package"%></p>
 <ul>
 <% for tag, taggings in @user.taggings.group_by(&:tag) -%>
-<li>with <%= link_to tag, tag_url(tag) %>: <%= taggings.map{|t| link_to t.package.name, t.package}.join(", ") %></li>
+<li>with <%= link_to tag, tag_url(tag) %>:
+<%= taggings.map{|t| link_to t.package.name, t.package}.join(", ") %></li>
 <% end -%>
 </ul>
 <% end -%>

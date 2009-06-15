@@ -35,7 +35,7 @@ end
 Review.blueprint do
   title
   review { Sham.body }
-  rating { (1..5).to_a.rand }
+  cached_rating { (1..5).to_a.rand }
 
   package
   user

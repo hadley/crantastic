@@ -38,11 +38,11 @@ class Review < ActiveRecord::Base
   end
 
   ###
-  # Returns the rating given by the review author, if he has rated at all.
+  # Returns the author's rating of the package at the time the review was
+  # written. Returns nil if no rating was given.
   #
   # @return [Fixnum, nil]
-  def rating#(aspect="overall")
-    #self.user.rating_for(self.package, aspect)
+  def rating
     cached_rating
   end
 
@@ -53,7 +53,8 @@ class Review < ActiveRecord::Base
   end
 
   def cache_rating
-    self.cached_rating = self.user.rating_for(self.package).rating
+    user_rating = self.user.rating_for(self.package)
+    self.cached_rating = user_rating.rating if user_rating
   end
 
 end

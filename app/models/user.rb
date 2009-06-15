@@ -44,6 +44,10 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation
 
+  def to_s
+    login
+  end
+
   # Activates the user in the database.
   def activate
     @activated = true

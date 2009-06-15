@@ -4,6 +4,10 @@ include AuthHelper
 
 describe ReviewsController do
 
+  setup do
+    Version.make
+  end
+
   it "should render the index successfully" do
     Review.should_receive(:recent)
     get :index
@@ -17,9 +21,9 @@ describe ReviewsController do
   end
 
   it "should let logged in users write new reviews" do
-    Package.create!(:name => "TestPkg")
+    pkg = Package.first
     login_as_user(:id => 1, :login => "test")
-    get :new, :package_id => "TestPkg"
+    get :new, :package_id => pkg.id, :version_id => pkg.latest.id
     response.should be_success
   end
 
