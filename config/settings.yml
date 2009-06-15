@@ -7,6 +7,5 @@ test:
 staging:
   site_domain: dev.crantastic.org
 
-# TODO: Change this when crantastic.org points to Heroku
 production:
-  site_domain: dev.crantastic.org
+  site_domain: crantastic.org
