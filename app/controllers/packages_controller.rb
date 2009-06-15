@@ -47,6 +47,7 @@ class PackagesController < ApplicationController
     @package = Package.find_by_param(id)
     @version = @package.latest
     @tagging = Tagging.new(:package => @package)
+    @title = "The #{@package} package"
 
     respond_to do |format|
       format.html # show.html.erb
