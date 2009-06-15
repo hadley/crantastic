@@ -8,10 +8,10 @@
   <% end %>
   <li>
     <%= link_to "Add tags", new_package_tagging_path(@package),
-                              :class => "add", :id => "add-tag" %>
+        :class => "add", :id => "add-tag" %>
     <div id="add-tag-form" style="display:none;">
       <%= render :partial => "taggings/form",
-                 :locals => { :tagging => @tagging } %>
+          :locals => { :tagging => @tagging } %>
     </div>
   </li>
 </ul>
@@ -21,50 +21,60 @@
   <h2><%=h @package.name %> has <%= pluralize @package.versions.length - 1, "previous version" %></h2>
 
   <ul>
-  <% for version in @package.versions[1..100] -%>
-    <li>
-      <%= link_to version.vname, [@package, version] %>.
-      <% unless version.date.blank? -%>
-      Released <%= time_ago_in_words version.date %> ago.
-      <% end %>
-    </li>
-  <% end -%>
+    <% for version in @package.versions[1..100] -%>
+      <li>
+        <%= link_to version.vname, [@package, version] %>.
+        <% unless version.date.blank? -%>
+          Released <%= time_ago_in_words version.date %> ago.
+        <% end %>
+      </li>
+    <% end -%>
   </ul>
 <% end %>
 
-<div class="float-l" style="margin-right: 50px;">
-<h2>Rating (overall):</h2>
-  <div>
-    <% form_tag package_ratings_path(@package) do -%>
-      <%= select_rating %>
-    <% end %>
-  </div>
-  &nbsp; <%= @package.average_rating %>/5
-  (<%= pluralize(@package.rating_count.to_s, " vote") %>)
-
-<% if logged_in? && r = current_user.rating_for(@package) %>
-  <br /><span style='color:red;font-style:italic'>You voted <%= r.rating %></span>
-<% end %>
-</div>
-
-<div class="float-l">
-<h2>Rating (documentation):</h2>
-  <div>
-    <% form_tag package_ratings_path(@package) do -%>
-      <%= select_rating("documentation") %>
-    <% end %>
-  </div>
-  &nbsp; <%= @package.average_rating("documentation") %>/5
-  (<%= pluralize(@package.rating_count("documentation").to_s, " vote") %>)
-
-<% if logged_in? && r = current_user.rating_for(@package, "documentation") %>
-  <br /><span style='color:red;font-style:italic'>You voted <%= r.rating %></span>
-<% end %>
-</div>
-<%= clear_div -%>
-<% unless logged_in? %>
 <br />
-<p>You must be <%= link_to "logged in", login_path %> to vote.</p>
+<h2>Ratings</h2>
+
+<table>
+  <tr>
+    <td style="width: 140px;"><h3>Overall:</h3></td>
+    <td style="vertical-align: top;">
+      <div>
+        <% form_tag package_ratings_path(@package) do -%>
+          <%= select_rating %>
+        <% end %>
+      </div>&nbsp;
+      <span>
+        <%= @package.average_rating -%>/5
+        (<%= pluralize(@package.rating_count.to_s, "vote") -%>)
+      </span>
+
+      <% if logged_in? && r = current_user.rating_for(@package) %>
+        <br /><span style='color:red;font-style:italic'>You voted <%= r.rating %></span>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 140px;"><h3>Documentation:</h3></td>
+    <td style="vertical-align: top;">
+      <div>
+        <% form_tag package_ratings_path(@package) do -%>
+          <%= select_rating("documentation") %>
+        <% end %>
+      </div>
+      &nbsp; <span><%= @package.average_rating("documentation") %>/5
+        (<%= pluralize(@package.rating_count("documentation").to_s, " vote") %>)</span>
+
+      <% if logged_in? && r = current_user.rating_for(@package, "documentation") %>
+        <br /><span style='color:red;font-style:italic'>You voted <%= r.rating %></span>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+<% unless logged_in? %>
+  <br />
+  <p>You must be <%= link_to "logged in", login_path %> to vote.</p>
 <% end %>
 <br />
 <h2>Reviews</h2>
@@ -74,29 +84,29 @@
     No one has written a review of <%= @package.name %> yet.
     Want to be the first?
     <%= link_to "Write one now.",
-          new_package_version_review_path(@package, @package.latest) %>
+        new_package_version_review_path(@package, @package.latest) %>
   </p>
 <% else -%>
   <ul>
-  <% for review in @package.reviews %>
-    <li>
-      <p><strong><%= h review.title %></strong></p>
-      <p><%= textilize(truncate(review.review, :length => 150)) %></p>
-      <p><% if review.rating %>
-        <%= link_to review.user.login, review.user  %> gave
-        <%= package_version(review.package, review.version) %> a
-        <%= h review.rating %>.
-        <% else %>
-        <%= link_to review.user.login, review.user  %> did not rate
-        <%= package_version(review.package, review.version) %>.
-        <% end %>
-        <%= link_to "Read the full review", package_review_path(review.package, review) %>.
-      </p>
-    </li>
-  <% end %>
-</ul>
+    <% for review in @package.reviews %>
+      <li>
+        <p><strong><%= h review.title %></strong></p>
+        <p><%= textilize(truncate(review.review, :length => 150)) %></p>
+        <p><% if review.rating %>
+            <%= link_to review.user.login, review.user  %> gave
+            <%= package_version(review.package, review.version) %> a
+            <%= h review.rating %>.
+          <% else %>
+            <%= link_to review.user.login, review.user  %> did not rate
+            <%= package_version(review.package, review.version) %>.
+          <% end %>
+          <%= link_to "Read the full review", package_review_path(review.package, review) %>.
+        </p>
+      </li>
+    <% end %>
+  </ul>
   <div class="float-r"><%= link_to "Write a review",
-                             new_package_version_review_path(@package, @package.latest) %></div>
+                           new_package_version_review_path(@package, @package.latest) %></div>
   <%= clear_div -%>
 <% end -%>
 

@@ -8,6 +8,7 @@ Sham.email { Faker::Internet.email }
 Sham.title { Faker::Lorem.sentence }
 Sham.body  { Faker::Lorem.paragraph }
 Sham.description { Sham.body }
+Sham.rating { (1..5).to_a.rand }
 
 User.blueprint do
   login
@@ -27,6 +28,14 @@ Package.blueprint do
   name
 end
 
+PackageRating.blueprint do
+  rating
+  aspect { "overall" }
+
+  package
+  user
+end
+
 Author.blueprint do
   name { Sham.full_name }
   email
@@ -35,7 +44,7 @@ end
 Review.blueprint do
   title
   review { Sham.body }
-  cached_rating { (1..5).to_a.rand }
+  cached_rating { Sham.rating }
 
   package
   user
