@@ -2,29 +2,19 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PackageRating do
   before(:each) do
+    UserMailer.should_receive(:deliver_signup_notification)
     @valid_attributes = {
-      :user_id => 2,
-      :package_id => 2,
+      :user => User.make,
+      :package => Package.make,
       :rating => 2
     }
   end
 
+  should_allow_values_for :rating, "1", "2", "3", "4", "5"
+  should_not_allow_values_for :rating, "0", "6", "-1", "10", "05"
+
   it "should create a new instance given valid attributes" do
     PackageRating.create!(@valid_attributes)
-  end
-
-  it "should only accept ratings ranging from 1 to 5" do
-    r = PackageRating.new(@valid_attributes)
-
-    1.upto(5) do |i|
-      r.rating = i
-      r.should be_valid
-    end
-
-    [0,6,-1,10].each do |i|
-      r.rating = i
-      r.should_not be_valid
-    end
   end
 
   it "shouldnt be possible for a user to have two active votes for one package" do

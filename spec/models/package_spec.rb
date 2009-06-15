@@ -42,10 +42,15 @@ describe Package do
     p = Package.make
 
     u.rate!(p, 1)
-    u.rating_for(p).rating.should == 1
+    r1 = u.rating_for(p)
+    r1.rating.should == 1
 
     u.rate!(p.id, 2) # supports numerical ids as well
-    u.rating_for(p).rating.should == 2
+    r2 = u.rating_for(p)
+    r2.rating.should == 2
+
+    # Should be same PackageRating row
+    r1.id.should == r2.id
   end
 
   it "should have name as to_s representation" do

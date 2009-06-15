@@ -15,7 +15,8 @@ class PackageRating < ActiveRecord::Base
   belongs_to :user
   belongs_to :package
 
-  validates_presence_of :package_id, :user_id
+  validates_existence_of :package_id
+  validates_existence_of :user_id
   # users can only have one active vote per package:
   validates_uniqueness_of :user_id, :scope => :package_id
   validates_format_of :rating, :with => /^[1-5]$/
