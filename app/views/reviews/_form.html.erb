@@ -1,11 +1,6 @@
 <%= error_messages_for :review, :object => @review -%>
 
-<% form_for([:package, :version, @review]) do |f| %>
-  <p>
-    <b>Rating out of 5</b><br />
-    <%= select :review, :rating, 1..5 %>
-  </p>
-
+<% form_for([@package, @version, @review]) do |f| %>
   <p>
     <b>A brief summary</b><br />
     <%= f.text_field :title, :maxlength => 45 %>

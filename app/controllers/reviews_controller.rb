@@ -12,6 +12,8 @@ class ReviewsController < ApplicationController
     @plural = true
   end
 
+  new_action.before { @version = Version.find(params[:version_id]) }
+
   show.failure.wants.html { rescue_404 }
 
   create.before do
