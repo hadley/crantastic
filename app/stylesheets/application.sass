@@ -1,9 +1,9 @@
 @import base.sass
 
-+blueprint
-// Remove the scaffolding when you're ready to start doing visual design.
-// Or leave it in if you're happy with how blueprint looks out-of-the-box
-+blueprint-scaffolding
++blueprint-typography("body")
++blueprint-utilities
++blueprint-grid
++blueprint-form
 
 .float-l
   +float("left")
@@ -106,9 +106,17 @@ p.rating
   :padding 0.5em
   :margin-bottom 1em
 
-span.error
-  :color = !red
-  :font-size 0.9em
+.error
+  border: 2px solid #dddddd
+  background-color: #fbe3e4
+  color: #8a1f11
+  border-color: #fbc2c4
+
+label.error
+  border: 0
+  background-color: transparent
+  padding: 0 0 0 4px
+  margin: 0 0 0 1em
 
 table.general
   :margin-top 4px
