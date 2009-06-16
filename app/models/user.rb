@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   has_many :reviews
   has_many :taggings
-  has_many :identifiers, :class_name => "UserIdentifier"
+  has_many :identifiers, :class_name => "UserIdentifier", :dependent => :destroy
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password
