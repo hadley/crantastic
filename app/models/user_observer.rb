@@ -6,7 +6,9 @@ class UserObserver < ActiveRecord::Observer
     # its currently possible to get a blank password if you disable JS and
     # sign up without filling in the password. Thats the users own fault,
     # though.. shouldnt be a problem.)
-    UserMailer.deliver_signup_notification(user) unless user.password.blank?
+    unless user.password.blank? or user.email.blank?
+      UserMailer.deliver_signup_notification(user)
+    end
   end
 
   def after_save(user)

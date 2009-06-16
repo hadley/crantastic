@@ -48,9 +48,10 @@ class User < ActiveRecord::Base
     login
   end
 
-  # Activates the user in the database.
-  def activate
-    @activated = true
+  # Activates the user in the database. Pass in false to make sure an activation
+  # email will be avoided.
+  def activate(set_activated=true)
+    @activated = set_activated
     self.activated_at = Time.now.utc
     self.activation_code = nil
     save(false)

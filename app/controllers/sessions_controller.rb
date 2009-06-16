@@ -34,10 +34,11 @@ class SessionsController < ApplicationController
           # Maybe not the most elegant way to do it, but it works for now
           user.login = ActiveSupport::SecureRandom.hex(5)
           user.save!
-          flash[:notice] = "Your preferred username was not available. You have been
-                            assigned a random username instead -- you can change it to
-                            something else by editing your details."
+          flash[:notice] = "Your preferred username was not available. You have been " +
+                           "assigned a random username instead -- you can change it to " +
+                           "something else by editing your details."
         end
+        user.activate(false)
       end
       user.add_identifier(data[:identifier]) # Add PK mapping
       self.current_user = user
