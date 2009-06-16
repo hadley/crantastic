@@ -2,7 +2,7 @@ RedCloth
 maruku
 haml-edge
 sqlite3-ruby
-gravtastic --version ">= 2.1.0"
+chrislloyd-gravtastic --version ">= 2.1.2" --source http://gems.github.com
 grosser-rpx_now --source http://gems.github.com
 mislav-will_paginate --source http://gems.github.com
 markbates-hoptoad_notifier --source http://gems.github.com
