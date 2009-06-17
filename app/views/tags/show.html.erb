@@ -1,6 +1,10 @@
 <% @title = @tag.name %>
 <h1><%= @title %></h1>
 
+<% if @tag.description -%>
+  <p><strong><%= auto_link @tag.description %></strong></p>
+<% end -%>
+
 <ul>
 <% for package in @tag.packages.uniq -%>
   <li><%= link_to package.name, package %></li>

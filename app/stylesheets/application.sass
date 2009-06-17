@@ -72,7 +72,7 @@ ul.tags a.task_view
   :background-color = !red
   :color = !white
 
-  &:hover
+  &:link, &:visited, &:hover
     :background-color = !red
 
 ul.tags
@@ -156,9 +156,6 @@ ul#tag-cloud
   +tag-cloud(1.05em)
   li
     :margin 9px
-    a
-      &:hover
-        :background-color = !green
 
 ol
   li
