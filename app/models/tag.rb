@@ -13,14 +13,14 @@
 #
 
 class Tag < ActiveRecord::Base
-  default_scope :order => "name ASC"
+  default_scope :order => "LOWER(name) ASC"
 
   # Taggings should be destroyed together with the tag
   has_many :taggings, :dependent => :destroy
   has_many :packages, :through => :taggings
 
   validates_presence_of :name
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name, :scope => :task_view
   validates_format_of :name, :with => /^[A-Za-z\-][a-zA-Z\-\d ]*[A-Za-z\d]$/
   validates_length_of :name, :in => 2..100
 
