@@ -8,8 +8,10 @@
   <p style="margin: 0 0 10px 0"><%= auto_link @tag.description %></p>
 <% end -%>
 
+<div id="package-list">
 <ul>
 <% for package in @tag.packages.uniq -%>
   <li><%= link_to package.name, package %></li>
 <% end -%>
 </ul>
+</div>
