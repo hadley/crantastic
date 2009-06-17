@@ -6,7 +6,7 @@ class TaskViewsController < ApplicationController
   end
 
   def show
-    @tag = Tag.find_by_param(params[:id])
+    @tag = Tag.find_by_param(params[:id], true)
     render :template => "tags/show"
   rescue
     rescue_404

@@ -41,8 +41,9 @@ class Tag < ActiveRecord::Base
       create(:name => name)
   end
 
-  def self.find_by_param(id)
-    self.find_by_name(id) or raise ActiveRecord::RecordNotFound
+  def self.find_by_param(id, task_views = false)
+    self.find_by_name(id, :conditions => { :task_view => task_views }
+                      ) or raise ActiveRecord::RecordNotFound
   end
 
   def ==(other)
