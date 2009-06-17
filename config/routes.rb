@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :reviews
   map.resources :tags
   map.resources :taggings
+  map.resources :task_views
   map.resources :users
 
   map.resources :packages, :collection => {:all => :get}, :member => {:index => :post}, :except => [:create, :update] do |p|

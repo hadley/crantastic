@@ -1,14 +1,22 @@
 <h1>All Tags</h1>
 
 <div class="content">
-  <p>Crantastic users have tagged <%= pluralize Tagging.package_count,
+  <p style="margin-bottom: 2px">Crantastic users have tagged <%= pluralize Tagging.package_count,
      "packages" %> with the following tags:</p>
+  <p><small>(Red background means <strong>Task View</strong> &mdash; not updatable
+  by users.)</small></p>
 
-  <ul id="tag-cloud">
+  <div id="tags">
+  <ul id="tag-cloud" class="tags">
     <% tag_cloud(@tags, %w(xs s l xl xxl)) do |tag,level| -%>
       <li class="<%= level %>">
-        <%= link_to h(tag), tag_url(tag) %> (<%= tag.count %>)
+        <% if tag.task_view? %>
+          <%= link_to h(tag), task_view_url(tag), :class => "task_view" %>
+        <% else %>
+          <%= link_to h(tag), tag_url(tag) %>
+        <% end %>
       </li>
     <% end -%>
   </ul>
+  </div>
 </div>

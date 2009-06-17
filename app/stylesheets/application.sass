@@ -15,6 +15,13 @@ h1, h2
   a
     +hover-link
 
+#tags
+  ul
+    :margin-left -12px
+    li
+      :padding 2px
+      :line-height 0.6em
+
 h1.title
   :background-color = !red
   :padding 2em 0 0 5px
@@ -60,6 +67,13 @@ ul.tags a
     :color #333
     :font-weight bold
     :text-decoration none
+
+ul.tags a.task_view
+  :background-color = !red
+  :color = !white
+
+  &:hover
+    :background-color = !red
 
 ul.tags
   .add
