@@ -60,7 +60,13 @@ module AuthenticatedSystem
 
     respond_to do |accepts|
       accepts.html do
-        store_location
+        # FIXME: ugly hack, neccessary because of the JS stuff in packages/show.
+        # Find a cleaner way.
+        if request.method == :post && request.path =~ /\/taggings$/
+          store_location(package_url(params[:package_id]))
+        else
+          store_location
+        end
         redirect_to login_url()
       end
       accepts.xml do
@@ -91,8 +97,8 @@ module AuthenticatedSystem
   # Store the URI of the current request in the session, unless already logged in.
   #
   # We can return to this location by calling #redirect_back_or_default.
-  def store_location
-    session[:return_to] = request.request_uri unless logged_in?
+  def store_location(location = request.request_uri)
+    session[:return_to] = location unless logged_in?
   end
 
   def unset_location
