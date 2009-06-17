@@ -14,6 +14,7 @@
 
 class Tag < ActiveRecord::Base
   default_scope :order => "LOWER(name) ASC"
+  named_scope :task_views, :conditions => { :task_view => true }
 
   # Taggings should be destroyed together with the tag
   has_many :taggings, :dependent => :destroy
@@ -28,13 +29,16 @@ class Tag < ActiveRecord::Base
   # @param tags [String] A list of tags, separated by comma
   # @return [Array] An array of Tag instances
   def self.parse_and_find_or_create(tags)
-    tags.split(",").map.collect { |tag| self.find_or_create_with_like_by_name(tag.strip) }
+    tags.split(",").map.collect do |tag|
+      self.find_or_create_with_like_by_name(tag.strip)
+    end
   end
 
   # LIKE is used for cross-database case-insensitivity
   # (borrowed from acts_as_taggable_on)
   def self.find_or_create_with_like_by_name(name)
-    find(:first, :conditions => ["name LIKE ?", name]) || create(:name => name)
+    find(:first, :conditions => ["name LIKE ? AND task_view = 'f'", name]) ||
+      create(:name => name)
   end
 
   def self.find_by_param(id)
@@ -50,6 +54,7 @@ class Tag < ActiveRecord::Base
   end
 
   def to_param
+    #"#{id}-#{name}"
     name
   end
 
