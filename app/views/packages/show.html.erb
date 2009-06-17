@@ -1,11 +1,7 @@
 <h1><%= package_version(@package, @package.latest, false) %></h1>
 
 <ul class="tags">
-  <% @package.tags.each_with_index do |tag, i| %>
-    <li<%= i.zero? ? ' class="first"' : "" %>>
-      <%= link_to(tag, tag_path(tag)) %>
-    </li>
-  <% end %>
+  <%= tag_list %>
   <li>
     <%= link_to "Add tags", new_package_tagging_path(@package),
         :class => "add", :id => "add-tag" %>
