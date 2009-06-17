@@ -15,13 +15,6 @@ h1, h2
   a
     +hover-link
 
-#tags
-  ul
-    :margin-left -12px
-    li
-      :padding 2px
-      :line-height 0.6em
-
 h1.title
   :background-color = !red
   :padding 2em 0 0 5px
@@ -56,36 +49,13 @@ li span.version
       :padding 4px
       :color #333
       :font-weight bold
-
-.box ul, ul.tags
-  +horizontal-list
-
-ul.tags a
-  &:link, &:visited
-    :background-color = !green
-    :padding 4px
-    :color #333
-    :font-weight bold
-    :text-decoration none
-
-ul.tags a.task_view
-  :background-color = !red
-  :color = !white
-
-  &:link, &:visited, &:hover
-    :background-color = !red
-
-ul.tags
-  .add
-    &:link, &:visited
-      :background-color = !white
-      :border 1px solid #ccc
-
-ul.tags, .box ul
-  :margin 0.25em 0
-
-ul.tags li, .box ul li
-  :line-height 2.5em
+  ul
+    +horizontal-list
+    :margin 0.25em 0
+    
+    li
+      :line-height 2.5em
+    
 
 p.rating
   :float right
@@ -161,10 +131,65 @@ table.general
 img.spinner
   :align absmiddle
 
+
+// Tags  ---------------------------------------------------------------------
+
+ul.tags 
+  +horizontal-list
+  :margin 0.25em 0
+
+  a
+    &:link, &:visited
+      :background-color = !green
+      :padding 4px
+      :color #333
+      :font-weight bold
+      :text-decoration none
+    
+    &.task_view
+      :background-color = !red
+      :color = !white
+      &:link, &:visited, &:hover
+        :background-color = !red
+
+  .add
+    &:link, &:visited
+      :background-color = !white
+      :border 1px solid #ccc
+
+  li
+    :line-height 2.5em
+  
+#tags
+  ul
+    :margin-left -12px
+    li
+      :padding 2px
+      :line-height 0.6em
+
 ul#tag-cloud
   +tag-cloud(1.05em)
+  
+  :margin-left 0
   li
-    :margin 9px
+    :display inline
+    :list-style none
+    :line-height 36px
+    :vertical-align bottom
+    
+    &.xs
+      :font-size 10px
+    &.s
+      :font-size 14px
+    &.m
+      :font-size 18px
+    &.l
+      :font-size 22px
+    &.xl
+      :font-size 26px
+    &.xxl
+      :font-size 30px
+      
 
 ol
   li
