@@ -40,5 +40,7 @@ ActionController::Routing::Routes.draw do |map|
   map.login    '/login', :controller => 'sessions', :action => 'new'
   map.logout   '/logout', :controller => 'sessions', :action => 'destroy'
 
+  map.connect ':controller/:action/:id.:format'
+
   map.error '*url', :controller => 'static', :action => 'error_404'
 end
