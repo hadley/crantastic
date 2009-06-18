@@ -1,11 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :authors
   map.resources :reviews
-  map.resources :tags
   map.resources :taggings
-  map.resources :task_views
-  map.resources :users
   map.resources :ratings
+
+  [:users, :tags, :task_views].each do |r|
+    map.resources r do |t|
+      t.resource :timeline, :controller => "timeline"
+    end
+  end
 
   map.resources :packages, :collection => {:all => :get}, :member => {:index => :post}, :except => [:create, :update] do |p|
     p.resources :versions do |v|
@@ -18,7 +21,6 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   # Singleton resources
-  map.resource :timeline, :controller => "timeline"
   map.resource :search, :controller => "search"
   map.resource :session
 
