@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090615150957) do
+ActiveRecord::Schema.define(:version => 20090618134932) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -84,6 +84,20 @@ ActiveRecord::Schema.define(:version => 20090615150957) do
   end
 
   add_index "tagging", ["package_id", "tag_id", "user_id"], :name => "index_tagging_on_user_id_and_package_id_and_tag_id"
+
+  create_table "timeline_event", :force => true do |t|
+    t.string   "event_type"
+    t.string   "subject_type"
+    t.string   "actor_type"
+    t.string   "secondary_subject_type"
+    t.integer  "subject_id"
+    t.integer  "actor_id"
+    t.integer  "secondary_subject_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "timeline_event", ["subject_type", "subject_id", "actor_type", "actor_id", "secondary_subject_type", "secondary_subject_id"], :name => "index_timeline_event_on_subject_type_and_subject_id_and_actor_type_and_actor_id_and_secondary_subject_type_and_secondary_subject_id"
 
   create_table "user", :force => true do |t|
     t.string   "login"
