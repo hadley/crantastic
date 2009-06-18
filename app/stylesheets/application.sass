@@ -85,15 +85,6 @@ p.rating
     :border-top 1px solid #ccc
     :padding-top 0.5em
 
-#package-list
-  ul
-    +horizontal-list
-    a
-      padding: 2px
-    li
-      padding: 5px 6px 5px 6px
-      font-size: 1.2em
-
 .flash
   :background-color = !green
   :padding 0.5em
@@ -160,16 +151,7 @@ ul.tags
   li
     :line-height 2.5em
   
-#tags
-  ul
-    :margin-left -12px
-    li
-      :padding 2px
-      :line-height 0.6em
-
-ul#tag-cloud
-  +tag-cloud(1.05em)
-  
+ul.cloud  
   :margin-left 0
   li
     :display inline

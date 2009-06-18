@@ -6,8 +6,7 @@
   <p><small>(Red background means <strong>Task View</strong> &mdash; not updatable
   by users.)</small></p>
 
-  <div id="tags">
-  <ul id="tag-cloud" class="tags">
+  <ul class="tags cloud">
     <% tag_cloud(@tags, %w(xs s l xl xxl)) do |tag,level| -%>
       <li class="<%= level %>">
         <% if tag.task_view? %>
@@ -18,5 +17,4 @@
       </li>
     <% end -%>
   </ul>
-  </div>
 </div>
