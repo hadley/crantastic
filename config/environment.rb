@@ -33,6 +33,7 @@ Rails::Initializer.run do |config|
   config.gem 'mislav-will_paginate', :lib => "will_paginate", :source => 'http://gems.github.com'
   config.gem 'markbates-hoptoad_notifier', :lib => "hoptoad_notifier", :source => "http://gems.github.com"
   config.gem "giraffesoft-resource_controller", :lib => "resource_controller", :source => "http://gems.github.com"
+  config.gem "giraffesoft-timeline_fu", :lib => "timeline_fu", :version => ">= 0.2.0", :source => "http://gems.github.com"
 
   # Required, but do not attempt to load
   config.gem 'treetop', :lib => false
