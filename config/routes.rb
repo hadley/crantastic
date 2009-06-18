@@ -18,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
     p.resources :reviews
     p.resources :taggings
     p.resources :tags
+    p.resource :timeline, :controller => "timeline"
   end
 
   # Singleton resources
