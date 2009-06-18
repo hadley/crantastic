@@ -27,9 +27,15 @@ module PackagesHelper
       li_class = ""
       li_class = "first" if i.zero?
       a_class = ""
-      a_class = "task_view" if tag.task_view?
-      out += content_tag("li", link_to(tag, tag_path(tag), :class => a_class),
-                         :class => li_class)
+      if tag.task_view?
+        out += content_tag("li",
+                           link_to(tag, task_view_path(tag), :class => "task_view"),
+                           :class => li_class)
+      else
+        out += content_tag("li",
+                           link_to(tag, tag_path(tag)),
+                           :class => li_class)
+      end
     end
     out
   end
