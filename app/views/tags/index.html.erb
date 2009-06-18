@@ -7,14 +7,14 @@
   by users.)</small></p>
 
   <ul class="tags cloud">
-    <% tag_cloud(@tags, %w(xs s l xl xxl)) do |tag,level| -%>
+    <%- tag_cloud(@tags, %w(xs s l xl xxl)) do |tag,level| -%>
       <li class="<%= level %>">
-        <% if tag.task_view? %>
-          <%= link_to h(tag), task_view_url(tag), :class => "task_view" %>
-        <% else %>
-          <%= link_to h(tag), tag_url(tag) %>
-        <% end %>
+        <%- if tag.task_view? -%>
+          <%= link_to h(tag), task_view_url(tag), :class => "task_view" -%>
+        <%- else -%>
+          <%= link_to h(tag), tag_url(tag) -%>
+        <%- end %>
       </li>
-    <% end -%>
+    <%- end -%>
   </ul>
 </div>
