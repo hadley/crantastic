@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   create.before { cookies.delete :auth_token }
   create.wants.html { redirect_to thanks_path }
   show.failure.wants.html { rescue_404 }
+  show.wants.html { @events = TimelineEvent.recent_for_user(@user) }
   index.wants.html { @title = @users.length.to_s + " users" }
 
   def activate

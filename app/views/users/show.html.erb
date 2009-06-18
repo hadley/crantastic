@@ -4,8 +4,18 @@
 <%= image_tag @user.gravatar_url, :style => "float: right;" %>
 
 <% if current_user == @user -%>
-<p>(That's you! <%= link_to 'Edit your details', edit_user_path(@user) %>) </p>
+<p>(That's you! <%= link_to 'Edit your details', edit_user_path(@user) %>)</p>
+<% else %>
+<br />
 <% end -%>
+
+<h2>Latest activity</h2>
+<% if @events.length == 0 -%>
+<p><%= @user.login %> hasn't done anything recently.</p>
+<% else %>
+<%= render :partial => "timeline/timeline",
+           :locals => { :events => @events } %>
+<% end %>
 
 <h2>Reviews</h2>
 <% if @user.reviews.length == 0 -%>

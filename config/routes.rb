@@ -24,7 +24,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect "session/rpx_token", :controller => "sessions", :action => "rpx_token"
 
-  map.root :controller => "timeline", :action => "show"
+  map.root :controller => "welcome", :action => "index"
 
   map.with_options :controller => "static" do |static|
     static.about "about", :action => "about"
