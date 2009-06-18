@@ -1,10 +1,10 @@
-<h1>All Tags</h1>
+<h1>All tags</h1>
 
 <div class="content">
-  <p style="margin-bottom: 2px">Crantastic users have tagged <%= pluralize Tagging.package_count,
-     "packages" %> with the following tags:</p>
-  <p><small>(Red background means <strong>Task View</strong> &mdash; not updatable
-  by users.)</small></p>
+  <p>Crantastic users have tagged <%= pluralize Tagging.package_count,
+     "packages" %> with the following tags:<br >
+     <small>(Packages coloured red are automatically created from CRAN <a href="http://cran.r-project.org/web/views/">task views</a>)</small></p>
+  <p></p>
 
   <ul class="tags cloud">
     <%- tag_cloud(@tags, %w(xs s l xl xxl)) do |tag,level| -%>

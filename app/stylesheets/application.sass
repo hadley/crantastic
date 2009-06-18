@@ -17,21 +17,25 @@ h1, h2
 
 h1.title
   :background-color = !red
-  :padding 2em 0 0 5px
+  :padding 2.25em 0 0 5px
   :font-size 4em
   :font-weight bold
+  :border-bottom 3px solid #ddd
+  :margin-left 0
+  :margin-bottom 10px
 
   a
     &:link, &:visited
       :color = !white
+    &:hover
+      :text-decoration none
 
 h1
   :color = !red
   :font-size 3em
   :font-weight normal
-  :margin-bottom 10px
-  :border-bottom 2px solid #ddd
-
+  :margin-bottom 0
+  
 .version, .byline
   :font-size 30%
 
@@ -68,7 +72,7 @@ p.rating
 
 #main
   +column(13)
-  :margin-top 9.5em
+  :margin-top 10em
 
 #sidebar
   +column(7, true)
@@ -122,7 +126,8 @@ table.general
 img.spinner
   :align absmiddle
 
-
+small 
+  :font-size 90%
 
 // Tags  ---------------------------------------------------------------------
 
@@ -155,7 +160,7 @@ ul.tags
 ul.cloud 
   +horizontal-list
   li
-    :line-height 36px
+    :line-height 38px
     :vertical-align bottom
     
     &.xs
