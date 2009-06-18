@@ -1,15 +1,15 @@
 --- 
 vendor/plugins/no_fuzz: 
   squashed: true
-  branch: master
   url: git://github.com/Chrononaut/no_fuzz.git
   type: git
-  revision: d25c9f3d7c7f6c9a3e1ae5e63e6cdc5efa18f1fa
+  revision: 823078425a88caa2c6ad6fb216ec53263bc76a9b
+  branch: master
   remote: braid/vendor/plugins/no-fuzz
 vendor/plugins/db_branch: 
   squashed: true
-  url: git://github.com/Chrononaut/db_branch.git
-  branch: master
   type: git
+  url: git://github.com/Chrononaut/db_branch.git
   revision: 3af36e317ebfe018cadf6f204b077e08450ddbfa
+  branch: master
   remote: braid/vendor/plugins/db-branch

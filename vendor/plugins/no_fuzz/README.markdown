@@ -20,13 +20,23 @@ is a similar plugin, but it targets DataMapper.
 
 ## Installation and Setup
 
+No Fuzz as a plugin:
+
     cd your_rails_project
     script/plugin install git://github.com/Chrononaut/no_fuzz.git
     # Now we create a trigram migration for the model we want to add fuzzy search to:
     script/generate no_fuzz Model
     rake db:migrate
+    
+Or if you want to use is as a gem:
+    
+    gem sources -a http://gems.github.com
+    sudo gem install Chrononaut-no_fuzz 
 
-(Note that the plugin is available as a gem as well - you don't have to use script/plugin)
+Then add the following line to your environment.rb file
+
+    config.gem "Chrononaut-no_fuzz", :source => "http://gems.github.com", :lib => "no_fuzz"
+
 
 ## Basic Usage
 
@@ -38,8 +48,11 @@ Add the following code in the model you'd like to index:
 Where field is the field used for the indexing data (you can use multiple fields
 if you want).
 
-Populate the index by running 'Model.populate_trigram_index'. Then, you can
-search fuzzily with the fuzzy_find method:
+Populate the index by running:
+
+    Model.populate_trigram_index
+
+Then, you can search fuzzily with the fuzzy_find method:
 
     Model.fuzzy_find("query")
     Model.fuzzy_find("query", 10) # find maximum 10 rows
