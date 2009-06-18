@@ -58,6 +58,13 @@ class Tag < ActiveRecord::Base
     #"#{id}-#{name}"
     name
   end
+  
+  # Tag weight for use in tag clouds.  Dividing by the number of letters
+  # ensures that the area of the word is proportional to the number of 
+  # tagged objects, rather than just the height of the text.
+  def weight
+    count / name.length
+  end
 
   ###
   # Returns the number of packages tagged with this tag.
