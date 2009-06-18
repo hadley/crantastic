@@ -5,11 +5,23 @@
 +blueprint-grid
 +blueprint-form
 
+body
+  :font-size 80%
+
+p
+  :font-size 102%
+
 .float-l
   +float("left")
 
 .float-r
   +float("right")
+
+hr
+  +colruler
+
+hr.space
+  +colspacer
 
 h1, h2
   a
@@ -35,7 +47,7 @@ h1
   :font-size 3em
   :font-weight normal
   :margin-bottom 0
-  
+
 .version, .byline
   :font-size 30%
 
@@ -56,10 +68,9 @@ li span.version
   ul
     +horizontal-list
     :margin 0.25em 0
-    
+
     li
       :line-height 2.5em
-    
 
 p.rating
   :float right
@@ -126,12 +137,12 @@ table.general
 img.spinner
   :align absmiddle
 
-small 
+small
   :font-size 90%
 
 // Tags  ---------------------------------------------------------------------
 
-ul.tags 
+ul.tags
   +horizontal-list
   :margin 0.25em 0
 
@@ -142,7 +153,7 @@ ul.tags
       :color #333
       :font-weight bold
       :text-decoration none
-    
+
     &.task_view
       :background-color = !red
       :color = !white
@@ -156,13 +167,13 @@ ul.tags
 
   li
     :line-height 2.5em
-  
-ul.cloud 
+
+ul.cloud
   +horizontal-list
   li
     :line-height 38px
     :vertical-align bottom
-    
+
     &.xs
       :font-size 10px
     &.s
@@ -175,5 +186,5 @@ ul.cloud
       :font-size 26px
     &.xxl
       :font-size 30px
-      
+
 @import form
