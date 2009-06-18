@@ -27,10 +27,22 @@ describe "/users" do
 
     render "users/show"
     response.should have_tag('p', "#{@user} has written 3 reviews:")
-    response.should have_tag('li', /gave .* a 3, and[\n ]* says/)
-    response.should have_tag('li', /did not rate .*, but[\n ]* says/)
-    # Version should be displayed in parentheses when set
-    response.should have_tag('li', /did not rate .* \(#{ver}\).*, but[\n ]* says/)
+    response.should have_tag('ul') do
+      with_tag('li', /gave .* a 3, and[\n ]* says/)
+      with_tag('li', /did not rate .*, but[\n ]* says/)
+      # Version should be displayed in parentheses when set
+      with_tag('li', /did not rate .* \(#{ver}\).*, but[\n ]* says/)
+    end
+  end
+
+  it "should display the user's taggings" do
+    Tagging.make(:user => @user)
+    render "users/show"
+    response.should have_tag('h2', "Tags")
+    response.should have_tag('p', "#{@user} has tagged 1 package:")
+    response.should have_tag('ul') do
+      with_tag('li', /with [a-zA-Z]*:/)
+    end
   end
 
 end

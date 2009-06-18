@@ -55,3 +55,9 @@ Tag.blueprint do
   full_name
   description
 end
+
+Tagging.blueprint do
+  tag
+  user
+  package
+end
