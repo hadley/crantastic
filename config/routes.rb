@@ -17,11 +17,14 @@ ActionController::Routing::Routes.draw do |map|
     p.resources :tags
   end
 
+  # Singleton resources
+  map.resource :timeline, :controller => "timeline"
   map.resource :search, :controller => "search"
   map.resource :session
+
   map.connect "session/rpx_token", :controller => "sessions", :action => "rpx_token"
 
-  map.root :controller => "static", :action => "welcome"
+  map.root :controller => "timeline", :action => "show"
 
   map.with_options :controller => "static" do |static|
     static.about "about", :action => "about"
