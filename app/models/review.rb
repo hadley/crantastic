@@ -21,6 +21,10 @@ class Review < ActiveRecord::Base
   belongs_to :package
   belongs_to :version
 
+  fires :new_review, :on                => :create,
+                     :actor             => :user,
+                     :secondary_subject => :package
+
   default_scope :order => "created_at DESC" # Latest first
   named_scope :recent, :limit => 10, :include => [:user, :package]
 

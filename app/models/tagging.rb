@@ -16,6 +16,10 @@ class Tagging < ActiveRecord::Base
   belongs_to :package
   belongs_to :tag
 
+  fires :new_tagging, :on                => :create,
+                      :actor             => :user,
+                      :secondary_subject => :package
+
   validates_existence_of :package_id
   validates_existence_of :user_id
   validates_existence_of :tag_id
