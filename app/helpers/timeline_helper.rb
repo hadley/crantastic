@@ -21,7 +21,7 @@ module TimelineHelper
 
     else "performed an unkown action"
 
-    end + " <strong>about #{time_ago_in_words(item.created_at)} ago</strong>."
+    end + " <strong>#{time_ago_in_words(item.created_at)} ago</strong>."
   end
 
 end
