@@ -7,7 +7,7 @@ grosser-rpx_now --source http://gems.github.com
 mislav-will_paginate --source http://gems.github.com
 markbates-hoptoad_notifier --source http://gems.github.com
 giraffesoft-resource_controller --source http://gems.github.com
-chriseppstein-compass --version ">= 0.6.15" --source http://gems.github.com
 treetop
 archive-tar-minitar
 Chrononaut-treetop-dcf --version ">= 0.1.2" --source http://gems.github.com
+hpricot

@@ -22,3 +22,9 @@ config.after_initialize do
   Sass::Plugin.options[:line_comments] = false
   Sass::Plugin.options[:style] = :compressed
 end
+
+# Gems required only during development
+config.gem 'chriseppstein-compass',
+           :version => '>= 0.6.15',
+           :lib => false,
+           :source => 'http://gems.github.com'
