@@ -27,16 +27,15 @@ No Fuzz as a plugin:
     # Now we create a trigram migration for the model we want to add fuzzy search to:
     script/generate no_fuzz Model
     rake db:migrate
-    
+
 Or if you want to use is as a gem:
-    
+
     gem sources -a http://gems.github.com
-    sudo gem install Chrononaut-no_fuzz 
+    sudo gem install Chrononaut-no_fuzz
 
 Then add the following line to your environment.rb file
 
     config.gem "Chrononaut-no_fuzz", :source => "http://gems.github.com", :lib => "no_fuzz"
-
 
 ## Basic Usage
 
@@ -48,9 +47,14 @@ Add the following code in the model you'd like to index:
 Where field is the field used for the indexing data (you can use multiple fields
 if you want).
 
-Populate the index by running:
+Populate the initial index, if your model contains existing data:
 
     Model.populate_trigram_index
+
+To update the index incrementally, set an after_create callback in your model
+like this:
+
+    after_create :create_trigrams
 
 Then, you can search fuzzily with the fuzzy_find method:
 

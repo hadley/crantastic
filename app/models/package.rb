@@ -12,6 +12,8 @@ class Package < ActiveRecord::Base
   include NoFuzz
   fuzzy :name
 
+  after_create :create_trigrams # Incrementally update the trigram index
+
   has_many :versions, :order => "id DESC", :dependent => :destroy
   has_many :package_ratings, :dependent => :destroy
   has_many :reviews, :dependent => :destroy
@@ -41,7 +43,7 @@ class Package < ActiveRecord::Base
       # TODO It's kinda bad to do two database hits here, I think it can be resolved
       # by using paginate's :finder argument and creating a new method that
       # calls out to fuzzy_find.
-      ids = Package.fuzzy_find(q[0...-1]).collect { |i| i.id }
+      ids = Package.fuzzy_find(q[0...-1], per_page).collect { |i| i.id }
       [paginate(ids,
                {:include => {:versions => :maintainer},
                :page => search_results_page}), "fuzzy"]
@@ -54,19 +56,21 @@ class Package < ActiveRecord::Base
   end
 
   def self.search(q, limit=self.per_page)
+    extra = { :include => :versions }
+    res = []
     if q.ends_with? '~' # fuzzy search
-      @res = [Package.fuzzy_find(q[0...-1], limit), "fuzzy"]
+      res = [Package.fuzzy_find(q[0...-1], limit, extra), "fuzzy"]
     else
       qq = '%' + q + '%'
-      @res = [Package.all(:conditions =>
+      res = [Package.all(:conditions =>
                           ['LOWER(package.name) LIKE ? OR LOWER(version.description) LIKE ?', qq, qq],
                           :limit => limit, :include => :versions)]
-      if @res.first.empty?
+      if res.first.empty?
         # Try a fuzzy search if no results were found
-        @res = [Package.fuzzy_find(q, limit), "fuzzy"]
+        res = [Package.fuzzy_find(q, limit, extra), "fuzzy"]
       end
     end
-    @res
+    res
   end
 
   # Returns an array of Tag objects that this package has been tagged with.

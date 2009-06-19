@@ -1,5 +1,6 @@
 RedCloth
 maruku
+amatch
 haml-edge
 sqlite3-ruby
 chrislloyd-gravtastic --version ">= 2.1.2" --source http://gems.github.com
