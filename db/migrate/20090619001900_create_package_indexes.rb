@@ -4,7 +4,6 @@ class CreatePackageIndexes < ActiveRecord::Migration
   end
 
   def self.down
-    remove_index :package, :description
     remove_index :package, :name
   end
 end
