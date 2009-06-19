@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090618134932) do
+ActiveRecord::Schema.define(:version => 20090619001900) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(:version => 20090618134932) do
     t.text     "description"
     t.datetime "created_at"
   end
+
+  add_index "package", ["name"], :name => "index_package_on_name"
 
   create_table "package_rating", :force => true do |t|
     t.integer  "package_id"
