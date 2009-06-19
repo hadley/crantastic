@@ -10,6 +10,7 @@ describe "/users" do
   before(:each) do
     @user = User.first
     assigns[:user] = @user
+    assigns[:events] = []
   end
 
   it "should display a blank user profile" do

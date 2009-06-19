@@ -4,9 +4,10 @@ describe TimelineController do
 
   it "should assign timeline events" do
     stub = stub_model(TimelineEvent)
-    TimelineEvent.should_receive(:recent).and_return([stub])
-    get :show
-    assigns(:timeline_events).should == [stub]
+    User.should_receive(:find).and_return(stub_model(User))
+    TimelineEvent.should_receive(:recent_for_user).and_return([stub])
+    get :show, :user_id => 74
+    assigns(:events).should == [stub]
   end
 
 end
