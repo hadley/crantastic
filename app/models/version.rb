@@ -34,6 +34,9 @@ class Version < ActiveRecord::Base
 
   after_create :set_latest_version_for_package
 
+  fires :new_version, :on                => :create,
+                      :secondary_subject => :package
+
   validates_existence_of :package_id
   validates_presence_of :version
   validates_length_of :name, :in => 2..255

@@ -1,11 +1,13 @@
 # == Schema Information
+# Schema version: 20090619112911
 #
 # Table name: package
 #
-#  id          :integer         not null, primary key
-#  name        :string(255)
-#  description :text
-#  created_at  :datetime
+#  id                :integer         not null, primary key
+#  name              :string(255)
+#  description       :text
+#  created_at        :datetime
+#  latest_version_id :integer
 #
 
 class Package < ActiveRecord::Base
@@ -23,6 +25,10 @@ class Package < ActiveRecord::Base
   belongs_to :latest_version, :class_name => "Version"
   alias :latest :latest_version
 
+  fires :new_package, :on                => :create,
+                      :subject           => :self,
+                      :secondary_subject => :self # yes 2x package
+
   default_scope :order => "LOWER(package.name)"
   # Used for the Package atom-feed:
   named_scope :recent, :order => "#{self.table_name}", :include => :versions,
@@ -31,6 +37,11 @@ class Package < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
   validates_length_of :name, :in => 2..255
+
+  # We can't validate the presence of a latest_version_id here, since we
+  # create packages before versions are associated. In conclusion, we have
+  # to be careful and ideally use transactions when creating packages to avoid
+  # inconsistent data in the database.
 
   def self.find_by_param(id)
     self.find_by_name(id.gsub("-", ".")) or raise ActiveRecord::RecordNotFound

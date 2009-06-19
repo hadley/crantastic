@@ -1,8 +1,20 @@
 module TimelineHelper
 
   def timeline_item(item)
-    link_to(item.actor, user_path(item.actor)) + " " +
+    (item.actor.not_nil? ? link_to(item.actor, user_path(item.actor)) : "") + " " +
     case item.event_type
+    when "new_package" then
+
+      link_to(item.subject, item.subject) + " got released as a " +
+        content_tag("span", "new package", :class => "action")
+
+    when "new_version" then
+
+      link_to(item.secondary_subject, item.secondary_subject) + " received a  " +
+        content_tag("span", "version upgrade", :class => "action") +
+        " to version " +
+        link_to(item.subject, package_version_path(item.subject.package, item.subject))
+
     when "new_tagging" then
       content_tag("span", "tagged", :class => "action") + " " +
         link_to(item.secondary_subject, item.secondary_subject) +
