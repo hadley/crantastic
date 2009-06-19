@@ -60,7 +60,7 @@ class Package < ActiveRecord::Base
   end
 
   def self.search(q, limit=self.per_page)
-    extra = { :include => :versions }
+    extra = { :include => :latest_version }
     res = []
     if q.ends_with? '~' # fuzzy search
       res = [Package.fuzzy_find(q[0...-1], limit, extra), "fuzzy"]
@@ -68,7 +68,7 @@ class Package < ActiveRecord::Base
       qq = '%' + q + '%'
       res = [Package.all(:conditions =>
                           ['LOWER(package.name) LIKE ? OR LOWER(version.description) LIKE ?', qq, qq],
-                          :limit => limit, :include => :versions)]
+                          :limit => limit, :include => :latest_version)]
       if res.first.empty?
         # Try a fuzzy search if no results were found
         res = [Package.fuzzy_find(q, limit, extra), "fuzzy"]
