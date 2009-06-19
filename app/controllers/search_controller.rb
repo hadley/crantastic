@@ -5,7 +5,7 @@ class SearchController < ApplicationController
     @search_result = Package.search(@search_term)
     @packages = @search_result.first
 
-    if @search_result.size > 1
+    if !@search_term.end_with?('~') && @search_result.size > 1
       flash[:notice] = "No packages were found for '#{@search_term}'. We tried a fuzzy search instead:"
     end
 

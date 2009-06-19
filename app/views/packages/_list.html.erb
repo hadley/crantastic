@@ -1,4 +1,4 @@
-<% if @search_result.size > 1 && !@packages.empty? %>
+<% if !@fuzzy && @search_result.size > 1 && !@packages.empty? %>
   <p>
     <strong>No packages were found for '<%= h(@search_term) %>'. We tried a fuzzy
     search instead:</strong>

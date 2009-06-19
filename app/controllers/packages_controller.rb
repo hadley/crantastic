@@ -5,6 +5,8 @@ class PackagesController < ApplicationController
   def index
     page_no = params[:page] || 1
     @search_term = String(params[:search]) || ''
+    @fuzzy = @search_term.sub!(/%7E$/, '~') ? true : false
+
     @search_result = Package.paginating_search(@search_term, page_no)
     @packages = @search_result.first
     @title = "#{Package.count} R packages"
