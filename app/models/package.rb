@@ -19,6 +19,10 @@ class Package < ActiveRecord::Base
   has_many :reviews, :dependent => :destroy
   has_many :taggings, :dependent => :destroy
 
+  # We cache the latest version id
+  belongs_to :latest_version, :class_name => "Version"
+  alias :latest :latest_version
+
   default_scope :order => "LOWER(package.name)"
   # Used for the Package atom-feed:
   named_scope :recent, :order => "#{self.table_name}", :include => :versions,
@@ -49,7 +53,7 @@ class Package < ActiveRecord::Base
                :page => search_results_page}), "fuzzy"]
     else
       res = paginate({ :conditions => [ 'LOWER(package.name) LIKE ?', '%' + q + '%'],
-                       :include => {:versions => :maintainer},
+                       :include => [{:latest_version => :maintainer}],
                        :page => search_results_page })
       res.empty? ? self.paginating_search(q + '~', search_results_page) : [res]
     end
@@ -100,11 +104,6 @@ class Package < ActiveRecord::Base
   def to_s
     name
   end
-
-  def latest
-    @latest ||= versions[0]
-  end
-  alias :latest_version :latest
 
   def google_url
     "http://www.google.com/search?q=" + CGI.escape("#{name} cran OR r-project -inurl:contrib -inurl:doc/packages -inurl:CRAN")
