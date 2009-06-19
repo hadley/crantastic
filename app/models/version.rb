@@ -32,6 +32,8 @@ class Version < ActiveRecord::Base
   belongs_to :package
   belongs_to :maintainer, :class_name => "Author"
 
+  after_create :set_latest_version_for_package
+
   validates_existence_of :package_id
   validates_presence_of :version
   validates_length_of :name, :in => 2..255
@@ -75,6 +77,11 @@ class Version < ActiveRecord::Base
 
     self.maintainer = author
     save
+  end
+
+  private
+  def set_latest_version_for_package
+    self.package.update_attribute(:latest_version_id, self.id)
   end
 
 end
