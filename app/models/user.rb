@@ -16,13 +16,16 @@
 #
 
 require 'digest/sha1'
+
 class User < ActiveRecord::Base
+
+  include RPXNow::UserIntegration # Adds rpx.identifiers, rpx.map, and rpx.unmap
   include RFC822
+
   is_gravtastic # Enables the Gravtastic plugin for the User model
 
   has_many :reviews
   has_many :taggings
-  has_many :identifiers, :class_name => "UserIdentifier", :dependent => :destroy
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password
@@ -65,13 +68,6 @@ class User < ActiveRecord::Base
   # Returns true if the user has just been activated.
   def pending?
     @activated
-  end
-
-  # Add an identifier for RPX for this user account
-  def add_identifier(identifier)
-    self.identifiers << UserIdentifier.create!(:user_id => self.id, :identifier => identifier)
-    RPXNow.map(identifier, self.id.to_s, ENV['RPX_API_KEY']) # Map the PK
-    self.activate unless self.active?
   end
 
   # Rates a package, discarding the users previous rating in the process

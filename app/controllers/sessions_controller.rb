@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   #  :identifier=>'blug.google.com/openid/dsdfsdfs3f3'}
   # When no user_data was found (invalid token supplied), data is empty.
   def rpx_token
-    data = RPXNow.user_data(params[:token], ENV['RPX_API_KEY'])
+    data = RPXNow.user_data(params[:token])
 
     if data.blank? # Login failed
       flash[:notice] = "Error"
@@ -40,7 +40,7 @@ class SessionsController < ApplicationController
         end
         user.activate(false)
       end
-      user.add_identifier(data[:identifier]) # Add PK mapping
+      user.rpx.map(data[:identifier]) # Add PK mapping
       self.current_user = user
     end
 
