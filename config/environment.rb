@@ -30,7 +30,7 @@ Rails::Initializer.run do |config|
   config.gem 'haml-edge', :lib => "haml"
   config.gem "sqlite3-ruby", :lib => "sqlite3"
   config.gem 'chrislloyd-gravtastic', :lib => "gravtastic", :version => '>= 2.1.2', :source => 'http://gems.github.com'
-  config.gem 'grosser-rpx_now', :lib => 'rpx_now', :source => 'http://gems.github.com'
+  config.gem 'Chrononaut-rpx_now', :lib => 'rpx_now', :version => '>= 0.5.6', :source => 'http://gems.github.com'
   config.gem 'mislav-will_paginate', :lib => "will_paginate", :source => 'http://gems.github.com'
   config.gem 'markbates-hoptoad_notifier', :lib => "hoptoad_notifier", :source => "http://gems.github.com"
   config.gem "giraffesoft-resource_controller", :lib => "resource_controller", :source => "http://gems.github.com"
