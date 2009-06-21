@@ -1,15 +1,16 @@
 module TimelineHelper
 
   def timeline_item(item)
-    content_tag("li",
-    (item.actor.not_nil? ? link_to(item.actor, user_path(item.actor)) : "") + " " +
+    "<li>" + 
+    "#{time_ago_in_words(item.created_at)} ago " +
+    (item.actor.not_nil? ? link_to(item.actor, user_path(item.actor)) + " " : "") + 
     case item.event_type
 
     when "new_package" then
 
       # Maybe include version number here
-      link_to(item.subject, item.subject) + " got released as a " +
-        content_tag("span", "new package", :class => "action")
+      link_to(item.subject, item.subject) + " was " +
+        content_tag("span", "released", :class => "action")
 
     when "new_version" then
 
@@ -19,8 +20,8 @@ module TimelineHelper
       return "" if prev.event_type == "new_package" &&
         prev.secondary_subject == item.secondary_subject
 
-      link_to(item.secondary_subject, item.secondary_subject) + " received a  " +
-        content_tag("span", "version upgrade", :class => "action") +
+      link_to(item.secondary_subject, item.secondary_subject) + " was " +
+        content_tag("span", "upgraded", :class => "action") +
         " to version " +
         link_to(item.subject, package_version_path(item.subject.package, item.subject))
 
@@ -45,7 +46,7 @@ module TimelineHelper
 
     else "performed an unkown action"
 
-    end + " <strong>#{time_ago_in_words(item.created_at)} ago</strong>.")
+    end  + ".</li>"
   end
 
 end
