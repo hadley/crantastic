@@ -1,15 +1,23 @@
 module TimelineHelper
 
   def timeline_item(item)
+    content_tag("li",
     (item.actor.not_nil? ? link_to(item.actor, user_path(item.actor)) : "") + " " +
     case item.event_type
 
     when "new_package" then
 
+      # Maybe include version number here
       link_to(item.subject, item.subject) + " got released as a " +
         content_tag("span", "new package", :class => "action")
 
     when "new_version" then
+
+      # Don't display a message twice for a package release, so we must check
+      # the previous event
+      prev = TimelineEvent.find(item.id - 1)
+      return "" if prev.event_type == "new_package" &&
+        prev.secondary_subject == item.secondary_subject
 
       link_to(item.secondary_subject, item.secondary_subject) + " received a  " +
         content_tag("span", "version upgrade", :class => "action") +
@@ -37,7 +45,7 @@ module TimelineHelper
 
     else "performed an unkown action"
 
-    end + " <strong>#{time_ago_in_words(item.created_at)} ago</strong>."
+    end + " <strong>#{time_ago_in_words(item.created_at)} ago</strong>.")
   end
 
 end
