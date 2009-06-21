@@ -8,8 +8,6 @@
 # NOTE to self: patched levenshtein distance right in, to somewhat avoid
 # completely horrendous results.
 
-require "amatch"
-
 module NoFuzz
   def self.included(model)
     model.extend ClassMethods
