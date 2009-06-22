@@ -1,0 +1,24 @@
+Sitemap
+=======
+
+Sitemap is a plugin to allow easy dynamic generation of xml and XHTML sitemaps for your website.  It follows the guidelines set forth by Google, MSN, and Yahoo. 
+
+
+Instructions
+============
+
+1. script/generate sitemap_migration
+2. Go to http://yoursite.com/sitemap_settings
+3. Fill in your static links and your widget links, plus a few basic settings (fill in username and password for basic http auth support)
+4. Go to http://yoursite.com/sitemap.xml
+
+
+Contributors
+============
+
+Josh Owens
+Adam Stacoviak
+Matt Polito
+
+
+Copyright (c) 2007 Josh Owens and Adam Stacoviak, released under the MIT license

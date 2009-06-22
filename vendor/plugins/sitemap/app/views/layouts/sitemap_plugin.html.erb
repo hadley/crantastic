@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+	<title>Sitemap: Settings</title>
+
+	<!-- CSS Stylesheets -->
+	<link rel="stylesheet" href="../../sitemap.css" type="text/css" media="screen" title="Sitemap Stylesheet" />
+
+</head>
+
+<body class="">
+
+<div id="container">
+	
+	<div id="mast_head">
+
+		<h1 id="branding">Sitemap: Settings</h1>
+		
+		<div id="site_description">
+			<%= render :partial => "shared/nav" %>
+		</div>
+	</div>
+	
+	<hr />
+
+	<div id="content">
+	<%= yield %>
+	</div>
+	
+	<hr />
+	
+	<div id="site_footer">
+		<p>The Sitemap plugin is <%= link_to "Handcrafted", "http://gethandcrafted.com/" %></p>
+	</div>
+
+</div>
+	
+</body>
+</html>
