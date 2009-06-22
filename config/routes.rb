@@ -33,7 +33,6 @@ ActionController::Routing::Routes.draw do |map|
     static.about "about", :action => "about"
     static.error_404 "error_404", :action => "error_404"
     static.error_500 "error_500", :action => "error_500"
-    static.robots "robots.txt", :action => "robots_txt"
   end
 
   map.signup   '/signup', :controller => 'users', :action => 'new'
