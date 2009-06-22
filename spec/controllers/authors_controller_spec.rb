@@ -7,6 +7,7 @@ describe AuthorsController do
   it "should do a 404 for unknown ids" do
     get :show, :id => 9999
     response.status.should == "404 Not Found"
+    response.should render_template("static/error_404")
   end
 
   it "should pluralize the title" do
@@ -16,8 +17,6 @@ describe AuthorsController do
 
 
   describe "XHTML Markup" do
-
-    integrate_views
 
     it "should be valid for the index page" do
       get :index
