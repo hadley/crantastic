@@ -31,7 +31,19 @@ class TimelineEvent < ActiveRecord::Base
       :include => [:actor, :subject, :secondary_subject] }
   }
 
+  after_create :cache_values
+
+  validates_presence_of :event_type
+
   belongs_to :actor,              :polymorphic => true
   belongs_to :subject,            :polymorphic => true
   belongs_to :secondary_subject,  :polymorphic => true
+
+  private
+  # Values must be cached for items that can change.
+  def cache_values
+    if self.event_type == "new_package_rating"
+      update_attribute(:cached_rating, self.subject.rating)
+    end
+  end
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090620160821) do
+ActiveRecord::Schema.define(:version => 20090622142843) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -99,9 +99,10 @@ ActiveRecord::Schema.define(:version => 20090620160821) do
     t.integer  "secondary_subject_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "cached_rating"
   end
 
-  add_index "timeline_event", ["subject_type", "subject_id", "actor_type", "actor_id", "secondary_subject_type", "secondary_subject_id"], :name => "index_timeline_event_on_subject_type_and_subject_id_and_actor_type_and_actor_id_and_secondary_subject_type_and_secondary_subject_id"
+  add_index "timeline_event", ["actor_id", "actor_type", "secondary_subject_id", "secondary_subject_type", "subject_id", "subject_type"], :name => "index_timeline_event_on_subject_type_and_subject_id_and_actor_t"
 
   create_table "user", :force => true do |t|
     t.string   "login"
