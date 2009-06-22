@@ -27,13 +27,11 @@
 
 # TODO: consider removing the 'requires' field
 class Version < ActiveRecord::Base
+
   has_many :reviews
 
   belongs_to :package
   belongs_to :maintainer, :class_name => "Author"
-
-  after_create :set_latest_version_for_package
-  after_create :mark_package_as_updated
 
   fires :new_version, :on                => :create,
                       :secondary_subject => :package
@@ -81,15 +79,6 @@ class Version < ActiveRecord::Base
 
     self.maintainer = author
     save
-  end
-
-  private
-  def set_latest_version_for_package
-    self.package.update_attribute(:latest_version_id, self.id)
-  end
-
-  def mark_package_as_updated
-    self.package.update_attribute(:updated_at, Time.now)
   end
 
 end

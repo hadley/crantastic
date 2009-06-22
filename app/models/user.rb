@@ -79,7 +79,8 @@ class User < ActiveRecord::Base
     package = package.id if package.kind_of?(Package)
     r = rating_for(package, aspect)
     if r
-      r.update_attribute(:rating, rating)
+      r.rating = rating
+      r.save
     else
       PackageRating.create!(:package_id => package, :user_id => self.id,
                             :rating => rating, :aspect => aspect)

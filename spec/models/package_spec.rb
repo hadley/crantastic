@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Package do
 
   setup do
-    Package.make(:name => "bio.infer")
+    Package.make(:name => "bio.infer", :updated_at => 1.day.ago)
+    Package.make(:name => "ggplot2", :updated_at => 2.days.ago)
   end
 
   should_have_scope :recent
@@ -56,12 +57,26 @@ describe Package do
     Package.new(:name => "bio.infer").to_s.should == "bio.infer"
   end
 
-
   it "should be marked as updated after it receives a new version" do
-    pkg = Package.make(:updated_at => 1.day.ago)
+    pkg = Package.find_by_param("bio.infer")
     prev_time = pkg.updated_at
     Version.make(:package => pkg)
-    pkg.reload
+    (pkg.updated_at > prev_time).should be_true
+  end
+
+  it "should be marked as updated after it receives a new tagging" do
+    UserMailer.should_receive(:deliver_signup_notification)
+    pkg = Package.find_by_param("ggplot2")
+    prev_time = pkg.updated_at
+    Tagging.make(:package => pkg)
+    (pkg.updated_at > prev_time).should be_true
+  end
+
+  it "should be marked as updated after it receives a new rating" do
+    UserMailer.should_receive(:deliver_signup_notification)
+    pkg = Package.find_by_param("ggplot2")
+    prev_time = pkg.updated_at
+    rating = PackageRating.make(:package => pkg)
     (pkg.updated_at > prev_time).should be_true
   end
 
