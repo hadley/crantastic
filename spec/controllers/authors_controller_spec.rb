@@ -2,6 +2,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe AuthorsController do
 
+  setup do
+    Version.make
+  end
+
   integrate_views
 
   it "should do a 404 for unknown ids" do
@@ -15,6 +19,10 @@ describe AuthorsController do
     response.should have_tag('title', "Package Maintainers. They're crantastic!")
   end
 
+  it "should set a singular title for the author pages" do
+    get :show, :id => 1
+    response.should have_tag('title', "#{Author.find(1).name}. It's crantastic!")
+  end
 
   describe "XHTML Markup" do
 
