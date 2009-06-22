@@ -1,22 +1,21 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Package do
+
+  setup do
+    Package.make(:name => "bio.infer")
+  end
+
   should_have_scope :recent
 
   should_validate_presence_of :name
+  should_validate_uniqueness_of :name
   should_validate_length_of :name, :minimum => 2, :maximum => 255
 
   should_have_many :versions
   should_have_many :package_ratings
   should_have_many :reviews
   should_have_many :taggings
-
-  it "should have unique package names" do
-    p = Package.new(:name => "abind")
-    p.should be_valid
-    p.save!
-    Package.new(:name => "abind").should_not be_valid
-  end
 
   it "should use dashes instead of dots for params" do
     p = Package.new(:name => "bio.infer")
@@ -56,4 +55,14 @@ describe Package do
   it "should have name as to_s representation" do
     Package.new(:name => "bio.infer").to_s.should == "bio.infer"
   end
+
+
+  it "should be marked as updated after it receives a new version" do
+    pkg = Package.make(:updated_at => 1.day.ago)
+    prev_time = pkg.updated_at
+    Version.make(:package => pkg)
+    pkg.reload
+    (pkg.updated_at > prev_time).should be_true
+  end
+
 end
