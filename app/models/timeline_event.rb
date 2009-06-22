@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090618134932
+# Schema version: 20090622185118
 #
 # Table name: timeline_event
 #
@@ -13,6 +13,7 @@
 #  secondary_subject_id   :integer
 #  created_at             :datetime
 #  updated_at             :datetime
+#  cached_rating          :integer
 #
 
 # It's important that the secondary_subject always is set to Package,
