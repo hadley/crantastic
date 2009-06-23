@@ -1,7 +1,7 @@
 class SearchController < ApplicationController
   def show
     @title = 'Search'
-    @search_term = String(params[:q]).strip.downcase
+    @search_term = String(params[:q]).mb_chars.strip.downcase
     @search_result = Package.search(@search_term)
     @packages = @search_result.first
 
