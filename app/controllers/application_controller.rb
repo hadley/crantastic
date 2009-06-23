@@ -23,8 +23,8 @@ class ApplicationController < ActionController::Base
     when ::ActionController::UnknownAction, ::ActiveRecord::RecordNotFound then
       render :template => "static/error_404", :status => 404
     else
-      render :template => "static/error_500", :status => 500,
-                                              :locals => { :exception => exception }
+      @exception = exception
+      render :template => "static/error_500", :status => 500
     end
   end
 

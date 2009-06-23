@@ -1,0 +1,37 @@
+# SQLite version 3.x
+#   gem install sqlite3-ruby
+development:
+  encoding: utf8
+  adapter: sqlite3
+  database: db/development.sqlite3
+  timeout: 5000
+
+test:
+  encoding: utf8
+  adapter: sqlite3
+  database: db/test.sqlite3
+  timeout: 5000
+
+production:
+  encoding: utf8
+  adapter: sqlite3
+  database: db/production.sqlite3
+  timeout: 5000
+
+# The production server runs PostgreSQL, so it might be useful to run it
+# locally as well. Example configuration follows below:
+#
+# development:
+#   adapter: postgresql
+#   database: crantastic
+#   encoding: unicode
+
+# test:
+#   adapter: postgresql
+#   database: crantastic_test
+#   encoding: unicode
+
+# production:
+#   adapter: postgresql
+#   database: crantastic
+#   encoding: unicode

@@ -27,18 +27,20 @@ class SessionsController < ApplicationController
 
       # If the user wasn't already registered:
       if user.nil?
-        user = User.new(:email => data[:email], :login => data[:username])
-        if user.valid?
-          user.save!
-        else
-          # Maybe not the most elegant way to do it, but it works for now
-          user.login = ActiveSupport::SecureRandom.hex(5)
-          user.save!
-          flash[:notice] = "Your preferred username was not available. You have been " +
-                           "assigned a random username instead -- you can change it to " +
-                           "something else by editing your details."
+        User.transaction do
+          user = User.new(:email => data[:email], :login => data[:username])
+          if user.valid?
+            user.save!
+          else
+            # Maybe not the most elegant way to do it, but it works for now
+            user.login = ActiveSupport::SecureRandom.hex(5)
+            user.save!
+            flash[:notice] = "Your preferred username was not available. You have been " +
+              "assigned a random username instead -- you can change it to " +
+              "something else by editing your details."
+          end
+          user.activate(false)
         end
-        user.activate(false)
       end
       user.rpx.map(data[:identifier]) # Add PK mapping
       self.current_user = user
@@ -51,7 +53,7 @@ class SessionsController < ApplicationController
   def create
     self.current_user = User.authenticate(params[:login], params[:password])
     if logged_in?
-      if params[:remember_me] == "1"
+      if self.current_user.remember?
         self.current_user.remember_me
         cookies[:auth_token] = {
           :value => self.current_user.remember_token,
@@ -73,4 +75,5 @@ class SessionsController < ApplicationController
     flash[:notice] = "You have been logged out."
     redirect_to root_url
   end
+
 end

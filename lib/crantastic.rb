@@ -20,8 +20,10 @@ module Crantastic
           end
         else
           Log.log!("New package: #{new}")
-          Package.create!(:name => new.name) # Start by creating the package entry
-          add_version_to_db(new)
+          Package.transaction do
+            Package.create!(:name => new.name) # Start by creating the package entry
+            add_version_to_db(new)
+          end
           i += 1
         end
       end

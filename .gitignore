@@ -5,4 +5,5 @@ db/*.sqlite3
 tmp
 _site
 config/database.branch.*
+config/database.yml
 test/*

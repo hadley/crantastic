@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+	<title>Sitemap: <%= ((@site.blank? || @site.name.blank?) ? "Rails Web Application" : @site.name) %></title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="copyright" content="Your Company Name" />
+	<meta name="lang" content="en" />
+
+	<!-- CSS Stylesheets -->
+	<link rel="stylesheet" href="sitemap.css" type="text/css" media="screen" title="Sitemap Stylesheet" />
+
+	<!-- JavaScript -->
+
+	
+	<!-- RSS Auto Discovery -->
+
+	
+	<!-- Site Description -->
+	<meta name="description" content="<%= (@site.blank? || @site.description.blank?) ? "Rails Web Application" : @site.description %>" />
+	
+	<!-- Search Engine Indexing -->
+	<meta name="robots" content="index, follow" />
+	<meta name="googlebot" content="index, follow" />
+
+</head>
+
+<body class="">
+
+<div id="container">
+
+	<div id="mast_head">
+		
+		<!--
+			Use this tag to populate the site and page title.
+			This is the core h1 that should be tied to the site and page title.
+		-->		
+		<h1 id="branding"><%= link_to "<span>Sitemap: #{((@site.blank? || @site.name.blank?) ? "Rails Web Application" : @site.name)} </span>", root_url %></h1>
+		
+		<div id="site_description">
+			<p><%= (@site.blank? || @site.description.blank?) ? "Rails Web Application" : @site.description %></p>
+		</div>
+	</div>
+	
+	<hr />
+	
+	<dl id="site_map">
+		
+		<!--
+			The ID below, id="section_title", is actually the real title
+			of the section used as the dynamic semantic unique identifier.
+		-->
+		<% grouped_links = @static_links.group_by { |sl| sl.section } %>
+		<% grouped_links.each do |section, links| %>
+		<dt class="section_title" id="section_title"><%= section.to_s.capitalize %></dt>
+		<dd class="pages">
+			<ul>
+				<% links.each do |static_link| %>
+				<li><%= link_to static_link.name, url_for(send(static_link.url.to_sym)) %></li>
+				<% end %>
+			</ul>
+		</dd>
+		<% end %>
+		
+		<% @widgets.each do |widget| %>
+		<dt class="section_title" id="section_title"><%= link_to widget.widget_model.to_s.capitalize, url_for(send(widget.index_named_route.to_sym)) %></dt>
+		<dd class="pages">
+
+			<ul>
+				<% widget.find_children.each do |child| %>
+				<li><%= link_to child.to_param, child %></li>
+				<% end %>
+			</ul>
+		</dd>
+		<% end %>
+		<!-- <dt class="section_title" id="section_title"><a href="#section_link" title="Section Description" class="loc">Section Title</a></dt>
+		<dd class="pages">
+			<ul>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Use this tag to populate the description</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li>
+					<dl class="sections">
+						<dt class="section_title" id="section_title"><a href="#section_link" title="Section Description" class="loc">Section Title</a></dt>
+						<dd class="pages">
+							<ul>
+								<li><a href="#page" title="Page Description">Use this tag to populate the description</a></li>
+								<li><a href="#page" title="Page Description">Page Title</a></li>
+								<li><a href="#page" title="Page Description">Page Title</a></li>
+								<li><a href="#page" title="Page Description">Page Title</a></li>
+								<li><a href="#page" title="Page Description">Page Title</a></li>
+								<li><a href="#page" title="Page Description">Page Title</a></li>
+								<li><a href="#page" title="Page Description">Page Title</a></li>
+								<li><a href="#page" title="Page Description">Page Title</a></li>
+								<li><a href="#page" title="Page Description">Page Title</a></li>
+								<li><a href="#page" title="Page Description">Page Title</a></li>
+								<li><a href="#page" title="Page Description">Page Title</a></li>
+								<li><a href="#page" title="Page Description">Page Title</a></li>
+							</ul>
+						</dd>
+					</dl>
+				</li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+			</ul>
+		</dd>
+
+		<dt class="section_title" id="section_title"><a href="#section_link" title="Section Description" class="loc">Section Title</a></dt>
+		<dd class="pages">
+			<ul>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+				<li><a href="#page" title="Page Description">Page Title</a></li>
+			</ul>
+		</dd> -->
+
+	</dl>
+	
+	<hr />
+	
+	<div id="site_footer">
+		<p>Copyright&copy; <%= copyright_date %> <%= link_to ((@site.blank? || @site.name.blank?) ? "Rails Web Application" : @site.name), root_url %>, All Rights Reserved.</p>
+	</div>
+
+</div>
+	
+</body>
+</html>

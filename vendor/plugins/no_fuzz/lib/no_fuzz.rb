@@ -60,7 +60,7 @@ module NoFuzz
       fields = self.instance_variable_get(:@fuzzy_fields)
 
       word = ' ' + word + ' '
-      trigrams = (0..word.length-3).collect { |idx| word[idx,3] }
+      trigrams = (0..word.length-3).collect { |idx| word.mb_chars[idx,3] }
 
       # ordered hash of package_id => score pairs
       trigram_groups = trigram_model.sum(:score, :conditions => [ "tg IN (?)", trigrams],

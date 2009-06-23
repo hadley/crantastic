@@ -1,9 +1,9 @@
 module TimelineHelper
 
   def timeline_item(item)
-    "<li>" + 
+    "<li>" +
     "#{time_ago_in_words(item.created_at)} ago " +
-    (item.actor.not_nil? ? link_to(item.actor, user_path(item.actor)) + " " : "") + 
+    (item.actor.not_nil? ? link_to(item.actor, user_path(item.actor)) + " " : "") +
     case item.event_type
 
     when "new_package" then
@@ -36,7 +36,7 @@ module TimelineHelper
       content_tag("span", "rated", :class => "action") + " " +
         link_to(item.secondary_subject, item.subject.package) +
         "#{item.subject.aspect == 'overall' ? '' : '\'s documentation'}" +
-        " with " + content_tag("span", "#{item.subject.rating} stars", :class => "red")
+        " with " + content_tag("span", "#{item.cached_rating} stars", :class => "red")
 
     when "new_review" then
 

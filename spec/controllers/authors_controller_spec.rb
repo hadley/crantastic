@@ -2,11 +2,21 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe AuthorsController do
 
+  setup do
+    Version.make
+  end
+
+  before(:each) do
+    @version = Version.first
+    @author = @version.maintainer
+  end
+
   integrate_views
 
   it "should do a 404 for unknown ids" do
     get :show, :id => 9999
     response.status.should == "404 Not Found"
+    response.should render_template("static/error_404")
   end
 
   it "should pluralize the title" do
@@ -14,10 +24,12 @@ describe AuthorsController do
     response.should have_tag('title', "Package Maintainers. They're crantastic!")
   end
 
+  it "should set a singular title for the author pages" do
+    get :show, :id => @author.id
+    response.should have_tag('title', "#{@version.maintainer.name}. It's crantastic!")
+  end
 
   describe "XHTML Markup" do
-
-    integrate_views
 
     it "should be valid for the index page" do
       get :index
@@ -25,7 +37,7 @@ describe AuthorsController do
     end
 
     it "should be valid for the show page" do
-      get :show, :id => 1
+      get :show, :id => @author.id
       response.body.strip_entities.should be_xhtml_strict
     end
 

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090619112911
+# Schema version: 20090622185118
 #
 # Table name: package
 #
@@ -8,6 +8,7 @@
 #  description       :text
 #  created_at        :datetime
 #  latest_version_id :integer
+#  updated_at        :datetime
 #
 
 class Package < ActiveRecord::Base

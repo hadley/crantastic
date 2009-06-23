@@ -22,6 +22,7 @@ Version.blueprint do
   version { "1.0" }
 
   package
+  maintainer { Author.make }
 end
 
 Package.blueprint do

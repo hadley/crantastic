@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090620160821) do
+ActiveRecord::Schema.define(:version => 20090623170341) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20090620160821) do
     t.text     "description"
     t.datetime "created_at"
     t.integer  "latest_version_id"
+    t.datetime "updated_at"
   end
 
   add_index "package", ["latest_version_id"], :name => "index_package_on_latest_version_id"
@@ -70,6 +71,37 @@ ActiveRecord::Schema.define(:version => 20090620160821) do
     t.integer "version"
   end
 
+  create_table "sitemap_setting", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "xml_location"
+    t.string   "username"
+    t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sitemap_static_link", :force => true do |t|
+    t.string   "url"
+    t.string   "name"
+    t.float    "priority"
+    t.string   "frequency"
+    t.string   "section"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sitemap_widget", :force => true do |t|
+    t.string   "widget_model"
+    t.string   "index_named_route"
+    t.string   "frequency_index"
+    t.string   "frequency_show"
+    t.float    "priority"
+    t.string   "custom_finder"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tag", :force => true do |t|
     t.string   "name",                           :null => false
     t.string   "full_name"
@@ -99,9 +131,10 @@ ActiveRecord::Schema.define(:version => 20090620160821) do
     t.integer  "secondary_subject_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "cached_rating"
   end
 
-  add_index "timeline_event", ["subject_type", "subject_id", "actor_type", "actor_id", "secondary_subject_type", "secondary_subject_id"], :name => "index_timeline_event_on_subject_type_and_subject_id_and_actor_type_and_actor_id_and_secondary_subject_type_and_secondary_subject_id"
+  add_index "timeline_event", ["actor_id", "actor_type", "secondary_subject_id", "secondary_subject_type", "subject_id", "subject_type"], :name => "index_timeline_event_on_subject_type_and_subject_id_and_actor_t"
 
   create_table "user", :force => true do |t|
     t.string   "login"
@@ -114,6 +147,7 @@ ActiveRecord::Schema.define(:version => 20090620160821) do
     t.datetime "remember_token_expires_at"
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
+    t.boolean  "remember",                                :default => false, :null => false
   end
 
   create_table "version", :force => true do |t|

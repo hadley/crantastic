@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090618134932
+# Schema version: 20090622185118
 #
 # Table name: timeline_event
 #
@@ -13,6 +13,7 @@
 #  secondary_subject_id   :integer
 #  created_at             :datetime
 #  updated_at             :datetime
+#  cached_rating          :integer
 #
 
 # It's important that the secondary_subject always is set to Package,
@@ -31,7 +32,19 @@ class TimelineEvent < ActiveRecord::Base
       :include => [:actor, :subject, :secondary_subject] }
   }
 
+  after_create :cache_values
+
+  validates_presence_of :event_type
+
   belongs_to :actor,              :polymorphic => true
   belongs_to :subject,            :polymorphic => true
   belongs_to :secondary_subject,  :polymorphic => true
+
+  private
+  # Values must be cached for items that can change.
+  def cache_values
+    if self.event_type == "new_package_rating"
+      update_attribute(:cached_rating, self.subject.rating)
+    end
+  end
 end

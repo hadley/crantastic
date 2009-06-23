@@ -1,19 +1,23 @@
 <% form_for @user do |f| -%>
-<p><label for="login">User name</label>
+<p><label for="user_login">User name</label>
 <%= error_message_for @user, :login %><br/>
 <%= f.text_field :login, :class => "required" %></p>
 
-<p><label for="email">Email</label>
+<p><label for="user_email">Email</label>
 <%= error_message_for @user, :email %><br/>
 <%= f.text_field :email, :class => "required email" %></p>
 
-<p><label for="password">Password</label>
+<p><label for="user_password">Password</label>
 <%= error_message_for @user, :password  %><br/>
 <%= f.password_field :password, :class => "required" %></p>
 
-<p><label for="password_confirmation">Confirm password</label>
+<p><label for="user_password_confirmation">Confirm password</label>
 <%= error_message_for @user, :password_confirmation  %><br/>
 <%= f.password_field :password_confirmation, :class => "required" %></p>
+
+<p><label for="user_remember">Remember me</label>
+<%= error_message_for @user, :remember  %><br/>
+<%= f.check_box :remember %></p>
 
 <p><%= f.submit (@user.new_record? ? 'Sign up' : 'Edit') %></p>
 <% end -%>

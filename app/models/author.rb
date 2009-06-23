@@ -34,7 +34,7 @@ class Author < ActiveRecord::Base
   # E-mail address is not guaranteed to be valid, as can be seen above.
   #
   # @return [Author] An Author-object corresponding to the input string
-  def Author.new_from_string(string)
+  def self.new_from_string(string)
     return Author.find_or_create_by_name("Unknown") if string.blank?
 
     name, email = string.mb_chars.split(/[<>]/).map(&:strip)
@@ -46,5 +46,9 @@ class Author < ActiveRecord::Base
     email.downcase! unless email.blank? # NOTE: is this necessary?
 
     Author.find_or_create(name, email)
+  end
+
+  def to_s
+    self.name
   end
 end
