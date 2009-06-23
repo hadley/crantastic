@@ -15,6 +15,10 @@
 <%= error_message_for @user, :password_confirmation  %><br/>
 <%= f.password_field :password_confirmation, :class => "required" %></p>
 
+<p><label for="user_remember">Remember me</label>
+<%= error_message_for @user, :remember  %><br/>
+<%= f.check_box :remember %></p>
+
 <p><%= f.submit (@user.new_record? ? 'Sign up' : 'Edit') %></p>
 <% end -%>
 

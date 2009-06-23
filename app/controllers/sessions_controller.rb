@@ -53,7 +53,7 @@ class SessionsController < ApplicationController
   def create
     self.current_user = User.authenticate(params[:login], params[:password])
     if logged_in?
-      if params[:remember_me] == "1"
+      if self.current_user.remember?
         self.current_user.remember_me
         cookies[:auth_token] = {
           :value => self.current_user.remember_token,
@@ -75,4 +75,5 @@ class SessionsController < ApplicationController
     flash[:notice] = "You have been logged out."
     redirect_to root_url
   end
+
 end
