@@ -34,10 +34,10 @@ class Tag < ActiveRecord::Base
     end
   end
 
-  # LIKE is used for cross-database case-insensitivity
-  # (borrowed from acts_as_taggable_on)
+  # Case insensitive. NOTE: Could be done more elegantly with Postgres' ~*
+  # operator. The method name is inherited, consider renaming in the future.
   def self.find_or_create_with_like_by_name(name)
-    find(:first, :conditions => ["name LIKE ? AND task_view = 'f'", name]) ||
+    find(:first, :conditions => ["LOWER(name) = LOWER(?) AND task_view = 'f'", name]) ||
       create(:name => name)
   end
 
@@ -55,12 +55,11 @@ class Tag < ActiveRecord::Base
   end
 
   def to_param
-    #"#{id}-#{name}"
     name
   end
-  
+
   # Tag weight for use in tag clouds.  Dividing by the number of letters
-  # ensures that the area of the word is proportional to the number of 
+  # ensures that the area of the word is proportional to the number of
   # tagged objects, rather than just the height of the text.
   def weight
     count / name.length
