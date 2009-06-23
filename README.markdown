@@ -15,11 +15,18 @@ developers/contributors.
 The [YARD](http://github.com/lsegal/yard/tree/master) meta-tag formatting format
 is usued for documentation, whenever it feels necessary.
 
-## Dependencies
+## Development
+
+Copy `config/database.sample.yml` to `config/database.yml`. It defaults to
+SQLite, so no additional configuration of this file is necessary unless you want
+to use PostgreSQL (which the site runs on in production).
 
 Run `rake gems:install` to install gem dependencies for the main site.
 Do `RAILS_ENV=test rake gems:install` to install the dependencies for the
-testing environment.
+testing environment (required for running `rake spec`).
+
+Using `autospec` while doing changes to the source code is highly recommended,
+as this is very helpful for catching accidental regressions.
 
 Note that you should only add/edit stylesheets in the `app/stylesheets` folder.
 `public/stylesheets` should only contain compiled Sass styhesleets.
