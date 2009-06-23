@@ -10,14 +10,15 @@
   </p>
 
   <div class="float-l">
-    <form action="/packages" method="get">
-      <div><input id="package-search" name="search" type="text" /></div>
-    </form>
-
+    <div class="float-l">
+      <form action="/packages" method="get">
+        <div><input id="package-search" name="search" type="text" /></div>
+      </form>
+    </div>
     <%= image_tag("spinner.gif",
                   :id => "spinner",
                   :class => 'float-l',
-                  :style => "margin-left: 5px; display: none;") -%>
+                  :style => "margin: 2px 0 0 5px; display: none;") -%>
   </div>
   <%= clear_div %>
   <br />
