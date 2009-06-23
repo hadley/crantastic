@@ -4,28 +4,10 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_ROOT)
 require 'spec/autorun'
 require 'spec/rails'
-require File.expand_path(File.dirname(__FILE__) + "/blueprints")
 
-Webrat.configure do |config|
-  config.mode = :rails
-end
-
-module Spec::Rails::Example
-  class IntegrationExampleGroup < ActionController::IntegrationTest
-
-   def initialize(defined_description, options={}, &implementation)
-     defined_description.instance_eval do
-       def to_s
-         self
-       end
-     end
-
-     super(defined_description)
-   end
-
-    Spec::Example::ExampleGroupFactory.register(:integration, self)
-  end
-end
+# Requires supporting files with custom matchers and macros, etc,
+# in ./support/ and its subdirectories.
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
@@ -66,37 +48,4 @@ Spec::Runner.configure do |config|
   # == Notes
   #
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
-
-  config.before(:each) { Sham.reset }
-end
-
-# Borrowed from mislav's tip over at StackOverflow:
-# http://stackoverflow.com/questions/64827
-module AuthHelper
-  protected
-
-  def login_as(model, id_or_attributes = {})
-    attributes = id_or_attributes.is_a?(Fixnum) ? {:id => id} : id_or_attributes
-    @current_user = stub_model(model, attributes)
-    target = controller rescue template
-    target.instance_variable_set '@current_user', @current_user
-
-    if block_given?
-      yield
-      target.instance_variable_set '@current_user', nil
-    end
-    return @current_user
-  end
-
-  def login_as_user(id_or_attributes = {}, &block)
-    login_as(User, id_or_attributes, &block)
-  end
-end
-
-module WebratHelpers
-  def login_with_valid_credentials
-    fill_in "login", :with => "john"
-    fill_in "password", :with => "test"
-    click_button "login"
-  end
 end
