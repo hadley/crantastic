@@ -1,9 +1,18 @@
 <% @title = "The user " + @user.login %>
 
 <h1><%= @user.login %></h1>
-<%= image_tag @user.gravatar_url, :style => "float: right;" %>
 
-<% if current_user == @user -%>
+<div id="gravatar-box" style="float: right; width: 135px;">
+  <%= image_tag @user.gravatar_url, :class => "float-r" %>
+
+  <% if this_is_me? -%>
+  <p class="clear small right">Not seeing your photo?<br />
+    Set up an avatar by visiting
+    <%= link_to "gravatar.com", "http://gravatar.com/" %> (it's free!).</p>
+  <% end -%>
+</div>
+
+<% if this_is_me? -%>
 <p>(That's you! <%= link_to 'Edit your details', edit_user_path(@user) %>)</p>
 <% else %>
 <br />

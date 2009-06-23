@@ -18,4 +18,8 @@ module ApplicationHelper
     "#{@title + ". " if @title}#{plural ? "They're" : "It's"} crantastic!"
   end
 
+  def this_is_me?
+    current_user == @user
+  end
+
 end
