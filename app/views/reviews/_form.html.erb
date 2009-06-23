@@ -2,12 +2,12 @@
 
 <% form_for([@package, @version, @review]) do |f| %>
   <p>
-    <b>A brief summary</b><br />
+    <label for="review_title">A brief summary</label><br />
     <%= f.text_field :title, :maxlength => 45 %>
   </p>
 
   <p>
-    <b>Review</b><br />
+    <label for="review_review">Review</label><br />
     <%= f.text_area :review, :rows => 10 %>
   </p>
 
