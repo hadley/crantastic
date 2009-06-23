@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # :secret => '0d745526fb23d6c4dd4ee297eaedd06c'
 
   before_filter :unset_location_unless_stored_in_filter_chain
+  before_filter :correct_accept_headers
 
   protected
   def rescue_404
@@ -45,6 +46,15 @@ class ApplicationController < ActionController::Base
     unless self.class.filter_chain.map(&:method).include?(:store_location) or
         self.class == SessionsController
       unset_location
+    end
+  end
+
+  # Adapted this from http://codetunes.com/2008/12/08/rails-ajax-and-jquery/
+  # Necessary for IE, Safari, and Opera. There probably is a more elegant way to
+  # fix this, though..
+  def correct_accept_headers
+    if request.xhr?
+      request.accepts.sort!{ |x, y| y.to_s == 'text/javascript' ? 1 : -1 }
     end
   end
 
