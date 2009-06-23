@@ -76,7 +76,15 @@ describe Package do
     UserMailer.should_receive(:deliver_signup_notification)
     pkg = Package.find_by_param("ggplot2")
     prev_time = pkg.updated_at
-    rating = PackageRating.make(:package => pkg)
+    PackageRating.make(:package => pkg)
+    (pkg.updated_at > prev_time).should be_true
+  end
+
+  it "should be marked as updated after it receives a new review" do
+    UserMailer.should_receive(:deliver_signup_notification)
+    pkg = Package.find_by_param("ggplot2")
+    prev_time = pkg.updated_at
+    Review.make(:package => pkg)
     (pkg.updated_at > prev_time).should be_true
   end
 
