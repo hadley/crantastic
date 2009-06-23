@@ -2,7 +2,6 @@ module TimelineHelper
 
   def timeline_item(item)
     "<li>" +
-    "#{time_ago_in_words(item.created_at)} ago " +
     (item.actor.not_nil? ? link_to(item.actor, user_path(item.actor)) + " " : "") +
     case item.event_type
 
@@ -46,7 +45,7 @@ module TimelineHelper
 
     else "performed an unkown action"
 
-    end  + ".</li>"
+    end  + " (#{time_ago_in_words(item.created_at)} ago).</li>"
   end
 
 end
