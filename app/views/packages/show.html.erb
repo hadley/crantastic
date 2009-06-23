@@ -14,7 +14,7 @@
 <%= render :partial => "versions/description" %>
 
 <% if @package.versions.length > 1 %>
-  <h2><%=h @package.name %> has <%= pluralize @package.versions.length - 1, "previous version" %></h2>
+  <h2><%= pluralize @package.versions.length - 1, "previous version" %></h2>
 
   <ul>
     <% for version in @package.versions[1..100] -%>
@@ -68,11 +68,10 @@
   </tr>
 </table>
 
-<% unless logged_in? %>
-  <br />
-  <p>You must be <%= link_to "logged in", login_path %> to vote.</p>
-<% end %>
-<br />
+<%- unless logged_in? -%>
+  <p><%= link_to "Log in", login_path %> to vote.</p>
+<%- end -%>
+
 <h2>Reviews</h2>
 
 <% if @package.reviews.length == 0 %>

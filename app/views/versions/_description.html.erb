@@ -3,11 +3,9 @@
 
 <p><%= auto_link @version.description %></p>
 
-<hr />
-
 <p>
   <% unless @version.maintainer.blank? %>
-    <strong>Maintainer</strong>:
+    <strong>Maintainer</strong>: 
     <%= link_to @version.maintainer.name, @version.maintainer %><br />
   <% end %>
   <strong>Author(s)</strong>: <%= auto_link(h(@version.author)) %>
