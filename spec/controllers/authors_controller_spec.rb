@@ -6,6 +6,11 @@ describe AuthorsController do
     Version.make
   end
 
+  before(:each) do
+    @version = Version.first
+    @author = @version.maintainer
+  end
+
   integrate_views
 
   it "should do a 404 for unknown ids" do
@@ -20,8 +25,8 @@ describe AuthorsController do
   end
 
   it "should set a singular title for the author pages" do
-    get :show, :id => 1
-    response.should have_tag('title', "#{Author.find(1).name}. It's crantastic!")
+    get :show, :id => @author.id
+    response.should have_tag('title', "#{@version.maintainer.name}. It's crantastic!")
   end
 
   describe "XHTML Markup" do
@@ -32,7 +37,7 @@ describe AuthorsController do
     end
 
     it "should be valid for the show page" do
-      get :show, :id => 1
+      get :show, :id => @author.id
       response.body.strip_entities.should be_xhtml_strict
     end
 

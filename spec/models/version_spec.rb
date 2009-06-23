@@ -10,13 +10,13 @@ describe Version do
   should_validate_length_of :url, :minimum => 0, :maximum => 255
 
   it "should set itself as the package's latest version when created'" do
-    Version.make
+    ver1 = Version.make
 
     pkg = Package.first
-    pkg.latest_version.should == Version.find(1)
+    pkg.latest_version.should == ver1
 
-    Version.create!(:package => pkg, :name => pkg.name, :version => "2.0")
-    pkg.latest_version.should == Version.find(2)
+    ver2 = Version.create!(:package => pkg, :name => pkg.name, :version => "2.0")
+    pkg.latest_version.should == ver2
   end
 
 end
