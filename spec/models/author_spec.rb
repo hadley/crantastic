@@ -27,4 +27,8 @@ describe Author do
     Author.new_from_string("John Doe <john@doe.com>")
   end
 
+  it "should have a string representation" do
+    Author.new(:name => "John").to_s.should == "John"
+  end
+
 end
