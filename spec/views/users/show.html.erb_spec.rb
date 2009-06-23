@@ -21,8 +21,9 @@ describe "/users" do
 
   it "should display the user's reviews" do
     ver = Version.make
-    Review.make(:user => @user, :cached_rating => 3)
-    Review.make(:user => @user, :cached_rating => nil)
+    Review.make(:user => @user, :cached_rating => 3, :package => ver.package,
+                :version => ver)
+    Review.make_unvalidated(:user => @user, :cached_rating => nil)
     Review.make(:user => @user, :cached_rating => nil,
                 :version => ver, :package => ver.package)
 

@@ -3,8 +3,14 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Package do
 
   setup do
-    Package.make(:name => "bio.infer", :updated_at => 1.day.ago)
-    Package.make(:name => "ggplot2", :updated_at => 2.days.ago)
+    UserMailer.should_receive(:deliver_signup_notification).twice
+    User.make
+    User.make(:login => "somethingelse")
+
+    Version.make(:package => Package.make(:name => "bio.infer", :updated_at => 1.day.ago),
+                 :maintainer => Author.make)
+    Version.make(:package => Package.make(:name => "ggplot2", :updated_at => 2.days.ago),
+                 :maintainer => Author.make)
   end
 
   should_have_scope :recent
@@ -24,10 +30,8 @@ describe Package do
   end
 
   it "should calculate its average rating" do
-    UserMailer.should_receive(:deliver_signup_notification).twice
-    u1 = User.make
-    u2 = User.make(:login => "somethingelse")
-
+    u1 = User.first
+    u2 = User.last
     p = Package.create!(:name => "aaMI")
     p.average_rating.should == 0
     u1.rate!(p, 1)
@@ -37,8 +41,7 @@ describe Package do
   end
 
   it "should discard old ratings" do
-    UserMailer.should_receive(:deliver_signup_notification)
-    u = User.make
+      u = User.first
     p = Package.make
 
     u.rate!(p, 1)
@@ -60,31 +63,28 @@ describe Package do
   it "should be marked as updated after it receives a new version" do
     pkg = Package.find_by_param("bio.infer")
     prev_time = pkg.updated_at
-    Version.make(:package => pkg)
+    Version.make(:package => pkg, :maintainer => Author.first)
     (pkg.updated_at > prev_time).should be_true
   end
 
   it "should be marked as updated after it receives a new tagging" do
-    UserMailer.should_receive(:deliver_signup_notification)
     pkg = Package.find_by_param("ggplot2")
     prev_time = pkg.updated_at
-    Tagging.make(:package => pkg)
+    Tagging.make(:package => pkg, :user => User.first)
     (pkg.updated_at > prev_time).should be_true
   end
 
   it "should be marked as updated after it receives a new rating" do
-    UserMailer.should_receive(:deliver_signup_notification)
     pkg = Package.find_by_param("ggplot2")
     prev_time = pkg.updated_at
-    PackageRating.make(:package => pkg)
+    PackageRating.make(:package => pkg, :user => User.first)
     (pkg.updated_at > prev_time).should be_true
   end
 
   it "should be marked as updated after it receives a new review" do
-    UserMailer.should_receive(:deliver_signup_notification)
     pkg = Package.find_by_param("ggplot2")
     prev_time = pkg.updated_at
-    Review.make(:package => pkg)
+    Review.make(:package => pkg, :version => pkg.latest, :user => User.last)
     (pkg.updated_at > prev_time).should be_true
   end
 

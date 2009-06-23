@@ -5,7 +5,10 @@ include AuthHelper
 describe ReviewsController do
 
   setup do
-    Version.make
+    UserMailer.should_receive(:deliver_signup_notification)
+    pkg = Package.make
+    ver = Version.make(:package => pkg)
+    Review.make(:package => pkg, :version => ver)
   end
 
   it "should render the index successfully" do
@@ -58,19 +61,16 @@ describe ReviewsController do
     integrate_views
 
     before(:each) do
-      UserMailer.should_receive(:deliver_signup_notification)
+      @review = Review.first
     end
 
     it "should have an XHTML Strict compilant index page" do
-      Review.should_receive(:recent).and_return([Review.make])
       get :index
       response.body.strip_entities.should be_xhtml_strict
     end
 
     it "should have an XHTML Strict compilant show page" do
-      r = Review.make
-      Review.should_receive(:find).and_return(r)
-      get :show, :id => 1
+      get :show, :id => @review.id
       response.body.strip_entities.should be_xhtml_strict
     end
 

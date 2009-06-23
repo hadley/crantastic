@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
 
   is_gravtastic # Enables the Gravtastic plugin for the User model
 
+  default_scope :order => "id ASC"
+
   has_many :reviews
   has_many :taggings
 

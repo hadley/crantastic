@@ -8,7 +8,7 @@ Sham.email { Faker::Internet.email }
 Sham.title { Faker::Lorem.sentence }
 Sham.body  { Faker::Lorem.paragraph }
 Sham.description { Sham.body }
-Sham.rating { (1..5).to_a.rand }
+Sham.rating(:unique => false) { (1..5).to_a.rand }
 
 User.blueprint do
   login
