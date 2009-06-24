@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090615123240
+# Schema version: 20090624174120
 #
 # Table name: version
 #
@@ -10,7 +10,6 @@
 #  description   :text
 #  license       :text
 #  version       :string(255)
-#  requires      :string(255)
 #  depends       :text
 #  suggests      :text
 #  author        :text
@@ -23,9 +22,9 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  maintainer_id :integer
+#  imports       :string(255)
 #
 
-# TODO: consider removing the 'requires' field
 class Version < ActiveRecord::Base
 
   has_many :reviews
@@ -48,7 +47,7 @@ class Version < ActiveRecord::Base
   end
 
   def urls
-    (url.split(",") rescue []) + [cran_url]
+    (url.split(",") rescue []).map(&:strip) + [cran_url]
   end
 
   def cran_url
@@ -67,10 +66,8 @@ class Version < ActiveRecord::Base
     parse_requirements(attributes["suggests"])
   end
 
-  def parse_requirements(reqs)
-    reqs.split(",").map{|full| full.split(" ")[0]}.map do |name|
-      Package.find_by_name name
-    end.compact.sort_by{|v| v.name.downcase } rescue []
+  def imports
+    parse_requirements(attributes["imports"])
   end
 
   # This runs from lib/tasks/cache.rake. Not sure if this is still needed.
@@ -79,6 +76,13 @@ class Version < ActiveRecord::Base
 
     self.maintainer = author
     save
+  end
+
+  private
+  def parse_requirements(reqs)
+    reqs.split(",").map{|full| full.split(" ")[0]}.map do |name|
+      Package.find_by_name name
+    end.compact.sort_by{|v| v.name.downcase } rescue []
   end
 
 end
