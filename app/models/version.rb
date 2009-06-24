@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090624172625
+# Schema version: 20090624174120
 #
 # Table name: version
 #
@@ -10,7 +10,6 @@
 #  description   :text
 #  license       :text
 #  version       :string(255)
-#  requires      :string(255)
 #  depends       :text
 #  suggests      :text
 #  author        :text
@@ -26,7 +25,6 @@
 #  imports       :string(255)
 #
 
-# TODO: consider removing the 'requires' field
 class Version < ActiveRecord::Base
 
   has_many :reviews
