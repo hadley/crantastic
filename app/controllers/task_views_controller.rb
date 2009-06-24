@@ -7,8 +7,9 @@ class TaskViewsController < ApplicationController
 
   def show
     @tag = Tag.find_by_param(params[:id], true)
+    @events = TimelineEvent.recent_for_tag(@tag)
     render :template => "tags/show"
-  rescue
+  rescue ActiveRecord::RecordNotFound
     rescue_404
   end
 

@@ -9,7 +9,16 @@
 <% end -%>
 
 <ul class="cloud">
+<li><strong>Packages:</strong></li>
 <% for package in @tag.packages.uniq -%>
   <li><%= link_to package.name, package %></li>
 <% end -%>
 </ul>
+
+<h2>Latest activity</h2>
+<% if @events.length == 0 -%>
+<p>No recent activity for packages tagged with <%= @tag.name %>.</p>
+<% else %>
+<%= render :partial => "timeline/timeline",
+           :locals => { :events => @events } %>
+<% end %>
