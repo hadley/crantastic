@@ -22,4 +22,11 @@ module ApplicationHelper
     current_user == @user
   end
 
+  # C.f. https://wiki.mozilla.org/The_autocomplete_attribute_and_web_documents_using_XHTML
+  def nonce_field(name, options = {})
+    nonce = Rack::Auth::Digest::Nonce.new.to_s
+    hidden_field_tag(name, nonce) +
+    text_field_tag(nonce, nil, options)
+  end
+
 end
