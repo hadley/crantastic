@@ -42,7 +42,7 @@ h1.title
   :padding 2.25em 0 0 5px
   :font-size 4em
   :font-weight bold
-  :border-bottom 3px solid #ddd
+  :border-bottom = 3px "solid" !grey
   :margin-left 0
   :margin-bottom 10px
 
@@ -110,7 +110,7 @@ p.rating
 
   p
     :color = !quiet_color
-    :border-top 1px solid #ccc
+    :border-top = 1px "solid" !grey
     :padding-top 0.5em
 
 .flash
@@ -119,10 +119,10 @@ p.rating
   :margin-bottom 1em
 
 .error
-  border: 2px solid #dddddd
-  background-color: #fbe3e4
-  color: #8a1f11
-  border-color: #fbc2c4
+  :border = 2px "solid" !grey
+  :background-color = !lightpink
+  :color = !darkred
+  :border-color = !softpink
 
 label.error
   border: 0
@@ -136,16 +136,16 @@ table.general
   tr
     th
       :width 100%
-      :border-top 1px solid #ddd
-      :border-bottom 1px solid #ddd
+      :border-top = 1px "solid" !grey
+      :border-bottom = 1px "solid" !grey
       :padding 3px
       :padding-left 8px
 
-    &.odd
-      :background-color #FAFAFA
+    &.odd td
+      :background-color = !white
 
-    &.even
-      :background-color #F0F1F7
+    &.even td
+      :background-color = !lightpink
 
 img.spinner
   :align absmiddle
@@ -163,7 +163,7 @@ ul.tags
     &:link, &:visited
       :background-color = !green
       :padding 4px
-      :color #333
+      :color = !font_color
       :font-weight bold
       :text-decoration none
 
@@ -176,7 +176,7 @@ ul.tags
   .add
     &:link, &:visited
       :background-color = !white
-      :border 1px solid #ccc
+      :border = 1px "solid" !grey
 
   li
     :line-height 2.5em
