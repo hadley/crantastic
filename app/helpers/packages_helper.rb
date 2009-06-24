@@ -24,17 +24,13 @@ module PackagesHelper
   def tag_list
     out = ""
     @package.tags.each_with_index do |tag,i|
-      li_class = ""
-      li_class = "first" if i.zero?
       a_class = ""
       if tag.task_view?
         out += content_tag("li",
-                           link_to(tag, task_view_path(tag), :class => "task_view"),
-                           :class => li_class)
+                           link_to(tag, task_view_path(tag), :class => "task_view"))
       else
         out += content_tag("li",
-                           link_to(tag, tag_path(tag)),
-                           :class => li_class)
+                           link_to(tag, tag_path(tag)))
       end
     end
     out
