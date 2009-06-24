@@ -2,6 +2,11 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PackagesController do
 
+  setup do
+    Version.make
+    Version.make
+  end
+
   integrate_views
 
   it "should render the index successfully" do
@@ -30,7 +35,7 @@ describe PackagesController do
     end
 
     it "should be valid for the show page" do
-      get :show, :id => 1
+      get :show, :id => Package.first.to_param
       response.body.strip_entities.should be_xhtml_strict
     end
 
