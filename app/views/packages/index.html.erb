@@ -1,14 +1,14 @@
 <h1>R packages</h1>
 
 <div class="content">
-  <h3><%= Package.count %> listed on crantastic 
+  <h3><%= Package.count %> listed on crantastic
     <small>(see them <%= link_to "all on one page", all_packages_url %>)</small>.</h3>
 
   <form action="/packages" method="get">
   <p>Search <input id="package-search" name="search" type="text" />
     <%= image_tag("spinner.gif",
                   :id => "spinner",
-                  :style => "margin: 2px 0 0 5px; display: none;") -%>
+                  :style => "vertical-align: middle; margin: 0 0 0 5px; display: none;") -%>
   </p>
   </form>
 
