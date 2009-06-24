@@ -51,4 +51,11 @@ class Author < ActiveRecord::Base
   def to_s
     self.name
   end
+
+  def latest_versions
+    # The collect call picks the first element out of each grouped array.
+    # This relies on the default ordering of the version-association.
+    # I guess this could be done more efficiently in pure SQL.
+    self.versions.group_by { |v| v.package_id }.values.collect { |a| a.first }
+  end
 end
