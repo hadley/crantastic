@@ -43,8 +43,8 @@ module Crantastic
       data = description.first
       data = data.downcase_keys.symbolize_keys
 
-      fields = [:title, :license, :description, :author,
-                :maintainer,:date, :url, :depends, :suggests, :imports]
+      fields = [:title, :license, :description, :author, :enhances, :priority,
+                :maintainer, :date, :url, :depends, :suggests, :imports]
       data.delete_if { |k,v| !fields.include?(k) } # Remove unwanted fields
 
       data.merge!(read_from_files(pkgdir, %w(README NEWS)))

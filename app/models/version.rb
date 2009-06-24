@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090624174120
+# Schema version: 20090624205124
 #
 # Table name: version
 #
@@ -22,7 +22,9 @@
 #  created_at    :datetime
 #  updated_at    :datetime
 #  maintainer_id :integer
-#  imports       :string(255)
+#  imports       :text
+#  enhances      :text
+#  priority      :string(255)
 #
 
 class Version < ActiveRecord::Base
