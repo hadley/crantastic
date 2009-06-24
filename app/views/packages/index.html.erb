@@ -5,7 +5,7 @@
     <small>(see them <%= link_to "all on one page", all_packages_url %>)</small>.</h3>
 
   <form action="/packages" method="get">
-  <p>Search <input id="package-search" name="search" type="text" />
+  <p>Search <input id="package-search" name="search" type="text" autocomplete="off" />
     <%= image_tag("spinner.gif", :id => "spinner") -%>
   </p>
   </form>
