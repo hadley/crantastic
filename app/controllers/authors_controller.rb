@@ -8,6 +8,7 @@ class AuthorsController < ApplicationController
   show.wants.html do
     @plural = false
     @title = @author.name
+    @events = TimelineEvent.recent_for_author(@author)
   end
 
   show.failure.wants.html { rescue_404 }

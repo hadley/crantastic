@@ -14,3 +14,11 @@
   </li>
 <% end -%>
 </ul>
+
+<h2>Latest activity</h2>
+<% if @events.length == 0 -%>
+<p>No recent activity for this author.</p>
+<% else %>
+<%= render :partial => "timeline/timeline",
+           :locals => { :events => @events } %>
+<% end %>

@@ -45,7 +45,15 @@ class TimelineEvent < ActiveRecord::Base
   # @return [Array]
   def self.recent_for_tag(tag)
     package_ids = Tagging.all(:include => :tag,
-                              :conditions => ["tag.name = ?", tag.to_s]).map(&:package_id)
+                              :conditions => ["tag.name = ?",
+                                              tag.to_s]).map(&:package_id)
+    self.recent_for_package_ids(package_ids)
+  end
+
+  def self.recent_for_author(author)
+    package_ids =
+      Version.find_by_sql("SELECT DISTINCT(package_id) FROM version " +
+                          "WHERE (version.maintainer_id = #{author.id})").map(&:package_id)
     self.recent_for_package_ids(package_ids)
   end
 
