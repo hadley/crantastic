@@ -12,7 +12,7 @@
 class Author < ActiveRecord::Base
   is_gravtastic # Enables the Gravtastic plugin for the Author model
 
-  has_many :versions, :foreign_key => :maintainer_id, :order => :name
+  has_many :versions, :foreign_key => :maintainer_id, :order => "name ASC, id DESC"
 
   default_scope :order => "LOWER(name)"
 
