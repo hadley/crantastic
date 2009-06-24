@@ -1,11 +1,11 @@
 <% if !@fuzzy && @search_result.size > 1 && !@packages.empty? %>
   <p>
-    <strong>No packages were found for '<%= h(@search_term) %>'. We tried a fuzzy
+    <strong>No packages found for '<%= h(@search_term) %>'. We tried a fuzzy
     search instead:</strong>
   </p>
 <% end %>
 
-Total packages in this search: <%= @packages.total_entries -%>
+Packages found: <%= @packages.total_entries -%>
 
 <% pagination_links = capture do %>
   <div class="float-r">
@@ -19,17 +19,17 @@ Total packages in this search: <%= @packages.total_entries -%>
 <% unless @packages.empty? -%>
 <table class="general">
   <tr>
-    <th style="white-space:nowrap;">Package Name</th>
-    <th>Version</th>
-    <th>Author</th>
+    <th style="width:40%">Package Name</th>
+    <th style="width:20%">Version</th>
+    <th style="width:40%">Author</th>
   </tr>
   <%- for package in @packages -%>
   <tr class="<%=cycle("odd", "even")-%>">
     <td><%= link_to package.name, package %></td>
-    <% latest_package = package.latest -%>
-    <% maintainer = latest_package.try(:maintainer) -%>
+    <%- latest_package = package.latest -%>
+    <%- maintainer = latest_package.try(:maintainer) -%>
     <td><%= latest_package.version unless latest_package.nil? -%></td>
-    <td style="white-space:nowrap"><%= link_to maintainer.name, maintainer unless maintainer.nil? -%></td>
+    <td><%= link_to maintainer.name, maintainer unless maintainer.nil? -%></td>
   </tr>
   <%- end -%>
 </table>
