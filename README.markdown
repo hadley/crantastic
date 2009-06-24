@@ -45,6 +45,14 @@ Confirm that it's working by running `heroku info`.
 
 This will overwrite `db/development.sqlite3`.
 
+### Pushing your work to Heroku
+
+    git push heroku master
+
+Personally I use an alias so I don't have to type as much:
+
+    alias gph='git push heroku master'
+
 ## Updating packages from CRAN
 
 Run `rake crantastic:cron` or `rake crantastic:update_all_packages`.
