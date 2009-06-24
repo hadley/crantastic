@@ -5,6 +5,7 @@ class TagsController < ApplicationController
   actions :index, :show
 
   index.wants.html { @title = "Tags" }
+  show.wants.html { @events = TimelineEvent.recent_for_tag(@tag) }
   show.failure.wants.html { rescue_404 }
 
   private
