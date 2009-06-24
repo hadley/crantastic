@@ -40,6 +40,15 @@ class TimelineEvent < ActiveRecord::Base
   belongs_to :subject,            :polymorphic => true
   belongs_to :secondary_subject,  :polymorphic => true
 
+  ###
+  # @param [Tag, String] tag
+  # @return [Array]
+  def self.recent_for_tag(tag)
+    package_ids = Tagging.all(:include => :tag,
+                              :conditions => ["tag.name = ?", tag.to_s]).map(&:package_id)
+    self.recent_for_package_ids(package_ids)
+  end
+
   private
   # Values must be cached for items that can change.
   def cache_values

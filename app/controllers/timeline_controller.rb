@@ -12,9 +12,7 @@ class TimelineController < ApplicationController
       elsif params[:task_view_id] or params[:tag_id]
 
         name = params[:task_view_id] ? params[:task_view_id] : params[:tag_id]
-        package_ids = Tagging.all(:include => :tag,
-                                  :conditions => ["tag.name = ?", name]).map(&:package_id)
-        TimelineEvent.recent_for_package_ids(package_ids)
+        TimelineEvent.recent_for_tag(name)
 
       elsif params[:user_id]
 
