@@ -38,8 +38,7 @@ Rails::Initializer.run do |config|
 
   # Required, but do not attempt to load
   config.gem 'treetop', :lib => false
-  config.gem 'archive-tar-minitar', :lib => false
-  config.gem 'Chrononaut-treetop-dcf', :version => '>= 0.1.2', :lib => false, :source => 'http://gems.github.com'
+  config.gem 'Chrononaut-treetop-dcf', :version => '>= 0.2.0', :lib => false, :source => 'http://gems.github.com'
   config.gem 'hpricot', :lib => false
 
   # Only load the plugins named here, in the order given (default is alphabetical).

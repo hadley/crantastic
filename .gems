@@ -10,6 +10,5 @@ markbates-hoptoad_notifier --source http://gems.github.com
 giraffesoft-resource_controller --source http://gems.github.com
 giraffesoft-timeline_fu --version ">= 0.2.0" --source http://gems.github.com
 treetop
-archive-tar-minitar
-Chrononaut-treetop-dcf --version ">= 0.1.2" --source http://gems.github.com
+Chrononaut-treetop-dcf --version ">= 0.2.0" --source http://gems.github.com
 hpricot
