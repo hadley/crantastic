@@ -27,8 +27,8 @@ module Crantastic
         else
           Log.log!("New package: #{new['Package']} (#{new['Version']})")
           Package.transaction do
-            Package.create!(:name => new.name) # Start by creating the package entry
-            add_version_to_db(new)
+            Package.create!(:name => new["Package"]) # Start by creating the package entry
+            add_version_to_db(CRAN::CranPackage.new(new["Package"], new["Version"]))
           end
           i += 1
         end
