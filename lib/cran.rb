@@ -16,27 +16,6 @@ module CRAN
     end
   end
 
-  # Enumerable list of CRAN packages.
-  class Packages
-    include Enumerable
-
-    # @param [String] packages Package data
-    def initialize(packages)
-      @packages = []
-      Dcf.parse(packages).each do |pkg|
-        @packages << CranPackage.new(pkg["Package"], pkg["Version"])
-      end
-    end
-
-    def each
-      @packages.each { |i| yield i }
-    end
-
-    def [](i)
-      @packages[i]
-    end
-  end
-
   class TaskView
     attr_reader :name, :topic, :version, :packagelist
 

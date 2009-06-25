@@ -1,4 +1,6 @@
 require "fileutils"
+require "cran"
+require "dcf"
 
 module Crantastic
 
@@ -7,20 +9,19 @@ module Crantastic
     # set =max= to a positive digit.
     def start(max=-1)
       Log.log!("Starting cron task: UpdatePackages")
-      known_versions = Package.all
       `curl -s http://cran.r-project.org/src/contrib/PACKAGES.gz -o tmp/PACKAGES.gz`
-      `gunzip tmp/PACKAGES`
-      latest_versions = CRAN::Packages.new(File.read("tmp/PACKAGES")).sort
+      `gunzip -f tmp/PACKAGES.gz`
+      latest_versions = Dcf.parse((File.read("tmp/PACKAGES"))).sort_by { |i| i["Package"].downcase }
 
       i = 0
       latest_versions.each do |new|
-        next if new.name == "orientlib" && new.version == "0.10.1" # known bad entry
+        next if new["Package"] == "orientlib" && new["Version"] == "0.10.1" # known bad entry
         break if i == max
-        cur = known_versions.find { |pkg| pkg.name == new.name }
+        cur = Package.find_by_name(new["Package"])
         if cur
-          if !cur.latest || (cur.latest.version != new.version.to_s)
+          if cur.latest.version != new["Version"]
             Log.log!("Updating package: #{new}")
-            add_version_to_db(new)
+            add_version_to_db(CRAN::CranPackage.new(new["Package"], new["Version"]))
             i += 1
           end
         else
