@@ -20,12 +20,12 @@ module Crantastic
         cur = Package.find_by_name(new["Package"])
         if cur
           if cur.latest.version != new["Version"]
-            Log.log!("Updating package: #{new}")
+            Log.log!("Updating package: #{new['Package']} (#{new['Version']})")
             add_version_to_db(CRAN::CranPackage.new(new["Package"], new["Version"]))
             i += 1
           end
         else
-          Log.log!("New package: #{new}")
+          Log.log!("New package: #{new['Package']} (#{new['Version']})")
           Package.transaction do
             Package.create!(:name => new.name) # Start by creating the package entry
             add_version_to_db(new)
