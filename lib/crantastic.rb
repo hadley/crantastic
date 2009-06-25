@@ -1,3 +1,5 @@
+require "fileutils"
+
 module Crantastic
 
   class UpdatePackages
@@ -6,10 +8,13 @@ module Crantastic
     def start(max=-1)
       Log.log!("Starting cron task: UpdatePackages")
       known_versions = Package.all
-      latest_versions = CRAN::Packages.new("http://cran.r-project.org/src/contrib/PACKAGES.gz").sort
+      `curl -s http://cran.r-project.org/src/contrib/PACKAGES.gz -o tmp/PACKAGES.gz`
+      `gunzip tmp/PACKAGES`
+      latest_versions = CRAN::Packages.new(File.read("tmp/PACKAGES")).sort
 
       i = 0
       latest_versions.each do |new|
+        next if new.name == "orientlib" && new.version == "0.10.1" # known bad entry
         break if i == max
         cur = known_versions.find { |pkg| pkg.name == new.name }
         if cur
@@ -32,8 +37,10 @@ module Crantastic
     end
 
     def add_version_to_db(pkg)
-      gz = Zlib::GzipReader.new(open("http://cran.r-project.org/src/contrib/#{pkg.name}_#{pkg.version}.tar.gz"))
-      Archive::Tar::Minitar.unpack(gz, File.join(RAILS_ROOT, "/tmp"))
+      filename = "#{pkg.name}_#{pkg.version}.tar.gz"
+      `curl -s "http://cran.r-project.org/src/contrib/#{pkg.name}_#{pkg.version}.tar.gz" -o tmp/#{filename}`
+      `tar -C tmp -zxvf tmp/#{filename}; rm tmp/#{filename}`
+
       pkgdir = File.join(RAILS_ROOT, "/tmp/#{pkg.name}/")
 
       description = Dcf.parse(File.read(pkgdir + "DESCRIPTION"))

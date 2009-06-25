@@ -1,11 +1,3 @@
-require "rubygems"
-require "yaml"
-require "zlib"
-require "fileutils"
-require "open-uri"
-require "dcf"
-require "hpricot"
-
 module CRAN
 
   # Simple struct for one CRAN package
@@ -28,10 +20,10 @@ module CRAN
   class Packages
     include Enumerable
 
-    # @param [String] location Location of the Package data file. Expected to be gzipped.
-    def initialize(location)
+    # @param [String] packages Package data
+    def initialize(packages)
       @packages = []
-      Dcf.parse(Zlib::GzipReader.new(open(location)).read).each do |pkg|
+      Dcf.parse(packages).each do |pkg|
         @packages << CranPackage.new(pkg["Package"], pkg["Version"])
       end
     end
