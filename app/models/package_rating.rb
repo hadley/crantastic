@@ -17,11 +17,7 @@ class PackageRating < ActiveRecord::Base
   belongs_to :user
   belongs_to :package
 
-  fires :new_package_rating, :on                => :create,
-                             :actor             => :user,
-                             :secondary_subject => :package
-
-  fires :new_package_rating, :on                => :update,
+  fires :new_package_rating, :on                => [:create, :update],
                              :actor             => :user,
                              :secondary_subject => :package
 
