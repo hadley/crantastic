@@ -46,7 +46,7 @@
       </span>
 
       <br />
-      <span class="your-rating" style='color:#FD3933; font-style:italic'>
+      <span class="your-rating">
       <% if logged_in? && r = current_user.rating_for(@package) %>
         You voted <%= r.rating %>
       <% end %>
@@ -66,7 +66,7 @@
         (<%= pluralize(@package.rating_count("documentation").to_s, " vote") %>)</span>
 
       <br />
-      <span class="your-rating" style='color:#FD3933; font-style:italic'>
+      <span class="your-rating">
       <% if logged_in? && r = current_user.rating_for(@package, "documentation") %>
         You voted <%= r.rating %>
       <% end %>
