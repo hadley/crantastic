@@ -5,9 +5,7 @@ require "dcf"
 module Crantastic
 
   class UpdatePackages
-    # To limit the number of updates per hour to avoid long-running processes,
-    # set =max= to a positive digit.
-    def start(max=-1)
+    def start
       Log.log!("Starting cron task: UpdatePackages")
       `curl -s http://cran.r-project.org/src/contrib/PACKAGES.gz -o tmp/PACKAGES.gz`
       `gunzip -f tmp/PACKAGES.gz`
@@ -23,7 +21,6 @@ module Crantastic
           if cur.latest.version != version
             Log.log!("Updating package: #{package} (#{version})")
             add_version_to_db(CRAN::CranPackage.new(package, version))
-            i += 1
           end
         else
           Log.log!("New package: #{package} (#{version})")
@@ -31,7 +28,6 @@ module Crantastic
             Package.create!(:name => package) # Start by creating the package entry
             add_version_to_db(CRAN::CranPackage.new(package, version))
           end
-          i += 1
         end
       end
       Log.log!("Cron task finished.")

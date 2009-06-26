@@ -3,7 +3,7 @@
 desc "Cron task, updates package versions"
 task :cron => :environment do
   begin
-    Crantastic::UpdatePackages.new.start(10) # Only update 10 packages per hour
+    Crantastic::UpdatePackages.new.start
   rescue OpenURI::HTTPError => e # 404
     req_status = e.io.status[0] # 3xx, 4xx, 5xx
     Log.log! "HTTP Error: #{req_status}"
@@ -20,6 +20,6 @@ end
 desc "Cron task, updates package versions"
 namespace :crantastic do
   task :cron => :environment do
-    Crantastic::UpdatePackages.new.start(10)
+    Crantastic::UpdatePackages.new.start
   end
 end
