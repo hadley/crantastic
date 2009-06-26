@@ -12,9 +12,9 @@
 </p>
 <p><strong>License</strong>: <%= h @version.license %></p>
 
-<% version_uses = ((@version.depends + @version.imports).sort_by(&:name).map{|p| link_to p.name, p} + @version.suggests.map{|p| content_tag(:em, link_to(p.name, p))}).join(", ") %>
-
-<p><strong>Uses</strong>: <%= version_uses.not_blank? ? version_uses : "Does not use any package" -%></p>
+<p>
+  <strong>Uses</strong>: <%= version_uses %>
+</p>
 
 <% unless @version.date.blank? -%>
   <p>Released <%= time_ago_in_words @version.date %> ago.</p>

@@ -5,6 +5,7 @@ Sham.name { (1..10).map { ('a'..'z').to_a.rand }.join }
 Sham.login { (1..10).map { ('a'..'z').to_a.rand }.join }
 Sham.full_name  { Faker::Name.name }
 Sham.email { Faker::Internet.email }
+Sham.url { "http://" + Faker::Internet.domain_name }
 Sham.title { Faker::Lorem.sentence }
 Sham.body  { Faker::Lorem.paragraph }
 Sham.description { Sham.body }
@@ -20,6 +21,10 @@ end
 Version.blueprint do
   name
   version { "1.0" }
+  imports { "xtable" }
+  enhances { "stats" }
+  suggests { "ggplot" }
+  url
 
   package
   maintainer { Author.make }

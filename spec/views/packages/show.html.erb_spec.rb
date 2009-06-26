@@ -3,7 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/packages" do
 
   setup do
-    Version.make
+    ver = Version.make(:imports  => "graphics, stats, lattice, grid, SparseM, xtable",
+                       :suggests => "optmatch, xtable")
+    ver["imports"].split(", ").each { |pkg| Package.make(:name => pkg) }
+    Package.make(:name => "optmatch")
   end
 
   before(:each) do
@@ -21,6 +24,21 @@ describe "/packages" do
   it "should display ratings" do
     response.should have_tag('h2', 'Ratings')
     response.should have_tag('span', /0\/5\s* \(0 votes\)/)
+  end
+
+  it "should show used packages" do
+    response.should have_tag("p") do
+      with_tag("strong", "Uses")
+      with_tag("a", "lattice")
+      with_tag("a", "SparseM")
+      with_tag("a", "xtable")
+      with_tag("em") do
+        with_tag("a", "optmatch")
+      end
+      with_tag("em") do
+        with_tag("a", "xtable")
+      end
+    end
   end
 
 end
