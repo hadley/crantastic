@@ -11,24 +11,25 @@ module Crantastic
       Log.log!("Starting cron task: UpdatePackages")
       `curl -s http://cran.r-project.org/src/contrib/PACKAGES.gz -o tmp/PACKAGES.gz`
       `gunzip -f tmp/PACKAGES.gz`
-      latest_versions = Dcf.parse((File.read("tmp/PACKAGES"))).sort_by { |i| i["Package"].downcase }
+      packages = File.read("tmp/PACKAGES")
+      packages.split("\n\n").each do |entry|
+        package = entry.scan(/Package: (.+)/)[0][0]
+        version = entry.scan(/Version: (.+)/)[0][0]
 
-      i = 0
-      latest_versions.each do |new|
-        next if new["Package"] == "orientlib" && new["Version"] == "0.10.1" # known bad entry
-        break if i == max
-        cur = Package.find_by_name(new["Package"])
+        next if package == "orientlib" && version == "0.10.1" # known bad entry
+
+        cur = Package.find_by_name(package)
         if cur
-          if cur.latest.version != new["Version"]
-            Log.log!("Updating package: #{new['Package']} (#{new['Version']})")
-            add_version_to_db(CRAN::CranPackage.new(new["Package"], new["Version"]))
+          if cur.latest.version != version
+            Log.log!("Updating package: #{package} (#{version})")
+            add_version_to_db(CRAN::CranPackage.new(package, version))
             i += 1
           end
         else
-          Log.log!("New package: #{new['Package']} (#{new['Version']})")
+          Log.log!("New package: #{package} (#{version})")
           Package.transaction do
-            Package.create!(:name => new["Package"]) # Start by creating the package entry
-            add_version_to_db(CRAN::CranPackage.new(new["Package"], new["Version"]))
+            Package.create!(:name => package) # Start by creating the package entry
+            add_version_to_db(CRAN::CranPackage.new(package, version))
           end
           i += 1
         end
