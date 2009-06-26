@@ -6,13 +6,13 @@ task :cron => :environment do
     Crantastic::UpdatePackages.new.start
   rescue OpenURI::HTTPError => e # 404
     req_status = e.io.status[0] # 3xx, 4xx, 5xx
-    Log.log! "HTTP Error: #{req_status}"
+    Log.log_and_report! "HTTP Error: #{req_status}"
   rescue SocketError # timeout, etc
-    Log.log! "Socket error, check your connection"
+    Log.log_and_report! "Socket error, check your connection"
   rescue URI::InvalidURIError => e
-    Log.log! e.to_s
+    Log.log_and_report! e.to_s
   rescue Exception => e
-    Log.log! e.to_s
+    Log.log_and_report! e.to_s
   end
 end
 

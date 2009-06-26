@@ -75,7 +75,7 @@ module Crantastic
       Version.create!(data)
       FileUtils.rm_rf(pkgdir)
     rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError
-      Log.log! "Problem downloading #{pkg}, skipping to next pkg"
+      Log.log_and_report! "Problem downloading #{pkg}, skipping to next pkg"
     end
 
     def read_from_files(pkgdir, files)
