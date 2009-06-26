@@ -30,6 +30,7 @@ module Crantastic
           end
         end
       end
+      File.delete("tmp/PACKAGES")
       Log.log!("Cron task finished.")
       return true
     end
