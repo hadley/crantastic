@@ -1,12 +1,12 @@
 class TaskViewsController < ApplicationController
 
   def index
-    @tags = Tag.task_views
+    @tags = TaskView.all
     render :template => "tags/index"
   end
 
   def show
-    @tag = Tag.find_by_param(params[:id], true)
+    @tag = TaskView.find_by_param(params[:id])
     @events = TimelineEvent.recent_for_tag(@tag)
     render :template => "tags/show"
   rescue ActiveRecord::RecordNotFound

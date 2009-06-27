@@ -12,7 +12,6 @@ describe Tag do
       :name => "value for name",
       :full_name => "value for full_name",
       :description => "value for description",
-      :task_view => false
     }
 
     @tag = Tag.new

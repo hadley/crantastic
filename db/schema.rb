@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090624205124) do
+ActiveRecord::Schema.define(:version => 20090626124627) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -103,12 +103,12 @@ ActiveRecord::Schema.define(:version => 20090624205124) do
   end
 
   create_table "tag", :force => true do |t|
-    t.string   "name",                           :null => false
+    t.string   "name",        :null => false
     t.string   "full_name"
     t.text     "description"
-    t.boolean  "task_view",   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
   create_table "tagging", :force => true do |t|

@@ -12,16 +12,20 @@
 #  updated_at  :datetime
 #
 
+# This currently pretty much functions as two distinct but closely related
+# models (regular tags and task views). Consider factoring out if things gets
+# too dirty, I guess STI is the way to go.
 class Tag < ActiveRecord::Base
   default_scope :order => "LOWER(name) ASC"
-  named_scope :task_views, :conditions => { :task_view => true }
+  named_scope :regular, :conditions => "type IS NULL"
+  named_scope :task_views, :conditions => "type = 'TaskView'"
 
   # Taggings should be destroyed together with the tag
   has_many :taggings, :dependent => :destroy
   has_many :packages, :through => :taggings
 
   validates_presence_of :name
-  validates_uniqueness_of :name, :scope => :task_view
+  validates_uniqueness_of :name, :scope => :type
   validates_format_of :name, :with => /^[A-Za-z\-][a-zA-Z\-\d ]*[A-Za-z\d]$/
   validates_length_of :name, :in => 2..100
 
@@ -37,13 +41,13 @@ class Tag < ActiveRecord::Base
   # Case insensitive. NOTE: Could be done more elegantly with Postgres' ~*
   # operator. The method name is inherited, consider renaming in the future.
   def self.find_or_create_with_like_by_name(name)
-    find(:first, :conditions => ["LOWER(name) = LOWER(?) AND task_view = 'f'", name]) ||
+    find(:first, :conditions => ["LOWER(name) = LOWER(?) AND type IS NULL", name]) ||
       create(:name => name)
   end
 
-  def self.find_by_param(id, task_views = false)
-    self.find_by_name(id, :conditions => { :task_view => task_views }
-                      ) or raise ActiveRecord::RecordNotFound
+  def self.find_by_param(id)
+    self.find_by_name(id, :conditions => ["type IS NULL"]) or
+      raise ActiveRecord::RecordNotFound
   end
 
   def ==(other)
@@ -56,6 +60,10 @@ class Tag < ActiveRecord::Base
 
   def to_param
     name
+  end
+
+  def task_view?
+    type == "TaskView"
   end
 
   # Tag weight for use in tag clouds.  Dividing by the number of letters
