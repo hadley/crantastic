@@ -6,7 +6,7 @@ module Crantastic
 
   class UpdatePackages
     def start
-      Log.log!("Starting cron task: UpdatePackages")
+      Log.log!("Starting task: UpdatePackages")
       `curl -s http://cran.r-project.org/src/contrib/PACKAGES.gz -o tmp/PACKAGES.gz`
       `gunzip -f tmp/PACKAGES.gz`
       packages = File.read("tmp/PACKAGES")
@@ -31,7 +31,7 @@ module Crantastic
         end
       end
       File.delete("tmp/PACKAGES")
-      Log.log!("Cron task finished.")
+      Log.log!("Finished task: UpdatePackages")
       return true
     end
 
@@ -95,24 +95,63 @@ module Crantastic
 
   class UpdateTaskViews
     def start
+      Log.log!("Starting task: UpdateTaskViews")
       views = CRAN::TaskViews.new(open("http://cran.r-project.org/web/views/index.html").read)
       views.each do |v|
-        # TODO: check view version, simply skip if it hasnt been updated.
-        # If it has changed, we have to look through all previously tagged
-        # packages for this view, to check if they have been removed from te view.
+
+        # NOTE: Currently this script does not consider the possibility that an
+        # entire task view could get deleted/removed from CRAN.
         view = CRAN::TaskView.new(open("http://cran.r-project.org/web/views/#{v}.ctv").read)
-        tag = Tag.find(:first, :conditions => { :name => view.name,
-                                                :task_view => true })
-        view.packagelist.each do |pkg|
-          # 146 = crantastic user
-          conds = {
-            :package_id => Package.find_by_name(pkg).id,
-            :user_id => 146,
-            :tag_id => tag.id
-          }
-          Tagging.create!(conds) unless Tagging.find(:first, :conditions => conds)
+        tag = TaskView.find_by_name(view.name)
+
+        if tag
+          if tag.version != view.version # View has been updated
+            Tagging.transaction do
+              Log.log! "Updating TaskView: #{view.name}"
+              tag.update_attribute(:version, view.version)
+
+              existing_packages = tag.packages.map { |pkg| pkg.name }
+
+              view.packagelist.each do |pkg|
+                next if existing_packages.include?(pkg) # Already tagged
+                Log.log! "Tagging #{pkg}"
+                conds = {
+                  :package_id => Package.find_by_name(pkg).id,
+                  :user_id => 146, # The crantastic system user
+                  :tag_id => tag.id
+                }
+                Tagging.create!(conds)
+              end
+
+              # Remove task view taggings for packages that has been removed from
+              # the task view.
+              (existing_packages - view.packagelist).each do |removed_package|
+                Log.log! "Removed: #{removed_package}"
+                Tagging.delete_all(["package_id = ? AND tag_id = ?",
+                                    Package.find_by_name(removed_package).id, tag.id])
+              end
+            end
+          else
+            # No update for this task view, silently skipping.
+          end
+
+        else # Adding new task view
+          Log.log! "New TaskView: #{view.name}"
+          Tagging.transaction do
+            tag = TaskView.create!(:name => view.name)
+            view.packagelist.each do |pkg|
+              conds = {
+                :package_id => Package.find_by_name(pkg).id,
+                :user_id => 146, # The crantastic system user
+                :tag_id => tag.id
+              }
+              Tagging.create!(conds)
+            end
+          end
         end
       end
+      Log.log!("Finished task: UpdateTaskViews")
+      return true
     end
   end
 
