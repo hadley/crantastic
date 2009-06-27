@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090608185426
+# Schema version: 20090627171258
 #
 # Table name: tag
 #
@@ -7,14 +7,12 @@
 #  name        :string(255)     not null
 #  full_name   :string(255)
 #  description :text
-#  task_view   :boolean
 #  created_at  :datetime
 #  updated_at  :datetime
+#  type        :string(255)
+#  version     :string(25)
 #
 
-# This currently pretty much functions as two distinct but closely related
-# models (regular tags and task views). Consider factoring out if things gets
-# too dirty, I guess STI is the way to go.
 class Tag < ActiveRecord::Base
   default_scope :order => "LOWER(name) ASC"
   named_scope :regular, :conditions => "type IS NULL"
