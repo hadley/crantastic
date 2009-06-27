@@ -15,11 +15,3 @@ task :cron => :environment do
     Log.log_and_report! e.to_s
   end
 end
-
-# A copy of the cron task, under the crantastic name space
-desc "Cron task, updates package versions"
-namespace :crantastic do
-  task :cron => :environment do
-    Crantastic::UpdatePackages.new.start
-  end
-end
