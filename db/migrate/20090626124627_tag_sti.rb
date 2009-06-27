@@ -1,7 +1,7 @@
 class TagSti < ActiveRecord::Migration
   # Refactor to STI for tags/task views
   def self.up
-    add_column :tag, :type, :string, :length => 25
+    add_column :tag, :type, :string, :limit => 25
 
     Tag.all(:conditions => {:task_view => true}).each do |t|
       t.update_attribute(:type, "TaskView")
