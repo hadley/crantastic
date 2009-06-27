@@ -3,7 +3,9 @@ class TagSti < ActiveRecord::Migration
   def self.up
     add_column :tag, :type, :string, :length => 25
 
-    Tag.task_views.each { |t| t.update_attribute(:type, "TaskView") }
+    Tag.all(:conditions => {:task_view => true}).each do |t|
+      t.update_attribute(:type, "TaskView")
+    end
     remove_column :tag, :task_view
 
     add_index :tag, :type
