@@ -63,7 +63,7 @@ class Tag < ActiveRecord::Base
   end
 
   def task_view?
-    type == "TaskView"
+    self.kind_of?(TaskView)
   end
 
   # Tag weight for use in tag clouds.  Dividing by the number of letters
