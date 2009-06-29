@@ -1,8 +1,11 @@
 <% @title = "Log in" %>
 
-<%= RPXNow.embed_code('crantastic', "http://#{APP_CONFIG[:site_domain]}/session/rpx_token") %>
+<% unless params[:show_rpx] %>
+<%= RPXNow.embed_code('crantastic',
+                      "http://#{APP_CONFIG[:site_domain]}/session/rpx_token") %>
 
 <p><strong>or log in with an existing Crantastic account</strong></p>
+<% end %>
 
 <% form_tag session_path, :id => "new_session" do -%>
 <p><label for="login">Login</label><br/>
