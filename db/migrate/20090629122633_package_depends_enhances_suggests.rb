@@ -26,9 +26,9 @@ class PackageDependsEnhancesSuggests < ActiveRecord::Migration
 
     # Create associations for existing data
     Version.all.each do |v|
-      v.depends.each  { |i| v.required_packages  << i }
-      v.enhances.each { |i| v.enhanced_packages  << i }
-      v.suggests.each { |i| v.suggested_packages << i }
+      v.parse_depends.each  { |i| v.required_packages  << i }
+      v.parse_enhances.each { |i| v.enhanced_packages  << i }
+      v.parse_suggests.each { |i| v.suggested_packages << i }
     end
   end
 

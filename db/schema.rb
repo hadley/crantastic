@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(:version => 20090629122633) do
   end
 
   create_table "enhanced_package_version", :id => false, :force => true do |t|
-    t.integer "version_id"
-    t.integer "enhanced_package_id"
+    t.integer "version_id",          :null => false
+    t.integer "enhanced_package_id", :null => false
   end
 
   add_index "enhanced_package_version", ["version_id", "enhanced_package_id"], :name => "index_enhanced_package_version_on_version_id_and_enhanced_package_id", :unique => true
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(:version => 20090629122633) do
   add_index "package_trigram", ["tg"], :name => "index_package_trigram_on_tg"
 
   create_table "required_package_version", :id => false, :force => true do |t|
-    t.integer "version_id"
-    t.integer "required_package_id"
+    t.integer "version_id",          :null => false
+    t.integer "required_package_id", :null => false
   end
 
   add_index "required_package_version", ["version_id", "required_package_id"], :name => "index_required_package_version_on_version_id_and_required_package_id", :unique => true
@@ -117,8 +117,8 @@ ActiveRecord::Schema.define(:version => 20090629122633) do
   end
 
   create_table "suggested_package_version", :id => false, :force => true do |t|
-    t.integer "version_id"
-    t.integer "suggested_package_id"
+    t.integer "version_id",           :null => false
+    t.integer "suggested_package_id", :null => false
   end
 
   add_index "suggested_package_version", ["version_id", "suggested_package_id"], :name => "index_suggested_package_version_on_version_id_and_suggested_package_id", :unique => true
