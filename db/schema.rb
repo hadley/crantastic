@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090627171258) do
+ActiveRecord::Schema.define(:version => 20090629122633) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -17,6 +17,13 @@ ActiveRecord::Schema.define(:version => 20090627171258) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "enhanced_package_version", :id => false, :force => true do |t|
+    t.integer "version_id"
+    t.integer "enhanced_package_id"
+  end
+
+  add_index "enhanced_package_version", ["version_id", "enhanced_package_id"], :name => "index_enhanced_package_version_on_version_id_and_enhanced_package_id", :unique => true
 
   create_table "log", :force => true do |t|
     t.string   "message",    :null => false
@@ -55,6 +62,13 @@ ActiveRecord::Schema.define(:version => 20090627171258) do
 
   add_index "package_trigram", ["package_id"], :name => "index_package_trigram_on_package_id"
   add_index "package_trigram", ["tg"], :name => "index_package_trigram_on_tg"
+
+  create_table "required_package_version", :id => false, :force => true do |t|
+    t.integer "version_id"
+    t.integer "required_package_id"
+  end
+
+  add_index "required_package_version", ["version_id", "required_package_id"], :name => "index_required_package_version_on_version_id_and_required_package_id", :unique => true
 
   create_table "review", :force => true do |t|
     t.integer  "package_id"
@@ -101,6 +115,13 @@ ActiveRecord::Schema.define(:version => 20090627171258) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "suggested_package_version", :id => false, :force => true do |t|
+    t.integer "version_id"
+    t.integer "suggested_package_id"
+  end
+
+  add_index "suggested_package_version", ["version_id", "suggested_package_id"], :name => "index_suggested_package_version_on_version_id_and_suggested_package_id", :unique => true
 
   create_table "tag", :force => true do |t|
     t.string   "name",                      :null => false

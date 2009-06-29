@@ -34,6 +34,21 @@ class Version < ActiveRecord::Base
   belongs_to :package
   belongs_to :maintainer, :class_name => "Author"
 
+  has_and_belongs_to_many :required_packages, :class_name => "Package",
+                          :association_foreign_key => "required_package_id",
+                          :join_table => "required_package_version"
+  alias :depends :required_packages
+
+  has_and_belongs_to_many :enhanced_packages, :class_name => "Package",
+                          :association_foreign_key => "enhanced_package_id",
+                          :join_table => "enhanced_package_version"
+  alias :enhances :enhanced_packages
+
+  has_and_belongs_to_many :suggested_packages, :class_name => "Package",
+                          :association_foreign_key => "suggested_package_id",
+                          :join_table => "suggested_package_version"
+  alias :suggests :suggested_packages
+
   fires :new_version, :on                => :create,
                       :secondary_subject => :package
 
@@ -43,6 +58,10 @@ class Version < ActiveRecord::Base
   validates_length_of :version, :in => 1..25
   validates_length_of :title, :in => 0..255, :allow_nil => true
   validates_length_of :url, :in => 0..255, :allow_nil => true
+
+  def <=>(other)
+    self.name.downcase <=> other.name.downcase
+  end
 
   def to_s
     version
@@ -60,17 +79,40 @@ class Version < ActiveRecord::Base
     name + "_" + version
   end
 
-  def depends
+  def reverse_depends
+    Version.find(:all, :select => "name", :conditions =>
+                 ["id IN (SELECT version_id FROM required_package_version WHERE required_package_id = ?)",
+                  self.package.id]).sort.map(&:name)
+  end
+
+  def reverse_enhances
+    Version.find(:all, :select => "name", :conditions =>
+                 ["id IN (SELECT version_id FROM enhanced_package_version WHERE enhanced_package_id = ?)",
+                  self.package.id]).sort.map(&:name)
+  end
+
+  def reverse_suggests
+    Version.find(:all, :select => "name", :conditions =>
+                 ["id IN (SELECT version_id FROM suggested_package_version WHERE suggested_package_id = ?)",
+                  self.package.id]).sort.map(&:name)
+  end
+
+  def parse_depends
     parse_requirements(attributes["depends"])
   end
 
-  def suggests
+  def parse_suggests
     parse_requirements(attributes["suggests"])
   end
 
-  def imports
+  def parse_enhances
+    parse_requirements(attributes["enhances"])
+  end
+
+  def parse_imports
     parse_requirements(attributes["imports"])
   end
+  alias :imports :parse_imports
 
   # This runs from lib/tasks/cache.rake. Not sure if this is still needed.
   def cache_maintainer!
@@ -84,7 +126,7 @@ class Version < ActiveRecord::Base
   def parse_requirements(reqs)
     reqs.split(",").map{|full| full.split(" ")[0]}.map do |name|
       Package.find_by_name name
-    end.compact.sort_by{|v| v.name.downcase } rescue []
+    end.compact.sort rescue []
   end
 
 end

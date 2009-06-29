@@ -9,6 +9,12 @@ class VersionObserver < ActiveRecord::Observer
     if version.maintainer
       version.maintainer.update_attribute(:updated_at, Time.now)
     end
+
+    # Store associations for depends, enhances, and suggests
+    version.required_packages = version.parse_depends
+    version.enhanced_packages = version.parse_enhances
+    version.suggested_packages = version.parse_suggests
+    version.save
   end
 
 end
