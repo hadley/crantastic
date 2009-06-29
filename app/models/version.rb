@@ -80,21 +80,21 @@ class Version < ActiveRecord::Base
   end
 
   def reverse_depends
-    Version.find(:all, :select => "name", :conditions =>
+    Version.find(:all, :include => :package, :conditions =>
                  ["id IN (SELECT version_id FROM required_package_version WHERE required_package_id = ?)",
-                  self.package.id]).sort.map(&:name)
+                  self.package.id]).sort.map(&:package)
   end
 
   def reverse_enhances
-    Version.find(:all, :select => "name", :conditions =>
+    Version.find(:all, :include => :package, :conditions =>
                  ["id IN (SELECT version_id FROM enhanced_package_version WHERE enhanced_package_id = ?)",
-                  self.package.id]).sort.map(&:name)
+                  self.package.id]).sort.map(&:package)
   end
 
   def reverse_suggests
-    Version.find(:all, :select => "name", :conditions =>
+    Version.find(:all, :include => :package, :conditions =>
                  ["id IN (SELECT version_id FROM suggested_package_version WHERE suggested_package_id = ?)",
-                  self.package.id]).sort.map(&:name)
+                  self.package.id]).sort.map(&:package)
   end
 
   def parse_depends
