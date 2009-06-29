@@ -14,6 +14,22 @@
 
 <p>
   <strong>Uses</strong>: <%= version_uses %>
+  <br />
+<% unless @version.reverse_depends.blank? -%>
+  <strong>Reverse depends</strong>: <%= package_links(@version.reverse_depends) %>
+  <br />
+<% end -%>
+
+<% unless @version.reverse_suggests.blank? -%>
+
+  <strong>Reverse suggests</strong>: <%= package_links(@version.reverse_suggests) %>
+  <br />
+<% end %>
+
+<% unless @version.reverse_enhances.blank? -%>
+  <strong>Reverse enhances</strong>: <%= package_links(@version.reverse_enhances) %>
+  <br />
+<% end -%>
 </p>
 
 <% unless @version.date.blank? -%>
