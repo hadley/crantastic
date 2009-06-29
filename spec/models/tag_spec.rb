@@ -2,24 +2,20 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Tag do
 
+  setup do
+    UserMailer.should_receive(:deliver_signup_notification)
+    Tagging.make
+    Package.make(:name => "ggplot2")
+  end
+
+  before(:each) do
+    @tag = Tag.new
+  end
+
   should_allow_values_for :name, "Machine Learning", "Point-and-click",
                                  "AI", "NLP", :allow_nil => false
   should_not_allow_values_for :name, "", " AI", "asdf ", "sdf<h1>f", :allow_nil => false
   should_validate_length_of :name, :minimum => 2, :maximum => 100
-
-  before(:each) do
-    @valid_attributes = {
-      :name => "value for name",
-      :full_name => "value for full_name",
-      :description => "value for description",
-    }
-
-    @tag = Tag.new
-  end
-
-  it "should create a new instance given valid attributes" do
-    Tag.create!(@valid_attributes)
-  end
 
   it "should equal a tag with the same name" do
     @tag.name = "awesome"
@@ -41,6 +37,15 @@ describe Tag do
     Tag.should_receive(:find_or_create_with_like_by_name).once.with("tag1")
     Tag.should_receive(:find_or_create_with_like_by_name).once.with("tag2")
     Tag.parse_and_find_or_create("tag1 , tag2").size.should == 2
+  end
+
+  it "should be marked as updated after it receives a new tagging" do
+    tag = Tag.first
+    prev_time = tag.updated_at
+    Tagging.make(:package => Package.find_by_param("ggplot2"),
+                 :user => User.first,
+                 :tag => tag)
+    (tag.updated_at > prev_time).should be_true
   end
 
 end
