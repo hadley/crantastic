@@ -3,7 +3,7 @@ class PackagesController < ApplicationController
   before_filter :store_location # Redirect back here after logging in
 
   def index
-    page_no = params[:page] || 1
+    page_no = store_page_no(params[:page]) || retrieve_page_no
     @search_term = String(params[:search]) || ''
     @fuzzy = @search_term.sub!(/%7E$/, '~') ? true : false
 

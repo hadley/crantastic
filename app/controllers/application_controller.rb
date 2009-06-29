@@ -58,4 +58,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def store_page_no(n)
+    return nil if n.nil?
+    session[:page_no] = n
+  end
+
+  def retrieve_page_no
+    session[:page_no] || 1
+  end
+
 end
