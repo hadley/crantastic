@@ -25,6 +25,6 @@ end
 
 # Gems required only during development
 config.gem 'chriseppstein-compass',
-           :version => '>= 0.6.15',
+           :version => '>= 0.8.1',
            :lib => false,
            :source => 'http://gems.github.com'
