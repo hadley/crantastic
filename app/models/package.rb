@@ -89,6 +89,10 @@ class Package < ActiveRecord::Base
     res
   end
 
+  def <=>(other)
+    self.name.downcase <=> other.name.downcase
+  end
+
   # Returns an array of Tag objects that this package has been tagged with.
   #
   # @return [Array]
