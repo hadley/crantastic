@@ -1,3 +1,8 @@
-<li><%= link_to package.name, package %>
-  <p><%= highlight(truncate(package.latest.description, :length => 180), @search_term) %></p>
+<li>
+  <%= link_to package.name, package, :style => "padding-right: 5px;" %>
+  <%= star_rating_for(package) %>
+  <p>
+    <%= highlight(truncate(package.latest.description, :length => 180),
+                  @search_term) %>
+  </p>
 </li>

@@ -19,9 +19,10 @@ Packages found: <%= @packages.total_entries -%>
 <% unless @packages.empty? -%>
 <table class="general">
   <tr>
-    <th style="width:40%">Package Name</th>
+    <th style="width:35%">Package Name</th>
     <th style="width:20%">Version</th>
-    <th style="width:40%">Author</th>
+    <th style="width:30%">Author</th>
+    <th style="width:15%">Rating</th>
   </tr>
   <%- for package in @packages -%>
   <tr class="<%=cycle("odd", "even")-%>">
@@ -30,6 +31,7 @@ Packages found: <%= @packages.total_entries -%>
     <%- maintainer = latest_package.try(:maintainer) -%>
     <td><%= latest_package.version unless latest_package.nil? -%></td>
     <td><%= link_to maintainer.name, maintainer unless maintainer.nil? -%></td>
+    <td><%= package.average_rating %>/5</td>
   </tr>
   <%- end -%>
 </table>
