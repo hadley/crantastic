@@ -5,7 +5,11 @@ class TagsController < ApplicationController
   actions :index, :show
 
   index.wants.html { @title = "Tags" }
-  show.wants.html { @events = TimelineEvent.recent_for_tag(@tag) }
+  show.wants.html do
+    set_atom_link(self, @tag)
+    @events = TimelineEvent.recent_for_tag(@tag)
+  end
+  show.wants.atom { @events = TimelineEvent.recent_for_tag(@tag) }
   show.failure.wants.html { rescue_404 }
 
   private

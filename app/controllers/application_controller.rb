@@ -58,4 +58,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Set an atom link for the layout header
+  def set_atom_link(caller, obj)
+    caller.instance_variable_set(:@atom, {
+      :url => polymorphic_url(obj, :format => :atom),
+      :title => "Latest activity for #{obj}"
+    })
+  end
+
 end
