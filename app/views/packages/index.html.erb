@@ -5,7 +5,7 @@
     <small>(see them <%= link_to "all on one page", all_packages_url %>)</small>.</h3>
 
   <form action="/packages" method="get">
-  <p>Search <%= nonce_field("search", :id => "package-search") %>
+  <p>Search <%= nonce_field("search", :id => "package-search", :value => params[:search]) %>
     <%= image_tag("spinner.gif", :id => "spinner") -%>
   </p>
   </form>

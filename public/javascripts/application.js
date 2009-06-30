@@ -3,7 +3,13 @@ $(document).ready(function() {
     $('input[@type=text]:first').focus();
 
     $('div.pagination a').livequery('click', function() {
-        $('#packages_list').load(this.href);
+        var href = this.href;
+        // Appends the search term to the URL, to facilitate
+        // browser history and bookmarking
+        if ($("#package-search")[0].value != "" && !href.match(/&search=/)) {
+            href += "&search=" + $("#package-search")[0].value;
+        }
+        location.href = href;
         return false;
     });
 

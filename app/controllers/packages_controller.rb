@@ -3,8 +3,15 @@ class PackagesController < ApplicationController
   before_filter :store_location # Redirect back here after logging in
 
   def index
-    page_no = store_page_no(params[:page]) || retrieve_page_no
+    page_no = params[:page] || 1
     @search_term = String(params[:search]) || ''
+
+    # Handle nonce values, this is required for clients without JS
+    if @search_term.length == 60 && @search_term[-2,2] == '=='
+      @search_term = params[@search_term.sub(/==$/, '').to_sym].sub(/^==/, '')
+      params[:search] = @search_term
+    end
+
     @fuzzy = @search_term.sub!(/%7E$/, '~') ? true : false
 
     @search_result = Package.paginating_search(@search_term, page_no)
