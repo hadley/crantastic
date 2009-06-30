@@ -31,7 +31,11 @@ Packages found: <%= @packages.total_entries -%>
     <%- maintainer = latest_package.try(:maintainer) -%>
     <td><%= latest_package.version unless latest_package.nil? -%></td>
     <td><%= link_to maintainer.name, maintainer unless maintainer.nil? -%></td>
-    <td><%= package.average_rating %>/5</td>
+    <td>
+      <% if package.rating_count.nonzero? -%>
+        <%= package.average_rating %>/5
+      <% end -%>
+    </td>
   </tr>
   <%- end -%>
 </table>
