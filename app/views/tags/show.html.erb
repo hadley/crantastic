@@ -19,6 +19,6 @@
 <% if @events.length == 0 -%>
 <p>No recent activity for packages tagged with <%= @tag.name %>.</p>
 <% else %>
-<%= render :partial => "timeline/timeline",
+<%= render :partial => "timeline_events/events",
            :locals => { :events => @events } %>
 <% end %>

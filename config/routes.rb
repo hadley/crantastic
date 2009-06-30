@@ -3,12 +3,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :reviews
   map.resources :taggings
   map.resources :ratings
-
-  [:users, :tags, :task_views].each do |r|
-    map.resources r do |t|
-      t.resource :timeline, :controller => "timeline"
-    end
-  end
+  map.resources :users
+  map.resources :tags
+  map.resources :task_views
+  map.resources :timeline_events
 
   map.resources :packages, :collection => {:all => :get}, :member => {:index => :post}, :except => [:create, :update] do |p|
     p.resources :versions do |v|

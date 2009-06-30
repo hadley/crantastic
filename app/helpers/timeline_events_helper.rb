@@ -1,6 +1,6 @@
-module TimelineHelper
+module TimelineEventsHelper
 
-  def timeline_item(item)
+  def timeline_event(item)
     "<li>" +
     (item.actor.not_nil? ? link_to(item.actor, user_path(item.actor)) + " " : "") +
     case item.event_type

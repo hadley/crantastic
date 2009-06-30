@@ -22,7 +22,7 @@
 <% if @events.length == 0 -%>
 <p><%= @user.login %> hasn't done anything recently.</p>
 <% else %>
-<%= render :partial => "timeline/timeline",
+<%= render :partial => "timeline_events/events",
            :locals => { :events => @events } %>
 <% end %>
 
