@@ -7,11 +7,12 @@ module VersionsHelper
   end
 
   def version_uses
-    ((@version.depends + @version.imports).sort.map do |p|
-       link_to p.name, p
-     end + @version.suggests.map do |p|
-       content_tag(:em, link_to(p.name, p))
-     end).join(", ") || "Does not use any package"
+    uses = (@version.uses.map do |p|
+              link_to p.name, p
+            end + @version.suggests.map do |p|
+              content_tag(:em, link_to(p.name, p))
+            end).join(", ")
+    uses.blank? ? "Does not use any package" : uses
   end
 
 end

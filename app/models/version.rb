@@ -67,6 +67,10 @@ class Version < ActiveRecord::Base
     version
   end
 
+  def uses
+    (self.depends + self.imports).sort
+  end
+
   def urls
     (url.split(",") rescue []).map(&:strip) + [cran_url]
   end
