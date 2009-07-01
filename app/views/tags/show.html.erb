@@ -9,7 +9,7 @@
 <% end -%>
 
 <ul class="cloud">
-<li><strong>Packages:</strong></li>
+<li><strong style="line-height: 1em;">Packages:</strong></li>
 <% for package in @tag.packages.uniq -%>
   <li><%= link_to package.name, package %></li>
 <% end -%>
