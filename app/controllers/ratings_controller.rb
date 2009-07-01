@@ -24,7 +24,7 @@ class RatingsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(package_path(@package)) }
-      format.js { render :status => 200 }
+      format.js { render :status => 200, :nothing => true }
     end
   end
 
