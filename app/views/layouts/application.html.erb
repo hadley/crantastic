@@ -17,7 +17,10 @@
                              'jquery.rating.pack', 'jquery.validate.pack', 'application' -%>
   <%= javascript_tag "window.AUTH_TOKEN = '#{form_authenticity_token}';" %>
 
-  <%= auto_discovery_link_tag :atom, @atom[:url], :title => @atom[:title] if @atom %>
+  <%= auto_discovery_link_tag :atom, timeline_events_url(:format => :atom),
+      :title => "Latest activity on crantastic" %>
+  <%= auto_discovery_link_tag :atom, @atom[:url], :title => @atom[:title] if
+      @atom && @atom[:title] != "Latest activity on crantastic" %>
   <meta name="verify-v1" content="YtXicWGGldm5yUfU718DJMAreQ9gf2gtsSCe5VysH10=" />
 </head>
 <body>
