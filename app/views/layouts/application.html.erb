@@ -87,7 +87,7 @@
   <% end -%>
 
   <div style="background-color: transparent; margin-right: 16px">
-    <% if @atom -%>
+    <% if @atom && @atom[:title].not_blank? -%>
       <p style="text-align: right">
         <small>
           Stay up to date on <%= @atom[:title].scan(/(on|for) (.*)/)[0][1] %>: &nbsp;
