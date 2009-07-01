@@ -15,4 +15,10 @@ describe TimelineEvent do
     event.cached_rating.should == PackageRating.first.rating
   end
 
+  it "should know if it is a package event" do
+    TimelineEvent.new(:event_type => "new_package").should be_package_event
+    TimelineEvent.new(:event_type => "new_version").should be_package_event
+    TimelineEvent.new(:event_type => "new_review").should_not be_package_event
+  end
+
 end

@@ -57,6 +57,10 @@ class TimelineEvent < ActiveRecord::Base
     self.recent_for_package_ids(package_ids)
   end
 
+  def package_event?
+    %w(new_package new_version).include?(self.event_type) ? true : false
+  end
+
   private
   # Values must be cached for items that can change.
   def cache_values

@@ -93,6 +93,10 @@ class Package < ActiveRecord::Base
     self.name.downcase <=> other.name.downcase
   end
 
+  def description
+    self.latest_version.description # for convenience
+  end
+
   # Returns an array of Tag objects that this package has been tagged with.
   #
   # @return [Array]

@@ -8,7 +8,13 @@ atom_feed(:root_url => polymorphic_url(@tag)) do |feed|
       entry.title(strip_tags(event_html))
 
       # sanitize strips away the ul/li tags
-      entry.content(sanitize(event_html, :tags => %w(a href p span)), :type => 'html')
+      content = sanitize(event_html, :tags => %w(a href p span))
+
+      if event.package_event?
+        content += "<br /><h3>Package description:</h3><p>#{event.subject.description}</p>"
+      end
+
+      entry.content(content, :type => 'html')
 
       entry.author do |author|
         author.name(event.actor.nil? ? "crantastic" : event.actor.login)
