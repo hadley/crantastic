@@ -7,6 +7,7 @@ class RatingsController < ApplicationController
     pkg = Package.find_by_param(params[:package_id])
 
     respond_to do |format|
+      format.html { redirect_to(package_path(pkg)) }
       format.js do
         render :json => {
           :average_rating => pkg.average_rating(params[:aspect]),
