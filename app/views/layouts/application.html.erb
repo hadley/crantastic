@@ -59,16 +59,6 @@
     <% end -%>
   </div>
 
-  <div>
-    <% if @atom -%>
-      <small style="display: block; text-align: right">
-        Stay up to date on <%= @atom[:title].scan(/(on|for) (.*)/)[0][1] %>: &nbsp;
-        <%= link_to(image_tag("feed-icon-14x14.png"), @atom[:url],
-                    :style => "background-color: transparent; margin-right: 16px; float: right;") %>
-      </small>
-    <% end -%>
-  </div>
-
   <% unless logged_in? -%>
   <div class="box">
 
@@ -95,6 +85,18 @@
 </ul>
   </div>
   <% end -%>
+
+  <div style="background-color: transparent; margin-right: 16px">
+    <% if @atom -%>
+      <p style="text-align: right">
+        <small>
+          Stay up to date on <%= @atom[:title].scan(/(on|for) (.*)/)[0][1] %>: &nbsp;
+          <%= link_to(image_tag("feed-icon-14x14.png", :style=>"margin-bottom: -2px"), @atom[:url]) %>
+        </small>
+      </p>
+    <% end -%>
+  </div>
+
 </div>
 
 <div id="footer">
