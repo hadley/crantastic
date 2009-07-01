@@ -13,8 +13,12 @@
 <p><strong>License</strong>: <%= h @version.license %></p>
 
 <p>
-  <strong>Uses</strong>: <%= version_uses %>
-  <br />
+  <strong>Uses</strong>: <%= version_uses %><br />
+
+<% unless @version.enhances.blank? -%>
+  <strong>Enhances</strong>: <%= package_links(@version.enhances) %><br />
+<% end -%>
+
 <% unless @version.reverse_depends.blank? -%>
   <strong>Reverse depends</strong>: <%= package_links(@version.reverse_depends) %>
   <br />

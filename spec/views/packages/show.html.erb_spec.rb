@@ -3,15 +3,18 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/packages" do
 
   setup do
+    mypkg = Package.make(:name => "mypkg")
     Package.make(:name => "optmatch")
     imports = "graphics, stats, lattice, grid, SparseM, xtable"
     imports.split(", ").each { |pkg| Package.make(:name => pkg) }
-    ver = Version.make(:imports  => imports,
-                       :suggests => "optmatch, xtable")
+    Version.make(:package => mypkg,
+                 :imports  => imports,
+                 :suggests => "optmatch, xtable",
+                 :enhances => "xtable")
   end
 
   before(:each) do
-    @pkg = Package.first
+    @pkg = Package.find_by_param("mypkg")
     assigns[:package] = @pkg
     assigns[:version] = @pkg.latest
     assigns[:tagging] = Tagging.new
