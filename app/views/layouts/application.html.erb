@@ -49,9 +49,10 @@
 
   <div id="search-box" class="box">
     <% form_tag search_path, :method => 'GET' do -%>
-    <p style="margin: 0 0 0 0.1em"><%= text_field_tag 'q' %>
-
-    <%= submit_tag 'Search' %></p>
+    <p style="margin: 0 0 0 0.1em">
+      <%= text_field_tag 'q' %>
+      <input type="submit" value="Search" />
+    </p>
     <% end -%>
   </div>
 
