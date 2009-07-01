@@ -59,8 +59,9 @@ class PackagesController < ApplicationController
     @title = "The #{@package} package"
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { set_atom_link(self, @package) }
       format.xml  { render :xml => @package }
+      format.atom { @events = TimelineEvent.recent_for_package_ids(@package.id) }
     end
   rescue ActiveRecord::RecordNotFound
     rescue_404

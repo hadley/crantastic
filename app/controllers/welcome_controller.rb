@@ -1,7 +1,11 @@
 class WelcomeController < ApplicationController
 
   def index
-    @timeline_events = TimelineEvent.recent
+    @atom = {
+      :url => timeline_events_url(:format => :atom),
+      :title => "Latest activity on crantastic"
+    }
+    @events = TimelineEvent.recent
   end
 
 end
