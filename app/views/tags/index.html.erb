@@ -9,11 +9,7 @@
   <ul class="tags cloud">
     <%- tag_cloud(@tags, %w(xs s l xl xxl)) do |tag,level| -%>
       <li class="<%= level %>">
-        <%- if tag.task_view? -%>
-          <%= link_to h(tag), task_view_url(tag), :class => "task_view" -%>
-        <%- else -%>
-          <%= link_to h(tag), tag_url(tag) -%>
-        <%- end %>
+        <%= link_to(h(tag), tag, :class => tag.type.to_s.underscore) %>
       </li>
     <%- end -%>
   </ul>

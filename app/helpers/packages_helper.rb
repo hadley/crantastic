@@ -24,14 +24,8 @@ module PackagesHelper
   def tag_list
     out = ""
     @package.tags.each_with_index do |tag,i|
-      a_class = ""
-      if tag.task_view?
-        out += content_tag("li",
-                           link_to(tag, task_view_path(tag), :class => "task_view"))
-      else
-        out += content_tag("li",
-                           link_to(tag, tag_path(tag)))
-      end
+      out += content_tag("li",
+                         link_to(h(tag), tag, :class => tag.type.to_s.underscore))
     end
     out
   end
