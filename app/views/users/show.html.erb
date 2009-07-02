@@ -1,7 +1,11 @@
 <% @title = "The user " + @user.login %>
 
-<h1><%= @user.login %>
-<% if @user.homepage.not_blank? %><span class="version">(<%= link_to @user.homepage, @user.homepage %>)</span><% end %></h1>
+<h1>
+  <%= @user.login %>
+  <% if @user.homepage.not_blank? && @user.homepage.strip != "http://" %>
+    <span class="version">(<%= link_to @user.homepage, @user.homepage %>)</span>
+  <% end %>
+</h1>
 
 <div id="gravatar-box" style="float: right; width: 135px;">
   <%= image_tag @user.gravatar_url, :class => "float-r" %>
