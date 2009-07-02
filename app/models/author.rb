@@ -14,6 +14,7 @@ class Author < ActiveRecord::Base
   is_gravtastic # Enables the Gravtastic plugin for the Author model
 
   has_many :versions, :foreign_key => :maintainer_id, :order => "name ASC, id DESC"
+  has_many :packages, :through => :versions, :uniq => true
 
   default_scope :order => "LOWER(name)"
 
@@ -58,13 +59,6 @@ class Author < ActiveRecord::Base
     # This relies on the default ordering of the version-association.
     # I guess this could be done more efficiently in pure SQL.
     self.versions.group_by { |v| v.package_id }.values.collect { |a| a.first }
-  end
-
-  # @return [Array] the list of packages this author is/has been an maintainer for
-  def packages
-    Package.find_by_sql("SELECT * FROM package WHERE id IN
-                                  (SELECT DISTINCT(package_id) FROM version
-                                      WHERE maintainer_id = #{self.id})") || []
   end
 
 end
