@@ -21,6 +21,12 @@ class Package < ActiveRecord::Base
   has_many :package_ratings, :dependent => :destroy
   has_many :reviews, :dependent => :destroy
   has_many :taggings, :dependent => :destroy
+  has_many :tags, :through => :taggings, :uniq => true do
+    # @param [String, Class] type E.g. Priority or TaskView
+    def type(type)
+      proxy_owner.tags.all(:conditions => ["type = ?", type.to_s])
+    end
+  end
 
   # We cache the latest version id
   belongs_to :latest_version, :class_name => "Version"
@@ -95,15 +101,6 @@ class Package < ActiveRecord::Base
 
   def description
     self.latest_version.description # for convenience
-  end
-
-  # Returns an array of Tag objects that this package has been tagged with.
-  #
-  # @return [Array]
-  def tags
-    Tag.find_by_sql("SELECT * FROM tag WHERE id IN
-                              (SELECT DISTINCT(tag_id) FROM tagging
-                                      WHERE package_id = #{self.id})") || []
   end
 
   # @return [Fixnum] Number of ratings for this package for the given aspect
