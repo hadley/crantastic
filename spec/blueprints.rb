@@ -74,3 +74,12 @@ Tagging.blueprint do
   user
   package
 end
+
+TimelineEvent.blueprint do
+end
+
+def make_timeline_event_for_version(version = Version.make)
+  TimelineEvent.make(:subject => version,
+                     :secondary_subject => version.package,
+                     :event_type => "new_version")
+end
