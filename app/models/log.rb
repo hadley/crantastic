@@ -18,7 +18,7 @@ class Log < ActiveRecord::Base
     Log.create!(:message => msg[0,255])
   end
 
-  def self.log_and_report!(msg, request="rake cron", quiet=false)
+  def self.log_and_report!(msg, request={}, quiet=false)
     self.log!(msg, quiet)
     opts = HoptoadNotifier.
       default_notice_options.merge({
