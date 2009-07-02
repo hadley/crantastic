@@ -66,8 +66,7 @@
 
 <script type="text/javascript">
   //<![CDATA[
-  RPXNOW.token_url = "http://localhost:3000/session/rpx_token";
-
+  RPXNOW.token_url = "<%= "http://#{APP_CONFIG[:site_domain]}/session/rpx_token" %>";
   RPXNOW.realm = "crantastic";
   RPXNOW.overlay = true;
   RPXNOW.language_preference = 'en';
