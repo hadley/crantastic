@@ -3,7 +3,7 @@
 <h1>
   <%= @user.login %>
   <% if @user.homepage.not_blank? && @user.homepage.strip != "http://" %>
-    <span class="version">(<%= link_to @user.homepage, @user.homepage %>)</span>
+    <span class="homepage">(<%= link_to @user.homepage, @user.homepage %>)</span>
   <% end %>
 </h1>
 

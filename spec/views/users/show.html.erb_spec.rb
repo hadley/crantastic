@@ -19,6 +19,21 @@ describe "/users" do
     response.should have_tag('p', "#{@user} hasn't tagged any packages yet.")
   end
 
+  it "should display the user's homepage" do
+    @user.homepage = "http://crantastic.org"
+    render "users/show"
+    response.should have_tag('span.homepage') do
+      with_tag('a', 'http://crantastic.org')
+    end
+  end
+
+  it "should not display the homepage link for the default url" do
+    @user.homepage = "http://"
+    render "users/show"
+    response.should_not have_tag('a', 'http://')
+
+  end
+
   it "should display the user's reviews" do
     ver = Version.make
     Review.make(:user => @user, :cached_rating => 3, :package => ver.package,

@@ -14,6 +14,14 @@ describe User do
     u.activated_at.should be_kind_of(Time)
   end
 
+  it "should cache the compiled profile markdown" do
+    UserMailer.should_receive(:deliver_signup_notification)
+    markdown = "**Hello** _world_"
+    u = User.make(:profile => markdown)
+    u.profile.should == markdown
+    u.profile_html.should == Maruku.new(markdown).to_html
+  end
+
 end
 
 describe UserMailer do
