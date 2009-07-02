@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090623170341
+# Schema version: 20090702092911
 #
 # Table name: user
 #
@@ -15,6 +15,9 @@
 #  activation_code           :string(40)
 #  activated_at              :datetime
 #  remember                  :boolean         not null
+#  homepage                  :string(255)
+#  profile                   :text
+#  profile_markdown          :text
 #
 
 require 'digest/sha1'
