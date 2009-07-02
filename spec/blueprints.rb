@@ -62,6 +62,13 @@ Tag.blueprint do
   description
 end
 
+TaskView.blueprint do
+  name
+  full_name
+  description
+  version { "2009-05-09" }
+end
+
 Tagging.blueprint do
   tag
   user

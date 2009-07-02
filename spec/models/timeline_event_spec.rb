@@ -12,7 +12,12 @@ describe TimelineEvent do
   it "should cache package ratings" do
     event = TimelineEvent.create!(:event_type => "new_package_rating",
                                   :subject => PackageRating.first)
-    event.cached_rating.should == PackageRating.first.rating
+    event.cached_value.should == PackageRating.first.rating.to_s
+  end
+
+  it "should cache task view versions" do
+    event = TaskView.make.update_version("2009-09-09")
+    event.cached_value.should == TaskView.first.version
   end
 
   it "should know if it is a package event" do
