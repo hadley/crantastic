@@ -48,4 +48,15 @@ describe Tag do
     (tag.updated_at > prev_time).should be_true
   end
 
+  describe TaskView do
+
+    it "should update its version and fire a timeline event" do
+      t = TaskView.make(:version => "2009-06-06")
+      TimelineEvent.should_receive(:create!)
+      t.update_version("2009-07-07")
+      t.version.should == "2009-07-07"
+    end
+
+  end
+
 end
