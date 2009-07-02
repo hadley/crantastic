@@ -15,6 +15,22 @@
 <%= error_message_for @user, :password_confirmation  %><br/>
 <%= f.password_field :password_confirmation, :class => "required" %></p>
 
+<% unless @user.new_record? -%>
+
+<p><label for="user_homepage">Homepage</label>
+<%= error_message_for @user, :homepage %><br/>
+<%= f.text_field :homepage,
+                 :value => @user.homepage.blank? ? "http://" : @user.homepage %>
+</p>
+
+<p><label for="user_profile">Profile</label>
+  <small>(<%= link_to "Markdown", "http://daringfireball.net/projects/markdown/" %>
+    enabled)</small>
+<%= error_message_for @user, :profile %><br/>
+<%= f.text_area :profile %></p>
+
+<% end -%>
+
 <p><label for="user_remember">Remember me</label>
 <%= error_message_for @user, :remember  %><br/>
 <%= f.check_box :remember %></p>

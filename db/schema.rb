@@ -174,7 +174,7 @@ ActiveRecord::Schema.define(:version => 20090702092911) do
     t.boolean  "remember",                                :default => false, :null => false
     t.string   "homepage"
     t.text     "profile"
-    t.text     "profile_markdown"
+    t.text     "profile_html"
   end
 
   create_table "version", :force => true do |t|
