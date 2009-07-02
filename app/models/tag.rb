@@ -14,7 +14,9 @@
 #
 
 class Tag < ActiveRecord::Base
-  default_scope :order => "LOWER(name) ASC"
+  # NOTE: Causes problems for PostgreSQL 8.3. Uncommented until fixed in Rails.
+  # default_scope :order => "LOWER(name) ASC"
+  named_scope :all, :order => "LOWER(name) ASC"
   named_scope :regular, :conditions => "type IS NULL"
   named_scope :task_views, :conditions => "type = 'TaskView'"
 
