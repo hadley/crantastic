@@ -10,13 +10,16 @@ class SessionsController < ApplicationController
   #  :identifier=>'blug.google.com/openid/dsdfsdfs3f3'}
   # When no user_data was found (invalid token supplied), data is empty.
   def rpx_token
-    data = RPXNow.user_data(params[:token])
-
-    if data.blank? # Login failed
+    def rpx_error
       flash[:notice] = "Error"
       render :action => "new"
-      return
     end
+
+    return(render :nothing => true, :status => :forbidden) if params[:token].blank?
+
+    data = RPXNow.user_data(params[:token])
+
+    return rpx_error if data.blank? # Login failed
 
     if data[:id] # User is already mapped to a primary key in our db
       self.current_user = User.find(data[:id])
