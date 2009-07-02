@@ -12,7 +12,7 @@ class TagsController < ApplicationController
 
   private
   def collection
-    Tag.all
+    Tag.ordered
   end
 
   def object
