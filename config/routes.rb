@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :authors
+  map.resources :priorities
   map.resources :reviews
   map.resources :taggings
   map.resources :ratings

@@ -64,6 +64,11 @@ class Tag < ActiveRecord::Base
     self.kind_of?(TaskView)
   end
 
+  # Returns true if this tag is a priority (base or recommended, extracted from CRAN)
+  def priority?
+    self.kind_of?(Priority)
+  end
+
   # Tag weight for use in tag clouds.  Dividing by the number of letters
   # ensures that the area of the word is proportional to the number of
   # tagged objects, rather than just the height of the text.
