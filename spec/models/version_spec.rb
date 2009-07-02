@@ -47,26 +47,26 @@ describe Version do
 
   it "should handle priority taggings" do
     pkg = Package.make
-    pkg.tags.type("Priority").size.should == 0
+    pkg.tags.type("Priority").count(:all).should == 0
 
     Version.make(:package => pkg,
                  :priority => "",
                  :maintainer => Author.first)
-    pkg.tags.type("Priority").size.should == 0
+    pkg.tags.type("Priority").count(:all).should == 0
 
     Version.make(:package => pkg,
                  :version => "2.5",
                  :priority => "recommended",
                  :maintainer => Author.first)
 
-    pkg.tags.type("Priority").size.should == 1
+    pkg.tags.type("Priority").count(:all).should == 1
     pkg.tags.type("Priority").first.name.should == "Recommended"
 
     Version.make(:package => pkg,
                  :version => "3.0",
                  :priority => "base, recommended",
                  :maintainer => Author.first)
-    pkg.tags.type("Priority").size.should == 2
+    pkg.tags.type("Priority").count(:all).should == 2
     pkg.tags.type("Priority").first.name.should == "Base"
 
     Version.make(:package => pkg,
@@ -74,7 +74,7 @@ describe Version do
                  :priority => "recommended",
                  :maintainer => Author.first)
 
-    pkg.tags.type("Priority").size.should == 1
+    pkg.tags.type("Priority").count(:all).should == 1
     pkg.tags.type("Priority").first.name.should == "Recommended"
 
     # New version w/o priority, old priority tagging should be removed
@@ -82,7 +82,7 @@ describe Version do
                  :version => "4.0",
                  :priority => "",
                  :maintainer => Author.first)
-    pkg.tags.type("Priority").size.should == 0
+    pkg.tags.type("Priority").count(:all).should == 0
   end
 
 end
