@@ -15,7 +15,7 @@ class Log < ActiveRecord::Base
 
   def self.log!(msg, quiet=false)
     puts msg unless quiet
-    Log.create!(:message => msg)
+    Log.create!(:message => msg[0,255])
   end
 
   def self.log_and_report!(msg, request="rake cron", quiet=false)
