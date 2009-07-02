@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090622185118
+# Schema version: 20090702113720
 #
 # Table name: timeline_event
 #
@@ -13,7 +13,7 @@
 #  secondary_subject_id   :integer
 #  created_at             :datetime
 #  updated_at             :datetime
-#  cached_rating          :integer
+#  cached_value           :string(255)
 #
 
 # It's important that the secondary_subject always is set to Package,
@@ -64,8 +64,11 @@ class TimelineEvent < ActiveRecord::Base
   private
   # Values must be cached for items that can change.
   def cache_values
-    if self.event_type == "new_package_rating"
-      update_attribute(:cached_rating, self.subject.rating)
+    case self.event_type
+    when "new_package_rating" then
+      self.update_attribute(:cached_value, self.subject.rating.to_s)
+    when "updated_task_view" then
+      self.update_attribute(:cached_value, self.subject.version)
     end
   end
 end

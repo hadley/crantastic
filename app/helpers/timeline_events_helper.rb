@@ -30,12 +30,18 @@ module TimelineEventsHelper
         link_to(item.secondary_subject, item.secondary_subject) +
         " with #{link_to(item.subject.tag, item.subject.tag)}"
 
+    when "updated_task_view" then
+
+      link_to(item.subject, item.subject) + " was " +
+        content_tag("span", "updated", :class => "action") +
+        " to version #{item.cached_value}"
+
     when "new_package_rating" then
 
       content_tag("span", "rated", :class => "action") + " " +
         link_to(item.secondary_subject, item.subject.package) +
         "#{item.subject.aspect == 'overall' ? '' : '\'s documentation'}" +
-        " with " + content_tag("span", "#{item.cached_rating} stars", :class => "red")
+        " with " + content_tag("span", "#{item.cached_value} stars", :class => "red")
 
     when "new_review" then
 

@@ -108,7 +108,7 @@ module Crantastic
           if tag.version != view.version # View has been updated
             Tagging.transaction do
               Log.log! "Updating TaskView: #{view.name}"
-              tag.update_attribute(:version, view.version)
+              tag.update_version(view.version)
 
               existing_packages = tag.packages.map { |pkg| pkg.name }
 
