@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090702092911
+# Schema version: 20090702113720
 #
 # Table name: user
 #
@@ -17,7 +17,7 @@
 #  remember                  :boolean         not null
 #  homepage                  :string(255)
 #  profile                   :text
-#  profile_markdown          :text
+#  profile_html              :text
 #
 
 require 'digest/sha1'

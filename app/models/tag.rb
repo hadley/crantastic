@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090627171258
+# Schema version: 20090702092911
 #
 # Table name: tag
 #
@@ -10,7 +10,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  type        :string(255)
-#  version     :string(25)
+#  version     :string(10)
 #
 
 class Tag < ActiveRecord::Base
