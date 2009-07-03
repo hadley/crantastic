@@ -104,6 +104,13 @@ class Package < ActiveRecord::Base
     self.name.downcase <=> other.name.downcase
   end
 
+  # If updated_at is nil (which is the case for some older records), return
+  # created_at as the value for updated_at. This is required because e.g. the
+  # sitemap relies on proper updated_at values.
+  def updated_at
+    super || self.created_at
+  end
+
   def description
     self.latest_version.description # for convenience
   end

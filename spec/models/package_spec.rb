@@ -88,4 +88,14 @@ describe Package do
     (pkg.updated_at > prev_time).should be_true
   end
 
+  it "should return the created_at timestamp if updated_at is nil" do
+    pkg = Package.make
+    pkg.updated_at.should == pkg.created_at
+    sql = "UPDATE package SET updated_at = NULL where id = #{pkg.id}"
+    ActiveRecord::Base.connection.execute(sql)
+    pkg.reload
+    pkg.attributes["updated_at"].should == nil
+    pkg.updated_at.should == pkg.created_at
+  end
+
 end
