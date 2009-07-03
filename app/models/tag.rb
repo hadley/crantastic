@@ -26,15 +26,15 @@ class Tag < ActiveRecord::Base
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :type
-  validates_format_of :name, :with => /^[A-Za-z\-][a-zA-Z\-\d ]*[A-Za-z\d]$/
+  validates_format_of :name, :with => /^[A-Za-z0-9\-]*[A-Za-z\d]$/
   validates_length_of :name, :in => 2..100
 
   ###
   # @param tags [String] A list of tags, separated by comma
   # @return [Array] An array of Tag instances
   def self.parse_and_find_or_create(tags)
-    tags.split(",").map.collect do |tag|
-      self.find_or_create_with_like_by_name(tag.strip)
+    tags.split(",").map(&:strip).reject(&:empty?).collect do |tag|
+      self.find_or_create_with_like_by_name(tag)
     end
   end
 

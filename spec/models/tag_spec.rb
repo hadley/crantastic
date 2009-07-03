@@ -12,9 +12,10 @@ describe Tag do
     @tag = Tag.new
   end
 
-  should_allow_values_for :name, "Machine Learning", "Point-and-click",
+  should_allow_values_for :name, "MachineLearning", "Point-and-click",
                                  "AI", "NLP", :allow_nil => false
-  should_not_allow_values_for :name, "", " AI", "asdf ", "sdf<h1>f", :allow_nil => false
+  should_not_allow_values_for :name, "", "Machine Learning", " AI",
+                                     "asdf ", "sdf<h1>f", :allow_nil => false
   should_validate_length_of :name, :minimum => 2, :maximum => 100
 
   it "should equal a tag with the same name" do
@@ -34,9 +35,10 @@ describe Tag do
   end
 
   it "should parse tag list" do
-    Tag.should_receive(:find_or_create_with_like_by_name).once.with("tag1")
+    Tag.should_receive(:find_or_create_with_like_by_name).twice.with("tag1")
     Tag.should_receive(:find_or_create_with_like_by_name).once.with("tag2")
     Tag.parse_and_find_or_create("tag1 , tag2").size.should == 2
+    Tag.parse_and_find_or_create("tag1, ").size.should == 1
   end
 
   it "should be marked as updated after it receives a new tagging" do
