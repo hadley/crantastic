@@ -85,4 +85,12 @@ describe Version do
     pkg.tags.type("Priority").size.should == 0
   end
 
+  it "should prefer publication/package date over the regular date field" do
+    v = Version.make(:date => "2008-05-05",
+                     :maintainer => Author.first)
+    v.date.to_s.should == "2008-05-05"
+    v.update_attribute(:publicized_or_packaged, "2009-12-12")
+    v.date.to_date.to_s.should == "2009-12-12"
+  end
+
 end

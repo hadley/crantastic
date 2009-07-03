@@ -68,6 +68,12 @@ class Version < ActiveRecord::Base
     version
   end
 
+  # Prefer publication/package date over the regular date field
+  # @return [Date, DateTime]
+  def date
+    self.publicized_or_packaged || super
+  end
+
   def uses
     (self.depends + self.imports).sort
   end
