@@ -20,6 +20,8 @@
 
   <%= auto_discovery_link_tag :atom, timeline_events_url(:format => :atom),
       :title => "Latest activity on crantastic" %>
+  <%= auto_discovery_link_tag :atom, feed_versions_url(:format => :atom),
+      :title => "New package versions on crantastic" %>
   <%= auto_discovery_link_tag :atom, feed_packages_url(:format => :atom),
       :title => "New packages on crantastic" %>
   <%= auto_discovery_link_tag :atom, @atom[:url], :title => @atom[:title] if

@@ -6,12 +6,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :task_views, :only => [ :index, :show ]
   map.resources :timeline_events, :only => [ :index, :show ]
   map.resources :users
+  map.resources :versions, :only => [ :index ], :collection => { :feed => :get }
 
   map.resources :packages,
                 :collection => { :all => :get, :feed => :get },
                 :member => { :index => :post },
                 :except => [ :create, :update, :edit ] do |p|
-    p.resources :versions, :only => [ :index, :show ] do |v|
+    p.resources :versions, :only => [ :show ] do |v|
       v.resources :reviews
     end
     p.resources :ratings, :except => [ :edit, :update ]

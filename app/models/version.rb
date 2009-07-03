@@ -53,6 +53,11 @@ class Version < ActiveRecord::Base
   fires :new_version, :on                => :create,
                       :secondary_subject => :package
 
+  named_scope :recent, :include => :package,
+                       :order => "created_at DESC",
+                       :conditions => "created_at IS NOT NULL",
+                       :limit => 50
+
   validates_existence_of :package_id
   validates_presence_of :version
   validates_length_of :name, :in => 2..255

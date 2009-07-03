@@ -11,6 +11,13 @@ class VersionsController < ApplicationController
 
   show.failure.wants.html { rescue_404 }
 
+  def feed
+    @versions = Version.recent
+    respond_to do |format|
+      format.atom
+    end
+  end
+
   private
   def parent_object
     # Find the parent package object with the param instead of numeric id
