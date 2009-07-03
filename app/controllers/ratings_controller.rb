@@ -4,6 +4,7 @@ class RatingsController < ApplicationController
   # TODO: Authorize user id
 
   def index
+    return rescue_404 if params[:package_id].nil?
     pkg = Package.find_by_param(params[:package_id])
 
     respond_to do |format|
