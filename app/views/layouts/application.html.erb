@@ -20,6 +20,8 @@
 
   <%= auto_discovery_link_tag :atom, timeline_events_url(:format => :atom),
       :title => "Latest activity on crantastic" %>
+  <%= auto_discovery_link_tag :atom, feed_packages_url(:format => :atom),
+      :title => "New packages on crantastic" %>
   <%= auto_discovery_link_tag :atom, @atom[:url], :title => @atom[:title] if
       @atom && @atom[:title] != "Latest activity on crantastic" %>
   <meta name="verify-v1" content="YtXicWGGldm5yUfU718DJMAreQ9gf2gtsSCe5VysH10=" />
