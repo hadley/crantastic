@@ -50,7 +50,8 @@ module Crantastic
       data = data.downcase_keys.symbolize_keys
 
       fields = [:title, :license, :description, :author, :enhances, :priority,
-                :maintainer, :date, :url, :depends, :suggests, :imports]
+                :maintainer, :date, :url, :depends, :suggests, :imports,
+                :"date/publication", :packaged ]
       data.delete_if { |k,v| !fields.include?(k) } # Remove unwanted fields
 
       data.merge!(read_from_files(pkgdir, %w(README NEWS)))
@@ -67,6 +68,18 @@ module Crantastic
       rescue
         data[:date] = nil
       end
+
+      # Store date added to CRAN, or alternatively package date
+      # (People often forget to update the regular date field on release and it
+      # can be years out of date)
+      data[:publicized_or_packaged] = nil
+      if data[:"date/publication"]
+        data[:publicized_or_packaged] = DateTime.parse(data[:"date/publication"])
+      elsif data[:packaged]
+        data[:publicized_or_packaged] = DateTime.parse(data[:packaged])
+      end
+      data.delete(:"date/publication")
+      data.delete(:packaged)
 
       # Find or create maintainer
       data[:maintainer] = Author.new_from_string(data[:maintainer])
