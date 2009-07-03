@@ -8,11 +8,12 @@ atom_feed(:root_url => packages_url) do |feed|
   end
 
   for package in @packages
-    feed.entry(package) do |entry|
+    # Use created_at as the updated value since this feed only concerns itself
+    # with when packages are published, not when they are updated.
+    feed.entry(package, :updated => package.created_at) do |entry|
       entry.title(package.name + " added")
       entry.content(content_tag("p", content_tag("strong", package.latest.title)) +
                     content_tag("p", package.latest.description), :type => "html")
-      entry.published(package.created_at)
     end
   end
 end
