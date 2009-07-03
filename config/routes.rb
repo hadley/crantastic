@@ -1,33 +1,28 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :authors
-  map.resources :priorities
+  map.resources :authors, :only => [ :index, :show ]
+  map.resources :priorities, :only => [ :index, :show ]
   map.resources :reviews
-  map.resources :taggings
-  map.resources :ratings
+  map.resources :tags, :only => [ :index, :show ]
+  map.resources :task_views, :only => [ :index, :show ]
+  map.resources :timeline_events, :only => [ :index, :show ]
   map.resources :users
-  map.resources :tags
-  map.resources :task_views
-  map.resources :timeline_events
 
   map.resources :packages,
                 :collection => { :all => :get, :feed => :get },
                 :member => { :index => :post },
-                :except => [ :create, :update ] do |p|
-    p.resources :versions do |v|
+                :except => [ :create, :update, :edit ] do |p|
+    p.resources :versions, :only => [ :index, :show ] do |v|
       v.resources :reviews
     end
-    p.resources :ratings
+    p.resources :ratings, :except => [ :edit, :update ]
     p.resources :reviews
-    p.resources :taggings
-    p.resources :tags
-    p.resource :timeline, :controller => "timeline"
+    p.resources :taggings, :only => [ :new, :create, :destroy ]
   end
 
   # Singleton resources
-  map.resource :search, :controller => "search"
-  map.resource :session
-
-  map.connect "session/rpx_token", :controller => "sessions", :action => "rpx_token"
+  map.resource :search, :controller => "search", :only => [ :show ]
+  map.resource :session, :collection => { :rpx_now => :get },
+                         :except => [ :update, :edit ]
 
   map.root :controller => "welcome", :action => "index"
 
