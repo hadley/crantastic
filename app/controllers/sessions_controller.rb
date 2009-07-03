@@ -2,6 +2,9 @@
 class SessionsController < ApplicationController
 
   def new
+    if params[:layout] == "false"
+      render :layout => false
+    end
   end
 
   # Login or signup via RPX.

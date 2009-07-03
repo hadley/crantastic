@@ -1,9 +1,14 @@
 <% @title = "Sign me up" %>
-<p>Interested in contributing reviews to crantastic?  <br />
+<p>Interested in contributing reviews to crantastic?<br />
+
+<% unless params[:show_rpx] %>
   <strong>Sign up with your third-party identification (recommended)</strong></p>
 
 <%= RPXNow.embed_code('crantastic', "http://#{APP_CONFIG[:site_domain]}/session/rpx_token") %>
 
 <p><strong>or fill out the form below</strong></p>
+<% else %>
+<p><strong>Fill out the form below:</strong></p>
+<% end %>
 
 <%= render :partial => "form" , :locals => { :user => @user }%>

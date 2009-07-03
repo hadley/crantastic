@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+    $('a[rel*=facebox]').facebox();
+
     // Try to focus first text input
     $('input[@type=text]:first').focus();
 
@@ -23,6 +26,21 @@ $(document).ready(function() {
         $('#add-tag-form').toggle().find('#tag_name').focus();
         return false;
     });
+
+    $("#login-or-signup").click(function() {
+        jQuery.facebox(
+            '<div class="float-l" style="width: 390px">' +
+                '<iframe src="https://crantastic.rpxnow.com/openid/embed?token_url=' +
+                //'http://localhost:3000/session/rpx_token" ' +
+                'http://crantastic.org/session/rpx_token" ' +
+                'scrolling="no" frameBorder="no" style="width:370px;height:240px;"></iframe></div>' +
+                '<div class="float-l" id="login-form"></div>',
+            'wide'
+        );
+        $("#login-form").load("/login?show_rpx=false&layout=false");
+        return false;
+    });
+
 });
 
 jQuery(function(){
