@@ -7,6 +7,9 @@ module FeedHelper
     atom_feed(:root_url => root) do |feed|
       feed.title("Latest activity " + (obj.nil? ? " on crantastic" : "for #{obj}"))
       feed.updated(obj.nil? ? @events.first.updated_at : obj.updated_at)
+      feed.author do |author|
+        author.name("crantastic.org")
+      end
 
       for event in @events
         feed.entry(event) do |entry|
@@ -24,7 +27,7 @@ module FeedHelper
           entry.content(content, :type => 'html')
 
           entry.author do |author|
-            author.name(event.actor.nil? ? "crantastic" : event.actor.login)
+            author.name(event.actor.nil? ? "crantastic.org" : event.actor.login)
           end
         end
       end
