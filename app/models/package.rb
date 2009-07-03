@@ -36,10 +36,13 @@ class Package < ActiveRecord::Base
                       :subject           => :self,
                       :secondary_subject => :self # yes 2x package
 
-  default_scope :order => "LOWER(package.name)"
-  # Used for the Package atom-feed:
-  named_scope :recent, :order => "#{self.table_name}", :include => :versions,
-                       :conditions => "#{self.table_name}.created_at IS NOT NULL"
+  # Uncommented until Rails handles named scope order in a better way
+  # default_scope :order => "LOWER(package.name)"
+
+  named_scope :recent, :order => "#{self.table_name}.created_at DESC",
+                       :include => :latest_version,
+                       :conditions => "#{self.table_name}.created_at IS NOT NULL",
+                       :limit => 50
 
   validates_presence_of :name
   validates_uniqueness_of :name
@@ -72,6 +75,7 @@ class Package < ActiveRecord::Base
     else
       res = paginate({ :conditions => [ 'LOWER(package.name) LIKE ?', '%' + q + '%'],
                        :include => [{:latest_version => :maintainer}],
+                       :order => 'LOWER(package.name)',
                        :page => search_results_page })
       res.empty? ? self.paginating_search(q + '~', search_results_page) : [res]
     end
@@ -85,8 +89,9 @@ class Package < ActiveRecord::Base
     else
       qq = '%' + q + '%'
       res = [Package.all(:conditions =>
-                          ['LOWER(package.name) LIKE ? OR LOWER(version.description) LIKE ?', qq, qq],
-                          :limit => limit, :include => :latest_version)]
+                         ['LOWER(package.name) LIKE ? OR LOWER(version.description) LIKE ?', qq, qq],
+                         :order => "LOWER(package.name)",
+                         :limit => limit, :include => :latest_version)]
       if res.first.empty?
         # Try a fuzzy search if no results were found
         res = [Package.fuzzy_find(q, limit, extra), "fuzzy"]
