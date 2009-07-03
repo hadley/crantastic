@@ -18,7 +18,6 @@ class Tag < ActiveRecord::Base
   # default_scope :order => "LOWER(name) ASC"
   named_scope :ordered, :order => "LOWER(name) ASC"
   named_scope :regular, :conditions => "type IS NULL"
-  named_scope :task_views, :conditions => "type = 'TaskView'"
 
   # Taggings should be destroyed together with the tag
   has_many :taggings, :dependent => :destroy
