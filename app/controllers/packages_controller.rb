@@ -23,10 +23,13 @@ class PackagesController < ApplicationController
       format.js do
         render :partial => "packages/list"
       end
+    end
+  end
 
-      format.atom do
-        @packages = Package.recent
-      end
+  def feed
+    @packages = Package.recent
+    respond_to do |format|
+      format.atom
     end
   end
 

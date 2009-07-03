@@ -9,7 +9,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :task_views
   map.resources :timeline_events
 
-  map.resources :packages, :collection => {:all => :get}, :member => {:index => :post}, :except => [:create, :update] do |p|
+  map.resources :packages,
+                :collection => { :all => :get, :feed => :get },
+                :member => { :index => :post },
+                :except => [ :create, :update ] do |p|
     p.resources :versions do |v|
       v.resources :reviews
     end
