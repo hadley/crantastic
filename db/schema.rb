@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090702113720) do
+ActiveRecord::Schema.define(:version => 20090703093952) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(:version => 20090702113720) do
     t.text     "imports"
     t.text     "enhances"
     t.string   "priority"
+    t.datetime "publicized_or_packaged"
   end
 
 end

@@ -1,30 +1,31 @@
 # == Schema Information
-# Schema version: 20090624205124
+# Schema version: 20090703093952
 #
 # Table name: version
 #
-#  id            :integer         not null, primary key
-#  package_id    :integer
-#  name          :string(255)
-#  title         :string(255)
-#  description   :text
-#  license       :text
-#  version       :string(255)
-#  depends       :text
-#  suggests      :text
-#  author        :text
-#  url           :string(255)
-#  date          :date
-#  readme        :text
-#  changelog     :text
-#  news          :text
-#  diff          :text
-#  created_at    :datetime
-#  updated_at    :datetime
-#  maintainer_id :integer
-#  imports       :text
-#  enhances      :text
-#  priority      :string(255)
+#  id                     :integer         not null, primary key
+#  package_id             :integer
+#  name                   :string(255)
+#  title                  :string(255)
+#  description            :text
+#  license                :text
+#  version                :string(255)
+#  depends                :text
+#  suggests               :text
+#  author                 :text
+#  url                    :string(255)
+#  date                   :date
+#  readme                 :text
+#  changelog              :text
+#  news                   :text
+#  diff                   :text
+#  created_at             :datetime
+#  updated_at             :datetime
+#  maintainer_id          :integer
+#  imports                :text
+#  enhances               :text
+#  priority               :string(255)
+#  publicized_or_packaged :datetime
 #
 
 class Version < ActiveRecord::Base
