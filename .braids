@@ -13,3 +13,10 @@ vendor/plugins/db_branch:
   revision: 3af36e317ebfe018cadf6f204b077e08450ddbfa
   branch: master
   remote: braid/vendor/plugins/db-branch
+vendor/plugins/live-validations: 
+  squashed: true
+  url: git://github.com/augustl/live-validations.git
+  type: git
+  revision: 8c8625e76beb84ade52e4469521341f1abdeda00
+  branch: master
+  remote: braid/vendor/plugins/live-validations
