@@ -29,12 +29,13 @@ $(document).ready(function() {
 
     $("#login-or-signup").click(function() {
         jQuery.facebox(
-            '<div class="float-l" style="width: 390px">' +
+            '<div class="float-l" style="width: 350px; height: 220px; border: 1px dotted #eee; padding: 9px 9px 9px 18px;">' +
                 '<iframe src="https://crantastic.rpxnow.com/openid/embed?token_url=' +
                 //'http://localhost:3000/session/rpx_token" ' +
                 'http://crantastic.org/session/rpx_token" ' +
-                'scrolling="no" frameBorder="no" style="width:370px;height:240px;"></iframe></div>' +
-                '<div class="float-l" id="login-form"></div>',
+                'scrolling="no" frameBorder="no" style="width:350px;height:220px;"></iframe></div>' +
+                '<div class="float-l" id="login-form" style="width: 320px; height: 220px; margin-left: 45px; padding: 9px 9px 9px 18px; border: 1px dotted #eee"></div>' +
+                '<div style="position: absolute; top: 126px; left: 407px;"><h3 style="color: #aaa">OR</h3></div>',
             'wide'
         );
         $("#login-form").load("/login?show_rpx=false&layout=false");
