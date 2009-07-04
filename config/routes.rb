@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Singleton resources
   map.resource :search, :controller => "search", :only => [ :show ]
-  map.resource :session, :collection => { :rpx_now => :get },
+  map.resource :session, :collection => { :rpx_token => :get },
                          :except => [ :update, :edit ]
 
   map.root :controller => "welcome", :action => "index"
