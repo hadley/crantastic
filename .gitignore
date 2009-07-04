@@ -4,6 +4,7 @@ log
 db/*.sqlite3
 tmp
 _site
+_posts
 config/database.branch.*
 config/database.yml
 test/*
