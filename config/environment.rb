@@ -27,7 +27,7 @@ Rails::Initializer.run do |config|
   config.gem 'RedCloth'
   config.gem 'maruku'
   config.gem 'amatch'
-  config.gem 'haml-edge', :lib => "haml"
+  config.gem 'haml', :version => '>= 2.2.0'
   config.gem "sqlite3-ruby", :lib => "sqlite3"
   config.gem 'chrislloyd-gravtastic', :lib => "gravtastic", :version => '>= 2.1.2', :source => 'http://gems.github.com'
   config.gem 'Chrononaut-rpx_now', :lib => 'rpx_now', :version => '>= 0.5.6', :source => 'http://gems.github.com'

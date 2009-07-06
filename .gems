@@ -1,7 +1,7 @@
 RedCloth
 maruku
 amatch
-haml-edge
+haml --version ">= 2.2.0"
 sqlite3-ruby
 chrislloyd-gravtastic --version ">= 2.1.2" --source http://gems.github.com
 Chrononaut-rpx_now --version ">= 0.5.6" --source http://gems.github.com
