@@ -5,15 +5,15 @@
 
 <p><label for="user_email">Email</label>
 <%= error_message_for @user, :email %><br/>
-<%= f.text_field :email, :class => "required" %></p>
+<%= f.text_field :email %></p>
 
 <p><label for="user_password">Password</label>
 <%= error_message_for @user, :password  %><br/>
-<%= f.password_field :password, :class => "required" %></p>
+<%= f.password_field :password %></p>
 
 <p><label for="user_password_confirmation">Confirm password</label>
 <%= error_message_for @user, :password_confirmation  %><br/>
-<%= f.password_field :password_confirmation, :class => "required" %></p>
+<%= f.password_field :password_confirmation %></p>
 
 <% unless @user.new_record? -%>
 
@@ -35,5 +35,5 @@
 <%= error_message_for @user, :remember  %><br/>
 <%= f.check_box :remember %></p>
 
-<p><%= f.submit (@user.new_record? ? 'Sign up' : 'Save details') %></p>
+<p><%= f.submit(@user.new_record? ? 'Sign up' : 'Save details') %></p>
 <% end -%>

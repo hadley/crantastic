@@ -4,6 +4,8 @@ describe User do
 
   should_allow_values_for :email, "test@test.com", "john.doe@acme.co.uk"
   should_not_allow_values_for :email, "test", "test@test", "test@"
+  should_validate_presence_of :email
+  should_validate_presence_of :password
 
   it "should store activation time when activated" do
     u = User.new
