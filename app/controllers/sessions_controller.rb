@@ -13,16 +13,14 @@ class SessionsController < ApplicationController
   #  :identifier=>'blug.google.com/openid/dsdfsdfs3f3'}
   # When no user_data was found (invalid token supplied), data is empty.
   def rpx_token
-    def rpx_error
-      flash[:notice] = "Error"
-      render :action => "new"
-    end
-
     return(render :nothing => true, :status => :forbidden) if params[:token].blank?
 
     data = RPXNow.user_data(params[:token])
 
-    return rpx_error if data.blank? # Login failed
+    if data.blank? # Login failed
+      flash[:notice] = "Error"
+      render :action => "new"
+    end
 
     if data[:id] # User is already mapped to a primary key in our db
       self.current_user = User.find(data[:id])
@@ -33,18 +31,16 @@ class SessionsController < ApplicationController
 
       # If the user wasn't already registered:
       if user.nil?
+        user = User.new(:email => data[:email], :login => data[:username])
+        if User.find_by_login(data[:username]) # Username already taken
+          # Maybe not the most elegant way to do it, but it works for now
+          user.login = ActiveSupport::SecureRandom.hex(5)
+          flash[:notice] = "Your preferred username was not available. You have been " +
+            "assigned a random username instead -- you can change it to " +
+            "something else by editing your details."
+        end
         User.transaction do
-          user = User.new(:email => data[:email], :login => data[:username])
-          if user.valid?
-            user.save!
-          else
-            # Maybe not the most elegant way to do it, but it works for now
-            user.login = ActiveSupport::SecureRandom.hex(5)
-            user.save!
-            flash[:notice] = "Your preferred username was not available. You have been " +
-              "assigned a random username instead -- you can change it to " +
-              "something else by editing your details."
-          end
+          user.save(false)
           user.activate(false)
         end
       end
@@ -53,7 +49,7 @@ class SessionsController < ApplicationController
     end
 
     flash[:notice] = "Logged in successfully!" unless flash[:notice]
-    redirect_back_or_default(user_url(self.current_user))
+    redirect_back_or_default(user_path(self.current_user.id))
   end
 
   def create
