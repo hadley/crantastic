@@ -1,11 +1,11 @@
-<% form_for @user do |f| -%>
+<% form_for(@user, :live_validations => true) do |f| -%>
 <p><label for="user_login">User name</label>
 <%= error_message_for @user, :login %><br/>
-<%= f.text_field :login, :class => "required" %></p>
+<%= f.text_field :login %></p>
 
 <p><label for="user_email">Email</label>
 <%= error_message_for @user, :email %><br/>
-<%= f.text_field :email, :class => "required email" %></p>
+<%= f.text_field :email, :class => "required" %></p>
 
 <p><label for="user_password">Password</label>
 <%= error_message_for @user, :password  %><br/>
@@ -37,9 +37,3 @@
 
 <p><%= f.submit (@user.new_record? ? 'Sign up' : 'Save details') %></p>
 <% end -%>
-
-<script>
-  jQuery(document).ready(function(){
-    jQuery("form#new_user").validate();
-  });
-</script>
