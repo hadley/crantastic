@@ -4,10 +4,10 @@ require(File.dirname(__FILE__) + "/../../config/environment") unless defined?(Ra
 # Redirects www.domain/* to domain/*
 class CanonicalizeUrl
   def self.call(env)
-    if env["HTTP_HOST"] =~ /^www\./
-      [301, {'Location' => "http://#{APP_CONFIG[:site_domain]}#{env['PATH_INFO']}"}, 'Redirect']
+    if env["HTTP_HOST"] =~ /^www\./ && RAILS_ENV == "production"
+      [301, { 'Location' => "http://#{APP_CONFIG[:site_domain]}#{env['PATH_INFO']}" }, []]
     else
-      [404, {"Content-Type" => "text/html"}, ["Not Found"]]
+      [404, { "Content-Type" => "text/html" }, ["Not Found"]]
     end
   end
 end
