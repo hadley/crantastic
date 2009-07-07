@@ -28,3 +28,5 @@ config.gem 'chriseppstein-compass',
            :version => '>= 0.8.4',
            :lib => false,
            :source => 'http://gems.github.com'
+
+config.gem 'ruby-debug'
