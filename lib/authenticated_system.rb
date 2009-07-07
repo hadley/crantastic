@@ -57,7 +57,6 @@ module AuthenticatedSystem
   # simply close itself.
   def access_denied
     flash[:notice] = "You need to log in to access this page.  Don't have a login?  Then <a href='/users/new/'>sign up now</a>!"
-
     respond_to do |accepts|
       accepts.html do
         # FIXME: ugly hack, neccessary because of the JS stuff in packages/show.
@@ -67,7 +66,7 @@ module AuthenticatedSystem
         else
           store_location
         end
-        redirect_to login_url()
+        redirect_to(login_url)
       end
       accepts.xml do
         headers["Status"]           = "Unauthorized"
@@ -98,6 +97,7 @@ module AuthenticatedSystem
   #
   # We can return to this location by calling #redirect_back_or_default.
   def store_location(location = request.request_uri)
+    session[:return_post_params] = params if request.method == :post
     session[:return_to] = location unless logged_in?
   end
 
@@ -108,7 +108,13 @@ module AuthenticatedSystem
   # Redirect to the URI stored by the most recent store_location call or
   # to the passed default.
   def redirect_back_or_default(default)
-    redirect_to(session[:return_to] || default)
+    return_params = session[:return_post_params]
+    session[:return_post_params] = nil
+    if return_params
+      redirect_post(return_params)
+    else
+      redirect_to(session[:return_to] || default)
+    end
     session[:return_to] = nil
   end
 
