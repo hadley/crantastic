@@ -31,8 +31,9 @@ class User < ActiveRecord::Base
 
   default_scope :order => "id ASC"
 
-  has_many :reviews
-  has_many :taggings
+  has_many :reviews,        :dependent => :nullify
+  has_many :taggings,       :dependent => :nullify
+  has_many :package_votes,  :dependent => :nullify
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password

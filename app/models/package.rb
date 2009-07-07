@@ -19,6 +19,7 @@ class Package < ActiveRecord::Base
 
   has_many :versions, :order => "id DESC", :dependent => :destroy
   has_many :package_ratings, :dependent => :destroy
+  has_many :package_votes, :dependent => :destroy
   has_many :reviews, :dependent => :destroy
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings, :uniq => true do
