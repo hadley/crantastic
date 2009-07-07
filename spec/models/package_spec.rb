@@ -29,33 +29,6 @@ describe Package do
     p.to_param.should == "bio-infer"
   end
 
-  it "should calculate its average rating" do
-    u1 = User.first
-    u2 = User.last
-    p = Package.create!(:name => "aaMI")
-    p.average_rating.should == 0
-    u1.rate!(p, 1)
-    p.average_rating.should == 1
-    u2.rate!(p, 5)
-    p.average_rating.should == 3
-  end
-
-  it "should discard old ratings" do
-      u = User.first
-    p = Package.make
-
-    u.rate!(p, 1)
-    r1 = u.rating_for(p)
-    r1.rating.should == 1
-
-    u.rate!(p.id, 2) # supports numerical ids as well
-    r2 = u.rating_for(p)
-    r2.rating.should == 2
-
-    # Should be same PackageRating row
-    r1.id.should == r2.id
-  end
-
   it "should have name as to_s representation" do
     Package.new(:name => "bio.infer").to_s.should == "bio.infer"
   end
@@ -96,6 +69,37 @@ describe Package do
     pkg.reload
     pkg.attributes["updated_at"].should == nil
     pkg.updated_at.should == pkg.created_at
+  end
+
+  describe "Package ratings" do
+
+    it "should calculate its average rating" do
+      u1 = User.first
+      u2 = User.last
+      p = Package.create!(:name => "aaMI")
+      p.average_rating.should == 0
+      u1.rate!(p, 1)
+      p.average_rating.should == 1
+      u2.rate!(p, 5)
+      p.average_rating.should == 3
+    end
+
+    it "should discard old ratings" do
+      u = User.first
+      p = Package.make
+
+      u.rate!(p, 1)
+      r1 = u.rating_for(p)
+      r1.rating.should == 1
+
+      u.rate!(p.id, 2) # supports numerical ids as well
+      r2 = u.rating_for(p)
+      r2.rating.should == 2
+
+      # Should be same PackageRating row
+      r1.id.should == r2.id
+    end
+
   end
 
 end
