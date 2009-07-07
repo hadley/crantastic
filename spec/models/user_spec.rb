@@ -2,6 +2,11 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
 
+  setup do
+    UserMailer.should_receive(:deliver_signup_notification)
+    User.make
+  end
+
   should_allow_values_for :email, "test@test.com", "john.doe@acme.co.uk"
   should_not_allow_values_for :email, "test", "test@test", "test@"
   should_validate_presence_of :email
@@ -17,11 +22,41 @@ describe User do
   end
 
   it "should cache the compiled profile markdown" do
-    UserMailer.should_receive(:deliver_signup_notification)
+    u = User.first
     markdown = "**Hello** _world_"
-    u = User.make(:profile => markdown)
-    u.profile.should == markdown
+    u.profile = markdown
+    u.save(false)
+    u.reload
     u.profile_html.should == Maruku.new(markdown).to_html
+  end
+
+  describe "Package voting" do
+
+    setup do
+      Package.make
+    end
+
+    it "should know if the user has voted for a package" do
+      u = User.first
+      pkg = Package.first
+
+      u.voted_for?(pkg).should be_false
+      PackageVote.create!(:package => pkg, :user => u)
+      u.voted_for?(pkg).should be_true
+    end
+
+    it "should toggle votes for a package" do
+      u = User.first
+      pkg = Package.first
+
+      u.toggle_vote(pkg).should be_true
+      u.voted_for?(pkg).should be_true
+      u.toggle_vote(pkg).should be_false
+      u.voted_for?(pkg).should be_false
+      u.toggle_vote(pkg).should be_true
+      u.voted_for?(pkg).should be_true
+    end
+
   end
 
 end

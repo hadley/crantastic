@@ -113,6 +113,21 @@ class User < ActiveRecord::Base
                        })
   end
 
+  # Toggle this users vote for a given package. Creates a new vote of deletes an
+  # existing one. Returns true or false depending on wether a record was created.
+  def toggle_vote(pkg)
+    unless PackageVote.destroy_all(:user_id => self, :package_id => pkg).any?
+      self.package_votes << PackageVote.new(:package => pkg)
+      return true
+    end
+    false
+  end
+
+  def voted_for?(pkg)
+    PackageVote.count(:conditions => ["user_id = ? AND package_id = ?",
+                                      self.id, pkg.id]) > 0
+  end
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     # We explicitly don't allow logins with blank passwords.
