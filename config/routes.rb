@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :packages,
                 :collection => { :all => :get, :feed => :get },
-                :member => { :index => :post },
+                :member => { :toggle_vote => :post },
                 :except => [ :create, :update, :edit ] do |p|
     p.resources :versions, :only => [ :show ] do |v|
       v.resources :reviews

@@ -1,6 +1,7 @@
 class PackagesController < ApplicationController
 
   before_filter :store_location # Redirect back here after logging in
+  before_filter :login_required, :only => [ :toggle_vote  ]
 
   def index
     page_no = params[:page] || 1
@@ -67,6 +68,13 @@ class PackagesController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     rescue_404
+  end
+
+  def toggle_vote
+    @package = Package.find_by_param(params[:id])
+    vote = self.current_user.toggle_vote(@package)
+    flash[:notice] = (vote ? "Thanks for your vote!" : "Your vote has been removed")
+    redirect_to(@package)
   end
 
 end
