@@ -12,13 +12,11 @@ describe "Tags" do
   end
 
   before(:each) do
-
+    visit package_url(Package.first)
+    click_link "Add tags"
   end
 
   it "should add tags to a package" do
-    visit package_url(Package.first)
-    click_link "Add tags"
-
     response.request.path.should == login_path
     login_with_valid_credentials
     response.request.path.should == new_package_tagging_path(Package.first)
@@ -32,9 +30,6 @@ describe "Tags" do
   end
 
   it "should add multiple tags to a package" do
-    visit package_url(Package.first)
-    click_link "Add tags"
-
     response.request.path.should == login_path
     login_with_valid_credentials
     response.request.path.should == new_package_tagging_path(Package.first)
