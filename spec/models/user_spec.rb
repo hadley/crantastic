@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
@@ -7,6 +8,8 @@ describe User do
     User.make
   end
 
+  should_allow_values_for :login, "john", "john.doe", "john-doe"
+  should_not_allow_values_for :login, "john doe", "<h1>hi!</h1>"
   should_allow_values_for :email, "test@test.com", "john.doe@acme.co.uk"
   should_not_allow_values_for :email, "test", "test@test", "test@"
   should_validate_presence_of :email
