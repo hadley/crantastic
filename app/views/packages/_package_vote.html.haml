@@ -1,6 +1,6 @@
 %div#votebox.float-r
   %span= pluralize(@package.package_votes_count, "vote")
-  %hr{:style => "margin: 0 0 3px 0"}
+  %hr(style="margin: 0 0 3px 0")
   - if logged_in? && current_user.voted_for?(@package)
     = image_tag("tick.png", :alt => "I use this package!")
   - else
