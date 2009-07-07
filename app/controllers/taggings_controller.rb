@@ -1,6 +1,6 @@
 class TaggingsController < ApplicationController
 
-  before_filter :login_required, :only => [ :new, :create ]
+  before_filter :login_required
   before_filter :authorization_required, :only => [ :destroy ]
 
   resource_controller
