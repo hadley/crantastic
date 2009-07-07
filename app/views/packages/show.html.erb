@@ -1,5 +1,9 @@
 <h1><%= package_version(@package, @package.latest, false) %></h1>
 
+<div class="float-r">
+  <%= render :partial => "package_vote", :object => @package %>
+</div>
+
 <ul class="tags">
   <%= tag_list %>
   <li>

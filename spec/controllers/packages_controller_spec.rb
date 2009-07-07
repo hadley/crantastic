@@ -29,12 +29,17 @@ describe PackagesController do
     response.should_not be_redirect
   end
 
+  it "should redirect if not logged in" do
+    post :toggle_vote, :id => "aaMI"
+    response.should be_redirect
+  end
+
   it "should be possible to toggle package votes" do
     login_as_user(:id => 1, :login => "test")
 
     pkg_mock = mock_model(Package)
     controller.instance_eval do
-      current_user.should_receive(:toggle_vote).with(pkg_mock)
+      current_user.should_receive(:toggle_vote).with(pkg_mock).and_return(true)
     end
     Package.should_receive(:find_by_param).with("aaMI").and_return(pkg_mock)
 
