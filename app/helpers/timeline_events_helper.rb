@@ -39,9 +39,14 @@ module TimelineEventsHelper
     when "new_package_rating" then
 
       content_tag("span", "rated", :class => "action") + " " +
-        link_to(item.secondary_subject, item.subject.package) +
+        link_to(item.secondary_subject, item.secondary_subject) +
         "#{item.subject.aspect == 'overall' ? '' : '\'s documentation'}" +
         " with " + content_tag("span", "#{item.cached_value} stars", :class => "red")
+
+    when "new_package_vote" then
+
+      content_tag("span", "voted for", :class => "action") + " " +
+        link_to(item.secondary_subject, item.secondary_subject)
 
     when "new_review" then
 

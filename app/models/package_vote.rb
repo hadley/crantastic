@@ -1,12 +1,16 @@
 # Parts of this code has been derived from the vote_fu plugin
 class PackageVote < ActiveRecord::Base
 
+  belongs_to :package, :counter_cache => true
+  belongs_to :user
+
+  fires :new_package_vote, :on => :create,
+                           :actor => :user,
+                           :secondary_subject => :package
+
   named_scope :for_user,     lambda { |u| {:conditions => ["user_id = ?", u.id]} }
   named_scope :recent,       lambda { |*args| {:conditions => ["created_at > ?", (args.first || 2.weeks.ago).to_s(:db)]} }
   named_scope :descending,   :order => "created_at DESC"
-
-  belongs_to :package, :counter_cache => true
-  belongs_to :user
 
   attr_accessible :user, :package
 
