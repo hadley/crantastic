@@ -1,7 +1,7 @@
 class VotesController < ApplicationController
 
   protect_from_forgery :except => :create
-  before_filter :require_valid_token, :only => :create
+  before_filter :token_required, :only => :create
 
   def create
     user = User.find_by_token(params[:token])
