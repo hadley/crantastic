@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :timeline_events, :only => [ :index, :show ]
   map.resources :users
   map.resources :versions, :only => [ :index ], :collection => { :feed => :get }
+  map.resources :votes, :only => [ :create ]
 
   map.resources :packages,
                 :collection => { :all => :get, :feed => :get },
