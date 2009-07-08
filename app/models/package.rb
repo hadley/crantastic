@@ -1,14 +1,15 @@
 # == Schema Information
-# Schema version: 20090622185118
+# Schema version: 20090708163116
 #
 # Table name: package
 #
-#  id                :integer         not null, primary key
-#  name              :string(255)
-#  description       :text
-#  created_at        :datetime
-#  latest_version_id :integer
-#  updated_at        :datetime
+#  id                  :integer         not null, primary key
+#  name                :string(255)
+#  description         :text
+#  created_at          :datetime
+#  latest_version_id   :integer
+#  updated_at          :datetime
+#  package_votes_count :integer         default(0), not null
 #
 
 class Package < ActiveRecord::Base

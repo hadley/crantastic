@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20090708163116
+#
+# Table name: package_vote
+#
+#  id         :integer         not null, primary key
+#  package_id :integer
+#  user_id    :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 # Parts of this code has been derived from the vote_fu plugin
 class PackageVote < ActiveRecord::Base
 
