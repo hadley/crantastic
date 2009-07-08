@@ -1,9 +1,10 @@
 class TaggingsController < ApplicationController
 
-  before_filter :login_required
-  before_filter :authorization_required, :only => [ :destroy ]
-
   resource_controller
+
+  protect_from_forgery :except => :create
+  before_filter :login_or_token_required
+  before_filter :authorization_required, :only => [ :destroy ]
 
   belongs_to :user, :package
 
@@ -27,13 +28,19 @@ class TaggingsController < ApplicationController
 
   create do
     flash 'Package tagged succesfully'
+
     wants.html { redirect_to(@tagging.package) }
-    wants.xml { render :xml => @tagging, :status => :created, :location => @tagging }
+
+    wants.xml do
+      render :xml => @tagging, :status => :created, :location => @tagging.package
+    end
 
     failure do
       flash "Tag name did not pass validation - please try again.
              Only alphanumeric characters are allowed. You can only
              apply a tag once to a given package."
+
+      wants.xml { render :nothing => true, :status => 400 }
     end
   end
 
