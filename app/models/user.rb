@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090702113720
+# Schema version: 20090708163116
 #
 # Table name: user
 #
@@ -18,6 +18,7 @@
 #  homepage                  :string(255)
 #  profile                   :text
 #  profile_html              :text
+#  token                     :string(40)
 #
 
 require 'digest/sha1'
@@ -174,6 +175,10 @@ class User < ActiveRecord::Base
     self.remember_token_expires_at = nil
     self.remember_token            = nil
     save(false)
+  end
+
+  def generate_token
+    self.update_attribute(:token, ActiveSupport::SecureRandom.hex(20))
   end
 
   protected
