@@ -66,6 +66,10 @@ class ApplicationController < ActionController::Base
     })
   end
 
+  def login_or_token_required
+    (request.post? && params.has_key?(:token)) ? token_required : login_required
+  end
+
   def token_required
     if User.find_by_token(params[:token], :conditions => "token IS NOT NULL").nil?
       render :nothing => true, :status => :unauthorized
