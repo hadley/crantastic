@@ -2,9 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe VotesController do
 
-  it "should do a 401 if the token for the create action is invalid" do
+  it "should do a 403 if the token for the create action is invalid" do
     post :create, :token => "invalid"
-    response.status.should == "401 Unauthorized"
+    response.status.should == "403 Forbidden"
   end
 
   it "should accept valid tokens and set current_user " do

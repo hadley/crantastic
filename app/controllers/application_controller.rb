@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
     self.current_user = User.find_by_token(params[:token],
                                            :conditions => "token IS NOT NULL")
     unless logged_in?
-      render :nothing => true, :status => :unauthorized
+      render :text => "Invalid token", :status => :forbidden
       return false
     end
   end
