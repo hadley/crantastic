@@ -113,7 +113,7 @@ module AuthenticatedSystem
     if return_params
       redirect_post(return_params)
     else
-      redirect_to(session[:return_to] || default)
+      redirect_to(params[:return_to] || session[:return_to] || default)
     end
     session[:return_to] = nil
   end

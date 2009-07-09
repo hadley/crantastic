@@ -1,6 +1,5 @@
 class PackagesController < ApplicationController
 
-  before_filter :store_location # Redirect back here after logging in
   before_filter :login_required, :only => [ :toggle_vote  ]
 
   def index

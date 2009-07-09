@@ -2,12 +2,14 @@
 
 <% unless params[:show_rpx] %>
 <%= RPXNow.embed_code('crantastic',
-                      "http://#{APP_CONFIG[:site_domain]}/session/rpx_token") %>
+                      "http://#{APP_CONFIG[:site_domain]}/session/rpx_token" +
+                      "#{'?return_to='+params[:return_to] if params[:return_to]}") %>
 
 <p><strong>or log in with an existing Crantastic account</strong></p>
 <% end %>
 
 <% form_tag session_path, :id => "new_session" do -%>
+<%= hidden_field_tag('return_to', params[:return_to]) if params[:return_to] %>
 <p><label for="login">Login</label><br/>
 <%= text_field_tag 'login', nil, :class => "required" %></p>
 

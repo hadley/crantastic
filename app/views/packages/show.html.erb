@@ -78,7 +78,7 @@
 </table>
 
 <%- unless logged_in? -%>
-  <p><%= link_to "Log in", login_path %> to vote.</p>
+  <p><%= link_to "Log in", login_path + "?return_to=#{request.path}" %> to vote.</p>
 <%- end -%>
 
 <h2>Reviews</h2>
