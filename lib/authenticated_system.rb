@@ -1,3 +1,5 @@
+# Originally taken from restful_authentication, but many changes/additions has
+# been made to make it suit our needs better.
 module AuthenticatedSystem
   protected
   # Returns true or false if the user is logged in.
