@@ -95,7 +95,7 @@
     <% for review in @package.reviews %>
       <li>
         <p><strong><%= h review.title %></strong></p>
-        <p><%= textilize(truncate(review.review, :length => 150)) %></p>
+        <p><%= markdown(truncate(review.review, :length => 150)) %></p>
         <p><% if review.rating %>
             <%= link_to review.user.login, review.user  %> gave
             <%= package_version(review.package, review.version) %> a

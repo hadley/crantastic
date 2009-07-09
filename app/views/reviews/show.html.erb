@@ -6,7 +6,7 @@
 <% if @review.rating %><p class="rating"><%=h @review.rating %></p><% end %>
 
 <p><strong><%=h @review.title %></strong></p>
-<%= textilize @review.review %>
+<%= markdown(@review.review) %>
 
 <% if current_user == @review.user -%>
 <%= link_to 'Edit',

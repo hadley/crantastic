@@ -7,7 +7,10 @@
   </p>
 
   <p>
-    <label for="review_review">Review</label><br />
+    <label for="review_review">Review</label>
+    <small>(<%= link_to "Markdown", "http://daringfireball.net/projects/markdown/" %>
+      enabled)</small>
+    <br />
     <%= f.text_area :review, :rows => 10 %>
   </p>
 

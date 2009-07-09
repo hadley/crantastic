@@ -44,8 +44,8 @@
 
 <% if false %>
 <ul>
-  <li><%= textilize @version.readme %></li>
-  <li><%= textilize @version.changelog %></li>
-  <li><%= textilize @version.news %></li>
+  <li><%= markdown @version.readme %></li>
+  <li><%= markdown @version.changelog %></li>
+  <li><%= markdown @version.news %></li>
 </ul>
 <% end %>

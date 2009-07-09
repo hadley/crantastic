@@ -29,4 +29,8 @@ module ApplicationHelper
     text_field_tag(nonce, nil, options)
   end
 
+  def markdown(text)
+    auto_link(Maruku.new(text).to_html)
+  end
+
 end
