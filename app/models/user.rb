@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
   include RPXNow::UserIntegration # Adds rpx.identifiers, rpx.map, and rpx.unmap
   include RFC822
 
+  has_role
+
   is_gravtastic # Enables the Gravtastic plugin for the User model
 
   default_scope :order => "id ASC"
