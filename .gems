@@ -1,4 +1,3 @@
-RedCloth
 maruku
 amatch
 haml --version ">= 2.2.0"
