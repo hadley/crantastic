@@ -26,10 +26,16 @@ module ApplicationHelper
   def nonce_field(name, options = {})
     nonce = Rack::Auth::Digest::Nonce.new.to_s
     hidden_field_tag(name, nonce) +
-    text_field_tag(nonce, nil, options)
+      text_field_tag(nonce, nil, options)
   end
 
   def markdown(text)
+    text = h(gfm(text))
+    # Extract and highlight code blocks
+    text.gsub!(%r{\+BEGIN_SRC(.+)\+END_SRC}m) do |match|
+      content_tag("code", match.scan(%r{\+BEGIN_SRC(.+)\+END_SRC}m)[0][0],
+                  :class => "prettyprint")
+    end
     auto_link(Maruku.new(text).to_html)
   end
 
