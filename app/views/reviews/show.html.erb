@@ -8,7 +8,7 @@
 <p><strong><%=h @review.title %></strong></p>
 <%= markdown(@review.review) %>
 
-<% if current_user == @review.user -%>
+<% if logged_in? && current_user.may_edit?(@review) -%>
 <%= link_to 'Edit',
       edit_package_version_review_path(@review.package, @review.package.latest, @review) %>
 <% end -%>

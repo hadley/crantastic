@@ -4,8 +4,7 @@ class ReviewsController < ApplicationController
 
   belongs_to :user, :package, :version
 
-  before_filter :login_required, :only => [ :new, :create  ]
-  before_filter :authorization_required, :only => [ :edit, :update, :destroy  ]
+  before_filter [ :login_required, :check_permissions ], :except => [ :index, :show ]
 
   index.wants.html do
     @title = (parent_object.nil?) ? "Recent reviews" : "Reviews for #{parent_object}"

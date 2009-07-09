@@ -30,17 +30,17 @@ describe ReviewsController do
     response.should be_success
   end
 
-  it "should require authorization for editing" do
-    controller.should_receive(:authorized?)
+  it "should require authentication for editing" do
     get :edit, :id => 1
     response.should be_redirect
   end
 
   it "should let logged in users edit their own reviews" do
     user = login_as_user(:id => 1, :login => "test")
-    Review.should_receive(:find).twice.with("1").and_return(mock_model(Review, :user => user))
+    Review.should_receive(:find).with("1").and_return(mock_model(Review, :user => user))
     get :edit, :id => 1
     response.should be_success
+    response.should render_template("edit")
   end
 
   it "should not let logged in users edit other peoples reviews" do
@@ -48,7 +48,7 @@ describe ReviewsController do
     Review.should_receive(:find).once.with("1").and_return(mock_model(Review, :user => User.new))
     get :edit, :id => 1
     response.should_not be_success
-    response.should be_redirect
+    response.status.should == "403 Forbidden"
   end
 
   it "should do a 404 for unknown ids" do
