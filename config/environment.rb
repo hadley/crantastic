@@ -29,6 +29,7 @@ Rails::Initializer.run do |config|
   config.gem 'haml', :version => '>= 2.2.0'
   config.gem "sqlite3-ruby", :lib => "sqlite3"
   config.gem 'chrislloyd-gravtastic', :lib => "gravtastic", :version => '>= 2.1.2', :source => 'http://gems.github.com'
+  config.gem 'Chrononaut-aegis', :lib => 'aegis', :version => '>= 1.2.0', :source => 'http://gems.github.com'
   config.gem 'Chrononaut-rpx_now', :lib => 'rpx_now', :version => '>= 0.5.6', :source => 'http://gems.github.com'
   config.gem 'mislav-will_paginate', :lib => "will_paginate", :source => 'http://gems.github.com'
   config.gem 'markbates-hoptoad_notifier', :lib => "hoptoad_notifier", :source => "http://gems.github.com"

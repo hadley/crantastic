@@ -3,6 +3,7 @@ amatch
 haml --version ">= 2.2.0"
 sqlite3-ruby
 chrislloyd-gravtastic --version ">= 2.1.2" --source http://gems.github.com
+Chrononaut-aegis --version ">= 1.2.0" --source http://gems.github.com
 Chrononaut-rpx_now --version ">= 0.5.6" --source http://gems.github.com
 mislav-will_paginate --source http://gems.github.com
 markbates-hoptoad_notifier --source http://gems.github.com
