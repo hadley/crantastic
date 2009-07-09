@@ -9,9 +9,10 @@
   <p>
     <label for="review_review">Review</label>
     <small>(<%= link_to "Markdown", "http://daringfireball.net/projects/markdown/" %>
-      enabled)</small>
+      enabled. Place source between
+      <em>+BEGIN_SRC</em> and <em>+END_SRC</em> markers.)</small>
     <br />
-    <%= f.text_area :review, :rows => 10 %>
+    <%= f.text_area :review %>
   </p>
 
   <p>
