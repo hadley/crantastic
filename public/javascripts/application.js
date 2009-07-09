@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    prettyPrint();
+
     $('a[rel*=facebox]').facebox();
 
     // Try to focus first text input
