@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   validates_presence_of     :login
-  validates_format_of       :login, :with => /\A\w[\w\.\-_@]+\z/ # ASCII, strict
+  validates_format_of       :login, :with => /^\w[\w\.\-_@]+$/ # ASCII, strict
   validates_presence_of     :email
   validates_presence_of     :password,                   :if => :password_required?
   validates_presence_of     :password_confirmation,      :if => :password_required?
