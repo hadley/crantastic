@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090709124745
+# Schema version: 20090710142540
 #
 # Table name: user
 #
@@ -20,6 +20,7 @@
 #  profile_html              :text
 #  token                     :string(40)
 #  role_name                 :string(40)
+#  perishable_token          :string(40)
 #
 
 require 'digest/sha1'

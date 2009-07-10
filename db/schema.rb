@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090709124745) do
+ActiveRecord::Schema.define(:version => 20090710142540) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(:version => 20090709124745) do
     t.text     "profile_html"
     t.string   "token",                     :limit => 40
     t.string   "role_name",                 :limit => 40
+    t.string   "perishable_token",          :limit => 40
   end
 
   create_table "version", :force => true do |t|
