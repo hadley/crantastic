@@ -64,10 +64,12 @@ class ApplicationController < ActionController::Base
   end
 
   def check_permissions
-    # We don't want to actually check the user's permissions if the action
-    # doesn't concern an existing object. This is only for convenience since
-    # it e.g. allows much simpler before filters.
-    (params[:action] != 'new') && current_user.may_edit!(object)
+    case params[:action]
+    when 'edit' then
+      current_user.may_edit!(object)
+    when 'destroy' then
+      current_user.may_destroy!(object)
+    end
   rescue Aegis::PermissionError => e
     render :text => e.message, :status => :forbidden
   end

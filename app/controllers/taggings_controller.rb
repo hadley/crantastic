@@ -4,15 +4,13 @@ class TaggingsController < ApplicationController
 
   protect_from_forgery :except => :create
   before_filter :login_or_token_required
-  before_filter :authorization_required, :only => [ :destroy ]
+  before_filter :check_permissions, :only => [ :destroy ]
 
-  belongs_to :user, :package
+  belongs_to :package
 
   create.before do
-    # Tags are found using case-insensitive LIKE statement. This way,
-    # e.g. "Visual Interface" and "Visual interface" will be hooked up to the
-    # same tag. The tag will be created if it wasn't already in the db.
-
+    # params[:tag_name] might be a list of tags, an array of tag instances is
+    # returned by the following statement.
     tags = Tag.parse_and_find_or_create(params[:tag_name])
 
     # Hack hack hack. Not sure of how I could do this more elegantly with resource_controller
@@ -45,10 +43,6 @@ class TaggingsController < ApplicationController
   end
 
   private
-  def authorized?
-    tagging = Tagging.find(params[:id])
-    tagging.user == current_user
-  end
 
   def parent_object
     Package.find_by_param(params[:package_id])

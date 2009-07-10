@@ -6,13 +6,19 @@ class Permissions < Aegis::Permissions
 
   permission :edit do |user, obj|
     allow :user do
-      obj.user == user # registered users may only edit their own objects
+      obj.user == user # users may only edit their own objects
     end
     allow :moderator # moderators may edit any object
   end
 
-  permission :read do |user, obj|
-    allow :everyone
+  permission :destroy do |user, obj|
+    allow :user do
+      obj.user == user # users may only destroy their own objects
+    end
+
+    allow :moderator do
+      obj.user == user # moderators may only destroy their own objects
+    end
   end
 
 end
