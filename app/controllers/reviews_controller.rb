@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
 
   resource_controller
 
-  belongs_to :user, :package, :version
+  belongs_to :user, :package
 
   before_filter [ :login_required, :check_permissions ], :except => [ :index, :show ]
 
@@ -11,13 +11,13 @@ class ReviewsController < ApplicationController
     @plural = true
   end
 
-  new_action.before { @version = Version.find(params[:version_id]) }
-
   show.failure.wants.html { rescue_404 }
 
   create.before do
     object.user = current_user # Set Review ownership
   end
+
+  create.flash "Your review has been saved. Thank you!"
 
   private
   def collection
@@ -31,17 +31,6 @@ class ReviewsController < ApplicationController
     else
       Package.find(params[:package_id])
     end
-  end
-
-  def build_object
-    # NOTE: not sure why I have to set version_id here. bug in resource_controller?
-    @object ||= end_of_association_chain.build object_params
-    @object.version_id = params[:version_id]
-  end
-
-  def authorized?
-    review = Review.find(params[:id])
-    review.user == current_user
   end
 
 end

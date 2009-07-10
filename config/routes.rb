@@ -1,11 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :authors, :only => [ :index, :show ]
   map.resources :priorities, :only => [ :index, :show ]
-  map.resources :reviews
+  map.resources :reviews, :only => [ :index ]
   map.resources :tags, :only => [ :index, :show ]
   map.resources :task_views, :only => [ :index, :show ]
   map.resources :timeline_events, :only => [ :index, :show ]
-  map.resources :users
+  map.resources :users, :except => [ :destroy ]
   map.resources :versions, :only => [ :index ], :collection => { :feed => :get }
   map.resources :votes, :only => [ :create ]
 
@@ -13,9 +13,7 @@ ActionController::Routing::Routes.draw do |map|
                 :collection => { :all => :get, :feed => :get },
                 :member => { :toggle_vote => :post },
                 :except => [ :create, :update, :edit ] do |p|
-    p.resources :versions, :only => [ :show ] do |v|
-      v.resources :reviews
-    end
+    p.resources :versions, :only => [ :show ]
     p.resources :ratings, :except => [ :edit, :update ]
     p.resources :reviews
     p.resources :taggings, :only => [ :new, :create, :destroy ]
@@ -24,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   # Singleton resources
   map.resource :search, :controller => "search", :only => [ :show ]
   map.resource :session, :collection => { :rpx_token => :get },
-                         :except => [ :update, :edit ]
+                         :only => [ :new, :create, :destroy ]
 
   map.root :controller => "welcome", :action => "index"
 

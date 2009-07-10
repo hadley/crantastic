@@ -1,6 +1,6 @@
 <%= error_messages_for :review, :object => @review -%>
 
-<% form_for([@package, @version, @review]) do |f| %>
+<% form_for([@package, @review]) do |f| %>
   <p>
     <label for="review_title">A brief summary</label><br />
     <%= f.text_field :title, :maxlength => 45 %>
@@ -17,5 +17,6 @@
 
   <p>
     <%= f.submit @review.new_record? ? "Enter this review" : "Update" %>
+    <%= content_tag("small", "(Keep in mind that you can edit it later)") if @review.new_record? %>
   </p>
 <% end %>

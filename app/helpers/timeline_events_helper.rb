@@ -52,7 +52,7 @@ module TimelineEventsHelper
 
       content_tag("span", "reviewed", :class => "action") + " " +
         link_to(item.secondary_subject, item.secondary_subject) +
-        " with " + link_to("these words", item.subject)
+        " with " + link_to("these words", [item.subject.package, item.subject])
 
     else "performed an unkown action"
 

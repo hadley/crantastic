@@ -14,7 +14,6 @@
 #  cached_rating :integer
 #
 
-# TODO: validate existence of version_id for new records
 class Review < ActiveRecord::Base
 
   belongs_to :user
@@ -33,7 +32,7 @@ class Review < ActiveRecord::Base
 
   validates_existence_of :package_id
   validates_existence_of :user_id
-  validates_existence_of :version_id, :on => :create
+
   validates_length_of :title, :in => 3..255,
                       :message => "(Brief Summary) is too short (minimum is 3 characters)"
   validates_length_of :review, :minimum => 3
@@ -60,15 +59,6 @@ class Review < ActiveRecord::Base
   def cache_rating
     user_rating = self.user.rating_for(self.package)
     self.cached_rating = user_rating.rating if user_rating
-  end
-
-  def validate
-    # Make sure that the supplied version belongs to this package.
-    if self.version
-      if self.version.package_id != self.package_id
-        errors.add(:version_id, "Invalid version")
-      end
-    end
   end
 
 end

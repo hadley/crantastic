@@ -9,6 +9,5 @@
 <%= markdown(@review.review) %>
 
 <% if logged_in? && current_user.may_edit?(@review) -%>
-<%= link_to 'Edit',
-      edit_package_version_review_path(@review.package, @review.package.latest, @review) %>
+<%= link_to 'Edit', edit_package_review_path(@review.package, @review) %>
 <% end -%>

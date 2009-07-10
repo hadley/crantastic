@@ -7,7 +7,6 @@ describe Review do
 
   setup do
     UserMailer.should_receive(:deliver_signup_notification)
-    Package.make
     Version.make
     User.make
   end
@@ -18,15 +17,12 @@ describe Review do
     r.title.should == "title"
   end
 
-  it "should verify that the version belongs to the package" do
+  it "should store package version" do
     pkg = Package.first
-    review = Review.new(:package => pkg, :user => User.first,
-                        :title => "Title", :review => "Lorem")
-    review.version = Version.make(:package => pkg, :maintainer => Author.first)
-    review.should be_valid
-    review.version = Version.first
-    review.should_not be_valid
-    review.errors_on("version_id").should == ["Invalid version"]
+    review = Review.create!(:package => pkg, :user => User.first,
+                            :title => "Title", :review => "Lorem")
+    review.reload
+    review.version.should == pkg.latest
   end
 
 end

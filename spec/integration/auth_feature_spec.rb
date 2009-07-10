@@ -33,11 +33,11 @@ describe "Login" do
 
   it "should redirect to the intended page after login" do
     visit package_path(Package.first)
-    click_link "Write one now."
+    click_link "Write one now"
     response.request.path.should == login_path
     login_with_valid_credentials
     response.request.path.should ==
-      new_package_version_review_path(Package.first, Package.first.latest)
+      new_package_review_path(Package.first)
   end
 
   it "should redirect to root url after logging out" do

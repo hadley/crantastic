@@ -51,7 +51,8 @@
   <% else %>
   did not rate <%= package_version(review.package, review.version) %>, but
   <% end -%>
-  says "<%= link_to truncate(review.description, :length => 50), review %>"
+  says "<%= link_to truncate(review.description, :length => 50),
+            [review.package, review] %>"
 </li>
 <% end -%>
 </ul>

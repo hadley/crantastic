@@ -87,8 +87,8 @@
   <p>
     No one has written a review of <%= @package.name %> yet.
     Want to be the first?
-    <%= link_to "Write one now.",
-        new_package_version_review_path(@package, @package.latest) %>
+    <%= link_to "Write one now",
+        new_package_review_path(@package) %>.
   </p>
 <% else -%>
   <ul>
@@ -104,13 +104,13 @@
             <%= link_to review.user.login, review.user %> did not rate
             <%= package_version(review.package, review.version) -%>.
           <% end %>
-          <%= link_to "Read the full review", package_review_path(review.package, review) %>.
+          <%= link_to "Read the full review", [review.package, review] %>.
         </p>
       </li>
     <% end %>
   </ul>
   <div class="float-r"><%= link_to "Write a review",
-                           new_package_version_review_path(@package, @package.latest) %></div>
+                           new_package_review_path(@package) %></div>
   <%= clear_div -%>
 <% end -%>
 

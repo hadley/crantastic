@@ -6,9 +6,8 @@ describe ReviewsController do
 
   setup do
     UserMailer.should_receive(:deliver_signup_notification)
-    pkg = Package.make
-    ver = Version.make(:package => pkg)
-    Review.make(:package => pkg, :version => ver)
+    Version.make
+    Review.make(:package => Package.first)
   end
 
   it "should render the index successfully" do
@@ -24,9 +23,8 @@ describe ReviewsController do
   end
 
   it "should let logged in users write new reviews" do
-    pkg = Package.first
     login_as_user(:id => 1, :login => "test")
-    get :new, :package_id => pkg.id, :version_id => pkg.latest.id
+    get :new, :package_id => Package.first.id
     response.should be_success
   end
 
