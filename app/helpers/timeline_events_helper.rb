@@ -45,7 +45,7 @@ module TimelineEventsHelper
 
     when "new_package_vote" then
 
-      content_tag("span", "voted for", :class => "action") + " " +
+      content_tag("span", "uses", :class => "action") + " " +
         link_to(item.secondary_subject, item.secondary_subject)
 
     when "new_review" then

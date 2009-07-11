@@ -1,8 +1,8 @@
 %div#votebox.float-r
-  %span= pluralize(@package.package_votes_count, "vote")
+  %span= pluralize(@package.package_votes_count, "user")
   %hr(style="margin: 0 0 3px 0")
   - if logged_in? && current_user.voted_for?(@package)
     = image_tag("tick.png", :alt => "I use this package!")
   - else
     - form_tag(toggle_vote_package_path(@package)) do
-      %div= submit_tag("Vote!", :class => "red", :style => "background-color: transparent; border: 0")
+      %div= submit_tag("I use this!", :class => "red", :style => "background-color: transparent; border: 0")
