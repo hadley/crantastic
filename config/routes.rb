@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :authors, :only => [ :index, :show ]
   map.resources :priorities, :only => [ :index, :show ]
-  map.resources :reviews, :only => [ :index ]
+  map.resources :reviews, :only => [ :index, :show ]
   map.resources :tags, :only => [ :index, :show ]
   map.resources :task_views, :only => [ :index, :show ]
   map.resources :timeline_events, :only => [ :index, :show ]
