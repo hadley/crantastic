@@ -30,3 +30,5 @@ config.gem 'chriseppstein-compass',
            :source => 'http://gems.github.com'
 
 config.gem 'ruby-debug'
+
+config.middleware.use 'Rack::Bug'
