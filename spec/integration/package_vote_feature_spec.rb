@@ -22,8 +22,8 @@ describe "Package voting" do
   end
 
   it "should be possible to vote for a package" do
-    click_button "Vote!"
-    response.should have_tag("span", "1 vote")
+    click_button "I use this!"
+    response.should have_tag("span", "1 user")
     response.should have_tag("div.flash", "Thanks for your vote!")
     response.request.path.should == package_path(@pkg)
   end
