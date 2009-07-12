@@ -1,5 +1,5 @@
 # Be sure to restart your server when you modify this file
-require File.join(RAILS_ROOT, 'lib/github_gem')
+require File.join(File.dirname(__FILE__), '/../lib/github_gem')
 
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
