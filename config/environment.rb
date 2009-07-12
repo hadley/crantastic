@@ -33,6 +33,8 @@ Rails::Initializer.run do |config|
 
   config.github_gem 'Chrononaut-aegis', :version => '>= 1.2.0'
   config.github_gem 'Chrononaut-rpx_now', :version => '>= 0.5.6'
+  config.github_gem 'binarylogic-authlogic'
+  config.github_gem 'binarylogic-searchlogic'
   config.github_gem 'chrislloyd-gravtastic', :version => '>= 2.1.2'
   config.github_gem 'giraffesoft-resource_controller'
   config.github_gem 'giraffesoft-timeline_fu', :version => ">= 0.3.0"
