@@ -1,4 +1,5 @@
 # Be sure to restart your server when you modify this file
+require File.join(RAILS_ROOT, 'lib/github_gem')
 
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
@@ -9,6 +10,7 @@ RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+#require "lib/rails_extensions"
 
 Rails::Initializer.run do |config|
   config.action_controller.session = {
@@ -24,22 +26,25 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem 'maruku'
   config.gem 'amatch'
   config.gem 'haml', :version => '>= 2.2.0'
-  config.gem "sqlite3-ruby", :lib => "sqlite3"
-  config.gem 'chrislloyd-gravtastic', :lib => "gravtastic", :version => '>= 2.1.2', :source => 'http://gems.github.com'
-  config.gem 'Chrononaut-aegis', :lib => 'aegis', :version => '>= 1.2.0', :source => 'http://gems.github.com'
-  config.gem 'Chrononaut-rpx_now', :lib => 'rpx_now', :version => '>= 0.5.6', :source => 'http://gems.github.com'
-  config.gem 'mislav-will_paginate', :lib => "will_paginate", :source => 'http://gems.github.com'
-  config.gem 'markbates-hoptoad_notifier', :lib => "hoptoad_notifier", :source => "http://gems.github.com"
-  config.gem "giraffesoft-resource_controller", :lib => "resource_controller", :source => "http://gems.github.com"
-  config.gem "giraffesoft-timeline_fu", :lib => "timeline_fu", :version => ">= 0.3.0", :source => "http://gems.github.com"
+  config.gem 'maruku'
+  config.gem 'sqlite3-ruby', :lib => "sqlite3"
+
+  config.github_gem 'Chrononaut-aegis', :version => '>= 1.2.0'
+  config.github_gem 'Chrononaut-rpx_now', :version => '>= 0.5.6'
+  config.github_gem 'chrislloyd-gravtastic', :version => '>= 2.1.2'
+  config.github_gem 'giraffesoft-resource_controller'
+  config.github_gem 'giraffesoft-timeline_fu', :version => ">= 0.3.0"
+  config.github_gem 'markbates-hoptoad_notifier'
+  config.github_gem 'mislav-will_paginate'
 
   # Required, but do not attempt to load
-  config.gem 'treetop', :lib => false
-  config.gem 'Chrononaut-treetop-dcf', :version => '>= 0.2.0', :lib => false, :source => 'http://gems.github.com'
   config.gem 'hpricot', :lib => false
+  config.gem 'treetop', :lib => false
+
+  config.github_gem 'Chrononaut-treetop-dcf', :version => '>= 0.2.0', :lib => false
+
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
