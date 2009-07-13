@@ -1,0 +1,10 @@
+Package: crantastic
+Type: Package
+Title: Various R tools for http://crantastic.org/
+Version: 0.1
+Date: 2008-07-08
+Author: Bjorn Arild Maeland <bjorn.maeland@gmail.com>
+Maintainer: Bjorn Arild Maeland <bjorn.maeland@gmail.com>
+Description: Various R tools for http://crantastic.org/
+URL: http://github.com/Chrononaut/crantastic.utils, http://crantastic.org
+License: GPL-2
