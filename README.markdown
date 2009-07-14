@@ -28,6 +28,9 @@ testing environment (required for running `rake spec`).
 Using `autospec` while doing changes to the source code is highly recommended,
 as this is very helpful for catching accidental regressions.
 
+After the first checkout of the code you'll have to do check out the Git
+submodules. Simply run `git submodule init; git submodule update`.
+
 Note that you should only add/edit stylesheets in the `app/stylesheets` folder.
 `public/stylesheets` should only contain compiled Sass styhesleets.
 
