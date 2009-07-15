@@ -1,1 +1,6 @@
+*.Rcheck
 *.tar.gz
+config
+db
+log
+vendor

@@ -1,0 +1,7 @@
+vendor
+config
+log
+db
+tmp
+.git
+.gitignore
