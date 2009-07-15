@@ -10,6 +10,12 @@ class UserMailer < ActionMailer::Base
     @subject    = 'Your crantastic account has been activated!'
   end
 
+  def password_reset_instructions(user)
+    setup_email(user)
+    @subject = "Password Reset Instructions"
+    @body[:edit_password_reset_url] = edit_password_reset_url(user.perishable_token)
+  end
+
   protected
     def setup_email(user)
       default_url_options[:host] = APP_CONFIG[:site_domain]

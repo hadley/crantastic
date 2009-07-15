@@ -37,6 +37,8 @@ class User < ActiveRecord::Base
   include RPXNow::UserIntegration # Adds rpx.identifiers, rpx.map, and rpx.unmap
   include RFC822
 
+  acts_as_authentic
+
   has_role
 
   is_gravtastic # Enables the Gravtastic plugin for the User model
@@ -190,6 +192,11 @@ class User < ActiveRecord::Base
 
   def generate_token
     self.update_attribute(:token, ActiveSupport::SecureRandom.hex(20))
+  end
+
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    UserMailer.deliver_password_reset_instructions(self)
   end
 
   protected

@@ -13,7 +13,8 @@
 <p><label for="login">Login</label><br/>
 <%= text_field_tag 'login', nil, :class => "required" %></p>
 
-<p><label for="password">Password</label><br/>
+<p><label for="password">Password</label>
+(<%= link_to("forgot?", new_password_reset_path) %>)<br/>
 <%= password_field_tag 'password', nil, :class => "required" %></p>
 
 <p><%= submit_tag 'Log in', :id => "login" %></p>
