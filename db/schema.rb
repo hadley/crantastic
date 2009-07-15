@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090710142540) do
+ActiveRecord::Schema.define(:version => 20090715082452) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -182,14 +182,25 @@ ActiveRecord::Schema.define(:version => 20090710142540) do
     t.datetime "remember_token_expires_at"
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
-    t.boolean  "remember",                                :default => false, :null => false
+    t.boolean  "remember",                                 :default => false, :null => false
     t.string   "homepage"
     t.text     "profile"
     t.text     "profile_html"
     t.string   "token",                     :limit => 40
     t.string   "role_name",                 :limit => 40
     t.string   "perishable_token",          :limit => 40
+    t.string   "persistence_token",         :limit => 128, :default => "",    :null => false
+    t.integer  "login_count",                              :default => 0,     :null => false
+    t.datetime "last_request_at"
+    t.datetime "last_login_at"
+    t.datetime "current_login_at"
+    t.string   "last_login_ip"
+    t.string   "current_login_ip"
   end
+
+  add_index "user", ["last_request_at"], :name => "index_user_on_last_request_at"
+  add_index "user", ["login"], :name => "index_user_on_login"
+  add_index "user", ["persistence_token"], :name => "index_user_on_persistence_token"
 
   create_table "version", :force => true do |t|
     t.integer  "package_id"

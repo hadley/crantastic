@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090710142540
+# Schema version: 20090715082452
 #
 # Table name: user
 #
@@ -21,6 +21,13 @@
 #  token                     :string(40)
 #  role_name                 :string(40)
 #  perishable_token          :string(40)
+#  persistence_token         :string(128)     default(""), not null
+#  login_count               :integer         default(0), not null
+#  last_request_at           :datetime
+#  last_login_at             :datetime
+#  current_login_at          :datetime
+#  last_login_ip             :string(255)
+#  current_login_ip          :string(255)
 #
 
 require 'digest/sha1'
