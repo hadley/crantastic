@@ -45,6 +45,9 @@ class User < ActiveRecord::Base
 
   default_scope :order => "id ASC"
 
+  has_many :author_identities, :dependent => :destroy
+  has_many :authors, :through => :author_identities
+
   has_many :reviews,        :dependent => :nullify
   has_many :taggings,       :dependent => :nullify
   has_many :package_votes,  :dependent => :nullify
