@@ -1,0 +1,20 @@
+%h1= h(@author.name)
+= image_tag @author.gravatar_url, :style => "float: right;"
+= mail_to(@author.email) if logged_in?
+
+%h2
+  Packages
+
+%ul
+  - for version in @author.latest_versions
+    %li
+      = [package_version(version.package, version), version.title, ""].join(". ")
+      = "(#{time_ago_in_words version.date} ago)" unless version.date.blank?
+
+%h2
+  Latest activity
+- if @events.length == 0
+  %p
+    No recent activity for this author.
+- else
+  = render :partial => "timeline_events/events", :locals => { :events => @events }
