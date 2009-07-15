@@ -1,4 +1,4 @@
-%div#button.float-r
+%div#uses-button.button
   %span= pluralize(@package.package_votes_count, "user")
   %hr(style="margin: 0 0 3px 0")
   - if logged_in? && current_user.voted_for?(@package)
