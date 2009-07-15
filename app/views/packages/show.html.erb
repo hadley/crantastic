@@ -30,12 +30,11 @@
   </ul>
 <% end %>
 
-<br />
 <h2>Ratings</h2>
 
-<table>
+<table style="margin: 5px 0 0 0">
   <tr>
-    <td style="width: 140px;"><h3>Overall:</h3></td>
+    <td style="width: 140px;vertical-align: top;"><h3>Overall:</h3></td>
     <td style="vertical-align: top;">
       <div>
         <% form_tag package_ratings_path(@package) do -%>
@@ -56,7 +55,7 @@
     </td>
   </tr>
   <tr>
-    <td style="width: 140px;"><h3>Documentation:</h3></td>
+    <td style="width: 140px;vertical-align: top;"><h3>Documentation:</h3></td>
     <td style="vertical-align: top;">
       <div>
         <% form_tag package_ratings_path(@package) do -%>
