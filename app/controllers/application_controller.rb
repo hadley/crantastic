@@ -50,6 +50,14 @@ class ApplicationController < ActionController::Base
     })
   end
 
+  def require_no_user
+    if logged_in?
+      flash[:notice] = "You must be logged out to access this page"
+      redirect_to root_url
+      return false
+    end
+  end
+
   def login_or_token_required
     (request.post? && params.has_key?(:token)) ? token_required : login_required
   end
