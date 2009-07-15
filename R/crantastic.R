@@ -12,8 +12,8 @@
   ## Excludes packages from base
   packages <- paste(installed.packages(priority=c("NA", "recommended"))[, c(1)], collapse=",")
 
-  PopCon::postData("crantastic.org", "/votes",
-                   paste(getToken(), "&packages=", packages, sep=""))
+  postData("crantastic.org", "/votes",
+           paste(getToken(), "&packages=", packages, sep=""))
 }
 
 ###############
