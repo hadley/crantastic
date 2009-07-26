@@ -15,7 +15,7 @@ describe Tag do
   should_allow_values_for :name, "MachineLearning", "Point-and-click",
                                  "AI", "NLP", :allow_nil => false
   should_not_allow_values_for :name, "", "Machine Learning", " AI",
-                                     "asdf ", "sdf<h1>f", :allow_nil => false
+                                     "asdf ", "sdf<h1>f"
   should_validate_length_of :name, :minimum => 2, :maximum => 100
 
   it "should equal a tag with the same name" do
