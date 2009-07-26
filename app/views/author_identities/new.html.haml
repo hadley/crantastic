@@ -1,0 +1,13 @@
+%h1
+  Add new author identity
+
+%p
+  = "Please confirm you are #{@author}."
+
+- form_tag(author_identities_path) do
+  %div
+    %label(for="confirm")
+      Confirm
+    = check_box_tag "confirm"
+    = hidden_field_tag "author_id", @author.id
+    = submit_tag "Submit"

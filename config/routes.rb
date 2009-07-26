@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :author_identities, :only => [ :new, :create ]
   map.resources :authors, :only => [ :index, :show ]
   map.resources :password_resets, :except => [ :index, :destroy, :show ]
   map.resources :priorities, :only => [ :index, :show ]

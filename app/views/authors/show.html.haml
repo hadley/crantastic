@@ -2,6 +2,18 @@
 = image_tag @author.gravatar_url, :style => "float: right;"
 = mail_to(@author.email) if logged_in?
 
+%div.button.float-r.clear(style="width: 72px")
+  - if logged_in? && current_user.authors.include?(@author)
+    %div.red
+      This is you!
+  - elsif @author.user.nil?
+    - form_tag(new_author_identity_path, :method => :get) do
+      %div
+        = hidden_field_tag "author_id", @author.id
+        %input.red(type="submit" value="This is me!")
+  - else
+    = link_to "User profile", user_url(@author.user)
+
 %h2
   Packages
 

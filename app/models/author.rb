@@ -13,6 +13,11 @@ class Author < ActiveRecord::Base
 
   is_gravtastic # Enables the Gravtastic plugin for the Author model
 
+  # Note that one user can have multiple author identities, but
+  # an author should only have one user.
+  has_one :author_identity, :dependent => :destroy
+  has_one :user, :through => :author_identity
+
   has_many :versions, :foreign_key => :maintainer_id, :order => "name ASC, id DESC"
   has_many :packages, :through => :versions, :uniq => true
 
