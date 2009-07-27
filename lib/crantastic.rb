@@ -1,12 +1,18 @@
 require "fileutils"
 require "cran"
 require "dcf"
+require "twitter"
 
 module Crantastic
 
   class UpdatePackages
     def start
       Log.log!("Starting task: UpdatePackages")
+
+      oauth = Twitter::OAuth.new(ENV['TWITTER_TOKEN'], ENV['TWITTER_SECRET'])
+      oauth.authorize_from_access(ENV['TWITTER_ATOKEN'], ENV['TWITTER_ASECRET'])
+      twitter_client = Twitter::Base.new(oauth)
+
       `curl -s http://cran.r-project.org/src/contrib/PACKAGES.gz -o tmp/PACKAGES.gz`
       `gunzip -f tmp/PACKAGES.gz`
       packages = File.read("tmp/PACKAGES")
@@ -21,6 +27,9 @@ module Crantastic
           if cur.latest.version != version
             Log.log!("Updating package: #{package} (#{version})")
             add_version_to_db(CRAN::CranPackage.new(package, version))
+
+            twitter_client.update("#{package} got upgraded to version #{version}: " +
+                                  "http://crantastic.org/packages/#{package}")
           end
         else
           Log.log!("New package: #{package} (#{version})")
@@ -28,6 +37,9 @@ module Crantastic
             Package.create!(:name => package) # Start by creating the package entry
             add_version_to_db(CRAN::CranPackage.new(package, version))
           end
+
+          twitter_client.update("#{package} got released: " +
+                                "http://crantastic.org/packages/#{package}")
         end
       end
       File.delete("tmp/PACKAGES")
