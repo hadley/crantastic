@@ -30,6 +30,7 @@ Rails::Initializer.run do |config|
   config.gem 'haml', :version => '>= 2.2.0'
   config.gem 'maruku'
   config.gem 'sqlite3-ruby', :lib => "sqlite3"
+  config.gem 'twitter'
 
   config.github_gem 'Chrononaut-aegis', :version => '>= 1.2.0'
   config.github_gem 'Chrononaut-rpx_now', :version => '>= 0.5.6'

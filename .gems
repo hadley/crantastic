@@ -2,6 +2,7 @@ amatch
 haml --version ">= 2.2.0"
 maruku
 sqlite3-ruby
+twitter
 Chrononaut-aegis --version ">= 1.2.0" --source http://gems.github.com
 Chrononaut-rpx_now --version ">= 0.5.6" --source http://gems.github.com
 binarylogic-authlogic --source http://gems.github.com
