@@ -28,7 +28,7 @@ module Crantastic
             Log.log!("Updating package: #{package} (#{version})")
             add_version_to_db(CRAN::CranPackage.new(package, version))
 
-            twitter_client.update("#{package} got upgraded to version #{version}: " +
+            twitter_client.update("#rstats #{package} upgraded to version #{version}: " +
                                   "http://crantastic.org/packages/#{package}")
           end
         else
@@ -38,7 +38,7 @@ module Crantastic
             add_version_to_db(CRAN::CranPackage.new(package, version))
           end
 
-          twitter_client.update("#{package} got released: " +
+          twitter_client.update("#rstats #{package} released: " +
                                 "http://crantastic.org/packages/#{package}")
         end
       end
