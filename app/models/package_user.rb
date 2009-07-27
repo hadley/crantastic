@@ -16,7 +16,7 @@ class PackageUser < ActiveRecord::Base
   belongs_to :package, :counter_cache => true
   belongs_to :user
 
-  fires :new_package_vote, :on => :create,
+  fires :new_package_user, :on => :create,
                            :actor => :user,
                            :secondary_subject => :package
 
