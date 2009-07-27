@@ -1,8 +1,8 @@
 %div#uses-button.button
-  %span= pluralize(@package.package_votes_count, "user")
+  %span= pluralize(@package.package_users_count, "user")
   %hr(style="margin: 0 0 3px 0")
-  - if logged_in? && current_user.voted_for?(@package)
+  - if logged_in? && current_user.uses?(@package)
     = image_tag("tick.png", :alt => "I use this package!")
   - else
-    - form_tag(toggle_vote_package_path(@package)) do
+    - form_tag(toggle_usage_package_path(@package)) do
       %div= submit_tag("I use this!", :class => "red")

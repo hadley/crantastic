@@ -22,10 +22,10 @@ describe VotesController do
     u = User.make
     u.generate_token
     post :create, :token => u.token, :packages => "ggplot,rjson"
-    PackageVote.count.should == 2
+    PackageUser.count.should == 2
     u.reload
-    u.voted_for?(ggplot).should be_true
-    u.voted_for?(rjson).should be_true
+    u.uses?(ggplot).should be_true
+    u.uses?(rjson).should be_true
   end
 
 end

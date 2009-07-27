@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090715162506) do
+ActiveRecord::Schema.define(:version => 20090727140821) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -47,12 +47,12 @@ ActiveRecord::Schema.define(:version => 20090715162506) do
     t.datetime "created_at"
     t.integer  "latest_version_id"
     t.datetime "updated_at"
-    t.integer  "package_votes_count", :default => 0, :null => false
+    t.integer  "package_users_count", :default => 0, :null => false
   end
 
   add_index "package", ["latest_version_id"], :name => "index_package_on_latest_version_id"
   add_index "package", ["name"], :name => "index_package_on_name"
-  add_index "package", ["package_votes_count"], :name => "index_package_on_package_votes_count"
+  add_index "package", ["package_users_count"], :name => "index_package_on_package_users_count"
 
   create_table "package_rating", :force => true do |t|
     t.integer  "package_id"
@@ -75,14 +75,14 @@ ActiveRecord::Schema.define(:version => 20090715162506) do
   add_index "package_trigram", ["package_id"], :name => "index_package_trigram_on_package_id"
   add_index "package_trigram", ["tg"], :name => "index_package_trigram_on_tg"
 
-  create_table "package_vote", :force => true do |t|
+  create_table "package_user", :force => true do |t|
     t.integer  "package_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "package_vote", ["package_id", "user_id"], :name => "index_package_vote_on_package_id_and_user_id", :unique => true
+  add_index "package_user", ["package_id", "user_id"], :name => "index_package_user_on_package_id_and_user_id", :unique => true
 
   create_table "required_package_version", :id => false, :force => true do |t|
     t.integer "version_id",          :null => false

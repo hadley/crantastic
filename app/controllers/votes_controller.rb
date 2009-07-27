@@ -9,8 +9,8 @@ class VotesController < ApplicationController
     packages = params[:packages].split(",")
     packages.each do |pkg|
       pkg = Package.find_by_name(pkg)
-      if pkg && !self.current_user.voted_for?(pkg)
-        self.current_user.package_votes << PackageVote.new(:package => pkg)
+      if pkg && !self.current_user.uses?(pkg)
+        self.current_user.package_users << PackageUser.new(:package => pkg)
       end
     end
     render :nothing => true, :status => 200

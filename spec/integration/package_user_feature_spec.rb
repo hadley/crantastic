@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe "Package voting" do
+describe "Package users" do
 
   include WebratHelpers
   include AuthHelper
@@ -14,7 +14,7 @@ describe "Package voting" do
 
   before(:each) do
     @user = User.first
-    @user.package_votes.destroy_all
+    @user.package_users.destroy_all
     @pkg = Package.first
     visit login_url
     login_with_valid_credentials
@@ -24,7 +24,7 @@ describe "Package voting" do
   it "should be possible to vote for a package" do
     click_button "I use this!"
     response.should have_tag("span", "1 user")
-    response.should have_tag("div.flash", "Thanks for your vote!")
+    response.should have_tag("div.flash")
     response.request.path.should == package_path(@pkg)
   end
 

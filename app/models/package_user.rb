@@ -1,7 +1,7 @@
 # == Schema Information
-# Schema version: 20090708163116
+# Schema version: 20090727140821
 #
-# Table name: package_vote
+# Table name: package_user
 #
 #  id         :integer         not null, primary key
 #  package_id :integer
@@ -11,7 +11,7 @@
 #
 
 # Parts of this code has been derived from the vote_fu plugin
-class PackageVote < ActiveRecord::Base
+class PackageUser < ActiveRecord::Base
 
   belongs_to :package, :counter_cache => true
   belongs_to :user

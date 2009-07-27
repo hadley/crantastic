@@ -1,6 +1,6 @@
 class PackagesController < ApplicationController
 
-  before_filter :login_required, :only => [ :toggle_vote  ]
+  before_filter :login_required, :only => [ :toggle_usage  ]
 
   def index
     page_no = params[:page] || 1
@@ -69,10 +69,10 @@ class PackagesController < ApplicationController
     rescue_404
   end
 
-  def toggle_vote
+  def toggle_usage
     @package = Package.find_by_param(params[:id])
-    vote = self.current_user.toggle_vote(@package)
-    flash[:notice] = (vote ? "Thanks for your vote!" : "Your vote has been removed")
+    usage = self.current_user.toggle_usage(@package)
+    flash[:notice] = (usage ? "Thanks!" : "You no longer use this package")
     redirect_to(@package)
   end
 

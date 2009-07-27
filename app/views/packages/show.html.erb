@@ -1,6 +1,6 @@
 <h1><%= package_version(@package, @package.latest, false) %></h1>
 
-<%= render :partial => "package_vote", :object => @package %>
+<%= render :partial => "package_user", :object => @package %>
 
 <ul class="tags">
   <%= tag_list %>

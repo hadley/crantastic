@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :packages,
                 :collection => { :all => :get, :feed => :get },
-                :member => { :toggle_vote => :post },
+                :member => { :toggle_usage => :post },
                 :except => [ :create, :update, :edit ] do |p|
     p.resources :versions, :only => [ :show ]
     p.resources :ratings, :except => [ :edit, :update ]

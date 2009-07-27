@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe PackageVote do
+describe PackageUser do
 
   setup do
     Package.make
@@ -10,10 +10,10 @@ describe PackageVote do
 
   it "should have a counter cache for the number of votes" do
     p = Package.first
-    p.package_votes_count.should == 0
-    p.package_votes << PackageVote.new(:user => User.first)
+    p.package_users_count.should == 0
+    p.package_users << PackageUser.new(:user => User.first)
     p.reload
-    p.package_votes_count.should == 1
+    p.package_users_count.should == 1
   end
 
 end

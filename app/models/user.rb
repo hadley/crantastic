@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
 
   has_many :reviews,        :dependent => :nullify
   has_many :taggings,       :dependent => :nullify
-  has_many :package_votes,  :dependent => :nullify
+  has_many :package_users,  :dependent => :nullify  # TODO: rename
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password
@@ -131,18 +131,19 @@ class User < ActiveRecord::Base
                        })
   end
 
-  # Toggle this users vote for a given package. Creates a new vote of deletes an
-  # existing one. Returns true or false depending on wether a record was created.
-  def toggle_vote(pkg)
-    unless PackageVote.destroy_all(:user_id => self, :package_id => pkg).any?
-      self.package_votes << PackageVote.new(:package => pkg)
+  # Toggle this users usage status for a given package. Creates a new vote or
+  # deletes an existing one. Returns true or false depending on wether a record
+  # was created.
+  def toggle_usage(pkg)
+    unless PackageUser.destroy_all(:user_id => self, :package_id => pkg).any?
+      self.package_users << PackageUser.new(:package => pkg)
       return true
     end
     false
   end
 
-  def voted_for?(pkg)
-    PackageVote.count(:conditions => ["user_id = ? AND package_id = ?",
+  def uses?(pkg)
+    PackageUser.count(:conditions => ["user_id = ? AND package_id = ?",
                                       self.id, pkg.id]) > 0
   end
 

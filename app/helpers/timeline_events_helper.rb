@@ -43,7 +43,7 @@ module TimelineEventsHelper
         "#{item.subject.aspect == 'overall' ? '' : '\'s documentation'}" +
         " with " + content_tag("span", "#{item.cached_value} stars", :class => "red")
 
-    when "new_package_vote" then
+    when "new_package_user" then
 
       content_tag("span", "uses", :class => "action") + " " +
         link_to(item.secondary_subject, item.secondary_subject)

@@ -39,25 +39,25 @@ describe User do
       Package.make
     end
 
-    it "should know if the user has voted for a package" do
+    it "should know if the user uses a package" do
       u = User.first
       pkg = Package.first
 
-      u.voted_for?(pkg).should be_false
-      PackageVote.create!(:package => pkg, :user => u)
-      u.voted_for?(pkg).should be_true
+      u.uses?(pkg).should be_false
+      PackageUser.create!(:package => pkg, :user => u)
+      u.uses?(pkg).should be_true
     end
 
     it "should toggle votes for a package" do
       u = User.first
       pkg = Package.first
 
-      u.toggle_vote(pkg).should be_true
-      u.voted_for?(pkg).should be_true
-      u.toggle_vote(pkg).should be_false
-      u.voted_for?(pkg).should be_false
-      u.toggle_vote(pkg).should be_true
-      u.voted_for?(pkg).should be_true
+      u.toggle_usage(pkg).should be_true
+      u.uses?(pkg).should be_true
+      u.toggle_usage(pkg).should be_false
+      u.uses?(pkg).should be_false
+      u.toggle_usage(pkg).should be_true
+      u.uses?(pkg).should be_true
     end
 
   end

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090708163116
+# Schema version: 20090727140821
 #
 # Table name: package
 #
@@ -9,7 +9,7 @@
 #  created_at          :datetime
 #  latest_version_id   :integer
 #  updated_at          :datetime
-#  package_votes_count :integer         default(0), not null
+#  package_users_count :integer         default(0), not null
 #
 
 class Package < ActiveRecord::Base
@@ -20,7 +20,7 @@ class Package < ActiveRecord::Base
 
   has_many :versions, :order => "id DESC", :dependent => :destroy
   has_many :package_ratings, :dependent => :destroy
-  has_many :package_votes, :dependent => :destroy
+  has_many :package_users, :dependent => :destroy
   has_many :reviews, :dependent => :destroy
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings, :uniq => true do
