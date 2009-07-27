@@ -1,3 +1,6 @@
 [submodule "vendor/plugins/rack-bug"]
 	path = vendor/plugins/rack-bug
 	url = git://github.com/brynary/rack-bug.git
+[submodule "vendor/plugins/parallel_specs"]
+	path = vendor/plugins/parallel_specs
+	url = git://github.com/grosser/parallel_specs.git
