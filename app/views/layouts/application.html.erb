@@ -60,10 +60,18 @@
 
   <div id="search-box" class="box">
     <% form_tag search_path, :method => 'GET' do -%>
-    <p style="margin: 0 0 0 0.1em">
-      <%= text_field_tag 'q' %>
-      <input type="submit" value="Search" />
-    </p>
+    <div style="margin: 0 0 0 0.1em">
+      <table style="margin: 0; padding: 0">
+        <tr style="margin: 0; padding: 0">
+          <td style="margin: 0; padding: 0">
+            <%= text_field_tag 'q', '', :style => "width: 175px; height: 17px; padding:2px" %>
+          </td>
+          <td style="margin: 0; padding: 0">
+            <input type="submit" value="Search" style="padding:0; height: 25px; width: 60px" />
+          </td>
+        </tr>
+      </table>
+    </div>
     <% end -%>
   </div>
 
