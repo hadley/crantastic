@@ -36,11 +36,22 @@
            :locals => { :events => @events } %>
 <% end %>
 
+<h2>Uses</h2>
+<% if @user.packages.count == 0 -%>
+<p><%= @user.login %> doesn't use any packages yet.</p>
+<% else -%>
+<p><%= @user.login %> uses <%= pluralize @user.package_users.count, "packages"%>:</p>
+
+<p>
+  <%= @user.packages.collect { |package| link_to(package.name, package) }.join(", ") %>
+</p>
+<% end -%>
+
 <h2>Reviews</h2>
-<% if @user.reviews.length == 0 -%>
+<% if @user.reviews.count == 0 -%>
 <p><%= @user.login %> hasn't written any reviews yet.</p>
 <% else -%>
-<p><%= @user.login %> has written <%= pluralize @user.reviews.length, "review"%>:</p>
+<p><%= @user.login %> has written <%= pluralize @user.reviews.count, "review"%>:</p>
 
 <ul>
 <% for review in @user.reviews -%>
@@ -59,11 +70,11 @@
 <% end -%>
 
 <h2>Tags</h2>
-<% if @user.taggings.length == 0 -%>
+<% if @user.taggings.count == 0 -%>
 <p><%= @user.login %> hasn't tagged any packages yet.</p>
 <% else -%>
 
-<p><%= @user.login %> has tagged <%= pluralize @user.taggings.length, "package"%>:</p>
+<p><%= @user.login %> has tagged <%= pluralize @user.taggings.count, "package"%>:</p>
 <ul>
 <% for tag, taggings in @user.taggings.group_by(&:tag) -%>
   <li>with <%= link_to tag, tag_url(tag) %>:

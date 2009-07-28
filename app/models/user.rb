@@ -50,7 +50,8 @@ class User < ActiveRecord::Base
 
   has_many :reviews,        :dependent => :nullify
   has_many :taggings,       :dependent => :nullify
-  has_many :package_users,  :dependent => :nullify  # TODO: rename
+  has_many :package_users,  :dependent => :nullify
+  has_many :packages, :through => :package_users, :order => "LOWER(package.name) ASC"
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password
