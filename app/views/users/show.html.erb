@@ -40,7 +40,7 @@
 <% if @user.packages.count == 0 -%>
 <p><%= @user.login %> doesn't use any packages yet.</p>
 <% else -%>
-<p><%= @user.login %> uses <%= pluralize @user.package_users.count, "packages"%>:</p>
+<p><%= @user.login %> uses <%= pluralize @user.package_users.count, "package" %>:</p>
 
 <p>
   <%= @user.packages.collect { |package| link_to(package.name, package) }.join(", ") %>
