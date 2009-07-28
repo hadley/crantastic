@@ -18,7 +18,7 @@ class RatingsController < ApplicationController
   end
 
   def create
-    @package = Package.find_by_name(params[:package_id])
+    @package = Package.find_by_param(params[:package_id])
     current_user.rate!(@package, params[:rating].to_i, params[:aspect])
 
     flash[:notice] = "Thanks for your vote!"
