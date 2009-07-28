@@ -99,7 +99,7 @@ module Crantastic
       data[:package] = Package.find_by_name(pkg.name)
       Version.create!(data)
       FileUtils.rm_rf(pkgdir)
-    rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError
+    rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError, Timeout::Error
       Log.log_and_report! "Problem downloading #{pkg}, skipping to next pkg"
     end
 
