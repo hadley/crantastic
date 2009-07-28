@@ -39,6 +39,19 @@ class VersionObserver < ActiveRecord::Observer
                       :user_id => 146) # 146 = crantastic system user
       end
     end
+
+    # Create timeline event if the previous event wasn't a new package release
+    # for this versions package
+    if TimelineEvent.count > 0
+      prev = TimelineEvent.first
+
+      return if prev.event_type == "new_package" &&
+        prev.subject == version.package &&
+        prev.subject.versions.count == 1
+    end
+    TimelineEvent.create!(:event_type => "new_version",
+                          :subject => version,
+                          :secondary_subject => version.package)
   end
 
 end

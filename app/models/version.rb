@@ -50,9 +50,6 @@ class Version < ActiveRecord::Base
                           :join_table => "suggested_package_version"
   alias :suggests :suggested_packages
 
-  fires :new_version, :on                => :create,
-                      :secondary_subject => :package
-
   named_scope :recent, :include => :package,
                        :order => "created_at DESC",
                        :conditions => "created_at IS NOT NULL",

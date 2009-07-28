@@ -13,12 +13,6 @@ module TimelineEventsHelper
 
     when "new_version" then
 
-      # Don't display a message twice for a package release, so we must check
-      # the previous event
-      prev = TimelineEvent.find(item.id - 1) rescue nil
-      return "" if !prev.nil? && prev.event_type == "new_package" &&
-        prev.secondary_subject == item.secondary_subject
-
       link_to(item.secondary_subject, item.secondary_subject) + " was " +
         content_tag("span", "upgraded", :class => "action") +
         " to version " +
