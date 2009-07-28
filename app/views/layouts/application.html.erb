@@ -75,12 +75,18 @@
   </div>
   <% end -%>
 
-  <div style="background-color: transparent; margin-right: 16px">
+  <div style="background-color: transparent; margin-right: 16px; text-align: right; float: right">
+    <p style="margin: 0">
+            <small>Follow us on twitter: &nbsp;
+          <%= link_to(image_tag("social_twitter.png",
+                                :style=>"height:22px;margin-right: -1px;margin-bottom: -2px"),
+                      "http://twitter.com/cranatic") %></small>
+            </p>
     <% if @atom && @atom[:title].not_blank? -%>
-      <p style="text-align: right">
+      <p>
         <small>
           Stay up to date on <%= @atom[:title].scan(/(on|for) (.*)/)[0][1] %>: &nbsp;
-          <%= link_to(image_tag("feed-icon-14x14.png", :style=>"margin-bottom: -2px"), @atom[:url]) %>
+          <%= link_to(image_tag("feed-icon-28x28.png", :style=>"height:20px;margin-bottom: -2px"), @atom[:url]) %>
         </small>
       </p>
     <% end -%>
