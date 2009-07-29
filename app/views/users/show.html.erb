@@ -19,9 +19,12 @@
 
 <% if this_is_me? -%>
 <p>(That's you! <%= link_to 'Edit your details', edit_user_path(@user) %>)</p>
-<% else %>
-<br />
 <% end -%>
+
+<% unless @user.authors.count.zero? -%>
+<p>Identified as the following package author:
+<%= @user.authors.collect { |a| link_to a, a }.join(", ") %></p>
+<% end %>
 
 <% unless @user.profile_html.blank? -%>
 <h2>Profile</h2>
@@ -43,7 +46,7 @@
 <p><%= @user.login %> uses <%= pluralize @user.package_users.count, "package" %>:</p>
 
 <p>
-  <%= @user.packages.collect { |package| link_to(package.name, package) }.join(", ") %>
+  <%= @user.packages.collect { |package| link_to(package.name, package) }.join(", ") %>.
 </p>
 <% end -%>
 
