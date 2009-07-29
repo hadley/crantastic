@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090728135649) do
+ActiveRecord::Schema.define(:version => 20090729182846) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -101,6 +101,18 @@ ActiveRecord::Schema.define(:version => 20090728135649) do
     t.integer  "version_id"
     t.integer  "cached_rating"
   end
+
+  create_table "review_comment", :force => true do |t|
+    t.integer  "review_id",  :null => false
+    t.integer  "user_id",    :null => false
+    t.string   "title",      :null => false
+    t.text     "comment",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "review_comment", ["review_id"], :name => "index_review_comment_on_review_id"
+  add_index "review_comment", ["user_id"], :name => "index_review_comment_on_user_id"
 
   create_table "schema_info", :id => false, :force => true do |t|
     t.integer "version"
