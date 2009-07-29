@@ -148,6 +148,12 @@ class User < ActiveRecord::Base
                                       self.id, pkg.id]) > 0
   end
 
+  def author_of?(pkg)
+    # This could be optimized, but I think this will suffice for a while
+    # since most of the time a user will only be connected with one author.
+    self.authors.collect { |a| a.packages }.flatten.uniq.include?(pkg)
+  end
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     # We explicitly don't allow logins with blank passwords.

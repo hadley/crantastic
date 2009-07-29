@@ -6,6 +6,7 @@ describe User do
   setup do
     UserMailer.should_receive(:deliver_signup_notification)
     User.make
+    Version.make
   end
 
   should_allow_values_for :login, "john", "john.doe", "john-doe"
@@ -33,11 +34,17 @@ describe User do
     u.profile_html.should == Maruku.new(markdown).to_html
   end
 
-  describe "Package voting" do
+  it "should be identified as the author of a package" do
+    u = User.first
+    pkg = Package.first
+    a = Author.first
+    u.author_of?(pkg).should be_false
+    u.author_identities << AuthorIdentity.new(:author => a)
+    u.reload
+    u.author_of?(pkg).should be_true
+  end
 
-    setup do
-      Package.make
-    end
+  describe "Package voting" do
 
     it "should know if the user uses a package" do
       u = User.first
