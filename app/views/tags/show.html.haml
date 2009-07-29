@@ -20,3 +20,6 @@
     No recent activity for packages tagged with #{@tag.name}.
 - else
   = render :partial => "timeline_events/events", :locals => { :events => @events }
+
+- if logged_in? && current_user.may_edit?(@tag)
+  = link_to 'Edit', edit_tag_path(@tag)

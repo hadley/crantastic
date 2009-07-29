@@ -2,7 +2,9 @@ class TagsController < ApplicationController
 
   resource_controller
 
-  actions :index, :show
+  actions :index, :show, :edit, :update
+
+  before_filter [ :login_required, :check_permissions ], :except => [ :index, :show ]
 
   index.wants.html { @title = "Tags" }
   show.before { @events = TimelineEvent.recent_for_tag(@tag) }

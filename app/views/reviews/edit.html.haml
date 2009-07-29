@@ -1,5 +1,4 @@
 - @title = "Edit your review"
 %h1
-  Editing your review of
-  = @review.package.name
+  Editing your review of #{@review.package.name}
 = render :partial => "form" , :locals => { :review => @review }

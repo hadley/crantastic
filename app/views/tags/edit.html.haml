@@ -1,0 +1,23 @@
+- @title = "Edit this tag"
+%h1
+  Editing the #{@tag} tag
+
+= error_messages_for :tag, :object => @tag
+- form_for(@tag) do |f|
+  %p
+    %label{ :for => "tag_name" }
+      Name
+    %br
+    = f.text_field :name, :maxlength => 45
+  %p
+    %label{ :for => "tag_full_name" }
+      Full Name
+    %br
+    = f.text_field :full_name, :maxlength => 45
+  %p
+    %label{ :for => "tag_description" }
+      Description
+    %br
+    = f.text_area :description
+
+  %p= f.submit "Save"
