@@ -136,22 +136,23 @@ class Package < ActiveRecord::Base
     name
   end
 
-  def google_url
-    "http://www.google.com/search?q=" + CGI.escape("#{name} cran OR r-project -inurl:contrib -inurl:doc/packages -inurl:CRAN")
-  end
-
-  def scholar_url
-    "http://scholar.google.com/scholar?q=" + CGI.escape(name)
-  end
-
-  def rhelp_url
-   "http://finzi.psych.upenn.edu/cgi-bin/namazu.cgi" +
-     "?idxname=Rhelp02a&idxname=Rhelp01&query=" + CGI.escape(name)
-  end
-
-  def rdevel_url
-   "http://finzi.psych.upenn.edu/cgi-bin/namazu.cgi" +
-     "?idxname=R-devel&query=" + CGI.escape(name)
+  def url_for(site)
+    case site
+    when "google" then
+      "http://www.google.com/search?q=" +
+        CGI.escape("#{name} cran OR " +
+                   "r-project -inurl:contrib -inurl:doc/packages -inurl:CRAN")
+    when "scholar" then
+      "http://scholar.google.com/scholar?q=" + CGI.escape(name)
+    when "rhelp" then
+      "http://finzi.psych.upenn.edu/cgi-bin/namazu.cgi" +
+        "?idxname=Rhelp02a&idxname=Rhelp01&query=" + CGI.escape(name)
+    when "rdevel" then
+      "http://finzi.psych.upenn.edu/cgi-bin/namazu.cgi" +
+        "?idxname=R-devel&query=" + CGI.escape(name)
+    when "graphical_manual" then
+       "http://bm2.genes.nig.ac.jp/RGM2/pkg.php?p=" + CGI.escape(name)
+    end
   end
 
 end
