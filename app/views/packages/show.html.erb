@@ -114,4 +114,7 @@
 <% end -%>
 
 <hr />
-<p><strong>Search for</strong> <%= @package.name %> on <%= link_to "google", @package.google_url %>, <%= link_to "google scholar", @package.scholar_url %>, <%= link_to "r-help", @package.rhelp_url %>, <%= link_to "r-devel", @package.rdevel_url %></p>
+<p><strong>Search for</strong> <%= @package.name %> on <%= link_to "google", @package.url_for('google') %>, <%= link_to "google scholar", @package.url_for('scholar') %>, <%= link_to "r-help", @package.url_for('rhelp') %>, <%= link_to "r-devel", @package.url_for('rdevel') %>.</p>
+
+<p><strong>Visit</strong> <%= @package.name %> on
+  <%= link_to "R Graphical Manual", @package.url_for('graphical_manual') %>.</p>
