@@ -3,7 +3,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :authors, :only => [ :index, :show ]
   map.resources :password_resets, :except => [ :index, :destroy, :show ]
   map.resources :priorities, :only => [ :index, :show ]
-  map.resources :reviews, :only => [ :index, :show ]
   map.resources :tags, :only => [ :index, :show ]
   map.resources :task_views, :only => [ :index, :show ]
   map.resources :timeline_events, :only => [ :index, :show ]
@@ -11,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :versions, :only => [ :index ], :collection => { :feed => :get }
   map.resources :votes, :only => [ :create ]
 
+  # Nested resources
   map.resources :packages,
                 :collection => { :all => :get, :feed => :get },
                 :member => { :toggle_usage => :post },
@@ -19,6 +19,10 @@ ActionController::Routing::Routes.draw do |map|
     p.resources :ratings, :except => [ :edit, :update ]
     p.resources :reviews
     p.resources :taggings, :only => [ :new, :create, :destroy ]
+  end
+
+  map.resources :reviews, :only => [ :index, :show ] do |r|
+    r.resources :review_comments, :only => [ :new, :create, :show ]
   end
 
   # Singleton resources

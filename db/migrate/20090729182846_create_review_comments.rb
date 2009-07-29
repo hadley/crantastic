@@ -3,7 +3,7 @@ class CreateReviewComments < ActiveRecord::Migration
     create_table :review_comment do |t|
       t.integer :review_id, :null => false
       t.integer :user_id, :null => false
-      t.string :title, :null => false
+      t.string :title, :null => false, :limit => 45
       t.text :comment, :null => false
 
       t.timestamps

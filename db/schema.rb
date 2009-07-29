@@ -103,10 +103,10 @@ ActiveRecord::Schema.define(:version => 20090729182846) do
   end
 
   create_table "review_comment", :force => true do |t|
-    t.integer  "review_id",  :null => false
-    t.integer  "user_id",    :null => false
-    t.string   "title",      :null => false
-    t.text     "comment",    :null => false
+    t.integer  "review_id",                :null => false
+    t.integer  "user_id",                  :null => false
+    t.string   "title",      :limit => 45, :null => false
+    t.text     "comment",                  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

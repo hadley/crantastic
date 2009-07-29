@@ -1,0 +1,14 @@
+= error_messages_for :review_comment, :object => @review_comment
+- form_for([@review, @review_comment]) do |f|
+  %p
+    %label{ :for => "review_comment_title" }
+      Title
+    %br
+    = f.text_field :title, :maxlength => 45
+  %p
+    %label{ :for => "review_comment_comment" }
+      Comment
+    %br
+    = f.text_area :comment
+
+  %p= f.submit "Enter this comment"

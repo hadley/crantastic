@@ -20,6 +20,9 @@ class Review < ActiveRecord::Base
   belongs_to :package
   belongs_to :version
 
+  has_many :review_comments, :dependent => :destroy
+  alias :comments :review_comments
+
   fires :new_review, :on                => :create,
                      :actor             => :user,
                      :secondary_subject => :package
