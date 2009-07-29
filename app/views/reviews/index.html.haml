@@ -1,0 +1,17 @@
+%h1
+  = @title
+- unless parent_object
+  %p
+    crantastic users have written #{pluralize Review.count, 'review'}.
+    These are the most recent reviews:
+
+%ul
+  - for review in @reviews
+    %li
+      = link_to review.user.login, review.user
+      - if review.rating
+        gave #{package_version(review.package, review.version)} a #{review.rating},
+      - else
+        reviewed #{package_version(review.package, review.version)},
+      and says
+      "#{link_to(truncate(review.description, :length => 50), package_review_path(review.package, review))}".

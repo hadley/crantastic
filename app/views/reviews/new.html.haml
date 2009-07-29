@@ -1,0 +1,20 @@
+- @title = "Write a review"
+%h1
+  A review of #{package_version(@review.package)}
+= render :partial => "form" , :locals => { :review => @review }
+.box
+  %p{ :style => "margin-bottom: 5px;" }
+    %strong
+      Note:
+    Your current rating of this package will submitted along with your review.
+    - if current_user.rating_for(@package).nil?
+      However, you haven't submitted any rating yet. Feel free to rate the package
+      below before submitting your review:
+    - else
+      Your rating is displayed below (you can change it if you want, by clicking one
+      of the stars):
+  - form_tag package_ratings_path(@package) do
+    = select_rating
+  %br
+  %span.your-rating
+  = clear_div
