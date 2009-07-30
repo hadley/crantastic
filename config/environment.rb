@@ -26,12 +26,12 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem 'amatch'
   config.gem 'haml', :version => '>= 2.2.0'
   config.gem 'maruku'
   config.gem 'sqlite3-ruby', :lib => "sqlite3"
   config.gem 'twitter'
 
+  config.github_gem '47primes-amatch'
   config.github_gem 'Chrononaut-aegis', :version => '>= 1.2.0'
   config.github_gem 'Chrononaut-rpx_now', :version => '>= 0.5.6'
   config.github_gem 'binarylogic-authlogic'
