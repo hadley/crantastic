@@ -1,11 +1,11 @@
 class UserMailer < ActionMailer::Base
-  def signup_notification(user)
+  def activation_instructions(user)
     setup_email(user)
     @subject     = 'Please activate your new crantastic account'
-    @body[:code] = user.activation_code
+    @body[:activation_url] = activate_url(user.perishable_token)
   end
 
-  def activation(user)
+  def activation_confirmation(user)
     setup_email(user)
     @subject    = 'Your crantastic account has been activated!'
   end
