@@ -1,3 +1,6 @@
+require "rubygems"
+require "hpricot"
+
 module CRAN
 
   # Simple struct for one CRAN package
