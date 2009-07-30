@@ -20,4 +20,9 @@ describe VersionObserver do
     @obs.after_create(v)
   end
 
+  after(:all) do
+    # Add the observer again
+    Version.add_observer(VersionObserver.instance)
+  end
+
 end
