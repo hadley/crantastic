@@ -3,7 +3,7 @@ class TaggingsController < ApplicationController
   resource_controller
 
   protect_from_forgery :except => :create
-  before_filter :login_or_token_required
+  before_filter :login_required
   before_filter :check_permissions, :only => [ :destroy ]
 
   belongs_to :package
@@ -46,6 +46,10 @@ class TaggingsController < ApplicationController
 
   def parent_object
     Package.find_by_param(params[:package_id])
+  end
+
+  def single_access_allowed?
+    action_name == "create"
   end
 
 end
