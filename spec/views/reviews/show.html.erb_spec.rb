@@ -2,6 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/reviews" do
 
+  setup do
+    activate_authlogic
+  end
+
   before(:each) do
     @review = Review.make_unsaved(:cached_rating => 4)
     assigns[:review] = @review

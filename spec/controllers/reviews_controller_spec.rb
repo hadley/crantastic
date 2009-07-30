@@ -5,7 +5,6 @@ include AuthHelper
 describe ReviewsController do
 
   setup do
-    UserMailer.should_receive(:deliver_signup_notification)
     Version.make
     Review.make(:package => Package.first)
   end

@@ -4,7 +4,6 @@ describe PackageUser do
 
   setup do
     Package.make
-    UserMailer.should_receive(:deliver_signup_notification)
     User.make
   end
 

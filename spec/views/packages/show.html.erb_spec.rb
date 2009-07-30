@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/packages" do
 
   setup do
+    activate_authlogic
     mypkg = Package.make(:name => "mypkg")
     Package.make(:name => "optmatch")
     imports = "graphics, stats, lattice, grid, SparseM, xtable"

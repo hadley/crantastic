@@ -4,7 +4,6 @@ describe Version do
 
   setup do
     Version.make
-    UserMailer.should_receive(:deliver_signup_notification)
     User.make(:id => 146)
   end
 

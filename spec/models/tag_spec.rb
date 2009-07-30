@@ -3,7 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Tag do
 
   setup do
-    UserMailer.should_receive(:deliver_signup_notification)
     Tagging.make
     Package.make(:name => "ggplot2")
   end

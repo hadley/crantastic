@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe TaggingsController do
 
   setup do
-    UserMailer.should_receive(:deliver_signup_notification).twice
     Tagging.make
     User.make(:login => "malicious")
   end

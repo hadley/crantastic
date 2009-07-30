@@ -1,25 +1,65 @@
 class UsersController < ApplicationController
 
-  resource_controller
+  before_filter :require_no_user, :only => :activate
 
-  create.before { cookies.delete :auth_token }
-  create.wants.html { redirect_to thanks_path }
-  show.failure.wants.html { rescue_404 }
-  show.before { @events = TimelineEvent.recent_for_user(@user) }
-  show.wants.html { set_atom_link(self, @user) }
-  show.wants.atom {}
-  index.wants.html { @title = @users.length.to_s + " users" }
+  def index
+    @users = User.all
+    @title = @users.length.to_s + " users"
+  end
+
+  def signup
+    render
+  end
+
+  def show
+    @user = User.find(params[:id])
+    @events = TimelineEvent.recent_for_user(@user)
+    respond_to do |format|
+      format.html { set_atom_link(self, @user) }
+      format.atom {}
+    end
+  rescue
+    rescue_404
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(params[:user])
+    if @user.save_without_session_maintenance
+      @user.deliver_activation_instructions!
+      redirect_to thanks_url
+    else
+      render :action => :new
+    end
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update_attributes(params[:user])
+    flash[:notice] = "Updated succesfully!"
+    redirect_to user_url(@user)
+  end
 
   def activate
-    self.current_user = User.find_by_activation_code(params[:activation_code])
+    user = User.find_using_perishable_token(params[:activation_code], 1.week)
 
-    if logged_in? && !current_user.active?
-      current_user.activate
+    unless user.nil? || user.active?
+      user.activate
+      user.deliver_activation_confirmation!
+      UserSession.create(user)
       flash[:notice] = "Signup complete! You're now logged in and can start reviewing and tagging."
+      redirect_to user_url(user)
     else
-      flash[:notice] = "Incorrect activation url"
+      flash[:notice] = "Incorrect activation url or already activated"
+      redirect_to root_url
     end
-    redirect_back_or_default('/')
   end
 
 end

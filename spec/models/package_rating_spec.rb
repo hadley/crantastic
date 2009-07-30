@@ -2,7 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PackageRating do
   before(:each) do
-    UserMailer.should_receive(:deliver_signup_notification)
     @valid_attributes = {
       :user => User.make,
       :package => Package.make,

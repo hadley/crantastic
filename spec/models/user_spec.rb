@@ -1,20 +1,11 @@
-# -*- coding: utf-8 -*-
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
 
   setup do
-    UserMailer.should_receive(:deliver_signup_notification)
     User.make
     Version.make
   end
-
-  should_allow_values_for :login, "john", "john.doe", "john-doe"
-  should_not_allow_values_for :login, "john doe", "<h1>hi!</h1>"
-  should_allow_values_for :email, "test@test.com", "john.doe@acme.co.uk"
-  should_not_allow_values_for :email, "test", "test@"
-  should_validate_presence_of :email
-  should_validate_presence_of :password
 
   it "should store activation time when activated" do
     u = User.new
@@ -74,14 +65,13 @@ end
 describe UserMailer do
 
   before(:each) do
-    UserMailer.should_receive(:deliver_signup_notification)
     @user = User.create(:login => "Helene", :email => "helene@helene.no",
                         :password => "1234", :password_confirmation => "1234")
   end
 
   describe "when sending an e-mail" do
     before(:each) do
-      @email = UserMailer.create_signup_notification(@user)
+      @email = UserMailer.create_activation_instructions(@user)
     end
 
     it "should be sent to the user's email address" do
@@ -90,7 +80,7 @@ describe UserMailer do
 
     it "should include an activation link" do
       # localhost for test environment, crantastic.org for production
-      @email.body.match(" http://localhost:3000/activate/#{@user.activation_code} ").should_not be_nil
+      @email.body.match(" http://localhost:3000/activate/#{@user.perishable_token} ").should_not be_nil
     end
   end
 

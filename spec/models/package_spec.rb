@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Package do
 
   setup do
-    UserMailer.should_receive(:deliver_signup_notification).twice
     User.make
     User.make(:login => "somethingelse")
 

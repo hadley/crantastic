@@ -7,8 +7,6 @@ describe "Package users" do
 
   setup do
     Version.make
-    UserMailer.should_receive(:deliver_signup_notification)
-    UserMailer.should_receive(:deliver_activation)
     User.make(:login => "john").activate
   end
 

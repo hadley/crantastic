@@ -6,7 +6,6 @@ describe Review do
   should_validate_length_of :title, :minimum => 3
 
   setup do
-    UserMailer.should_receive(:deliver_signup_notification)
     Version.make
     User.make
   end
