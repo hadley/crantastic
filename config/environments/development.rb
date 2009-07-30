@@ -29,6 +29,7 @@ config.gem 'chriseppstein-compass',
            :lib => false,
            :source => 'http://gems.github.com'
 
-config.gem 'ruby-debug'
+# Require conditionally, until ruby-debug works with 1.9
+config.gem 'ruby-debug' unless RUBY_VERSION =~ /1.9/
 
 config.middleware.use 'Rack::Bug'
