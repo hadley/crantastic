@@ -5,6 +5,12 @@ require File.dirname(__FILE__) + "/../config/environment" unless defined?(RAILS_
 require 'spec/autorun'
 require 'spec/rails'
 require 'remarkable_rails'
+require 'authlogic/test_case'
+def activate_authlogic
+  Authlogic::Session::Base.controller =
+    (@request && Authlogic::TestCase::RailsRequestAdapter.new(@request)) ||
+    Authlogic::TestCase::MockController.new
+end
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
