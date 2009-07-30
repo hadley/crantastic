@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090729182846) do
+ActiveRecord::Schema.define(:version => 20090730143711) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -196,23 +196,20 @@ ActiveRecord::Schema.define(:version => 20090729182846) do
   create_table "user", :force => true do |t|
     t.string   "login"
     t.string   "email"
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
+    t.string   "crypted_password"
+    t.string   "password_salt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remember_token"
-    t.datetime "remember_token_expires_at"
-    t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
-    t.boolean  "remember",                                 :default => false, :null => false
+    t.boolean  "remember",                           :default => false, :null => false
     t.string   "homepage"
     t.text     "profile"
     t.text     "profile_html"
-    t.string   "token",                     :limit => 40
-    t.string   "role_name",                 :limit => 40
-    t.string   "perishable_token",          :limit => 40
-    t.string   "persistence_token",         :limit => 128, :default => "",    :null => false
-    t.integer  "login_count",                              :default => 0,     :null => false
+    t.string   "single_access_token",                :default => "",    :null => false
+    t.string   "role_name",           :limit => 40
+    t.string   "perishable_token",    :limit => 40
+    t.string   "persistence_token",   :limit => 128, :default => "",    :null => false
+    t.integer  "login_count",                        :default => 0,     :null => false
     t.datetime "last_request_at"
     t.datetime "last_login_at"
     t.datetime "current_login_at"
