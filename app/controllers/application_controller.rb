@@ -6,8 +6,11 @@ class ApplicationController < ActionController::Base
   # replaces the value to all keys matching /password/i with "[FILTERED]"
   filter_parameter_logging :password
 
-  include AuthenticatedSystem
   helper :all # include all helpers, all the time
+
+  include AuthenticatedSystem
+  # Make these methods available as view helpers
+  helper_method :current_user_session, :current_user, :logged_in?
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -48,30 +51,9 @@ class ApplicationController < ActionController::Base
   # Set an atom link for the layout header
   def set_atom_link(caller, obj)
     caller.instance_variable_set(:@atom, {
-      :url => polymorphic_url(obj, :format => :atom),
-      :title => "Latest activity for #{obj}"
-    })
-  end
-
-  def require_no_user
-    if logged_in?
-      flash[:notice] = "You must be logged out to access this page"
-      redirect_to root_url
-      return false
-    end
-  end
-
-  def login_or_token_required
-    (request.post? && params.has_key?(:token)) ? token_required : login_required
-  end
-
-  def token_required
-    self.current_user = User.find_by_token(params[:token],
-                                           :conditions => "token IS NOT NULL")
-    unless logged_in?
-      render :text => "Invalid token", :status => :forbidden
-      return false
-    end
+                                   :url => polymorphic_url(obj, :format => :atom),
+                                   :title => "Latest activity for #{obj}"
+                                 })
   end
 
   def check_permissions
