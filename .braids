@@ -20,6 +20,13 @@ vendor/plugins/db_branch:
   type: git
   revision: 3af36e317ebfe018cadf6f204b077e08450ddbfa
   remote: braid/vendor/plugins/db-branch
+vendor/plugins/recaptcha: 
+  squashed: true
+  url: git://github.com/ambethia/recaptcha.git
+  branch: master
+  type: git
+  revision: 1b8c52017467a1ae19397320615b63387cef03ba
+  remote: braid/vendor/plugins/recaptcha
 vendor/plugins/live-validations: 
   squashed: true
   url: git://github.com/augustl/live-validations.git
