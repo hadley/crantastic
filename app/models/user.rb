@@ -133,10 +133,6 @@ class User < ActiveRecord::Base
     self.authors.collect { |a| a.packages }.flatten.uniq.include?(pkg)
   end
 
-  # def generate_token
-  #   self.update_attribute(:token, ActiveSupport::SecureRandom.hex(20))
-  # end
-
   def deliver_activation_instructions!
     reset_perishable_token!
     UserMailer.deliver_activation_instructions(self)
