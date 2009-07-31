@@ -2,12 +2,11 @@
   Add new author identity
 
 %p
-  = "Please confirm you are #{@author}."
+  = "Please confirm that you are #{@author} by solving the captcha."
 
 - form_tag(author_identities_path) do
   %div
-    %label(for="confirm")
-      Confirm
-    = check_box_tag "confirm"
+    = recaptcha_tags
+    %br
     = hidden_field_tag "author_id", @author.id
     = submit_tag "Submit"

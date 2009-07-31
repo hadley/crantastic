@@ -6,9 +6,8 @@ class AuthorIdentitiesController < ApplicationController
     @title = "Add new author identity"
   end
 
-  # TODO: Add some additional protection, e.g. captcha
   def create
-    if params[:confirm] == "1"
+    if verify_recaptcha
       self.current_user.author_identities << AuthorIdentity.new(:author => @author)
       flash[:notice] = "You are now identified as being #{@author}!"
       redirect_to author_url(@author)
