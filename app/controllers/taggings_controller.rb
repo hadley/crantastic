@@ -42,6 +42,8 @@ class TaggingsController < ApplicationController
     end
   end
 
+  destroy.wants.html { redirect_to user_url(@tagging.user) }
+
   private
 
   def parent_object

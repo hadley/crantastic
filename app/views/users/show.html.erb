@@ -79,9 +79,18 @@
 
 <p><%= @user.login %> has tagged <%= pluralize @user.taggings.count, "package"%>:</p>
 <ul>
+<% display_remove_link = logged_in? ? current_user.may_destroy?(@user.taggings.first) : false %>
 <% for tag, taggings in @user.taggings.group_by(&:tag) -%>
   <li>with <%= link_to tag, tag_url(tag) %>:
-<%= taggings.map{|t| link_to t.package.name, t.package}.join(", ") %></li>
+    <ul>
+      <% for t in taggings %>
+        <li><%= link_to(t.package.name, t.package) %>
+          <% if display_remove_link -%>
+            <small>(<%= link_to "remove", package_tagging_url(t.package, t), :method => :delete %>)</small>
+        <% end -%></li>
+      <% end %>
+    </ul>
+  </li>
 <% end -%>
 </ul>
 <% end -%>
