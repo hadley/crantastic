@@ -1,22 +1,29 @@
 --- 
+vendor/plugins/hoptoad_notifier: 
+  squashed: true
+  url: git://github.com/thoughtbot/hoptoad_notifier.git
+  branch: master
+  type: git
+  revision: 6df61b3b22e99c8f6b33dda7f1a17b93f637296c
+  remote: braid/vendor/plugins/hoptoad-notifier
 vendor/plugins/no_fuzz: 
   squashed: true
   url: git://github.com/Chrononaut/no_fuzz.git
+  branch: master
   type: git
   revision: 823078425a88caa2c6ad6fb216ec53263bc76a9b
-  branch: master
   remote: braid/vendor/plugins/no-fuzz
 vendor/plugins/db_branch: 
   squashed: true
-  type: git
   url: git://github.com/Chrononaut/db_branch.git
-  revision: 3af36e317ebfe018cadf6f204b077e08450ddbfa
   branch: master
+  type: git
+  revision: 3af36e317ebfe018cadf6f204b077e08450ddbfa
   remote: braid/vendor/plugins/db-branch
 vendor/plugins/live-validations: 
   squashed: true
   url: git://github.com/augustl/live-validations.git
+  branch: master
   type: git
   revision: 8c8625e76beb84ade52e4469521341f1abdeda00
-  branch: master
   remote: braid/vendor/plugins/live-validations
