@@ -39,7 +39,6 @@ Rails::Initializer.run do |config|
   config.github_gem 'chrislloyd-gravtastic', :version => '>= 2.1.2'
   config.github_gem 'giraffesoft-resource_controller'
   config.github_gem 'giraffesoft-timeline_fu', :version => ">= 0.3.0"
-  config.github_gem 'markbates-hoptoad_notifier'
   config.github_gem 'mislav-will_paginate'
 
   # Required, but do not attempt to load

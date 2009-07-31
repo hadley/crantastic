@@ -10,10 +10,7 @@ binarylogic-searchlogic --source http://gems.github.com
 chrislloyd-gravtastic --version ">= 2.1.2" --source http://gems.github.com
 giraffesoft-resource_controller --source http://gems.github.com
 giraffesoft-timeline_fu --version ">= 0.3.0" --source http://gems.github.com
-markbates-hoptoad_notifier --source http://gems.github.com
 mislav-will_paginate --source http://gems.github.com
 hpricot
 treetop
 Chrononaut-treetop-dcf --version ">= 0.2.0" --source http://gems.github.com
-chriseppstein-compass --version ">= 0.8.4" --source http://gems.github.com
-ruby-debug
