@@ -1,30 +1,30 @@
 # == Schema Information
-# Schema version: 20090730112829
+# Schema version: 20090731172118
 #
 # Table name: user
 #
-#  id                :integer         not null, primary key
-#  login             :string(255)
-#  email             :string(255)
-#  crypted_password  :string(255)
-#  password_salt     :string(255)
-#  created_at        :datetime
-#  updated_at        :datetime
-#  activated_at      :datetime
-#  remember          :boolean         not null
-#  homepage          :string(255)
-#  profile           :text
-#  profile_html      :text
-#  token             :string(40)
-#  role_name         :string(40)
-#  perishable_token  :string(40)
-#  persistence_token :string(128)     default(""), not null
-#  login_count       :integer         default(0), not null
-#  last_request_at   :datetime
-#  last_login_at     :datetime
-#  current_login_at  :datetime
-#  last_login_ip     :string(255)
-#  current_login_ip  :string(255)
+#  id                  :integer         not null, primary key
+#  login               :string(255)
+#  email               :string(255)
+#  crypted_password    :string(255)
+#  password_salt       :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#  activated_at        :datetime
+#  remember            :boolean         not null
+#  homepage            :string(255)
+#  profile             :text
+#  profile_html        :text
+#  single_access_token :string(255)     default(""), not null
+#  role_name           :string(40)
+#  perishable_token    :string(40)
+#  persistence_token   :string(128)     default(""), not null
+#  login_count         :integer         default(0), not null
+#  last_request_at     :datetime
+#  last_login_at       :datetime
+#  current_login_at    :datetime
+#  last_login_ip       :string(255)
+#  current_login_ip    :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -112,19 +112,21 @@ class User < ActiveRecord::Base
   end
 
   # Toggle this users usage status for a given package. Creates a new vote or
-  # deletes an existing one. Returns true or false depending on wether a record
-  # was created.
+  # deletes an existing one. Returns true if the user is using the package,
+  # after the toggle has been performed.
   def toggle_usage(pkg)
-    unless PackageUser.destroy_all(:user_id => self, :package_id => pkg).any?
-      self.package_users << PackageUser.new(:package => pkg)
-      return true
+    if usage = PackageUser.find(:first,
+                                :conditions => {:user_id => self, :package_id => pkg})
+      usage.toggle!(:active)
+      return usage.active
     end
-    false
+    self.package_users << PackageUser.new(:package => pkg)
+    true
   end
 
   def uses?(pkg)
-    PackageUser.count(:conditions => ["user_id = ? AND package_id = ?",
-                                      self.id, pkg.id]) > 0
+    PackageUser.active.count(:conditions => ["user_id = ? AND package_id = ?",
+                                             self.id, pkg.id]) > 0
   end
 
   def author_of?(pkg)
