@@ -70,8 +70,11 @@ h2
 h3
   font-size: 125%
 
-.homepage, .version, .byline
+.homepage, .version
   :font-size 30%
+
+.byline
+  font-size: 0.8em
 
 li span.version
   :font-size 80%
@@ -247,6 +250,18 @@ ul.timeline
   // Slightly more spacing between the elements
   li
     :line-height 21px
+
+// Comments
+
+ul.comments
+  list-style: none
+  li
+    padding: 4px
+    p
+      margin-bottom: 4px
+  li.author
+    border = 1px "solid" !red
+
 
 // Used for the search results
 ol

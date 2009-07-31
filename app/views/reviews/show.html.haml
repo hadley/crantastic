@@ -10,20 +10,16 @@
 
 - if @review.comments.count > 0
   %h2
-    Comments to this review by package authors
-  %ul
+    Comments on this review
+  %ul.comments
     - for comment in @review.comments
-      %li
+      - @klass = comment.user.author_of?(@review.package) ? "author" : "regular"
+      %li.comment{:class => "#{@klass}"}
         %strong= comment.title
-        %p
-          comment.comment
-          %br
-          %small
-            %em= "-#{link_to comment.user, comment.user} (#{comment.created_at})"
-
+        = markdown(comment.comment)
+        %em.byline= "- #{link_to comment.user, comment.user} (#{comment.created_at})"
 
 - if logged_in?
-  - if current_user.author_of?(@review.package)
-    = link_to 'You are an author of this package. Comment on the review?', new_review_review_comment_path(@review)
-  - elsif current_user.may_edit?(@review)
+  %p= link_to 'Comment on this review', new_review_review_comment_path(@review)
+  - if current_user.may_edit?(@review)
     = link_to 'Edit', edit_package_review_path(@review.package, @review)

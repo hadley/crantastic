@@ -2,12 +2,12 @@
 - form_for([@review, @review_comment]) do |f|
   %p
     %label{ :for => "review_comment_title" }
-      Title
+      Comment title (Short summary)
     %br
     = f.text_field :title, :maxlength => 45
   %p
     %label{ :for => "review_comment_comment" }
-      Comment
+      Comment body #{markdown_enabled_msg}
     %br
     = f.text_area :comment
 
