@@ -34,6 +34,14 @@ submodules. Simply run `git submodule init; git submodule update`.
 Note that you should only add/edit stylesheets in the `app/stylesheets` folder.
 `public/stylesheets` should only contain compiled Sass styhesleets.
 
+### R package
+
+There is a R package for crantastic that lives in its own branch in the Git
+repository. Use the following steps to check out the source:
+
+    git fetch origin R-package
+    git checkout --track -b R-package origin/R-package
+
 ## Working with Heroku
 
 ### Setting up the Heroku remote
