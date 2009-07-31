@@ -9,9 +9,7 @@
     %label{ :for => "review_review" }
       Review
     %small
-      (#{link_to "Markdown", "http://daringfireball.net/projects/markdown/"}
-      enabled. Place source between #{content_tag(:em, '+BEGIN_SRC')} and
-      #{content_tag(:em, '+END_SRC')} markers.)
+      = markdown_enabled_msg("Place source between #{content_tag(:em, '+BEGIN_SRC')} and #{content_tag(:em, '+END_SRC')} markers.")
     %br
     = f.text_area :review
   %p
