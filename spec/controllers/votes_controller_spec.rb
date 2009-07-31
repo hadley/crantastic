@@ -11,14 +11,14 @@ describe VotesController do
   end
 
   it "should be redirected if the token for the create action is invalid" do
-    post :create, :token => "invalid"
+    post :create, :user_credentials => "invalid"
     response.should be_redirect
   end
 
   it "should create new package votes" do
     ggplot = Package.make(:name => "ggplot")
     rjson  = Package.make(:name => "rjson")
-    post :create, :packages => "ggplot,rjson", :token => @user.single_access_token
+    post :create, :packages => "ggplot,rjson", :user_credentials => @user.single_access_token
     response.should_not be_redirect
     response.status.should == "200 OK"
     PackageUser.count.should == 2
