@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090730143711) do
+ActiveRecord::Schema.define(:version => 20090731172118) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20090730143711) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active",     :default => true, :null => false
   end
 
   add_index "package_user", ["package_id", "user_id"], :name => "index_package_user_on_package_id_and_user_id", :unique => true
@@ -174,6 +175,7 @@ ActiveRecord::Schema.define(:version => 20090730143711) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tag_id"
+    t.boolean  "active",     :default => true, :null => false
   end
 
   add_index "tagging", ["package_id", "tag_id", "user_id"], :name => "index_tagging_on_user_id_and_package_id_and_tag_id"

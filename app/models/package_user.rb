@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090727140821
+# Schema version: 20090731172118
 #
 # Table name: package_user
 #
@@ -8,6 +8,7 @@
 #  user_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  active     :boolean         default(TRUE), not null
 #
 
 # Parts of this code has been derived from the vote_fu plugin
@@ -16,13 +17,14 @@ class PackageUser < ActiveRecord::Base
   belongs_to :package, :counter_cache => true
   belongs_to :user
 
+  named_scope :active,       :conditions => { :active => true }
+  named_scope :for_user,     lambda { |u| {:conditions => { :user_id => u.id }} }
+  named_scope :recent,       lambda { |*args| {:conditions => ["created_at > ?", (args.first || 2.weeks.ago).to_s(:db)]} }
+  named_scope :descending,   :order => "created_at DESC"
+
   fires :new_package_user, :on => :create,
                            :actor => :user,
                            :secondary_subject => :package
-
-  named_scope :for_user,     lambda { |u| {:conditions => ["user_id = ?", u.id]} }
-  named_scope :recent,       lambda { |*args| {:conditions => ["created_at > ?", (args.first || 2.weeks.ago).to_s(:db)]} }
-  named_scope :descending,   :order => "created_at DESC"
 
   attr_accessible :user, :package
 

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090608185426
+# Schema version: 20090731172118
 #
 # Table name: tagging
 #
@@ -9,12 +9,16 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  tag_id     :integer
+#  active     :boolean         default(TRUE), not null
 #
 
 class Tagging < ActiveRecord::Base
+
   belongs_to :user
   belongs_to :package
   belongs_to :tag
+
+  named_scope :active, :conditions => { :active => true }
 
   fires :new_tagging, :on                => :create,
                       :actor             => :user,
