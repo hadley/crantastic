@@ -26,7 +26,6 @@ module AuthenticatedSystem
     if logged_in?
       flash[:notice] = "You must be logged out to access this page"
       redirect_to root_url
-      return false
     end
   end
 
