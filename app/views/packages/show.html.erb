@@ -15,6 +15,8 @@
 </ul>
 <%= render :partial => "versions/description" %>
 
+<hr />
+
 <% if @package.versions.length > 1 %>
   <h2><%= pluralize @package.versions.length - 1, "previous version" %></h2>
 
@@ -112,6 +114,13 @@
                            new_package_review_path(@package) %></div>
   <%= clear_div -%>
 <% end -%>
+
+<hr />
+<p><strong>Related packages:</strong>
+<%= package_links(@package.find_related_packages(:limit => 20)) %> &hellip;
+
+<small>(20 best matches, based on common tags.)</small>
+</p>
 
 <hr />
 <p><strong>Search for</strong> <%= @package.name %> on <%= link_to "google", @package.url_for('google') %>, <%= link_to "google scholar", @package.url_for('scholar') %>, <%= link_to "r-help", @package.url_for('rhelp') %>, <%= link_to "r-devel", @package.url_for('rdevel') %>.</p>
