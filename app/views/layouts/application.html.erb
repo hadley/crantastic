@@ -91,13 +91,18 @@
                       "http://twitter.com/cranatic") %></small>
             </p>
     <% if @atom && @atom[:title].not_blank? -%>
-      <p>
+      <p style="margin-bottom: 4px">
         <small>
           Stay up to date on <%= @atom[:title].scan(/(on|for) (.*)/)[0][1] %>: &nbsp;
           <%= link_to(image_tag("feed-icon-28x28.png", :style=>"height:20px;margin-bottom: -2px"), @atom[:url]) %>
         </small>
       </p>
     <% end -%>
+    <p>
+      <small>
+        Don't use feeds? Try <%= link_to "email", email_notifications_url %>!
+      </small>
+    </p>
   </div>
 
 </div>

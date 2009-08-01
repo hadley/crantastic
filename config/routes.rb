@@ -34,6 +34,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.with_options :controller => "static" do |static|
     static.about "about", :action => "about"
+    static.email_notifications "email_notifications", :action => "email_notifications"
     static.error_404 "error_404", :action => "error_404"
     static.error_500 "error_500", :action => "error_500"
   end
