@@ -155,4 +155,24 @@ class Package < ActiveRecord::Base
     end
   end
 
+  # Finds related packages, based on common tags.
+  # Adapted from acts_as_taggable_on
+  def find_related_packages(options = {})
+    tags_to_find = self.tags.collect { |t| t.id }
+    cols = self.class.column_names.collect { |c| "package.#{c}" }.join(",")
+
+    conditions = {
+      :select     => "package.*, COUNT(tag.id) AS count",
+      :from       => "package, tag, tagging",
+      :conditions => ["package.id != #{self.id} AND " +
+                      "package.id = tagging.package_id AND " +
+                      "tagging.tag_id = tag.id AND " +
+                      "tag.id IN (?)", tags_to_find],
+      :group      => cols,
+      :order      => "count DESC"
+    }.update(options)
+
+    self.class.find(:all, conditions)
+  end
+
 end
