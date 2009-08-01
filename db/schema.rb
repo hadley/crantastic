@@ -175,7 +175,6 @@ ActiveRecord::Schema.define(:version => 20090731172118) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tag_id"
-    t.boolean  "active",     :default => true, :null => false
   end
 
   add_index "tagging", ["package_id", "tag_id", "user_id"], :name => "index_tagging_on_user_id_and_package_id_and_tag_id"

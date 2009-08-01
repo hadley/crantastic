@@ -115,18 +115,17 @@ class User < ActiveRecord::Base
   # deletes an existing one. Returns true if the user is using the package,
   # after the toggle has been performed.
   def toggle_usage(pkg)
-    if usage = PackageUser.find(:first,
-                                :conditions => {:user_id => self, :package_id => pkg})
-      usage.toggle!(:active)
-      return usage.active
-    end
+    usage = PackageUser.find(:first, :conditions => {
+                               :user_id => self, :package_id => pkg
+                             })
+    return usage.toggle!(:active) && usage.active if usage
     self.package_users << PackageUser.new(:package => pkg)
     true
   end
 
   def uses?(pkg)
     PackageUser.active.count(:conditions => ["user_id = ? AND package_id = ?",
-                                             self.id, pkg.id]) > 0
+                                             self.id, pkg.id]) == 1
   end
 
   def author_of?(pkg)
