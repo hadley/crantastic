@@ -21,11 +21,11 @@
                              'jquery.rating.pack', 'jquery.validate.pack', 'facebox', 'application' -%>
   <%= javascript_tag "window.AUTH_TOKEN = '#{form_authenticity_token}';" %>
 
-  <%= auto_discovery_link_tag :atom, timeline_events_url(:format => :atom),
+  <%= auto_discovery_link_tag :atom, "http://feeds.feedburner.com/LatestActivityOnCrantastic",
       :title => "Latest activity on crantastic" %>
-  <%= auto_discovery_link_tag :atom, feed_versions_url(:format => :atom),
+  <%= auto_discovery_link_tag :atom, "http://feeds.feedburner.com/NewPackageVersionsOnCrantastic",
       :title => "New package versions on crantastic" %>
-  <%= auto_discovery_link_tag :atom, feed_packages_url(:format => :atom),
+  <%= auto_discovery_link_tag :atom, "http://feeds.feedburner.com/NewPackagesOnCrantastic",
       :title => "New packages on crantastic" %>
   <%= auto_discovery_link_tag :atom, @atom[:url], :title => @atom[:title] if
       @atom && @atom[:title] != "Latest activity on crantastic" %>
