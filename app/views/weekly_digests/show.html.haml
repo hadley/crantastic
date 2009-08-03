@@ -1,0 +1,11 @@
+%h1= object.title
+
+%h2
+  Package releases
+
+%p= package_links(object.new_packages.sort)
+
+%h2
+  Version upgrades
+
+%p= object.new_versions.sort.collect { |v| package_version(v.package, v, true, '') }.join(", ")
