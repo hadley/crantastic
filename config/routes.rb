@@ -2,9 +2,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :author_identities, :only => [ :new, :create ]
   map.resources :authors, :only => [ :index, :show ]
   map.resources :password_resets, :except => [ :index, :destroy, :show ]
-  map.resources :priorities, :only => [ :index, :show ]
+  map.resources :priorities, :only => [ :index, :show ], :controller => "tags",
+                             :requirements => { :type => "priority" }
   map.resources :tags, :only => [ :index, :show, :edit, :update ]
-  map.resources :task_views, :only => [ :index, :show ]
+  map.resources :task_views, :only => [ :index, :show ], :controller => "tags",
+                             :requirements => { :type => "task_view" }
   map.resources :timeline_events, :only => [ :index, :show ]
   map.resources :users, :except => [ :destroy ]
   map.resources :versions, :only => [ :index ], :collection => { :feed => :get }

@@ -45,8 +45,7 @@ class Tag < ActiveRecord::Base
   end
 
   def self.find_by_param(id)
-    self.find_by_name(id, :conditions => ["type IS NULL"]) or
-      raise ActiveRecord::RecordNotFound
+    self.find_by_name!(id, :conditions => ["type IS NULL"])
   end
 
   def ==(other)
