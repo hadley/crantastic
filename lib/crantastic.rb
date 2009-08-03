@@ -38,8 +38,8 @@ module Crantastic
             add_version_to_db(CRAN::CranPackage.new(package, version))
           end
 
-          twitter_client.update("#rstats #{package} released: " +
-                                "http://crantastic.org/packages/#{package}")
+          #twitter_client.update("#rstats #{package} released: " +
+          #                      "http://crantastic.org/packages/#{package}")
         end
       end
       File.delete("tmp/PACKAGES")
