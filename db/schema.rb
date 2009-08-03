@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090731172118) do
+ActiveRecord::Schema.define(:version => 20090803134959) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -246,5 +246,13 @@ ActiveRecord::Schema.define(:version => 20090731172118) do
     t.string   "priority"
     t.datetime "publicized_or_packaged"
   end
+
+  create_table "weekly_digest", :force => true do |t|
+    t.string   "param",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "weekly_digest", ["param"], :name => "index_weekly_digest_on_param", :unique => true
 
 end
