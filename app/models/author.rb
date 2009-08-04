@@ -31,8 +31,11 @@ class Author < ActiveRecord::Base
 
   default_scope :order => "LOWER(name)"
 
+  # TODO: remove the scoping on name when possible
   validates_uniqueness_of :email, :scope => :name,
                                   :case_sensitive => false, :allow_nil => true
+  validates_uniqueness_of :name
+
   validates_length_of :name, :in => 2..255
   validates_length_of :email, :in => 0..255, :allow_nil => true
 
