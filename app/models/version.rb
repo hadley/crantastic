@@ -121,6 +121,10 @@ class Version < ActiveRecord::Base
   end
   alias :imports :parse_imports
 
+  def parse_authors
+    author.split(",").map { |name| Author.new_from_string(name.strip) } rescue []
+  end
+
   private
 
   def parse_requirements(reqs)

@@ -92,4 +92,14 @@ describe Version do
     v.date.to_date.to_s.should == "2009-12-12"
   end
 
+  it "should parse the author list" do
+    a1 = Author.make(:name => "Ian Rush")
+    a2 = Author.make(:name => "Rob Fowler")
+    v = Version.make_unsaved(:author => "Ian Rush, Rob Fowler")
+    v.parse_authors.should == [a1, a2]
+
+    v.author = nil
+    v.parse_authors.should == []
+  end
+
 end
