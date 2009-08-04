@@ -6,7 +6,7 @@ describe Author do
   should_validate_length_of :name, :minimum => 2, :maximum => 255
   should_allow_values_for :email, "john@doe.co.uk", "", "X", :allow_nil => true
   should_validate_length_of :email, :minimum => 0, :maximum => 255
-  should_have_many :versions
+  should_have_many :maintained_versions
 
   it "should have unique values for email scoped on name" do
     Author.new_from_string("John Doe <john.doe@acme.co.uk>")

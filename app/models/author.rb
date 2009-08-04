@@ -18,7 +18,9 @@ class Author < ActiveRecord::Base
   has_one :author_identity, :dependent => :destroy
   has_one :user, :through => :author_identity
 
-  has_many :versions, :foreign_key => :maintainer_id, :order => "name ASC, id DESC"
+  has_many :maintained_versions, :class_name => "Version",
+                                 :foreign_key => :maintainer_id,
+                                 :order => "LOWER(name) ASC, id DESC"
   has_many :packages, :through => :versions, :uniq => true
 
   default_scope :order => "LOWER(name)"
