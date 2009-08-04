@@ -121,15 +121,8 @@ class Version < ActiveRecord::Base
   end
   alias :imports :parse_imports
 
-  # This runs from lib/tasks/cache.rake. Not sure if this is still needed.
-  def cache_maintainer!
-    author = Author.new_from_string(attributes["maintainer"])
-
-    self.maintainer = author
-    save
-  end
-
   private
+
   def parse_requirements(reqs)
     reqs.split(",").map{|full| full.split(" ")[0]}.map do |name|
       Package.find_by_name name
