@@ -10,10 +10,14 @@
 #
 
 # Uses the created_at attribute to determine the week in question.
+# Note that the digests are quite expensive to display since there is
+# a /lot/ of SQL queries that gets executed.
 class WeeklyDigest < ActiveRecord::Base
 
   validates_presence_of :param
   validates_uniqueness_of :param
+
+  validates_format_of :param, :with => /^2\d{3}-[0-5]\d$/
 
   before_validation lambda { |r| r.param = [Time.now.year, Date.today.cweek].join("-") }
 
@@ -32,6 +36,10 @@ class WeeklyDigest < ActiveRecord::Base
 
   def new_versions
     timeline_events(:event_type => "new_version").map(&:subject)
+  end
+
+  def new_reviews
+    timeline_events(:event_type => "new_review").map(&:subject)
   end
 
   # Returns all the timeline events for this week
