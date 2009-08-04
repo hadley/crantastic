@@ -29,11 +29,9 @@ class Author < ActiveRecord::Base
   validates_length_of :email, :in => 0..255, :allow_nil => true
 
   def self.find_or_create(name = nil, email = nil)
-    author = Author.find_by_email(email) || Author.find_by_name(name)
-
-    return author if author
-
-    Author.create(:name => name, :email => email)
+    author = email.nil? ? nil : Author.find_by_email(email)
+    author = Author.find_by_name(name) unless author
+    author.nil? ? Author.create(:name => name, :email => email) : author
   end
 
   # Input is mainly from the "Maintainer"-field in CRAN's DESCRIPTION

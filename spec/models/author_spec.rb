@@ -31,4 +31,12 @@ describe Author do
     Author.new(:name => "John").to_s.should == "John"
   end
 
+  it "should find or create" do
+    j = Author.make(:name => "John", :email => nil)
+    h = Author.make(:name => "Harry")
+
+    Author.find_or_create("Harry", nil).should == h
+    Author.find_or_create(nil, h.email).should == h
+  end
+
 end
