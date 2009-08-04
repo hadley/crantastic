@@ -18,10 +18,16 @@ class Author < ActiveRecord::Base
   has_one :author_identity, :dependent => :destroy
   has_one :user, :through => :author_identity
 
+  has_and_belongs_to_many :versions
   has_many :maintained_versions, :class_name => "Version",
                                  :foreign_key => :maintainer_id,
                                  :order => "LOWER(name) ASC, id DESC"
-  has_many :packages, :through => :versions, :uniq => true
+
+  has_many :packages, :finder_sql =>
+    'SELECT DISTINCT "package".* FROM "package" ' +
+    'INNER JOIN "version" ON "package".id = "version".package_id ' +
+    'INNER JOIN "author_version" ON "author_version".version_id = "version".id ' +
+    'WHERE (("author_version".author_id = #{id})) ', :uniq => true
 
   default_scope :order => "LOWER(name)"
 

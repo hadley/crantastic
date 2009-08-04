@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090803134959) do
+ActiveRecord::Schema.define(:version => 20090804171354) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(:version => 20090803134959) do
 
   add_index "author_identity", ["author_id"], :name => "index_author_identity_on_author_id", :unique => true
   add_index "author_identity", ["user_id"], :name => "index_author_identity_on_user_id"
+
+  create_table "author_version", :id => false, :force => true do |t|
+    t.integer "author_id",  :null => false
+    t.integer "version_id", :null => false
+  end
+
+  add_index "author_version", ["author_id", "version_id"], :name => "index_author_version_on_author_id_and_version_id", :unique => true
 
   create_table "enhanced_package_version", :id => false, :force => true do |t|
     t.integer "version_id",          :null => false
