@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :except => [ :destroy ]
   map.resources :versions, :only => [ :index ], :collection => { :feed => :get }
   map.resources :votes, :only => [ :create ]
-  map.resources :weekly_digests, :only => :show
+  map.resources :weekly_digests, :only => [ :index, :show ]
 
   # Nested resources
   map.resources :packages,

@@ -1,18 +1,5 @@
 %h1= object.title
 
-- unless @reviews.empty?
-  %h2
-    Reviews
-  %p= @reviews.map { |r| link_to r, r }
-
-- unless @packages.empty?
-  %h2
-    Package releases
-
-  %p= package_links(@packages)
-
-- unless @versions.empty?
-  %h2
-    Version upgrades
-
-  %p= @versions.collect { |v| package_version(v.package, v, true, '') }.join(", ")
+= reviews(object.reviews)
+= packages(object.packages)
+= versions(object.versions)

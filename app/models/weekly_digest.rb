@@ -12,6 +12,9 @@
 # Uses the created_at attribute to determine the week in question.
 # Note that the digests are quite expensive to display since there is
 # a /lot/ of SQL queries that gets executed.
+#
+# A solution could be to store the HTML output from the view in a text-field in
+# the DB.
 class WeeklyDigest < ActiveRecord::Base
 
   validates_presence_of :param
@@ -20,6 +23,8 @@ class WeeklyDigest < ActiveRecord::Base
   validates_format_of :param, :with => /^2\d{3}-[0-5]\d$/
 
   before_validation lambda { |r| r.param = [Time.now.year, Date.today.cweek].join("-") }
+
+  default_scope :order => "id DESC" # Newest digests first
 
   # Just to keep the API consistent
   def self.find_by_param(param)
@@ -30,15 +35,23 @@ class WeeklyDigest < ActiveRecord::Base
     "Weekly digest for week #" + week_num.to_s
   end
 
-  def new_packages
-    timeline_events(:event_type => "new_package").map(&:secondary_subject)
+  def to_s
+    title
   end
 
-  def new_versions
-    timeline_events(:event_type => "new_version").map(&:subject)
+  def to_param
+    param
   end
 
-  def new_reviews
+  def packages
+    timeline_events(:event_type => "new_package").map(&:secondary_subject).sort
+  end
+
+  def versions
+    timeline_events(:event_type => "new_version").map(&:subject).sort
+  end
+
+  def reviews
     timeline_events(:event_type => "new_review").map(&:subject)
   end
 
