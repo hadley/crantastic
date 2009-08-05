@@ -7,7 +7,7 @@ class CreateAuthorVersionJoinTable < ActiveRecord::Migration
 
     add_index :author_version, [:author_id, :version_id], :unique => true
 
-    Version.all.each { |v| v.authors = (version.parse_authors + [version.maintainer]).compact.uniq; v.save }
+    Version.all.each { |v| v.authors = [v.maintainer].compact; v.save }
   end
 
   def self.down
