@@ -34,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session, :collection => { :rpx_token => :get },
                          :only => [ :new, :create, :destroy ]
 
-  map.root :controller => "welcome", :action => "index"
+  map.root :controller => "timeline_events", :action => "index"
 
   map.with_options :controller => "static" do |static|
     static.about "about", :action => "about"
