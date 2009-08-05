@@ -38,12 +38,6 @@ class PackagesController < ApplicationController
       format.html do
         @packages = Package.all
         @title = "#{Package.count} R packages"
-        @atom = packages_path(:format => :atom)
-      end
-
-      format.atom do
-        @packages = Package.recent
-        render :template => "packages/index"
       end
     end
   end
