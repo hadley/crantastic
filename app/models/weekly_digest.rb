@@ -15,6 +15,8 @@
 #
 # A solution could be to store the HTML output from the view in a text-field in
 # the DB.
+#
+# Should probably consider adding an index for the =created_at= column.
 class WeeklyDigest < ActiveRecord::Base
 
   validates_presence_of :param
