@@ -7,7 +7,7 @@ class DailyDigest
   def self.find_by_param(param)
     date = Date.parse(param.to_s)
     # No data available before 20090623, or from the future.
-    raise if date < Date.parse("20090623") or date > Date.today
+    raise if date < Date.parse("20090623") or date > Time.zone.now.to_date # UTC
     DailyDigest.new(param, date)
   rescue
     raise ActiveRecord::RecordNotFound
