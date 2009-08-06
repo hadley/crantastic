@@ -26,7 +26,7 @@ class DailyDigest
     def stackup(pre, content)
       return nil if content.empty?
       str = pre + " " + content.join(", ")
-      post = ". http://crantastic/daily/#{@day}"
+      post = ". http://crantastic.org/daily/#{@day}"
       while (str + post).length > 140
         str = str.gsub(/, \.\.$/, '').gsub(/,[^,.]+$/, ', ..')
       end
