@@ -22,6 +22,23 @@ class DailyDigest
     "Daily digest for #{@day}"
   end
 
+  def tweets
+    def stackup(pre, content)
+      return nil if content.empty?
+      str = pre + " " + content.join(", ")
+      post = ". http://crantastic/daily/#{@day}"
+      while (str + post).length > 140
+        str = str.gsub(/, \.\.$/, '').gsub(/,[^,.]+$/, ', ..')
+      end
+      str + post
+    end
+
+    {
+      :packages => stackup("New:", packages),
+      :versions => stackup("Update:", versions.map(&:package).sort)
+    }
+  end
+
   def packages
     timeline_events(:event_type => "new_package").map(&:secondary_subject).sort
   end
