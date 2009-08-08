@@ -1,6 +1,8 @@
 *.Rcheck
 *.tar.gz
+_*
 config
 db
 log
 vendor
+tmp
