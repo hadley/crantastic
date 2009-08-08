@@ -9,10 +9,6 @@ module Crantastic
     def start
       Log.log!("Starting task: UpdatePackages")
 
-      oauth = Twitter::OAuth.new(ENV['TWITTER_TOKEN'], ENV['TWITTER_SECRET'])
-      oauth.authorize_from_access(ENV['TWITTER_ATOKEN'], ENV['TWITTER_ASECRET'])
-      twitter_client = Twitter::Base.new(oauth)
-
       `curl -s http://cran.r-project.org/src/contrib/PACKAGES.gz -o tmp/PACKAGES.gz`
       `gunzip -f tmp/PACKAGES.gz`
       packages = File.read("tmp/PACKAGES")
@@ -177,6 +173,23 @@ module Crantastic
       end
       Log.log!("Finished task: UpdateTaskViews")
       return true
+    end
+  end
+
+  class Tweet
+    def initialize
+      @daily = DailyDigest.new(Time.zone.now.strftime("%Y%m%d"))
+      oauth = Twitter::OAuth.new(ENV['TWITTER_TOKEN'], ENV['TWITTER_SECRET'])
+      oauth.authorize_from_access(ENV['TWITTER_ATOKEN'], ENV['TWITTER_ASECRET'])
+      @twitter_client = Twitter::Base.new(oauth)
+    end
+
+    def start
+      Log.log!("Starting task: Tweet")
+      tweets = @daily.tweets
+      @twitter_client.update(tweets[:packages]) unless tweets[:packages].blank?
+      @twitter_client.update(tweets[:versions]) unless tweets[:versions].blank?
+      Log.log!("Finished task: Tweet")
     end
   end
 
