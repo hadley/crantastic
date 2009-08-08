@@ -1,8 +1,10 @@
+baseUrl <- "crantastic.org"
+
 ## Tag a package on crantastic. Tags should be a comma-separated string
 ## consisting of tag names (no spaces are allowed).
 `crantastic.tag` <- function(package, tags)
 {
-  postData("crantastic.org",
+  postData(baseUrl,
            paste("/packages/", package, "/taggings", sep=""),
            paste(getToken(), "&tag_name=", tags, sep=""))
 }
@@ -12,7 +14,7 @@
   ## Excludes packages from base
   packages <- paste(installed.packages(priority=c("NA", "recommended"))[, c(1)], collapse=",")
 
-  postData("crantastic.org", "/votes",
+  postData(baseUrl, "/votes",
            paste(getToken(), "&packages=", packages, sep=""))
 }
 
@@ -56,6 +58,6 @@
     print("Please define your crantastic token (e.g. in your Rprofile file).")
     return(FALSE)
   } else {
-    return(paste("token=", crantasticToken, sep=""))
+    return(paste("user_credentials=", crantasticToken, sep=""))
   }
 }
