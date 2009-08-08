@@ -179,16 +179,16 @@ module Crantastic
   class Tweet
     def initialize
       @daily = DailyDigest.new(Time.zone.now.strftime("%Y%m%d"))
-      oauth = Twitter::OAuth.new(ENV['TWITTER_TOKEN'], ENV['TWITTER_SECRET'])
-      oauth.authorize_from_access(ENV['TWITTER_ATOKEN'], ENV['TWITTER_ASECRET'])
-      @twitter_client = Twitter::Base.new(oauth)
+      httpauth = Twitter::HTTPAuth.new("cranatic", ENV['TWITTER_PASSWORD'])
+      @client = Twitter::Base.new(httpauth)
+      Twitter::HTTPAuth.base_uri "http://identi.ca/api"
     end
 
     def start
       Log.log!("Starting task: Tweet")
       tweets = @daily.tweets
-      @twitter_client.update(tweets[:packages]) unless tweets[:packages].blank?
-      @twitter_client.update(tweets[:versions]) unless tweets[:versions].blank?
+      @client.update(tweets[:packages]) unless tweets[:packages].blank?
+      @client.update(tweets[:versions]) unless tweets[:versions].blank?
       Log.log!("Finished task: Tweet")
     end
   end
