@@ -16,8 +16,8 @@ crantastic.tag(package, tags)
 }
 \examples{
 ## tag ggplot2 with the graphics tag
-crantastic.tag("ggplot2", "graphics")
+\dontrun{crantastic.tag("ggplot2", "graphics")}
 
 ## tag languageR with the nlp, linguistics, and language tags
-crantastic.tag("languageR", "nlp, linguistics, language")
+\dontrun{crantastic.tag("languageR", "nlp, linguistics, language")}
 }
