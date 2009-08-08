@@ -1,9 +1,12 @@
 # Usage
-You must create a global variable containing your crantastic API key before
-using this package. Log in on http://crantastic.org to get your API key, then
-you can add this line to you Rprofile file:
 
-    crantasticToken <- "your-api-key-here"
+You must create a environment variable containing your crantastic API key before
+using this package. Log in on http://crantastic.org to get your API key, then
+you can add this line to your Rprofile file:
+
+    Sys.setenv(CRANTASTIC_TOKEN="your-api-key-here")
+
+Or you could set the variable in your shell configuration.
 
 Please report any problems/ideas/suggestions here:
 http://github.com/hadley/crantastic/tree/R-package
