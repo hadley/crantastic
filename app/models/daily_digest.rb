@@ -23,10 +23,10 @@ class DailyDigest
   end
 
   def tweets
-    def stackup(pre, content)
+    def tweet(pre, content)
       return nil if content.empty?
       str = pre + " " + content.join(", ")
-      post = ". http://crantastic.org/daily/#{@day}"
+      post = ". http://crantastic.org/daily/#{@day} #rstats"
       while (str + post).length > 140
         str = str.gsub(/, \.\.$/, '').gsub(/,[^,.]+$/, ', ..')
       end
@@ -34,8 +34,8 @@ class DailyDigest
     end
 
     {
-      :packages => stackup("New:", packages),
-      :versions => stackup("Update:", versions.map(&:package).sort)
+      :packages => tweet("New:", packages),
+      :versions => tweet("Update:", versions.map(&:package).sort)
     }
   end
 
