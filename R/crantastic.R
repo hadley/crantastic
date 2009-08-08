@@ -7,8 +7,8 @@
            paste(getToken(), "&tag_name=", tags, sep=""))
 }
 
-## Submits all installed packages to http://crantastic.org/.
-`crantastic.sendInstalledPackages` <- function(){
+## Submits all installed packages to http://crantastic.org/ (marks them as being used by you).
+`crantastic.submitInstalledPackages` <- function(){
   ## Excludes packages from base
   packages <- paste(installed.packages(priority=c("NA", "recommended"))[, c(1)], collapse=",")
 

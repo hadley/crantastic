@@ -1,1 +1,1 @@
-export(crantastic.sendInstalledPackages, crantastic.tag)
+export(crantastic.submitInstalledPackages, crantastic.tag)
