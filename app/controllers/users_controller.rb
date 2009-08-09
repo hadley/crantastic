@@ -64,7 +64,9 @@ class UsersController < ApplicationController
   end
 
   def regenerate_api_key
-    current_user.reset_single_access_token!
+    u = current_user
+    u.reset_single_access_token
+    u.save(false)
     flash[:notice] = "API Key regenerated"
     redirect_to user_url(current_user)
   end
