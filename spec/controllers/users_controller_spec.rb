@@ -14,4 +14,13 @@ describe UsersController do
     response.status.should == "404 Not Found"
   end
 
+  describe "#regenerate_api_key" do
+
+    it "should require login" do
+      post :regenerate_api_key
+      response.should be_redirect
+    end
+
+  end
+
 end

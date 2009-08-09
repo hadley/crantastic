@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_filter :require_no_user, :only => :activate
+  before_filter :require_user, :only => [ :regenerate_api_key ]
 
   def index
     @users = User.all
@@ -60,6 +61,12 @@ class UsersController < ApplicationController
       flash[:notice] = "Incorrect activation url or already activated"
       redirect_to root_url
     end
+  end
+
+  def regenerate_api_key
+    current_user.reset_single_access_token!
+    flash[:notice] = "API Key regenerated"
+    redirect_to user_url(current_user)
   end
 
 end
