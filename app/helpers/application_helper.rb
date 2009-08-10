@@ -40,7 +40,7 @@ module ApplicationHelper
   end
 
   def markdown_enabled_msg(extra_text=nil)
-    out = "(#{link_to "Markdown", "http://daringfireball.net/projects/markdown/"} enabled."
+    out = "(#{link_to "Markdown", "http://daringfireball.net/projects/markdown/basics/"} enabled."
     out += " #{extra_text}" if extra_text
     out + ")"
   end
