@@ -11,87 +11,94 @@
   <%= image_tag @user.gravatar_url, :class => "float-r" %>
 
   <% if this_is_me? -%>
-  <p class="clear small right">Not seeing your photo?<br />
-    Set up an avatar by visiting
-    <%= link_to "gravatar.com", "http://gravatar.com/" %> (it's free!).</p>
+    <p class="clear small right">Not seeing your photo?<br />
+      Set up an avatar by visiting
+      <%= link_to "gravatar.com", "http://gravatar.com/" %> (it's free!).</p>
   <% end -%>
 </div>
 
 <% if this_is_me? -%>
-<p>
-  (That's you! <%= link_to 'Edit your details', edit_user_path(@user) %>.)<br />
-  <strong>Api key</strong>: <%= @user.single_access_token.blank? ? "Not set" :
-  content_tag(:code, @user.single_access_token) %>
-  (<%= link_to "re-generate", regenerate_api_key_user_url(@user) %>).
-</p>
+  <% if @user.email.blank? -%>
+    <div class="error" style="width: 65%; padding: 2px; margin: 5px 0 5px 0">
+      <span>Your email address is currently blank.
+        <%= link_to 'Enter one now', edit_user_path(@user) %>.</span>
+    </div>
+  <% else -%>
+    <p>
+      (That's you! <%= link_to 'Edit your details', edit_user_path(@user) %>.)<br />
+      <strong>Api key</strong>: <%= @user.single_access_token.blank? ? "Not set" :
+                                      content_tag(:code, @user.single_access_token) %>
+      (<%= link_to "re-generate", regenerate_api_key_user_url(@user) %>).
+    </p>
+  <% end -%>
 <% end -%>
 
 <% unless @user.authors.count.zero? -%>
-<p>Identified as the following package author:
-<%= @user.authors.collect { |a| link_to a, a }.join(", ") %></p>
+  <p>Identified as the following package author:
+    <%= @user.authors.collect { |a| link_to a, a }.join(", ") %></p>
 <% end %>
 
 <% unless @user.profile_html.blank? -%>
-<h2>Profile</h2>
-<%= @user.profile_html %>
+  <h2>Profile</h2>
+  <%= @user.profile_html %>
 <% end -%>
 
 <h2>Latest activity</h2>
 <% if @events.length == 0 -%>
-<p><%= @user.login %> hasn't done anything recently.</p>
+  <p><%= @user.login %> hasn't done anything recently.</p>
 <% else %>
-<%= render :partial => "timeline_events/events",
-           :locals => { :events => @events } %>
+  <%= render :partial => "timeline_events/events",
+      :locals => { :events => @events } %>
 <% end %>
 
 <h2>Uses</h2>
 <% if @user.packages.count == 0 -%>
-<p><%= @user.login %> doesn't use any packages yet.</p>
+  <p><%= @user.login %> doesn't use any packages yet.</p>
 <% else -%>
-<p><%= @user.login %> uses <%= pluralize @user.package_users.count, "package" %>:</p>
+  <p><%= @user.login %> uses <%= pluralize @user.package_users.count, "package" %>:</p>
 
-<p>
-  <%= @user.packages.collect { |package| link_to(package.name, package) }.join(", ") %>.
-</p>
+  <p>
+    <%= @user.packages.collect { |package| link_to(package.name, package) }.join(", ") %>.
+  </p>
 <% end -%>
 
 <h2>Reviews</h2>
 <% if @user.reviews.count == 0 -%>
-<p><%= @user.login %> hasn't written any reviews yet.</p>
+  <p><%= @user.login %> hasn't written any reviews yet.</p>
 <% else -%>
-<p><%= @user.login %> has written <%= pluralize @user.reviews.count, "review"%>:</p>
+  <p><%= @user.login %> has written <%= pluralize @user.reviews.count, "review"%>:</p>
 
-<ul>
-<% for review in @user.reviews -%>
-<li>
-  <%= link_to review.user.login, review.user %>
-  <% if review.rating -%>
-  gave <%= package_version(review.package, review.version) %> a <%=h review.rating %>, and
-  <% else %>
-  did not rate <%= package_version(review.package, review.version) %>, but
-  <% end -%>
-  says "<%= link_to truncate(review.description, :length => 50),
-            [review.package, review] %>"
-</li>
-<% end -%>
-</ul>
+  <ul>
+    <% for review in @user.reviews -%>
+      <li>
+        <%= link_to review.user.login, review.user %>
+        <% if review.rating -%>
+          gave <%= package_version(review.package, review.version) %> a <%=h review.rating %>, and
+        <% else %>
+          did not rate <%= package_version(review.package, review.version) %>, but
+        <% end -%>
+        says "<%= link_to truncate(review.description, :length => 50),
+                  [review.package, review] %>"
+      </li>
+    <% end -%>
+  </ul>
 <% end -%>
 
 <h2>Tags</h2>
 <% if @user.taggings.count == 0 -%>
-<p><%= @user.login %> hasn't tagged any packages yet.</p>
+  <p><%= @user.login %> hasn't tagged any packages yet.</p>
 <% else -%>
 
-<p><%= @user.login %> has tagged <%= pluralize @user.taggings.count, "package"%>:</p>
-<ul>
-<% for tag, taggings in @user.taggings.group_by(&:tag) -%>
-  <li>with <%= link_to tag, tag_url(tag) %>:
-    <ul>
-      <% for t in taggings %>
-        <li><%= link_to(t.package.name, t.package) %></li>
-      <% end %>
-    </ul>
-  </li>
-<% end -%>
-</ul>
+  <p><%= @user.login %> has tagged <%= pluralize @user.taggings.count, "package"%>:</p>
+  <ul>
+    <% for tag, taggings in @user.taggings.group_by(&:tag) -%>
+      <li>with <%= link_to tag, tag_url(tag) %>:
+        <ul>
+          <% for t in taggings %>
+            <li><%= link_to(t.package.name, t.package) %></li>
+          <% end %>
+        </ul>
+      </li>
+    <% end -%>
+  </ul>
 <% end -%>
