@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
   before_filter :require_no_user, :only => [ :new, :create, :activate ]
-  before_filter :require_user, :only => [ :edit, :update, :regenerate_api_key ]
+  before_filter [ :require_user, :check_permissions ],
+                :only => [ :edit, :update, :regenerate_api_key ]
 
   def index
     @users = User.all
@@ -9,10 +10,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @events = TimelineEvent.recent_for_user(@user)
+    @events = TimelineEvent.recent_for_user(object)
     respond_to do |format|
-      format.html { set_atom_link(self, @user) }
+      format.html { set_atom_link(self, object) }
       format.atom {}
     end
   rescue
@@ -24,9 +24,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
-    if @user.save_without_session_maintenance
-      @user.deliver_activation_instructions!
+    if object.save_without_session_maintenance
+      object.deliver_activation_instructions!
       redirect_to thanks_url
     else
       render :action => :new
@@ -38,10 +37,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    @user.update_attributes(params[:user])
+    object.update_attributes(params[:user])
     flash[:notice] = "Updated succesfully!"
-    redirect_to user_url(@user)
+    redirect_to user_url(object)
   end
 
   def activate
@@ -69,6 +67,12 @@ class UsersController < ApplicationController
 
   def thanks
     render
+  end
+
+  private
+
+  def object
+    @user ||= User.find(params[:id])
   end
 
 end

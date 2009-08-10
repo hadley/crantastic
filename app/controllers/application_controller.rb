@@ -60,6 +60,8 @@ class ApplicationController < ActionController::Base
     case params[:action]
     when 'edit' then
       current_user.may_edit!(object)
+    when 'update' then
+      current_user.may_edit!(object)
     when 'destroy' then
       current_user.may_destroy!(object)
     end

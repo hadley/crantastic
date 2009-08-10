@@ -7,7 +7,11 @@ class Permissions < Aegis::Permissions
   permission :edit do |user, obj|
     allow :user do
       # users may only edit their own objects
-      obj.user == user if obj.respond_to?(:user)
+      if obj.respond_to?(:user)
+        obj.user == user
+      elsif obj.kind_of?(User)
+        obj == user
+      end
     end
     allow :moderator # moderators may edit any object
   end

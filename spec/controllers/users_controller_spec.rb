@@ -29,10 +29,28 @@ describe UsersController do
     response.should be_redirect
   end
 
-  it "should require login for the edit page" do
-    get :edit, :id => "74"
-    response.should_not render_template
-    response.should be_redirect
+  describe "edit/update" do
+
+    it "should require login for the edit page" do
+      get :edit, :id => "74"
+      response.should_not render_template
+      response.should be_redirect
+    end
+
+    it "should not let users edit other users profiles" do
+      login_as_user(:id => 1)
+      User.should_receive(:find).with("2").and_return(stub_model(User))
+      get :edit, :id => "2"
+      response.status.should == "403 Forbidden"
+    end
+
+    it "should not let users update other users profiles" do
+      login_as_user(:id => 1)
+      User.should_receive(:find).with("2").and_return(stub_model(User))
+      put :update, :id => "2"
+      response.status.should == "403 Forbidden"
+    end
+
   end
 
   describe "#regenerate_api_key" do
