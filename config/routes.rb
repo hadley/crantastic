@@ -47,7 +47,7 @@ ActionController::Routing::Routes.draw do |map|
   # Named routes
   map.daily    '/daily/:day', :controller => 'weekly_digests', :action => 'daily'
   map.signup   '/signup', :controller => 'users', :action => 'new'
-  map.thanks   '/thanks', :controller => 'users', :action => 'signup'
+  map.thanks   '/thanks', :controller => 'users', :action => 'thanks'
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate'
   map.login    '/login', :controller => 'sessions', :action => 'new'
   map.logout   '/logout', :controller => 'sessions', :action => 'destroy'

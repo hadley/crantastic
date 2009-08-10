@@ -8,10 +8,6 @@ class UsersController < ApplicationController
     @title = @users.length.to_s + " users"
   end
 
-  def signup
-    render
-  end
-
   def show
     @user = User.find(params[:id])
     @events = TimelineEvent.recent_for_user(@user)
@@ -69,6 +65,10 @@ class UsersController < ApplicationController
     u.save(false)
     flash[:notice] = "API Key regenerated"
     redirect_to user_url(current_user)
+  end
+
+  def thanks
+    render
   end
 
 end
