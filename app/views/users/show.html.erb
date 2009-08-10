@@ -21,8 +21,8 @@
 <p>
   (That's you! <%= link_to 'Edit your details', edit_user_path(@user) %>.)<br />
   <strong>Api key</strong>: <%= @user.single_access_token.blank? ? "Not set" :
-  content_tag(:code, @user.single_access_token) %> (<%= link_to "re-generate",
-  regenerate_api_key_user_url(@user), :method => :post %>).
+  content_tag(:code, @user.single_access_token) %>
+  (<%= link_to "re-generate", regenerate_api_key_user_url(@user) %>).
 </p>
 <% end -%>
 

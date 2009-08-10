@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
                              :requirements => { :type => "task_view" }
   map.resources :timeline_events, :only => [ :index, :show ]
   map.resources :users, :except => [ :destroy ],
-                        :member => { :regenerate_api_key => :post }
+                        :member => { :regenerate_api_key => :get }
   map.resources :versions, :only => [ :index ], :collection => { :feed => :get }
   map.resources :votes, :only => [ :create ]
   map.resources :weekly_digests, :only => [ :index, :show ]
