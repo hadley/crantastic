@@ -42,6 +42,7 @@ class SessionsController < ApplicationController
             "assigned a random username instead -- you can change it to " +
             "something else by editing your details."
         end
+        user.from_rpx = true
         user.activate
       end
       user.rpx.map(data[:identifier]) # Add PK mapping
