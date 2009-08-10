@@ -29,6 +29,12 @@ describe UsersController do
     response.should be_redirect
   end
 
+  it "should require login for the edit page" do
+    get :edit, :id => "74"
+    response.should_not render_template
+    response.should be_redirect
+  end
+
   describe "#regenerate_api_key" do
 
     it "should require login" do

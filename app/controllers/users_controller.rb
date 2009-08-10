@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-  before_filter :require_no_user, :only => [ :new, :activate ]
-  before_filter :require_user, :only => [ :regenerate_api_key ]
+  before_filter :require_no_user, :only => [ :new, :create, :activate ]
+  before_filter :require_user, :only => [ :edit, :update, :regenerate_api_key ]
 
   def index
     @users = User.all
