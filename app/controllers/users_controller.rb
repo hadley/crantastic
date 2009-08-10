@@ -37,9 +37,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    object.update_attributes(params[:user])
-    flash[:notice] = "Updated succesfully!"
-    redirect_to user_url(object)
+    if object.update_attributes(params[:user])
+      flash[:notice] = "Updated succesfully!"
+      redirect_to user_url(object)
+    else
+      flash[:notice] = "The form did not pass validation."
+      render :action => :edit
+    end
   end
 
   def activate
