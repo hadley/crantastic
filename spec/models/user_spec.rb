@@ -7,10 +7,24 @@ describe User do
     Version.make
   end
 
+  it "accounts created with rpx should be valid even if they have blank password" do
+    u = User.new(:login => "puppet", :email => "puppet@acme.com")
+    u.should_not be_valid
+    u.from_rpx = true
+    u.should be_valid
+  end
+
+  it "should not allow mismatched passwords" do
+    u = User.new(:login => "puppet", :email => "puppet@acme.com",
+                 :password => "321asd", :password_confirmation => "123asd")
+    u.should_not be_valid
+    u.errors.on(:password).should == "doesn't match confirmation"
+  end
+
   it "should store activation time when activated" do
     u = User.new
-    u.should_receive(:save).with(false)
-    u.activated_at.should be_nil
+    u.should_receive(:save!)
+    u.should_not be_active
     u.activate
     u.should be_active
     u.activated_at.should be_kind_of(Time)

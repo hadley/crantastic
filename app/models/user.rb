@@ -66,14 +66,24 @@ class User < ActiveRecord::Base
   attr_accessible :login, :email, :password, :password_confirmation, :remember,
                   :homepage, :profile
 
+  attr_accessor :from_rpx
+
   def to_s
     login
+  end
+
+  # Overrides authlogic, avoids any password checks for users currently signing
+  # up via rpx or existing users without password (meaning that they've signup
+  # via rpx and haven't set a password). =from_rpx= is only true when explicitly
+  # set so via the attr_accessor.
+  def require_password?
+    from_rpx || (!new_record? && crypted_password.blank?) ? false : super
   end
 
   # Activates the user.
   def activate
     self.activated_at = Time.now.utc
-    save(false)
+    save!
   end
 
   def active?
