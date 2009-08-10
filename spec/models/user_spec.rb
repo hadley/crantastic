@@ -14,6 +14,13 @@ describe User do
     u.should be_valid
   end
 
+  it "accounts created with rpx should be valid even if they have blank emails" do
+    u = User.new(:login => "puppet", :email => nil)
+    u.should_not be_valid
+    u.from_rpx = true
+    u.should be_valid
+  end
+
   it "should not allow mismatched passwords" do
     u = User.new(:login => "puppet", :email => "puppet@acme.com",
                  :password => "321asd", :password_confirmation => "123asd")
