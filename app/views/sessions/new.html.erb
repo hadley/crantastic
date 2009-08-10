@@ -2,7 +2,7 @@
 
 <% unless params[:show_rpx] %>
 <%= RPXNow.embed_code('crantastic',
-                      "http://#{APP_CONFIG[:site_domain]}/session/rpx_token" +
+                      rpx_token_session_url +
                       "#{'?return_to='+params[:return_to] if params[:return_to]}") %>
 
 <p><strong>or log in with an existing Crantastic account</strong></p>
