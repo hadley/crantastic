@@ -1,4 +1,0 @@
-test: &test
-  :adapter: sqlite3
-  :dbfile: vendor/plugins/sunspot_rails/spec/test.db
-development: *test
