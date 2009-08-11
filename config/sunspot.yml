@@ -1,19 +1,17 @@
 common: &common
     solr:
       hostname: localhost
-      port: 8983
+      port: 8982
 
 production:
   <<: *common
   solr:
     hostname: chrononaut.net
+    port: 8080
+    path: /solr
 
 development:
   <<: *common
-  solr:
-    port: 8982
 
 test:
   <<: *common
-  solr:
-    port: 8982
