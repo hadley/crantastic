@@ -2,6 +2,7 @@
 *.Rcheck
 *.swp
 *~
+*.pid
 log
 db/*.sqlite3
 tmp
@@ -10,3 +11,4 @@ _posts
 config/database.branch.*
 config/database.yml
 test/*
+solr/*
