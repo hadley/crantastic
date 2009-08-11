@@ -16,4 +16,4 @@ development:
 test:
   <<: *common
   solr:
-    port: 8981
+    port: 8982

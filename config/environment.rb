@@ -40,8 +40,6 @@ Rails::Initializer.run do |config|
   config.github_gem 'giraffesoft-resource_controller'
   config.github_gem 'giraffesoft-timeline_fu', :version => ">= 0.3.0"
   config.github_gem 'mislav-will_paginate'
-  config.github_gem 'outoftime-sunspot'
-  config.github_gem 'outoftime-sunspot_rails', :lib => 'sunspot/rails'
 
   # Required, but do not attempt to load
   config.gem 'hpricot', :lib => false
