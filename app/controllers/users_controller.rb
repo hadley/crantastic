@@ -24,8 +24,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    if object.save_without_session_maintenance
-      object.deliver_activation_instructions!
+    @user = User.new(params[:user])
+    if @user.save_without_session_maintenance
+      @user.deliver_activation_instructions!
       redirect_to thanks_url
     else
       render :action => :new
