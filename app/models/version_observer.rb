@@ -1,8 +1,11 @@
 class VersionObserver < ActiveRecord::Observer
 
   def after_create(version)
-    # Cache latest version in the package record
+    version.description = "" if version.description.nil?
+
+    # Cache latest version and description in the package record
     version.package.latest_version = version
+    version.package.description = version.description
 
     # Store associations for depends, enhances, suggests, and authors
     version.required_packages = version.parse_depends

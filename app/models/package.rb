@@ -87,10 +87,6 @@ class Package < ActiveRecord::Base
     super || self.created_at
   end
 
-  def description
-    self.latest_version.description # for convenience
-  end
-
   # @return [Fixnum] Number of ratings for this package for the given aspect
   def rating_count(aspect="overall")
     PackageRating.count(:conditions => ["package_id = ? AND aspect = ?",
