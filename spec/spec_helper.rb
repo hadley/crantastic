@@ -6,10 +6,19 @@ require 'spec/autorun'
 require 'spec/rails'
 require 'remarkable_rails'
 require 'authlogic/test_case'
+
 def activate_authlogic
   Authlogic::Session::Base.controller =
     (@request && Authlogic::TestCase::RailsRequestAdapter.new(@request)) ||
     Authlogic::TestCase::MockController.new
+end
+
+module Sunspot::Rails::Searchable
+  module InstanceMethods
+    def index
+      true
+    end
+  end
 end
 
 # Requires supporting files with custom matchers and macros, etc,
