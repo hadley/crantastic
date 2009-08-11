@@ -1,0 +1,5 @@
+%li
+  = link_to result.to_s, result, :style => "padding-right: 5px;"
+  - if result.kind_of?(Package)
+    = star_rating_for(result)
+    %p= highlight(truncate(result.description, :length => 180), @search_term)
