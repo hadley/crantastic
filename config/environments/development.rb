@@ -29,8 +29,6 @@ config.gem 'chriseppstein-compass',
            :lib => false,
            :source => 'http://gems.github.com'
 
-config.github_gem 'outoftime-sunspot'
-
 # Require conditionally, until ruby-debug works with 1.9
 config.gem 'ruby-debug' unless RUBY_VERSION =~ /1.9/
 

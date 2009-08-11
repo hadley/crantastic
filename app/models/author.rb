@@ -11,13 +11,6 @@
 
 class Author < ActiveRecord::Base
 
-  searchable do
-    text :name
-    string :sort_name do
-      name.downcase unless name.blank?
-    end
-  end
-
   is_gravtastic # Enables the Gravtastic plugin for the Author model
 
   # Note that one user can have multiple author identities, but

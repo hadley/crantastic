@@ -14,14 +14,6 @@
 
 class Package < ActiveRecord::Base
 
-  searchable do
-    string :name
-    text :description
-    string :sort_name do
-      name.downcase unless name.blank?
-    end
-  end
-
   has_many :versions, :order => "id DESC", :dependent => :destroy
   has_many :package_ratings, :dependent => :destroy
   has_many :package_users, :dependent => :destroy
