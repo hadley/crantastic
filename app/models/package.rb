@@ -13,10 +13,6 @@
 #
 
 class Package < ActiveRecord::Base
-  include NoFuzz
-  fuzzy :name
-
-  after_create :create_trigrams # Incrementally update the trigram index
 
   has_many :versions, :order => "id DESC", :dependent => :destroy
   has_many :package_ratings, :dependent => :destroy
@@ -66,40 +62,18 @@ class Package < ActiveRecord::Base
   def self.paginating_search(q, search_results_page)
     q.strip.downcase!
 
-    if q.ends_with? '~' # fuzzy search
-      # TODO It's kinda bad to do two database hits here, I think it can be resolved
-      # by using paginate's :finder argument and creating a new method that
-      # calls out to fuzzy_find.
-      ids = Package.fuzzy_find(q[0...-1], per_page).collect { |i| i.id }
-      [paginate(ids,
-               {:include => {:versions => :maintainer},
-               :page => search_results_page}), "fuzzy"]
-    else
-      res = paginate({ :conditions => [ 'LOWER(package.name) LIKE ?', '%' + q + '%'],
-                       :include => [{:latest_version => :maintainer}],
-                       :order => 'LOWER(package.name)',
-                       :page => search_results_page })
-      res.empty? ? self.paginating_search(q + '~', search_results_page) : [res]
-    end
+    paginate({ :conditions => [ 'LOWER(package.name) LIKE ?', '%' + q + '%'],
+               :include => [{:latest_version => :maintainer}],
+               :order => 'LOWER(package.name)',
+               :page => search_results_page })
   end
 
   def self.search(q, limit=self.per_page)
-    extra = { :include => :latest_version }
-    res = []
-    if q.ends_with? '~' # fuzzy search
-      res = [Package.fuzzy_find(q[0...-1], limit, extra), "fuzzy"]
-    else
-      qq = '%' + q + '%'
-      res = [Package.all(:conditions =>
-                         ['LOWER(package.name) LIKE ? OR LOWER(version.description) LIKE ?', qq, qq],
-                         :order => "LOWER(package.name)",
-                         :limit => limit, :include => :latest_version)]
-      if res.first.empty?
-        # Try a fuzzy search if no results were found
-        res = [Package.fuzzy_find(q, limit, extra), "fuzzy"]
-      end
-    end
-    res
+    qq = '%' + q + '%'
+    m = Amatch::Levenshtein.new(q.to_s)
+    Package.all(:conditions =>
+                ['LOWER(package.name) LIKE LOWER(?) OR LOWER(version.description) LIKE ?', qq, qq],
+                :limit => limit, :include => :latest_version).sort_by { |p| -m.similar(p.name) }
   end
 
   def <=>(other)

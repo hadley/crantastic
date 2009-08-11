@@ -12,10 +12,7 @@ class PackagesController < ApplicationController
       params[:search] = @search_term
     end
 
-    @fuzzy = @search_term.sub!(/%7E$/, '~') ? true : false
-
-    @search_result = Package.paginating_search(@search_term, page_no)
-    @packages = @search_result.first
+    @packages = Package.paginating_search(@search_term, page_no)
     @title = "#{Package.count} R packages"
 
     respond_to do |format|
