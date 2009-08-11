@@ -6,6 +6,13 @@ vendor/plugins/hoptoad_notifier:
   type: git
   revision: 6df61b3b22e99c8f6b33dda7f1a17b93f637296c
   remote: braid/vendor/plugins/hoptoad-notifier
+vendor/plugins/sunspot_rails: 
+  squashed: true
+  url: git://github.com/outoftime/sunspot_rails.git
+  branch: master
+  type: git
+  revision: c4f3cc6c025bcc98cc2fafc75edbf5e15ce70011
+  remote: braid/vendor/plugins/sunspot-rails
 vendor/plugins/db_branch: 
   squashed: true
   url: git://github.com/Chrononaut/db_branch.git
