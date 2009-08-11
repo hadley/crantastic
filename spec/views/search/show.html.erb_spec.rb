@@ -5,7 +5,7 @@ describe "/search/show" do
   end
 
   it "should let the user know if there were no search results" do
-    assigns[:packages] = []
+    assigns[:results] = []
     render 'search/show'
     response.should have_tag('h1', %r[Search])
     response.should have_tag('p', %r[no results were found])

@@ -14,6 +14,9 @@
 
 class Package < ActiveRecord::Base
 
+  acts_as_solr :fields => [{:name => {:boost => 5.0}}, :description, :tags],
+               :boost => Proc.new { |pkg| pkg.package_users_count.to_f }
+
   has_many :versions, :order => "id DESC", :dependent => :destroy
   has_many :package_ratings, :dependent => :destroy
   has_many :package_users, :dependent => :destroy

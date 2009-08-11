@@ -4,7 +4,7 @@ class SearchController < ApplicationController
     @title = 'Search'
 
     @search_term = String(params[:q]).mb_chars.strip
-    @results = Package.search(@search_term)
+    @results = Package.find_by_solr(@search_term, :limit => 50).try(:results) || []
 
     # Redirect to package if the result set was unambiguous
     if Package.find_by_name(params[:q]) && @results.size == 1

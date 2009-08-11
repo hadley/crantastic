@@ -13,11 +13,9 @@ def activate_authlogic
     Authlogic::TestCase::MockController.new
 end
 
-module Sunspot::Rails::Searchable
-  module InstanceMethods
-    def index
-      true
-    end
+class ActsAsSolr::Post
+  def self.execute(request)
+    true
   end
 end
 
