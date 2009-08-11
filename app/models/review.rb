@@ -16,6 +16,10 @@
 
 class Review < ActiveRecord::Base
 
+  searchable do
+    text :title, :review
+  end
+
   belongs_to :user
   belongs_to :package
   belongs_to :version
