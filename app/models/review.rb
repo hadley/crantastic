@@ -40,6 +40,10 @@ class Review < ActiveRecord::Base
                       :message => "(Brief Summary) is too short (minimum is 3 characters)"
   validates_length_of :review, :minimum => 3
 
+  def to_s
+    "#{user}'s review of #{package}"
+  end
+
   def description
     [title, review].join(". ")
   end

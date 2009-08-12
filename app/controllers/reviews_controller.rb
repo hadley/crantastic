@@ -11,6 +11,8 @@ class ReviewsController < ApplicationController
     @plural = true
   end
 
+  show.wants.html { @title = object.to_s }
+
   show.failure.wants.html { rescue_404 }
 
   create.before do

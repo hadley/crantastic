@@ -53,6 +53,12 @@ describe ReviewsController do
     response.status.should == "404 Not Found"
   end
 
+  it "should set correct title for review pages" do
+    review = Review.first
+    get :show, :id => review.id
+    assigns[:title].should == "#{review.user}'s review of #{review.package}"
+  end
+
   describe "XHTML Markup" do
 
     integrate_views
