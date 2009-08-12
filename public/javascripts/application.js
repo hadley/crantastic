@@ -18,6 +18,16 @@ $(document).ready(function() {
         return false;
     });
 
+    $('a#more').livequery('click', function() {
+                              $(this).remove();
+                              $('#spinner').show();
+                              jQuery.get(this.href, {}, function(next) {
+                                             $('#timeline').append(next);
+                                             $('#spinner').hide();
+                                         });
+                              return false;
+                          });
+
     $('input#package-search').delayedObserver(function(value, object) {
         $("#packages_list").load('/packages',
                                  { search: escape($(this).val()) });

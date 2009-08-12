@@ -57,6 +57,14 @@ class TimelineEvent < ActiveRecord::Base
     self.recent_for_package_ids(package_ids)
   end
 
+  ## No. of events to show per page.
+  def self.per_page; 25; end
+
+  def self.paginate_recent(search_results_page=1)
+    paginate({ :include => [:actor, :subject, :secondary_subject],
+               :page => search_results_page })
+  end
+
   def package_event?
     %w(new_package new_version).include?(self.event_type) ? true : false
   end

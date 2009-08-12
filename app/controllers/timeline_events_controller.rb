@@ -8,10 +8,12 @@ class TimelineEventsController < ApplicationController
 
   show.failure.wants.html { rescue_404 }
   index.wants.atom { @events = @timeline_events }
+  index.wants.js { render :partial => "paginated_events", :locals => { :events => @timeline_events } }
 
   private
   def collection
-    TimelineEvent.recent
+    @page = params[:page] || 1
+    TimelineEvent.paginate_recent(@page)
   end
 
   def set_atom

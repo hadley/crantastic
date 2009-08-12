@@ -5,4 +5,5 @@
 
 %h1(style="font-size: 220%") Recent activity
 
-= render :partial => "events", :locals => { :events => @timeline_events }
+#timeline= render :partial => "paginated_events", :locals => { :events => @timeline_events }
+= image_tag("spinner.gif", :id => "spinner", :style => "margin-top: 10px")
