@@ -34,6 +34,21 @@ submodules. Simply run `git submodule init; git submodule update`.
 Note that you should only add/edit stylesheets in the `app/stylesheets` folder.
 `public/stylesheets` should only contain compiled Sass styhesleets.
 
+### Solr
+
+A connection to a Solr server is required for running the site. Note that the
+version of `acts_as_solr` that is included in the repository is stripped down,
+so it does not include the server part. Setting up a Solr server on your
+development machine is simple, though:
+
+* Install the Java runtime environment (not necessary on OSX). On Debian or
+  Ubuntu this can be done with: sudo apt-get install sun-java6-jre
+* git clone git://github.com/mattmatt/acts_as_solr.git
+* cd acts_as_solr/solr && java -jar start.jar
+
+Then you can run `rake solr:reindex` from the folder where you have the
+crantastic source code.
+
 ### R package
 
 There is a R package for crantastic that lives in its own branch in the Git
