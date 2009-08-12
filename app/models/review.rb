@@ -36,7 +36,7 @@ class Review < ActiveRecord::Base
   validates_existence_of :package_id
   validates_existence_of :user_id
 
-  validates_length_of :title, :in => 3..255,
+  validates_length_of :title, :within => 3..255,
                       :message => "(Brief Summary) is too short (minimum is 3 characters)"
   validates_length_of :review, :minimum => 3
 

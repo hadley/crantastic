@@ -1,5 +1,5 @@
 = error_messages_for :review, :object => @review
-- form_for([@package, @review]) do |f|
+- form_for([@package, @review], :live_validations => true) do |f|
   %p
     %label{ :for => "review_title" }
       A brief summary
