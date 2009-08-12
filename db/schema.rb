@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090811173510) do
+ActiveRecord::Schema.define(:version => 20090812104328) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -72,15 +72,6 @@ ActiveRecord::Schema.define(:version => 20090811173510) do
 
   add_index "package_rating", ["aspect"], :name => "index_package_rating_on_aspect"
   add_index "package_rating", ["user_id"], :name => "index_package_rating_on_user_id"
-
-  create_table "package_trigram", :force => true do |t|
-    t.integer "package_id",                :null => false
-    t.string  "tg",                        :null => false
-    t.integer "score",      :default => 1, :null => false
-  end
-
-  add_index "package_trigram", ["package_id"], :name => "index_package_trigram_on_package_id"
-  add_index "package_trigram", ["tg"], :name => "index_package_trigram_on_tg"
 
   create_table "package_user", :force => true do |t|
     t.integer  "package_id"
