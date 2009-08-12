@@ -82,3 +82,8 @@ Personally I use an alias so I don't have to type as much:
 ## Updating packages from CRAN
 
 Run `rake crantastic:cron` or `rake crantastic:update_all_packages`.
+
+## License
+
+The crantastic source code is released under the MIT license, consult the
+accompanying MIT-LICENSE file for details.
