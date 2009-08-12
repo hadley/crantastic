@@ -14,6 +14,14 @@
 
 class Package < ActiveRecord::Base
 
+  # Specifies the fields that should be indexed with Solr. Note that the tags
+  # association is indexed, so if e.g. a package is tagged with
+  # 'ItemResponseTheory' it will show up in the result list if someone searches
+  # for 'response theory'. The =name= field is boosted, and the whole document
+  # is boosted based on how many users the package has.
+  #
+  # References:
+  # * http://pivotallabs.com/users/rolson/blog/articles/974-boosting-with-acts-as-solr
   acts_as_solr :fields => [{:name => {:boost => 5.0}}, :description, :tags],
                :boost => Proc.new { |pkg| pkg.package_users_count.to_f }
 
@@ -36,9 +44,6 @@ class Package < ActiveRecord::Base
   fires :new_package, :on                => :create,
                       :subject           => :self,
                       :secondary_subject => :self # yes 2x package
-
-  # Uncommented until Rails handles named scope order in a better way
-  # default_scope :order => "LOWER(package.name)"
 
   named_scope :recent, :order => "#{self.table_name}.created_at DESC",
                        :include => :latest_version,
