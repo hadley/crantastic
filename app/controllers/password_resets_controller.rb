@@ -42,6 +42,7 @@ class PasswordResetsController < ApplicationController
     @user = User.find_using_perishable_token(params[:id])
     unless @user
       flash[:notice] = "We're sorry, but we could not locate your account. " +
+        "Note that the password reset link is only valid for 24 hours." +
         "If you are having issues try copying and pasting the URL " +
         "from your email into your browser or restarting the " +
         "reset password process."

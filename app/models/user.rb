@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.act_like_restful_authentication = true
 
+    c.perishable_token_valid_for = 1.day
+
     c.validates_format_of_login_field_options = {
       :with => /^\w[\w\.\-_@]+$/,
       :message => "only use letters, numbers, and .-_@ please"
