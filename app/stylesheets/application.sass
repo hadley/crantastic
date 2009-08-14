@@ -218,10 +218,23 @@ ul.tags
     &:link, &:visited
       :background-color = !white
       :border = 1px "solid" !grey
+      :display block
+      :line-height 1.1em
+      :height 15px
 
   li
     :padding 0 0.49em 0 0
     :line-height 2.5em
+
+span.tagMatches
+  margin-left: 10px
+
+span.tagMatches span
+  padding: 2px
+  margin-right: 4px
+  background-color: #0000AB
+  color: #fff
+  cursor: pointer
 
 ul.cloud
   +horizontal-list

@@ -4,15 +4,19 @@
 
 <ul class="tags">
   <%= tag_list %>
-  <li>
+  <div style="float: left; margin-top: 4px;">
     <%= link_to "Add tags", new_package_tagging_path(@package),
-        :class => "add", :id => "add-tag" %>
-    <div id="add-tag-form" style="display:none;">
+        :class => "add", :id => "add-tag" %></div></ul>
+    <div id="add-tag-form" style="display:none; margin-top: 0.25em;">
       <%= render :partial => "taggings/form",
           :locals => { :tagging => @tagging } %>
     </div>
-  </li>
-</ul>
+
+<script type="text/javascript">
+setGlobalTags([<%= Tag.regular.all.map { |t| "'#{t}'" }.join(", ") %>]);
+$(function () { $('input#tag_name').tagSuggest(); });
+</script>
+
 <%= render :partial => "versions/description" %>
 
 <hr />

@@ -1,4 +1,4 @@
 <% form_for([@package, @tagging]) do |f| %>
-  <div><%= text_field_tag :tag_name, nil, :size => 12, :class => "required" %>
+  <div><%= text_field_tag :tag_name, nil, :size => 20, :class => "required" %>
   <%= f.submit @tagging.new_record? ? "Tag it!" : "Update" %></div>
 <% end %>

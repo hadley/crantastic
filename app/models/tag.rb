@@ -29,10 +29,10 @@ class Tag < ActiveRecord::Base
   validates_length_of :name, :in => 2..100
 
   ###
-  # @param tags [String] A list of tags, separated by comma
+  # @param tags [String] A list of tags, separated by space (prefered) or commas
   # @return [Array] An array of Tag instances
   def self.parse_and_find_or_create(tags)
-    tags.split(",").map(&:strip).reject(&:empty?).collect do |tag|
+    tags.split(/[, ]/).map(&:strip).reject(&:empty?).collect do |tag|
       self.find_or_create_with_like_by_name(tag)
     end
   end

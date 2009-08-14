@@ -18,7 +18,8 @@
 
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" -%>
   <%= javascript_include_tag 'jquery.livequery', 'jquery.MetaData', 'jquery.delayedObserver',
-                             'jquery.rating.pack', 'jquery.validate.pack', 'facebox', 'application' -%>
+                             'jquery.rating.pack', 'jquery.validate.pack', 'jquery.tag',
+                             'facebox', 'application'  -%>
   <%= javascript_tag "window.AUTH_TOKEN = '#{form_authenticity_token}';" %>
 
   <%= auto_discovery_link_tag :atom, "http://feeds.feedburner.com/LatestActivityOnCrantastic",
