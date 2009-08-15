@@ -9,6 +9,7 @@ class WeeklyDigestsController < ApplicationController
   index.wants.html { @title = @atom[:title] }
   index.wants.atom { }
   show.wants.html { @title = object.title }
+  show.wants.text {}
   show.failure.wants.html { rescue_404 }
 
   # Feels dirty to render the daily digests from here, but a separate controller
