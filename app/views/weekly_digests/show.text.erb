@@ -1,0 +1,33 @@
+CRAN (and crantastic) updates this week
+
+New packages
+------------
+
+<%- object.packages.each do |package| -%>
+* <%= package.name %> (<%= package.latest_version.version %>)
+  <%= package.latest_version.authors %>
+  http://crantastic.org<%= url_for(package) %>
+  
+  <%= package.description.wrap(70, 2) rescue "" %>
+  
+<%- end -%>
+
+Updated packages
+----------------
+
+<%= object.versions.map{|v| "#{v.name} (#{v.version})"}.join(", ").wrap(70) %>
+
+New reviews
+-----------
+
+<%- object.reviews.each do |review| -%>
+* <%= review.package %>, by <%= review.user %> 
+  http://crantastic.org<%= url_for(review) %>
+  
+<%- end -%>
+
+
+This email provided as a service for the R community by 
+http://crantastic.org.  
+
+Like it?  Hate it?  Please let us know: cranatic@gmail.com.

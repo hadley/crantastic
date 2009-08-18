@@ -22,14 +22,15 @@
                              'facebox', 'application'  -%>
   <%= javascript_tag "window.AUTH_TOKEN = '#{form_authenticity_token}';" %>
 
+  <%= auto_discovery_link_tag :atom, @atom[:url], :title => @atom[:title] if
+      @atom && @atom[:title] != "Latest activity on crantastic" %>
+
   <%= auto_discovery_link_tag :atom, "http://feeds.feedburner.com/LatestActivityOnCrantastic",
       :title => "Latest activity on crantastic" %>
   <%= auto_discovery_link_tag :atom, "http://feeds.feedburner.com/NewPackageVersionsOnCrantastic",
       :title => "New package versions on crantastic" %>
   <%= auto_discovery_link_tag :atom, "http://feeds.feedburner.com/NewPackagesOnCrantastic",
       :title => "New packages on crantastic" %>
-  <%= auto_discovery_link_tag :atom, @atom[:url], :title => @atom[:title] if
-      @atom && @atom[:title] != "Latest activity on crantastic" %>
   <meta name="verify-v1" content="YtXicWGGldm5yUfU718DJMAreQ9gf2gtsSCe5VysH10=" />
 </head>
 <body>
@@ -84,31 +85,19 @@
   </div>
   <% end -%>
 
-  <div style="background-color: transparent; margin-right: 16px; text-align: right; float: right">
-    <p style="margin: 0">
-            <small>Follow us on twitter: &nbsp;
-          <%= link_to(image_tag("social_twitter.png",
-                                :style=>"height:22px;margin-right: -1px;margin-bottom: -2px"),
-                      "http://twitter.com/cranatic") %></small>
-            </p>
-    <% if @atom && @atom[:title].not_blank? -%>
-      <p style="margin-bottom: 4px">
-        <small>
-          <% if @atom[:text] -%>
-            <%= @atom[:text] -%>: &nbsp;
-          <% else -%>
-            Stay up to date on <%= @atom[:title].scan(/(on|for) (.*)/)[0][1] -%>: &nbsp;
-          <% end -%>
-          <%= link_to(image_tag("feed-icon-28x28.png",
-                                :style=>"height:20px;margin-bottom: -2px"), @atom[:url]) %>
-        </small>
-      </p>
-    <% end -%>
-    <p>
-      <small>
-        Don't use feeds? Try <%= link_to "email", email_notifications_url %>!
-      </small>
-    </p>
+  <div id="follow"><ul>
+    <li>Follow us on <a href="http://twitter.com/cranatic">twitter</a>&nbsp;
+    <a href="http://twitter.com/cranatic"><img src="/images/twitter_16.png" width="16" height = "16" /></a></li>
+    
+    <%- if @atom -%>
+    <li>Or via your <a href="<%= @atom[:url] %>">feed reader</a>&nbsp;
+    <a href="<%= @atom[:url] %>"><img src="/images/rss_16.png" width="16" height = "16" /></a></li>
+    <%- end -%>
+    
+    <li>Or even with <%= link_to "email", email_notifications_url %>&nbsp;
+    <a href="<%= url_for email_notifications_url %>"><img src="/images/email_16.png" width="16" height = "16" /></a>
+    </li>
+  </ul>
   </div>
 
 </div>
