@@ -14,7 +14,7 @@
 
 <script type="text/javascript">
 setGlobalTags([<%= Tag.regular.all.map { |t| "'#{t}'" }.join(", ") %>]);
-$(function () { $('input#tag_name').tagSuggest(); });
+$(function () { $('input#tag_name').tagSuggest(); $('input#tag_name').attr('autocomplete', 'off'); });
 </script>
 
 <%= render :partial => "versions/description" %>
