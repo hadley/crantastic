@@ -15,9 +15,9 @@ class Tagging < ActiveRecord::Base
 
   has_one :timeline_event, :foreign_key => :subject_id, :dependent => :destroy
 
-  belongs_to :user
-  belongs_to :package
-  belongs_to :tag
+  belongs_to :user, :touch => true
+  belongs_to :package, :touch => true
+  belongs_to :tag, :touch => true
 
   fires :new_tagging, :on                => :create,
                       :actor             => :user,

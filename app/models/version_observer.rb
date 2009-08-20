@@ -18,7 +18,7 @@ class VersionObserver < ActiveRecord::Observer
 
     # Update the author's updated_at attribute
     unless version.authors.empty?
-      version.authors.each { |a| a.update_attribute(:updated_at, Time.now) }
+      version.authors.each(&:touch)
     end
 
     # Create/Update Priority taggings

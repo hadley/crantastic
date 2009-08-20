@@ -16,8 +16,8 @@
 
 class Review < ActiveRecord::Base
 
-  belongs_to :user
-  belongs_to :package
+  belongs_to :user, :touch => true
+  belongs_to :package, :touch => true
   belongs_to :version
 
   has_many :review_comments, :dependent => :destroy
