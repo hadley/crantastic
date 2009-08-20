@@ -28,7 +28,6 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem 'haml', :version => '>= 2.2.0'
   config.gem 'maruku'
-  config.gem 'sqlite3-ruby', :lib => "sqlite3"
   config.gem 'twitter'
 
   config.github_gem '47primes-amatch'

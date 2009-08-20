@@ -1,6 +1,5 @@
 haml --version ">= 2.2.0"
 maruku
-sqlite3-ruby
 twitter
 47primes-amatch --source http://gems.github.com
 Chrononaut-aegis --version ">= 1.2.0" --source http://gems.github.com
@@ -14,4 +13,3 @@ mislav-will_paginate --source http://gems.github.com
 hpricot
 treetop
 Chrononaut-treetop-dcf --version ">= 0.2.0" --source http://gems.github.com
-Chrononaut-sunspot-client --source http://gems.github.com
