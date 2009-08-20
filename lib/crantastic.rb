@@ -193,4 +193,12 @@ module Crantastic
     end
   end
 
+  class CreateWeeklyDigest
+    def start
+      Log.log!("Starting task: CreateWeeklyDigest")
+      WeeklyDigest.create!
+      Log.log!("Finished task: CreateWeeklyDigest")
+    end
+  end
+
 end

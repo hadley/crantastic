@@ -15,6 +15,11 @@ namespace :crantastic do
     Crantastic::Tweet.new.start
   end
 
+  desc "Create weekly digest for the current week (should run each sunday)"
+  task :create_weekly_digest => :environment do
+    Crantastic::CreateWeeklyDigest.new.start
+  end
+
   desc "Displays the 20 last log entries"
   task :lastlog => :environment do
     Log.all(:limit => 20, :order => "created_at DESC").reverse.each do |entry|
