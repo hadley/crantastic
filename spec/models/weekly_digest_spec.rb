@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe WeeklyDigest do
 
   setup do
+    DigestMailer.should_receive(:deliver_weekly_digest)
     wd = WeeklyDigest.create
     wd.update_attribute(:created_at, DateTime.parse("30 jul 2009"))
   end
@@ -21,6 +22,12 @@ describe WeeklyDigest do
 
   it "should have a title" do
     @digest.title.should == "Weekly digest for week #31"
+  end
+
+  it "should have an email delivered after creation" do
+    WeeklyDigest.first.destroy
+    DigestMailer.should_receive(:deliver_weekly_digest)
+    WeeklyDigest.create
   end
 
 end
