@@ -8,9 +8,10 @@ describe "Search" do
   it "should show search results" do
     visit root_url
     fill_in "q", :with => "test"
+
+    Package.should_receive(:find_by_solr).and_return(nil)
     click_button "Search"
 
-    Package.should_receive(:find_by_solr).and_return([])
     response.should have_tag("h1", "Search")
     assert_contain "Sorry, no results were found. Please try another search query."
   end

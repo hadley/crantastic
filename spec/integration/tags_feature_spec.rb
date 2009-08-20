@@ -24,7 +24,7 @@ describe "Tags" do
 
     response.request.path.should == package_path(Package.first)
     response.should have_tag("li", "test")
-    response.should have_tag("li", "Add tags")
+    assert_contain "Add tags"
   end
 
   it "should add multiple tags to a package" do
@@ -38,8 +38,7 @@ describe "Tags" do
     response.request.path.should == package_path(Package.first)
     response.should have_tag("li", "MachineLearning")
     response.should have_tag("li", "NLP")
-    response.should have_tag("li", "Add tags")
+    assert_contain "Add tags"
   end
 
 end
-

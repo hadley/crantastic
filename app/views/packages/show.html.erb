@@ -4,17 +4,20 @@
 
 <ul class="tags">
   <%= tag_list %>
-  <div style="float: left; margin-top: 4px;">
+
+  <li style="float: left; margin-top: 4px;">
     <%= link_to "Add tags", new_package_tagging_path(@package),
-        :class => "add", :id => "add-tag" %></div></ul>
-    <div id="add-tag-form" style="display:none; margin-top: 0.25em;">
-      <%= render :partial => "taggings/form",
-          :locals => { :tagging => @tagging } %>
-    </div>
+        :class => "add", :id => "add-tag" %>
+  </li>
+</ul>
+<div id="add-tag-form" style="display:none; margin-top: 0.25em;">
+  <%= render :partial => "taggings/form",
+      :locals => { :tagging => @tagging } %>
+</div>
 
 <script type="text/javascript">
-setGlobalTags([<%= Tag.regular.all.map { |t| "'#{t}'" }.join(", ") %>]);
-$(function () { $('input#tag_name').tagSuggest(); $('input#tag_name').attr('autocomplete', 'off'); });
+  setGlobalTags([<%= Tag.regular.all.map { |t| "'#{t}'" }.join(", ") %>]);
+  $(function () { $('input#tag_name').tagSuggest(); $('input#tag_name').attr('autocomplete', 'off'); });
 </script>
 
 <%= render :partial => "versions/description" %>
@@ -54,9 +57,9 @@ $(function () { $('input#tag_name').tagSuggest(); $('input#tag_name').attr('auto
 
       <br />
       <span class="your-rating">
-      <% if logged_in? && r = current_user.rating_for(@package) %>
-        You voted <%= r.rating %>
-      <% end %>
+        <% if logged_in? && r = current_user.rating_for(@package) %>
+          You voted <%= r.rating %>
+        <% end %>
       </span>
     </td>
   </tr>
@@ -74,9 +77,9 @@ $(function () { $('input#tag_name').tagSuggest(); $('input#tag_name').attr('auto
 
       <br />
       <span class="your-rating">
-      <% if logged_in? && r = current_user.rating_for(@package, "documentation") %>
-        You voted <%= r.rating %>
-      <% end %>
+        <% if logged_in? && r = current_user.rating_for(@package, "documentation") %>
+          You voted <%= r.rating %>
+        <% end %>
       </span>
     </td>
   </tr>
@@ -121,9 +124,9 @@ $(function () { $('input#tag_name').tagSuggest(); $('input#tag_name').attr('auto
 
 <hr />
 <p><strong>Related packages:</strong>
-<%= package_links(@package.find_related_packages(:limit => 20)) %> &hellip;
+  <%= package_links(@package.find_related_packages(:limit => 20)) %> &hellip;
 
-<small>(20 best matches, based on common tags.)</small>
+  <small>(20 best matches, based on common tags.)</small>
 </p>
 
 <hr />

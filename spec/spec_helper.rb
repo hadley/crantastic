@@ -15,7 +15,7 @@ end
 
 class ActsAsSolr::Post
   def self.execute(request)
-    true
+    false
   end
 end
 

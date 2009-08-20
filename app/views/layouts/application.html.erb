@@ -87,15 +87,21 @@
 
   <div id="follow"><ul>
     <li>Follow us on <a href="http://twitter.com/cranatic">twitter</a>&nbsp;
-    <a href="http://twitter.com/cranatic"><img src="/images/twitter_16.png" width="16" height = "16" /></a></li>
-    
+    <a href="http://twitter.com/cranatic">
+      <img src="/images/twitter_16.png" width="16" height="16" alt="Follow us on Twitter!" />
+    </a></li>
+
     <%- if @atom -%>
     <li>Or via your <a href="<%= @atom[:url] %>">feed reader</a>&nbsp;
-    <a href="<%= @atom[:url] %>"><img src="/images/rss_16.png" width="16" height = "16" /></a></li>
+    <a href="<%= @atom[:url] %>">
+      <img src="/images/rss_16.png" width="16" height="16" alt="Subscribe" />
+    </a></li>
     <%- end -%>
-    
+
     <li>Or even with <%= link_to "email", email_notifications_url %>&nbsp;
-    <a href="<%= url_for email_notifications_url %>"><img src="/images/email_16.png" width="16" height = "16" /></a>
+    <a href="<%= url_for email_notifications_url %>">
+      <img src="/images/email_16.png" width="16" height="16" alt="Email notifications" />
+    </a>
     </li>
   </ul>
   </div>
