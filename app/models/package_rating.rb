@@ -14,8 +14,8 @@
 
 class PackageRating < ActiveRecord::Base
 
-  belongs_to :user
-  belongs_to :package
+  belongs_to :user, :touch => true
+  belongs_to :package, :touch => true
 
   fires :new_package_rating, :on                => [:create, :update],
                              :actor             => :user,
