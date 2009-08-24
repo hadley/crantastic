@@ -1,6 +1,4 @@
-%h1= object.title
-
-%h3= "From #{object.start_date.to_time.to_s(:pretty)} to #{object.end_date.to_time.to_s(:pretty)}"
+%h1= "Cran updates #{object.start_date.to_time.strftime("%d %b")}&#150;#{object.end_date.to_time.strftime("%d %b")}"
 
 = packages(object.packages)
 = versions(object.versions)
