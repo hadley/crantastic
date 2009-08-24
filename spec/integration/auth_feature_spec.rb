@@ -12,6 +12,7 @@ describe "Authentication" do
     fill_in "Email", :with => "test@test.com"
     fill_in "Password", :with => "test"
     fill_in "Confirm password", :with => "test"
+    check "user_tos"
     click_button "Sign up"
     assert_contain "Thanks for signing up."
     response.request.path.should == thanks_path

@@ -51,6 +51,8 @@ class User < ActiveRecord::Base
     c.merge_validates_length_of_email_field_options :if => Proc.new { |user| !user.from_rpx }
   end
 
+  validates_acceptance_of :tos, :if => Proc.new { |user| !user.from_rpx }
+
   has_role
 
   is_gravtastic # Enables the Gravtastic plugin for the User model
@@ -68,7 +70,7 @@ class User < ActiveRecord::Base
   # Prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :remember,
-                  :homepage, :profile
+                  :homepage, :profile, :tos
 
   attr_accessor :from_rpx
 
