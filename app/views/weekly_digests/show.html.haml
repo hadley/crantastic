@@ -1,5 +1,7 @@
 %h1= object.title
 
+%h3= "From #{object.start_date.to_time.to_s(:pretty)} to #{object.end_date.to_time.to_s(:pretty)}"
+
 = packages(object.packages)
 = versions(object.versions)
 = reviews(object.reviews)
