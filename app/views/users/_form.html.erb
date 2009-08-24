@@ -33,7 +33,8 @@
 
 <p><label for="user_remember">Remember me</label>
 <%= error_message_for @user, :remember  %><br/>
-<%= f.check_box :remember %></p>
+<%= f.check_box :remember %>
+<em>Automatically login in the future; not for shared computers!</em></p>
 
 <p><%= f.submit(@user.new_record? ? 'Sign up' : 'Save details') %></p>
 <% end -%>
