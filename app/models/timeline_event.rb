@@ -19,6 +19,7 @@
 # It's important that the secondary_subject always is set to Package,
 # and actor always set to User.
 class TimelineEvent < ActiveRecord::Base
+
   default_scope :order => "timeline_event.created_at DESC"
   named_scope :recent, :limit => 25, :include => [:actor, :subject, :secondary_subject]
   named_scope :recent_for_user, lambda { |u| {
@@ -60,9 +61,46 @@ class TimelineEvent < ActiveRecord::Base
   ## No. of events to show per page.
   def self.per_page; 25; end
 
-  def self.paginate_recent(search_results_page=1)
+  def self.paginate_recent(search_results_page=1, options={})
     paginate({ :include => [:actor, :subject, :secondary_subject],
-               :page => search_results_page })
+               :page => search_results_page }.update(options))
+  end
+
+
+  def self.filtered_events
+    page = 0
+    events, result, filtered_events = [], [], []
+
+    until result.size == 25
+      if events.empty? # fetch another batch of timeline events from the db
+        page += 1
+        events = self.paginate_recent(page).reverse
+      end
+
+      event = events.pop
+
+      # Just skip over the events that aren't user actions
+      if event.actor.nil?
+        unless filtered_events.empty?
+          result << ((filtered_events.size > 1) ? FilteredEvent.new(filtered_events) : filtered_events[0])
+          filtered_events = []
+        else
+          result << event
+        end
+      elsif filtered_events.size > 0
+        if filtered_events.first.actor == event.actor
+          filtered_events << event
+        else
+          # Change of actor
+          result << ((filtered_events.size > 1) ? FilteredEvent.new(filtered_events) : filtered_events[0])
+          filtered_events = [event]
+        end
+      else
+        filtered_events = [event]
+      end
+    end
+
+    result
   end
 
   def package_event?
@@ -79,4 +117,5 @@ class TimelineEvent < ActiveRecord::Base
       self.update_attribute(:cached_value, self.subject.version)
     end
   end
+
 end
