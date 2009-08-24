@@ -24,7 +24,7 @@ class WeeklyDigest < ActiveRecord::Base
 
   validates_format_of :param, :with => /^2\d{3}-[0-5]\d$/
 
-  before_validation lambda { |r| r.param = [Time.now.year, Date.today.cweek].join("-") }
+  before_validation lambda { |r| r.param = [Time.now.year, Date.today.cweek].join("-") if r.param.blank? }
 
   default_scope :order => "id DESC" # Newest digests first
 
