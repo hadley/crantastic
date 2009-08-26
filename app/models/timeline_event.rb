@@ -66,15 +66,26 @@ class TimelineEvent < ActiveRecord::Base
                :page => search_results_page }.update(options))
   end
 
+  def self.paginate_filtered_events(search_results_page=1, options={})
+    WillPaginate::Collection.create(search_results_page, self.per_page) do |pager|
+      result = self.filtered_events(search_results_page.to_i)
+      pager.replace(result)
 
-  def self.filtered_events
-    page = 0
+      unless pager.total_entries
+        # the pager didn't manage to guess the total count, do it manually
+        pager.total_entries = TimelineEvent.count
+      end
+    end
+  end
+
+  def self.filtered_events(page=1)
     events, result, filtered_events = [], [], []
 
     until result.size == 25
       if events.empty? # fetch another batch of timeline events from the db
-        page += 1
         events = self.paginate_recent(page).reverse
+        break if events.empty? # break out if we are truely out of events
+        page += 1
       end
 
       event = events.pop
@@ -101,6 +112,10 @@ class TimelineEvent < ActiveRecord::Base
     end
 
     result
+  end
+
+  def user_event?
+    self.actor.not_nil?
   end
 
   def package_event?
