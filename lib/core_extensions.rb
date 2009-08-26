@@ -14,6 +14,9 @@ class Hash
       options
     end
   end
+
+  # Not sure why, but Hoptoad seems to want to_str instead of to_s
+  alias :to_str :to_s
 end
 
 class String
