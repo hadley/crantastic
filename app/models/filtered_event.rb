@@ -29,4 +29,9 @@ class FilteredEvent
     @events.map(&:created_at).max
   end
 
+  # Picks the most recent updated_at date
+  def updated_at
+    @events.map(&:updated_at).max
+  end
+
 end
