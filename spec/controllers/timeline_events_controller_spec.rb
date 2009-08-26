@@ -14,6 +14,12 @@ describe TimelineEventsController do
     response.should be_success
   end
 
+  it "should have an atom feed" do
+    get :index, :format => "atom"
+    response.should have_tag('title', "Latest activity on crantastic")
+    response.should be_success
+  end
+
   describe "XHTML Markup" do
 
     it "should be valid for the index page" do

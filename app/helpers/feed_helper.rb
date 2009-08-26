@@ -5,7 +5,7 @@ module FeedHelper
     xml = ::Builder::XmlMarkup.new(:indent => 2)
     root = obj.nil? ? root_url : polymorphic_url(obj)
     atom_feed(:root_url => root) do |feed|
-      feed.title("Latest activity " + (obj.nil? ? " on crantastic" : "for #{obj}"))
+      feed.title("Latest activity " + (obj.nil? ? "on crantastic" : "for #{obj}"))
       feed.updated(obj.nil? ? @events.first.updated_at : obj.updated_at)
       feed.author do |author|
         author.name("crantastic.org")
