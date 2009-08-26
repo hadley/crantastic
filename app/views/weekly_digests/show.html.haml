@@ -1,4 +1,7 @@
-%h1= "Cran updates #{object.start_date.to_time.strftime("%d %b")}&#150;#{object.end_date.to_time.strftime("%d %b")}"
+- if object.kind_of? WeeklyDigest
+  %h1= "Cran updates #{object.start_date.to_time.strftime("%d %b")}&#150;#{object.end_date.to_time.strftime("%d %b")}"
+- elsif object.kind_of? DailyDigest
+  %h1= object.title
 
 = packages(object.packages)
 = versions(object.versions)
