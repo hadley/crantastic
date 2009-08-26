@@ -1,58 +1,86 @@
 module TimelineEventsHelper
 
-  def timeline_event(item, display_time_ago=true)
-    "<li>" +
-    (item.actor.not_nil? ? link_to(item.actor, user_path(item.actor)) + " " : "") +
-    case item.event_type
+  def action(action_txt)
+    content_tag("span", action_txt, :class => "action")
+  end
 
-    when "new_package" then
-
-      # Maybe include version number here
-      link_to(item.subject, item.subject) + " was " +
-        content_tag("span", "released", :class => "action")
-
-    when "new_version" then
-
-      link_to(item.secondary_subject, item.secondary_subject) + " was " +
-        content_tag("span", "upgraded", :class => "action") +
-        " to version " +
-        link_to(item.subject, package_version_path(item.subject.package, item.subject))
+  def user_action(event_type, events, display_action=true)
+    case event_type
 
     when "new_tagging" then
 
-      content_tag("span", "tagged", :class => "action") + " " +
-        link_to(item.secondary_subject, item.secondary_subject) +
-        " with #{link_to(item.subject.tag, item.subject.tag)}"
-
-    when "updated_task_view" then
-
-      link_to(item.subject, item.subject) + " was " +
-        content_tag("span", "updated", :class => "action") +
-        " to version #{item.cached_value}"
+      action("tagged") + " " +
+        events.map do |e|
+        link_to(e.secondary_subject, e.secondary_subject) +
+          " with #{link_to(e.subject.tag, e.subject.tag)}"
+      end.to_sentence
 
     when "new_package_rating" then
 
-      content_tag("span", "rated", :class => "action") + " " +
-        link_to(item.secondary_subject, item.secondary_subject) +
-        "#{item.subject.aspect == 'overall' ? '' : '\'s documentation'}" +
-        " with " + content_tag("span", "#{item.cached_value} stars", :class => "red")
+      action("rated") + " " +
+        events.map do |e|
+        link_to(e.secondary_subject, e.secondary_subject) +
+          "#{e.subject.aspect == 'overall' ? '' : '\'s documentation'}" +
+          " with " + content_tag("span", "#{e.cached_value} stars", :class => "red")
+      end.to_sentence
 
     when "new_package_user" then
 
-      content_tag("span", "uses", :class => "action") + " " +
-        link_to(item.secondary_subject, item.secondary_subject)
+      action("uses") + " " +
+        events.map { |e| link_to(e.secondary_subject, e.secondary_subject) }.to_sentence
 
     when "new_review" then
 
-      content_tag("span", "reviewed", :class => "action") + " " +
-        link_to(item.secondary_subject, item.secondary_subject) +
-        " with " + link_to("these words", [item.subject.package, item.subject])
+      action("reviewed") + " " +
+        events.map do |e|
+        link_to(e.secondary_subject, e.secondary_subject) +
+          " with " + link_to("these words", [e.subject.package, e.subject])
+      end.to_sentence
 
-    else "performed an unkown action"
+    end
+  end
 
-    end +
-      (display_time_ago ? " (#{time_ago_in_words(item.created_at)} ago)" : "") +
-       ".</li>"
+  def timeline_event(item, display_time_ago=true, li=true)
+
+    output = if item.package_event?
+               case item.event_type
+
+               when "new_package" then
+
+                 # Maybe include version number here
+                 link_to(item.subject, item.subject) + " was " + action("released")
+
+               when "new_version" then
+
+                 link_to(item.secondary_subject, item.secondary_subject) + " was " +
+                   action("upgraded") + " to version " +
+                   link_to(item.subject, package_version_path(item.subject.package, item.subject))
+               end
+
+             elsif item.user_event?
+
+               link_to(item.actor, item.actor) + " " +
+                 if item.kind_of? FilteredEvent
+                   item.events.map { |(k,v)| user_action(k, v) }.to_sentence
+                 else
+                   user_action(item.event_type, [item])
+                 end
+
+             else
+
+               case item.event_type
+
+               when "updated_task_view" then
+                 link_to(item.subject, item.subject) + " was " + action("updated") +
+                   " to version #{item.cached_value}"
+               end
+
+             end
+
+    output = "performed an unkown action" if output.blank?
+
+    output += " (#{time_ago_in_words(item.created_at)} ago)" if display_time_ago
+    content_tag(:li, output) if li
   end
 
 end
