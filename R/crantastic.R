@@ -56,7 +56,7 @@ baseUrl <- "crantastic.org"
 `getToken` <- function()
 {
   if (crantasticToken == "") {
-    print("Please define your crantastic token by setting the CRANTATSIC_TOKEN environment variable.")
+    print("Please define your crantastic token by setting the CRANTASTIC_TOKEN environment variable.")
     return(FALSE)
   } else {
     return(paste("user_credentials=", crantasticToken, sep=""))
