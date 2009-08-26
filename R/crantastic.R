@@ -1,4 +1,3 @@
-crantasticToken <- as.vector(Sys.getenv("CRANTASTIC_TOKEN"))
 baseUrl <- "crantastic.org"
 
 ## Tag a package on crantastic. Tags should be a comma-separated string
@@ -55,6 +54,7 @@ baseUrl <- "crantastic.org"
 
 `getToken` <- function()
 {
+  crantasticToken <- as.vector(Sys.getenv("CRANTASTIC_TOKEN"))
   if (crantasticToken == "") {
     print("Please define your crantastic token by setting the CRANTASTIC_TOKEN environment variable.")
     return(FALSE)
