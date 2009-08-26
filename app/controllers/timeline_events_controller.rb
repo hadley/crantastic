@@ -7,7 +7,7 @@ class TimelineEventsController < ApplicationController
   before_filter :set_atom
 
   show.failure.wants.html { rescue_404 }
-  index.wants.atom { @events = @timeline_events }
+  index.wants.atom { @events = TimelineEvent.recent }
   index.wants.js { render :partial => "paginated_events", :locals => { :events => @timeline_events } }
 
   private
