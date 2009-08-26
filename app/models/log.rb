@@ -19,6 +19,7 @@ class Log < ActiveRecord::Base
   end
 
   def self.log_and_report!(msg, request={}, quiet=false)
+    msg = msg.respond_to?(:to_s) ? msg.to_s : "Unknown error"
     self.log!(msg, quiet)
     opts = HoptoadNotifier.
       default_notice_options.merge({

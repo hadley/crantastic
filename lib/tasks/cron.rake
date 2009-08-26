@@ -13,8 +13,8 @@ task :cron => :environment do
   rescue SocketError # timeout, etc
     Log.log_and_report! "Socket error, check your connection"
   rescue URI::InvalidURIError => e
-    Log.log_and_report! e.to_s
+    Log.log_and_report! "Invalid URI Error"
   rescue Exception => e
-    Log.log_and_report! e.to_s
+    Log.log_and_report! e
   end
 end
