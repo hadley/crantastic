@@ -13,7 +13,7 @@ class TimelineEventsController < ApplicationController
   private
   def collection
     @page = params[:page] || 1
-    TimelineEvent.paginate_recent(@page)
+    TimelineEvent.paginate_filtered_events(@page)
   end
 
   def set_atom
