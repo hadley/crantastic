@@ -5,6 +5,69 @@ require "twitter"
 
 module Crantastic
 
+  module Resources
+
+    class Package < ActiveResource::Base
+      self.site = "http://crantastic:#{ENV['CRANTASTIC_PASSWORD']}@#{APP_CONFIG[:site_domain]}/"
+
+      def self.find_by_name(name)
+        self.find(name)
+      rescue ActiveResource::ResourceNotFound
+        nil
+      end
+
+      def self.all
+        self.find(:all, :from => :all)
+      end
+    end
+
+    class Version < ActiveResource::Base
+      self.site = "http://crantastic:#{ENV['CRANTASTIC_PASSWORD']}@#{APP_CONFIG[:site_domain]}/"
+    end
+
+    class Author < ActiveResource::Base
+      self.site = "http://crantastic:#{ENV['CRANTASTIC_PASSWORD']}@#{APP_CONFIG[:site_domain]}/"
+
+      def self.find_by_name(name)
+        self.find(:first, :params => { :name => name })
+      rescue ActiveResource::ResourceNotFound
+        nil
+      end
+
+      def self.find_by_email(email)
+        self.find(:first, :params => { :email => email })
+      rescue ActiveResource::ResourceNotFound
+        nil
+      end
+
+      def self.find_or_create(name = nil, email = nil)
+        author = email.nil? ? nil : Author.find_by_email(email)
+        author = self.find_by_name(name) unless author
+        author.nil? ? self.create(:name => name, :email => email) : author
+      end
+
+      # Input is mainly from the "Maintainer"-field in CRAN's DESCRIPTION
+      # files. E.g. "Christian Buchta <christian.buchta at wu-wien.ac.at>".
+      # E-mail address is not guaranteed to be valid, as can be seen above.
+      #
+      # @return [Author] An Author-object corresponding to the input string
+      def self.new_from_string(string)
+        name, email = string.mb_chars.split(/[<>]/).map(&:strip)
+        if name =~ /@/
+          email = name
+          name = nil
+        end
+
+        return self.find_by_name("Unknown") if name.blank?
+
+        email.downcase! unless email.blank? # NOTE: is this necessary?
+
+        Author.find_or_create(name, email)
+      end
+    end
+
+  end
+
   class UpdatePackages
     def start
       Log.log!("Starting task: UpdatePackages")
@@ -12,30 +75,30 @@ module Crantastic
       `curl -s http://cran.r-project.org/src/contrib/PACKAGES.gz -o tmp/PACKAGES.gz`
       `gunzip -f tmp/PACKAGES.gz`
       packages = File.read("tmp/PACKAGES")
+      crantastic_pkgs = Resources::Package.all
+
       packages.split("\n\n").each do |entry|
         package = entry.scan(/Package: (.+)/)[0][0]
         version = entry.scan(/Version: (.+)/)[0][0]
 
         next if package == "orientlib" && version == "0.10.1" # known bad entry
 
-        cur = Package.find_by_name(package)
+        cur = crantastic_pkgs.find { |pkg| pkg.name == package }
         if cur
-          if cur.latest.version != version
+          if cur.latest_version.version != version
             Log.log!("Updating package: #{package} (#{version})")
-            add_version_to_db(CRAN::CranPackage.new(package, version))
-
-            # twitter_client.update("#rstats #{package} upgraded to version #{version}: " +
-            #                       "http://crantastic.org/packages/#{package}")
+            add_version_to_db(CRAN::CranPackage.new(package, version), cur.id)
           end
         else
           Log.log!("New package: #{package} (#{version})")
-          Package.transaction do
-            Package.create!(:name => package) # Start by creating the package entry
-            add_version_to_db(CRAN::CranPackage.new(package, version))
+          # ActiveResource doesn't support transactions so this is a bit scary
+          pkg = Resources::Package.create(:name => package)
+          begin
+            add_version_to_db(CRAN::CranPackage.new(package, version), pkg.id)
+          rescue Exception => e
+            pkg.destroy
+            throw e
           end
-
-          #twitter_client.update("#rstats #{package} released: " +
-          #                      "http://crantastic.org/packages/#{package}")
         end
       end
       File.delete("tmp/PACKAGES")
@@ -43,7 +106,7 @@ module Crantastic
       return true
     end
 
-    def add_version_to_db(pkg)
+    def add_version_to_db(pkg, crantastic_package_id)
       filename = "#{pkg.name}_#{pkg.version}.tar.gz"
       `curl -s "http://cran.r-project.org/src/contrib/#{pkg.name}_#{pkg.version}.tar.gz" -o tmp/#{filename}`
       `tar -C tmp -zxvf tmp/#{filename}; rm tmp/#{filename}`
@@ -90,10 +153,11 @@ module Crantastic
       data.delete(:packaged)
 
       # Find or create maintainer
-      data[:maintainer] = Author.new_from_string(data[:maintainer])
+      data[:maintainer_id] = Resources::Author.new_from_string(data[:maintainer]).id
+      data.delete(:maintainer)
 
-      data[:package] = Package.find_by_name(pkg.name)
-      Version.create!(data)
+      data[:package_id] = crantastic_package_id
+      Resources::Version.create(data)
       FileUtils.rm_rf(pkgdir)
     rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError, Timeout::Error
       Log.log_and_report! "Problem downloading #{pkg}, skipping to next pkg"
@@ -114,6 +178,7 @@ module Crantastic
     end
   end
 
+  # NOTE: This still runs on Heroku (and there is no reason why it shouldn't)
   class UpdateTaskViews
     def start
       Log.log!("Starting task: UpdateTaskViews")
