@@ -40,9 +40,9 @@ class Author < ActiveRecord::Base
   validates_length_of :email, :in => 0..255, :allow_nil => true
 
   def self.find_or_create(name = nil, email = nil)
-    author = email.nil? ? nil : Author.find_by_email(email)
-    author = Author.find_by_name(name) unless author
-    author.nil? ? Author.create(:name => name, :email => email) : author
+    author = email.nil? ? nil : self.find_by_email(email)
+    author = self.find_by_name(name) unless author
+    author.nil? ? self.create(:name => name, :email => email) : author
   end
 
   # Input is mainly from the "Maintainer"-field in CRAN's DESCRIPTION
@@ -51,17 +51,17 @@ class Author < ActiveRecord::Base
   #
   # @return [Author] An Author-object corresponding to the input string
   def self.new_from_string(string)
-    return Author.find_or_create_by_name("Unknown") if string.blank?
-
     name, email = string.mb_chars.split(/[<>]/).map(&:strip)
     if name =~ /@/
       email = name
       name = nil
     end
 
+    return self.find_or_create_by_name("Unknown") if name.blank?
+
     email.downcase! unless email.blank? # NOTE: is this necessary?
 
-    Author.find_or_create(name, email)
+    self.find_or_create(name, email)
   end
 
   def to_s
