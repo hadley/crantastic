@@ -1,6 +1,7 @@
 class PackagesController < ApplicationController
 
-  before_filter :login_required, :only => [ :toggle_usage  ]
+  before_filter :login_required, :only => :toggle_usage
+  before_filter :admin_required, :only => :create
 
   def index
     page_no = params[:page] || 1
@@ -17,9 +18,8 @@ class PackagesController < ApplicationController
 
     respond_to do |format|
       format.html {}
-      format.js do
-        render :partial => "packages/list"
-      end
+      format.js { render :partial => "packages/list" }
+      format.xml { render :xml => @packages }
     end
   end
 
@@ -31,10 +31,11 @@ class PackagesController < ApplicationController
   end
 
   def all
+    @packages = Package.all(:include => :latest_version)
     respond_to do |format|
-      format.html do
-        @packages = Package.all
-        @title = "#{Package.count} R packages"
+      format.html { @title = "#{Package.count} R packages" }
+      format.xml do
+        render :xml => @packages.to_xml
       end
     end
   end
@@ -58,6 +59,21 @@ class PackagesController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     rescue_404
+  end
+
+  def create
+    @package = Package.create!(params[:package])
+    respond_to do |format|
+      format.xml do
+        render :xml => @package
+      end
+    end
+  rescue
+    respond_to do |format|
+      format.xml do
+        render :nothing => true, :status => :conflict
+      end
+    end
   end
 
   def toggle_usage

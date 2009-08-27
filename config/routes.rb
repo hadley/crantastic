@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
   map.resources :author_identities, :only => [ :new, :create ]
-  map.resources :authors, :only => [ :index, :show, :edit, :update ]
+  map.resources :authors, :only => [ :index, :show, :create, :edit, :update ]
   map.resources :password_resets, :except => [ :index, :destroy, :show ]
   map.resources :priorities, :only => [ :index, :show ], :controller => "tags",
                              :requirements => { :type => "priority" }
@@ -11,7 +11,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :timeline_events, :only => [ :index, :show ]
   map.resources :users, :except => [ :destroy ],
                         :member => { :regenerate_api_key => :get }
-  map.resources :versions, :only => [ :index ], :collection => { :feed => :get }
+  map.resources :versions, :only => [ :index, :create ],
+                           :collection => { :feed => :get }
   map.resources :votes, :only => [ :create ]
   map.resources :weekly_digests, :only => [ :index, :show ]
 
@@ -19,8 +20,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :packages,
                 :collection => { :all => :get, :feed => :get },
                 :member => { :toggle_usage => :post },
-                :except => [ :create, :update, :edit ] do |p|
-    p.resources :versions, :only => [ :show ]
+                :except => [ :update, :edit ] do |p|
+    p.resources :versions, :only => [ :index, :show ]
     p.resources :ratings, :except => [ :edit, :update ]
     p.resources :reviews
     p.resources :taggings, :only => [ :new, :create, :destroy ]

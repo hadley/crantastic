@@ -2,14 +2,19 @@ class VersionsController < ApplicationController
 
   resource_controller
 
-  actions :index, :show
+  actions :index, :show, :create
 
   belongs_to :package
 
-  # We don't currently have an index page for Versions, so simply do a 404.
+  before_filter :admin_required, :only => :create
+
   index.wants.html { rescue_404 }
+  index.wants.xml { render :xml => collection }
 
   show.failure.wants.html { rescue_404 }
+
+  create.wants.xml { render :xml => object }
+  create.failure.wants.xml { render :nothing => true, :status => :conflict }
 
   def feed
     @versions = Version.recent
