@@ -37,6 +37,10 @@ class Package < ActiveRecord::Base
     end
   end
 
+  has_one :timeline_event, :foreign_key => :subject_id,
+                           :conditions  => { :event_type => "new_package" },
+                           :dependent   => :destroy
+
   # We cache the latest version id
   belongs_to :latest_version, :class_name => "Version"
   alias :latest :latest_version
@@ -114,6 +118,22 @@ class Package < ActiveRecord::Base
     name
   end
 
+  def to_xml(options = {})
+    xml = Builder::XmlMarkup.new
+    xml = options[:builder] ||= Builder::XmlMarkup.new(:indent => options[:indent])
+    xml.instruct! unless options[:skip_instruct]
+    xml.package do
+      xml.id self.id, {:type => :integer}
+      xml.name self.name
+      if self.latest
+        xml.latest_version do
+          xml.id self.latest.id, {:type => :integer}
+          xml.version self.latest.version
+        end
+      end
+    end
+  end
+
   def url_for(site)
     case site
     when "google" then
@@ -129,7 +149,7 @@ class Package < ActiveRecord::Base
       "http://finzi.psych.upenn.edu/cgi-bin/namazu.cgi" +
         "?idxname=R-devel&query=" + CGI.escape(name)
     when "graphical_manual" then
-       "http://bm2.genes.nig.ac.jp/RGM2/pkg.php?p=" + CGI.escape(name)
+      "http://bm2.genes.nig.ac.jp/RGM2/pkg.php?p=" + CGI.escape(name)
     end
   end
 
