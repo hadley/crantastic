@@ -59,6 +59,7 @@ class Version < ActiveRecord::Base
 
   validates_existence_of :package_id
   validates_presence_of :version
+  validates_uniqueness_of :version, :scope => :package_id
   validates_length_of :name, :in => 2..255
   validates_length_of :version, :in => 1..25
   validates_length_of :title, :in => 0..255, :allow_nil => true
