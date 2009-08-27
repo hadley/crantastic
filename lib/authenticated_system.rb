@@ -23,7 +23,7 @@ module AuthenticatedSystem
   alias :require_user :login_required
 
   def admin_required
-    (login_required && current_user.role.name == :administrator) || access_denied
+    (logged_in? && current_user.role.name == :administrator) || access_denied
   end
 
   def require_no_user
