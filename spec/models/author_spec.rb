@@ -20,7 +20,7 @@ describe Author do
     Author.should_receive(:find_or_create).with("John Doe", nil)
     Author.new_from_string("John Doe")
 
-    Author.should_receive(:find_or_create).with(nil, "john@doe.com")
+    Author.should_receive(:find_or_create_by_name).with("Unknown")
     Author.new_from_string("john@doe.com")
 
     Author.should_receive(:find_or_create).with("John Doe", "john@doe.com")

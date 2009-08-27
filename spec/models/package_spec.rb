@@ -35,7 +35,7 @@ describe Package do
   it "should be marked as updated after it receives a new version" do
     pkg = Package.find_by_param("bio.infer")
     prev_time = pkg.updated_at
-    Version.make(:package => pkg, :maintainer => Author.first)
+    Version.make(:package => pkg, :maintainer => Author.first, :version => "5.3")
     (pkg.updated_at > prev_time).should be_true
   end
 
