@@ -22,6 +22,10 @@ module AuthenticatedSystem
   end
   alias :require_user :login_required
 
+  def admin_required
+    (login_required && current_user.role.name == :administrator) || access_denied
+  end
+
   def require_no_user
     if logged_in?
       flash[:notice] = "You must be logged out to access this page"
