@@ -11,7 +11,12 @@
 
 # Simple general purpose model for logging messages
 class Log < ActiveRecord::Base
+
   validates_presence_of :message
+
+  after_create lambda { self.trim_entry_count }
+
+  def self.max_entries; 500; end # Keep a maximum number of log entries in the db
 
   def self.log!(msg, quiet=false)
     puts msg unless quiet
@@ -29,7 +34,13 @@ class Log < ActiveRecord::Base
     HoptoadNotifier.notify(opts)
   end
 
+  def self.trim_entry_count
+    Log.find(:first, :order => "id ASC").destroy while Log.count > self.max_entries
+    true
+  end
+
   def to_s
     "#{self.created_at.strftime("%d %h, %H:%M:%S")}: #{self.message}"
   end
+
 end
