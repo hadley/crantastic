@@ -27,7 +27,7 @@ ActionController::Routing::Routes.draw do |map|
     p.resources :taggings, :only => [ :new, :create, :destroy ]
   end
 
-  map.resources :reviews, :only => [ :index, :show ] do |r|
+  map.resources :reviews do |r|
     r.resources :review_comments, :only => [ :new, :create, :show ]
   end
 
