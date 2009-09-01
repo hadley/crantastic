@@ -1,4 +1,5 @@
 require "fileutils"
+require "digest/md5"
 require "cran"
 require "dcf"
 require "twitter"
@@ -75,6 +76,18 @@ module Crantastic
       `curl -s http://cran.r-project.org/src/contrib/PACKAGES.gz -o tmp/PACKAGES.gz`
       `gunzip -f tmp/PACKAGES.gz`
       packages = File.read("tmp/PACKAGES")
+      digest = Digest::MD5.hexdigest(packages)
+      unless File.exists?("tmp/PACKAGES.digest")
+        File.open("tmp/PACKAGES.digest", "w") { |f| f.print "" }
+      end
+      prev_digest = File.read("tmp/PACKAGES.digest")
+
+      if digest == prev_digest # No changes since last check
+        Log.log!("No changes to the MD5 digest of the PACKAGES file - exiting")
+        Log.log!("Finished task: UpdatePackages")
+        return true
+      end
+
       crantastic_pkgs = Resources::Package.all
 
       packages.split("\n\n").each do |entry|
@@ -101,7 +114,12 @@ module Crantastic
           end
         end
       end
+
+      File.open("tmp/PACKAGES.digest", "w") do |f|
+        f.print Digest::MD5.hexdigest(File.read("tmp/PACKAGES"))
+      end
       File.delete("tmp/PACKAGES")
+
       Log.log!("Finished task: UpdatePackages")
       return true
     end
