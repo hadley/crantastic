@@ -17,6 +17,7 @@ Updated packages
 
 <%= @digest.versions.map{|v| "#{v.name} (#{v.version})"}.join(", ").wrap(70) %>
 
+<% unless @digest.reviews.empty? %>
 New reviews
 -----------
 
@@ -24,6 +25,7 @@ New reviews
 * <%= review.package %>, by <%= review.user %>
   http://crantastic.org<%= url_for(review) %>
 
+<%- end -%>
 <%- end -%>
 
 
