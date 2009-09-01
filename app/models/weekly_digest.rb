@@ -70,7 +70,7 @@ class WeeklyDigest < ActiveRecord::Base
 
   # Returns the first date of the week for this digest
   def start_date
-    (created_at - (created_at.wday - 1).days).to_date
+    (created_at - ((created_at.wday == 0 ? 7 : created_at.wday) - 1).days).to_date
   end
 
   def start_time
@@ -79,7 +79,7 @@ class WeeklyDigest < ActiveRecord::Base
 
   # Returns the last date of the week for this digest
   def end_date
-    (created_at + (7 - created_at.wday).days).to_date
+    (created_at + (7 - (created_at.wday == 0 ? 7 : created_at.wday)).days).to_date
   end
 
   def end_time
