@@ -95,9 +95,8 @@ class TimelineEvent < ActiveRecord::Base
         unless filtered_events.empty?
           result << ((filtered_events.size > 1) ? FilteredEvent.new(filtered_events) : filtered_events[0])
           filtered_events = []
-        else
-          result << event
         end
+        result << event
       elsif filtered_events.size > 0
         if filtered_events.first.actor == event.actor
           filtered_events << event
