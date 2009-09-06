@@ -24,8 +24,15 @@ data_hashes <- function(pkg) {
   env <- paste("package", pkg, sep = ":")
 
   data_sets <- data(package = pkg)$results[, 3]
-  data(list = data_sets, package = pkg)
 
+  # If alias different from, name extract name
+  aliased <- grepl("\\(.*\\)", data_sets)
+  if (any(aliased)) {
+    data_sets[aliased] <- gsub("^.*\\((.*)\\)$", "\\1", data_sets[aliased])
+    data_sets <- unique(data_sets)
+  }
+
+  data(list = data_sets, package = pkg)
   data <- lapply(data_sets, get)
   names(data) <- data_sets
 
