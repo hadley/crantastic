@@ -3,12 +3,12 @@ maruku
 twitter
 47primes-amatch --source http://gems.github.com
 Chrononaut-aegis --version ">= 1.2.0" --source http://gems.github.com
+Chrononaut-rpx_now --version "= 0.5.9" --source http://gems.github.com
 binarylogic-authlogic --source http://gems.github.com
 binarylogic-searchlogic --source http://gems.github.com
 chrislloyd-gravtastic --version ">= 2.1.2" --source http://gems.github.com
 giraffesoft-resource_controller --source http://gems.github.com
 giraffesoft-timeline_fu --version ">= 0.3.0" --source http://gems.github.com
-grosser-rpx_now --version ">= 0.5.8" --source http://gems.github.com
 mislav-will_paginate --source http://gems.github.com
 hpricot
 treetop
