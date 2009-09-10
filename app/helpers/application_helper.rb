@@ -45,4 +45,10 @@ module ApplicationHelper
     out + ")"
   end
 
+  def rpx_embed_code
+    RPXNow.embed_code('crantastic',
+                      rpx_token_session_url +
+                      "#{'?return_to='+params[:return_to] if params[:return_to]}")
+  end
+
 end

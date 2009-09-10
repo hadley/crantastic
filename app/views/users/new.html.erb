@@ -1,10 +1,10 @@
 <% @title = "Sign me up" %>
 <p>Interested in contributing reviews to crantastic?<br />
 
-<% unless params[:show_rpx] %>
+<% unless params[:show_rpx] == "false" %>
   <strong>Sign up with your third-party identification (recommended)</strong></p>
 
-<%= RPXNow.embed_code('crantastic', "http://#{APP_CONFIG[:site_domain]}/session/rpx_token") %>
+<%= rpx_embed_code %>
 
 <p><strong>or fill out the form below</strong></p>
 <% else %>
