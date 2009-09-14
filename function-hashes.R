@@ -33,11 +33,13 @@ data_hashes <- function(pkg) {
   }
 
   data(list = data_sets, package = pkg)
-  data <- lapply(data_sets, get)
+  data <- lapply(data_sets, failwith(NULL, get))
   names(data) <- data_sets
 
-  sapply(data, digest)
+  sapply(compact(data), digest)
 }
+
+
 
 vignette_hashes <- function(pkg) {
   vignettes <- vignette(package=pkg)$results[, 3]
@@ -45,3 +47,19 @@ vignette_hashes <- function(pkg) {
 
   sapply(paths, digest, file = TRUE)
 }
+
+
+try_default <- function(expr, default, quiet = FALSE) {
+  result <- default
+  if (quiet) {
+    tryCatch(result <- expr, error = function(e) {})    
+  } else {
+    try(result <- expr)
+  }
+  result
+}
+failwith <- function(default = NULL, f, quiet = FALSE) {
+  f <- match.fun(f)
+  function(...) try_default(f(...), default, quiet = quiet)
+}
+compact <- function(l) Filter(Negate(is.null), l)
