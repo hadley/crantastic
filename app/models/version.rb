@@ -135,7 +135,7 @@ class Version < ActiveRecord::Base
       :version => version,
       :authors => author,
       :maintainer => maintainer,
-      :keyword => package.tags.map{|t| t.name},
+      :keywords => package.tags.map{|t| t.name},
       :description => description
     }
   end  
