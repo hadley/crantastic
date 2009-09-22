@@ -34,6 +34,7 @@ class PackagesController < ApplicationController
     @packages = Package.all(:include => :latest_version)
     respond_to do |format|
       format.html { @title = "#{Package.count} R packages" }
+      format.bibjs {render :text => @packages.to_json}
       format.xml do
         render :xml => @packages.to_xml
       end
@@ -53,9 +54,10 @@ class PackagesController < ApplicationController
     @title = "The #{@package} package"
 
     respond_to do |format|
-      format.html { set_atom_link(self, @package) }
-      format.xml  { render :xml => @package }
-      format.atom { @events = TimelineEvent.recent_for_package_ids(@package.id) }
+      format.html  { set_atom_link(self, @package) }
+      format.bibjs { render :text => @package.to_json}
+      format.xml   { render :xml => @package }
+      format.atom  { @events = TimelineEvent.recent_for_package_ids(@package.id) }
     end
   rescue ActiveRecord::RecordNotFound
     rescue_404

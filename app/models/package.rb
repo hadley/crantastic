@@ -133,6 +133,10 @@ class Package < ActiveRecord::Base
       end
     end
   end
+  
+  def as_json(options = {})
+    latest_version.as_json(options)
+  end
 
   def url_for(site)
     case site

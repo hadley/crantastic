@@ -128,6 +128,19 @@ class Version < ActiveRecord::Base
     author.split(",").map { |name| Author.new_from_string(name.strip) } rescue []
   end
 
+  def as_json(options) 
+    { :type => "software", 
+      :id => name + "_" + version,
+      :title => name, 
+      :version => version,
+      :authors => author,
+      :maintainer => maintainer,
+      :keyword => package.tags.map{|t| t.name},
+      :description => description
+    }
+  end  
+  
+
   private
 
   def parse_requirements(reqs)

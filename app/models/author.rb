@@ -67,6 +67,10 @@ class Author < ActiveRecord::Base
   def to_s
     self.name
   end
+  
+  def as_json(options = {})
+    {"id" => id, "name" => name}
+  end
 
   def latest_versions
     # The collect call picks the first element out of each grouped array.
