@@ -55,6 +55,7 @@ unless to_update.empty?
     `sudo apt-get install -y #{deb_pkg_name}`
 
     packages.each do |title|
+      puts "./crantastic-store-functions.R #{pkg_title} #{title} #{id}"
       `sudo ./crantastic-store-functions.R #{pkg_title} #{title} #{id}`
       exit_status = $?.exitstatus
       puts "Exit status: #{exit_status}"
