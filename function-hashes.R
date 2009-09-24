@@ -14,10 +14,22 @@ function_hashes <- function(pkg) {
   fs <- Filter(function(x) is.function(x) & !is.generic(x), objs)
 
   method_names <- obj_names[sapply(objs, is.generic)]
+
   names(method_names) <- method_names
   ms <- do.call("c", lapply(method_names, findMethods, where = env))
 
-  sapply(c(fs, ms), digest)
+  mfs <- c(fs, ms)
+
+  ## Creating a new vector with only unique key names, as JSON data can't have
+  ## multiple entries of the same key. The only package I've encountered which
+  ## produces duplicated keys is 'spam'.
+  unique_mfs <-  mfs[!duplicated(names(mfs))]
+  ## I'm not really sure if this is the best way to solve this problem, but it
+  ## does work. We do lose some info since we only store one digest for the keys
+  ## that are duplicate. I think it's bad package design, though, to have
+  ## multiple functions with the same name.
+
+  sapply(unique_mfs, digest)
 }
 
 data_hashes <- function(pkg) {
@@ -25,7 +37,7 @@ data_hashes <- function(pkg) {
 
   data_sets <- data(package = pkg)$results[, 3]
 
-  # If alias different from, name extract name
+  ## If alias different from, name extract name
   aliased <- grepl("\\(.*\\)", data_sets)
   if (any(aliased)) {
     data_sets[aliased] <- gsub("^.*\\((.*)\\)$", "\\1", data_sets[aliased])
@@ -52,7 +64,7 @@ vignette_hashes <- function(pkg) {
 try_default <- function(expr, default, quiet = FALSE) {
   result <- default
   if (quiet) {
-    tryCatch(result <- expr, error = function(e) {})    
+    tryCatch(result <- expr, error = function(e) {})
   } else {
     try(result <- expr)
   }
