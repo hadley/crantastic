@@ -32,6 +32,10 @@ class Tag < ActiveRecord::Base
   # @param tags [String] A list of tags, separated by space (prefered) or commas
   # @return [Array] An array of Tag instances
   def self.parse_and_find_or_create(tags)
+    # handles tags in quotes
+    if tags =~ /^\".+\"$/
+      tags = tags[1..-2].gsub(/ /, '-')
+    end
     tags.split(/[, ]/).map(&:strip).reject(&:empty?).collect do |tag|
       self.find_or_create_with_like_by_name(tag)
     end

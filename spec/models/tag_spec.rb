@@ -34,9 +34,12 @@ describe Tag do
   end
 
   it "should parse tag list" do
-    Tag.should_receive(:find_or_create_with_like_by_name).twice.with("tag1")
-    Tag.should_receive(:find_or_create_with_like_by_name).once.with("tag2")
+    Tag.should_receive(:find_or_create_with_like_by_name).with("tag1").at_most(3).times
+    Tag.should_receive(:find_or_create_with_like_by_name).twice.with("tag2")
+    Tag.should_receive(:find_or_create_with_like_by_name).once.with("graphics-device")
     Tag.parse_and_find_or_create("tag1 , tag2").size.should == 2
+    Tag.parse_and_find_or_create("tag1 tag2").size.should == 2
+    Tag.parse_and_find_or_create("\"graphics device\"").size.should == 1
     Tag.parse_and_find_or_create("tag1, ").size.should == 1
   end
 
