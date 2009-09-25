@@ -21,8 +21,11 @@ class SessionsController < ApplicationController
     data = RPXNow.user_data(params[:token])
 
     if data.blank? # Login failed
-      flash[:notice] = "Error"
+      flash[:notice] = "Sorry, there was a problem with your account information. " +
+        "Did you supply the correct credentials to your login provider? " +
+        "(Please let us know at cranatic@gmail.com if you think the error is on our part.)"
       render :action => "new"
+      return
     end
 
     if data[:id] # User is already mapped to a primary key in our db
