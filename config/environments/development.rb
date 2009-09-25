@@ -17,12 +17,6 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 config.action_mailer.perform_deliveries = false
 
-# Sass
-config.after_initialize do
-  Sass::Plugin.options[:line_comments] = false
-  Sass::Plugin.options[:style] = :compressed
-end
-
 # Gems required only during development
 config.gem 'chriseppstein-compass',
            :version => '>= 0.8.4',
