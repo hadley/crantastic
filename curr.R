@@ -2,9 +2,9 @@
 ##
 ## Usage:
 ##
-## sess <- CurrNew("http://208.78.99.54:5984")
+## sess <- Session("http://208.78.99.54:5984")
 ##
-## > CurrGet("/packages", sess)
+## > GET("/packages", sess)
 ##
 ## Which results in a GET request to http://208.78.99.54:5984/packages
 ##
@@ -13,23 +13,26 @@
 
 library(RCurl)
 library(rjson)
+library(yaml)
 
-CurrNew <- function(base.url, timeout=5, format="", headers=NULL) {
+Session <- function(base.url, timeout=5, format="", headers=NULL) {
   list(base.url=base.url, timeout=timeout, format=tolower(format), headers=headers)
 }
 
-CurrDelete <- function(path, sess) {
+DELETE <- function(path, sess) {
   curr("DELETE", path, sess)
 }
 
-CurrGet <- function(path, sess) {
+GET <- function(path, sess) {
   curr("GET", path, sess)
 }
 
-CurrPost <- function() {
+POST <- function(path, content="", header="", sess) {
+  if (!is.null(sess$headers)) header <- sess$headers
+  curr("POST", path, sess, content, header)
 }
 
-CurrPut <- function(path, content="", header="", sess) {
+PUT <- function(path, content="", header="", sess) {
   if (!is.null(sess$headers)) header <- sess$headers
   curr("PUT", path, sess, content, header)
 }
@@ -42,9 +45,12 @@ curr <- function(method, path, sess, content=NULL, header=NULL) {
   handle <- getCurlHandle()
   url <- paste(sess$base.url, path, sep="")
 
+  ## Format conversion for outgoing data
   if (!is.null(content)) {
     if (sess$format == "json") {
       content <- toJSON(content)
+    } else if (sess$format == "yaml") {
+      content <- as.yaml(content)
     }
   }
 
@@ -63,12 +69,23 @@ curr <- function(method, path, sess, content=NULL, header=NULL) {
            httpheader=header,
            curl=handle)
 
+  } else if (method == "POST") {
+
+    getURL(url,
+           customrequest=method,
+           postfields=content,
+           postfieldsize=strlen(content),
+           httpheader=header,
+           curl=handle)
+
   } else {
 
     getURL(url, curl=handle)
 
   }
 
+  ## Converts the returned data (not to yaml, though. I don't know of
+  ## any services that actually return yaml data)
   if (sess$format == "json") {
     body <- fromJSON(body)
   }
