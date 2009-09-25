@@ -9,7 +9,7 @@ source("curr.R")
 
 # The DB is created if it doesnt exist
 Database <- function(url, db.name) {
-  db <- list(sess=CurrNew(url, format="json",
+  db <- list(sess=Session(url, format="json",
                headers="Content-Type: application/json"),
              database=db.name)
   if (!ExistsDb(db)) { CreateDb(db) }
@@ -17,30 +17,30 @@ Database <- function(url, db.name) {
 }
 
 CreateDb <- function(db) {
-  CurrPut(db$database, sess=db$sess)$status == 201
+  PUT(db$database, sess=db$sess)$status == 201
 }
 
 DropDb <- function(db) {
-  CurrDelete(db$database, db$sess)$status == 200
+  DELETE(db$database, db$sess)$status == 200
 }
 
 ExistsDb <- function(db) {
-  CurrGet(db$database, db$sess)$status == 200
+  GET(db$database, db$sess)$status == 200
 }
 
 Insert <- function(key, value, db, timestamp=TRUE) {
   if (timestamp) value$created_at <- Timestamp()
-  CurrPut(paste(db$database, "/", key, sep=""), value, sess=db$sess)
+  PUT(paste(db$database, "/", key, sep=""), value, sess=db$sess)
 }
 
 Delete <- function(key, db) {
   rev <- LastRev(key, db)
-  CurrDelete(paste(db$database, "/", key, "?rev=", rev, sep=""),
+  DELETE(paste(db$database, "/", key, "?rev=", rev, sep=""),
              sess=db$sess)$status == 200
 }
 
 GetKey <- function(key, db) {
-  CurrGet(paste(db$database, "/", key, sep=""), db$sess)
+  GET(paste(db$database, "/", key, sep=""), db$sess)
 }
 
 LastRev <- function(key, db) {
