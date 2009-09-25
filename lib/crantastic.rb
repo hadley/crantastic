@@ -289,4 +289,20 @@ module Crantastic
     end
   end
 
+  class Maintenance
+    class << self
+      # If a version somehow is missing, this can be used to add it. Note that
+      # currently only the latest version of a package can be added with this
+      # method.
+      #
+      # @param [String] package
+      # @param [String] version
+      # @param [Fixnum] pkg_id The package id in the crantastic database
+      def force_version(package, version, pkg_id)
+        upd = UpdatePackages.new
+        upd.add_version_to_db(CRAN::CranPackage.new(package, version), pkg_id)
+      end
+    end
+  end
+
 end
