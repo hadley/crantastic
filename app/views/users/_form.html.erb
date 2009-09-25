@@ -1,4 +1,6 @@
-<% form_for(@user, :live_validations => true) do |f| -%>
+<% # We only enable live validations for user signups, since the plugin
+   # fails on edits. (complains about values already being taken, etc) %>
+<% form_for(@user, :live_validations => (@user.new_record? ? true : false)) do |f| -%>
 <p><label for="user_login">User name</label>
 <%= error_message_for @user, :login %><br/>
 <%= f.text_field :login %></p>
