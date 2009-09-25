@@ -107,7 +107,11 @@ module Crantastic
           # ActiveResource doesn't support transactions so this is a bit scary
           pkg = Resources::Package.create(:name => package)
           begin
-            add_version_to_db(CRAN::CranPackage.new(package, version), pkg.id)
+            ver = add_version_to_db(CRAN::CranPackage.new(package, version), pkg.id)
+            if ver.blank?
+              Log.log_and_report! "Problem with package #{package}: could not store #{version}"
+              pkg.destroy
+            end
           rescue Exception => e
             pkg.destroy
             throw e
@@ -175,8 +179,9 @@ module Crantastic
       data.delete(:maintainer)
 
       data[:package_id] = crantastic_package_id
-      Resources::Version.create(data)
+      version = Resources::Version.create(data)
       FileUtils.rm_rf(pkgdir)
+      return version
     rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError, Timeout::Error
       Log.log_and_report! "Problem downloading #{pkg}, skipping to next pkg"
     end
