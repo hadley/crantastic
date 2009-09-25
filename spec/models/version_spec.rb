@@ -66,7 +66,6 @@ describe Version do
                  :priority => "base, recommended",
                  :maintainer => Author.first)
     pkg.tags.type("Priority").size.should == 2
-    pkg.tags.type("Priority").last.name.should == "Base"
 
     Version.make(:package => pkg,
                  :version => "3.5",
