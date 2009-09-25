@@ -56,6 +56,16 @@ class ApplicationController < ActionController::Base
                                  })
   end
 
+  # Users created with RPX can in some cases be invalid, e.g. they may have
+  # empty email addresses.
+  def valid_login_required
+    login_required
+    if current_user && !current_user.valid?
+      flash[:notice] = "Please update your profile with valid information."
+      redirect_to edit_user_url(current_user)
+    end
+  end
+
   def check_permissions
     case params[:action]
     when 'edit' then
