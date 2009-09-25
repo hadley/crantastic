@@ -3,7 +3,7 @@ class TaggingsController < ApplicationController
   resource_controller
 
   protect_from_forgery :except => :create
-  before_filter :login_required
+  before_filter :valid_login_required
   before_filter :check_permissions, :only => [ :destroy ]
 
   belongs_to :package

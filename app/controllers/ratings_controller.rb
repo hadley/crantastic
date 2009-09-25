@@ -1,6 +1,6 @@
 class RatingsController < ApplicationController
 
-  before_filter :login_required, :only => [ :create ]
+  before_filter :valid_login_required, :only => [ :create ]
 
   def index
     return rescue_404 if params[:package_id].nil?

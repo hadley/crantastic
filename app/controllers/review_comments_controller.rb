@@ -4,7 +4,7 @@ class ReviewCommentsController < ApplicationController
 
   belongs_to :review
 
-  before_filter :login_required, :except => :show
+  before_filter :valid_login_required, :except => :show
 
   show.failure.wants.html { rescue_404 }
 

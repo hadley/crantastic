@@ -1,6 +1,6 @@
 class AuthorIdentitiesController < ApplicationController
 
-  before_filter :login_required, :find_author
+  before_filter :valid_login_required, :find_author
 
   def new
     @title = "Add new author identity"

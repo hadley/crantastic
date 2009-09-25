@@ -4,7 +4,8 @@ class TagsController < ApplicationController
 
   actions :index, :show, :edit, :update
 
-  before_filter [ :login_required, :check_permissions ], :except => [ :index, :show ]
+  before_filter [ :valid_login_required, :check_permissions ],
+                :except => [ :index, :show ]
 
   index.wants.html do
     @title = if params[:type].nil?
