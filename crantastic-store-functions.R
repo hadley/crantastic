@@ -2,6 +2,9 @@
 
 source("couchdb.R")
 source("function-hashes.R")
+source("hop.R")
+
+hoptoad_api_key <- "86a3b1ba9ee92b6bfc5cb1840e9ae3df"
 
 PkgVersion <- function(pkg) installed.packages()[,3][pkg][[1]]
 
@@ -32,5 +35,6 @@ result <- Insert(key, value, db)
 if (result$status == 201) {
   system("exit 0")
 } else {
+  submit_error(hoptoad_api_key, paste("Error with package: ", pkg, sep=""))
   system("exit 1")
 }
