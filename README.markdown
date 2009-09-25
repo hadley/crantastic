@@ -81,7 +81,8 @@ Personally I use an alias so I don't have to type as much:
 
 ## Updating packages from CRAN
 
-Run `rake crantastic:cron` or `rake crantastic:update_all_packages`.
+Run `rake crantastic:cron` or `rake crantastic:update_all_packages`. Look in the
+`lib/scripts` folder for scripts and cron tasks.
 
 ## License
 
