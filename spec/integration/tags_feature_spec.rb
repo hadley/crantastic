@@ -27,18 +27,20 @@ describe "Tags" do
     assert_contain "Add tags"
   end
 
-  it "should add multiple tags to a package" do
-    response.request.path.should == login_path
-    login_with_valid_credentials
-    response.request.path.should == new_package_tagging_path(Package.first)
+  describe "as a logged in user" do
+    before(:each) do
+      login_with_valid_credentials
+    end
 
-    fill_in "tag_name", :with => "MachineLearning, NLP"
-    click_button "Tag it!"
+    it "should add multiple tags to a package" do
+      fill_in "tag_name", :with => "MachineLearning, NLP"
+      click_button "Tag it!"
 
-    response.request.path.should == package_path(Package.first)
-    response.should have_tag("li", "MachineLearning")
-    response.should have_tag("li", "NLP")
-    assert_contain "Add tags"
+      response.request.path.should == package_path(Package.first)
+      response.should have_tag("li", "MachineLearning")
+      response.should have_tag("li", "NLP")
+      assert_contain "Add tags"
+    end
   end
 
 end
