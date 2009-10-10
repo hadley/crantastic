@@ -4,26 +4,26 @@ vendor/plugins/hoptoad_notifier:
   url: git://github.com/thoughtbot/hoptoad_notifier.git
   branch: master
   type: git
-  revision: 2852f43214ccf77a291f7e2b21834a32e9870dd9
+  revision: e24ffbecdc1b235e0f14531313fdcfb950d466b2
   remote: braid/vendor/plugins/hoptoad-notifier
 vendor/plugins/db_branch: 
   squashed: true
-  branch: master
   url: git://github.com/Chrononaut/db_branch.git
+  branch: master
   type: git
   revision: 3af36e317ebfe018cadf6f204b077e08450ddbfa
   remote: braid/vendor/plugins/db-branch
-vendor/plugins/live-validations: 
-  squashed: true
-  url: git://github.com/augustl/live-validations.git
-  branch: master
-  type: git
-  revision: dd5fb1776e342d48e61023b534452506afbd00a5
-  remote: braid/vendor/plugins/live-validations
 vendor/plugins/recaptcha: 
   squashed: true
-  url: git://github.com/ambethia/recaptcha.git
   branch: master
+  url: git://github.com/ambethia/recaptcha.git
   type: git
   revision: 40fa40445da533380fc0f94a95e1ea9c800be15f
   remote: braid/vendor/plugins/recaptcha
+vendor/plugins/live-validations: 
+  squashed: true
+  branch: master
+  url: git://github.com/augustl/live-validations.git
+  type: git
+  revision: dd5fb1776e342d48e61023b534452506afbd00a5
+  remote: braid/vendor/plugins/live-validations
