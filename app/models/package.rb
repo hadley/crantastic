@@ -107,7 +107,7 @@ class Package < ActiveRecord::Base
 
   # Rounded average rating for this package
   def average_rating(aspect="overall")
-    PackageRating.calculate_average(self, aspect)
+    PackageRating.calculate_average(self, aspect).round
   end
 
   def to_param
@@ -175,6 +175,20 @@ class Package < ActiveRecord::Base
     }.update(options)
 
     self.class.find(:all, conditions)
+  end
+
+  # Package score, calculated from average ratings and number of package users
+  def calculate_score
+    rating = (average_rating("overall").to_f +
+              average_rating("documentation")) / 2
+    score = (rating / 5) * 100
+
+    if package_users.count > 0
+      score = score + (100 - score) *
+        (1 - Math.exp(-package_users_count / 100.to_f))
+    end
+
+    score
   end
 
 end
