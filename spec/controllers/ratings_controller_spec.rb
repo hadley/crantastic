@@ -11,7 +11,6 @@ describe RatingsController do
 
   it "should create new ratings" do
     login_as_user(:id => 1, :login => "test")
-    @current_user.should_receive(:valid?).and_return(true)
     package = mock_model(Package, :id => 1)
     Package.should_receive(:find_by_name).with("aaMI").and_return(package)
     @current_user.should_receive(:rate!).with(package, 5, "overall")

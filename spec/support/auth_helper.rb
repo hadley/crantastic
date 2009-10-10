@@ -5,7 +5,7 @@ module AuthHelper
 
   def login_as(model, id_or_attributes = {})
     attributes = id_or_attributes.is_a?(Fixnum) ? {:id => id} : id_or_attributes
-    @current_user = stub_model(model, attributes.update(:valid? => true))
+    @current_user = stub_model(model, attributes)
     target = controller rescue template
     target.instance_variable_set '@current_user', @current_user
 

@@ -1,7 +1,7 @@
 class PackagesController < ApplicationController
 
-  before_filter :valid_login_required, :only => :toggle_usage
-  before_filter :admin_required,       :only => :create
+  before_filter :login_required, :only => :toggle_usage
+  before_filter :admin_required, :only => :create
 
   def index
     page_no = params[:page] || 1
