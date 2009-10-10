@@ -5,6 +5,11 @@
 - if @tag.description
   %p(style = "margin: 0 0 10px 0;")= auto_link @tag.description
 
+- if !@tag.kind_of?(TaskView) && task_view = TaskView.find_by_name(@tag.name)
+  %p
+    Be sure to also visit the #{@tag.name}
+    #{link_to("Task View page", task_view)} for more packages.
+
 %ul.cloud
   %li
     %strong(style = "line-height: 1em;")
