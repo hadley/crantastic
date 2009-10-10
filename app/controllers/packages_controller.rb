@@ -13,7 +13,13 @@ class PackagesController < ApplicationController
       params[:search] = @search_term
     end
 
-    @packages = Package.paginating_search(@search_term, page_no)
+    options = {}
+    if params[:popcon]
+      options = {:order => "score DESC, package_users_count DESC"}
+    end
+
+    @packages = Package.paginating_search(@search_term, page_no, options)
+
     @title = "#{Package.count} R packages"
 
     respond_to do |format|
@@ -81,6 +87,7 @@ class PackagesController < ApplicationController
   def toggle_usage
     @package = Package.find_by_param(params[:id])
     usage = self.current_user.toggle_usage(@package)
+    @package.update_score!
     flash[:notice] = (usage ? "Thanks!" : "You no longer use this package")
     redirect_to(@package)
   end

@@ -28,6 +28,9 @@ class PackageRating < ActiveRecord::Base
   validates_format_of :rating, :with => /^[1-5]$/
   validates_inclusion_of :aspect, :in => %w(overall documentation)
 
+  after_create lambda { |obj| obj.package.update_score! }
+  after_update lambda { |obj| obj.package.update_score! }
+
   # Calculates the average rating for a given package
   def self.calculate_average(package_id, aspect="overall")
     average('rating', :conditions => ["aspect = ? AND package_id = ?",

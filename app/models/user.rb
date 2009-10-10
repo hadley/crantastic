@@ -136,7 +136,12 @@ class User < ActiveRecord::Base
     usage = PackageUser.find(:first, :conditions => {
                                :user_id => self, :package_id => pkg
                              })
-    return usage.toggle!(:active) && usage.active if usage
+    if usage
+      res = usage.toggle!(:active) && usage.active
+      res ? pkg.increment(:package_users_count) : pkg.decrement(:package_users_count)
+      pkg.save
+      return res
+    end
     self.package_users << PackageUser.new(:package => pkg)
     true
   end

@@ -14,7 +14,7 @@
 # Parts of this code has been derived from the vote_fu plugin
 class PackageUser < ActiveRecord::Base
 
-  belongs_to :package, :counter_cache => true
+  belongs_to :package
   belongs_to :user
 
   named_scope :active,       :conditions => { :active => true }
@@ -33,5 +33,8 @@ class PackageUser < ActiveRecord::Base
 
   validates_existence_of :package_id
   validates_existence_of :user_id
+
+  # Can't use counter cache because it makes the attribute read-only
+  after_create lambda { |obj| obj.package.increment(:package_users_count) }
 
 end

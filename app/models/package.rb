@@ -28,6 +28,7 @@ class Package < ActiveRecord::Base
   has_many :versions, :order => "id DESC", :dependent => :destroy
   has_many :package_ratings, :dependent => :destroy
   has_many :package_users, :dependent => :destroy
+  alias :users :package_users
   has_many :reviews, :dependent => :destroy
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings, :uniq => true do
@@ -53,6 +54,10 @@ class Package < ActiveRecord::Base
                        :include => :latest_version,
                        :conditions => "#{self.table_name}.created_at IS NOT NULL",
                        :limit => 50
+
+  named_scope :most_popular, :order => "score DESC, package_users_count DESC",
+                             :include => :latest_version,
+                             :limit => 5
 
   validates_presence_of :name
   validates_uniqueness_of :name
@@ -189,6 +194,10 @@ class Package < ActiveRecord::Base
     end
 
     score
+  end
+
+  def update_score!
+    self.update_attribute(:score, self.calculate_score)
   end
 
 end

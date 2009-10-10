@@ -52,6 +52,7 @@ ActionController::Routing::Routes.draw do |map|
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate'
   map.login    '/login', :controller => 'sessions', :action => 'new'
   map.logout   '/logout', :controller => 'sessions', :action => 'destroy'
+  map.popcon   '/popcon', :controller => 'packages', :action => 'index', :popcon => '1'
 
   map.connect ':controller/:action/:id.:format'
 

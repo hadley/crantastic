@@ -38,6 +38,7 @@ describe PackagesController do
     login_as_user(:id => 1, :login => "test")
 
     pkg_mock = mock_model(Package)
+    pkg_mock.should_receive(:update_score!)
     controller.instance_eval do
       current_user.should_receive(:toggle_usage).with(pkg_mock).and_return(true)
     end

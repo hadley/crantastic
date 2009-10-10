@@ -3,6 +3,15 @@
   to <span class="red">crantastic</span>, a community site for R packages where you
   can search for, review and tag CRAN packages.
 
+%div(style="margin: 15px 0 15px 0")
+  %h1(style="font-size: 220%") Most popular packages
+  %ul.tags.cloud
+    - Package.most_popular.each_with_index do |pkg, i|
+      %li
+        = "#{i+1}. #{link_to pkg, pkg}"
+    %li
+      \...#{link_to "more!", popcon_url, :style => "background: transparent"}
+
 %h1(style="font-size: 220%") Recent activity
 
 #timeline= render :partial => "paginated_events", :locals => { :events => @timeline_events }
