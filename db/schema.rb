@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091010132954) do
+ActiveRecord::Schema.define(:version => 20091010162956) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -55,11 +55,13 @@ ActiveRecord::Schema.define(:version => 20091010132954) do
     t.integer  "latest_version_id"
     t.datetime "updated_at"
     t.integer  "package_users_count", :default => 0, :null => false
+    t.float    "score"
   end
 
   add_index "package", ["latest_version_id"], :name => "index_package_on_latest_version_id"
   add_index "package", ["name"], :name => "index_package_on_name"
   add_index "package", ["package_users_count"], :name => "index_package_on_package_users_count"
+  add_index "package", ["score"], :name => "index_package_on_score"
 
   create_table "package_rating", :force => true do |t|
     t.integer  "package_id"
