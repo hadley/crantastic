@@ -67,7 +67,8 @@ class User < ActiveRecord::Base
   has_many :reviews,        :dependent => :nullify
   has_many :taggings,       :dependent => :nullify
   has_many :package_users,  :dependent => :nullify
-  has_many :packages, :through => :package_users, :order => "LOWER(package.name) ASC"
+  has_many :packages, :through => :package_users, :order => "LOWER(package.name) ASC",
+                      :conditions => "package_user.active IS TRUE"
 
   # Prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
