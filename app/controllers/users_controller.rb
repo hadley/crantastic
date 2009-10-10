@@ -35,6 +35,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @user.valid? # make sure any validation errors are highlighted
   end
 
   def update
