@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090812104328) do
+ActiveRecord::Schema.define(:version => 20091010132954) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -214,6 +214,7 @@ ActiveRecord::Schema.define(:version => 20090812104328) do
     t.datetime "current_login_at"
     t.string   "last_login_ip"
     t.string   "current_login_ip"
+    t.boolean  "tos"
   end
 
   add_index "user", ["last_request_at"], :name => "index_user_on_last_request_at"

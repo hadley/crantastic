@@ -18,7 +18,14 @@ module AuthenticatedSystem
   end
 
   def login_required
-    logged_in? || access_denied
+    return access_denied unless logged_in?
+    # Users created with RPX can in some cases be invalid, e.g. they may have
+    # empty email addresses.
+    unless current_user.valid? or (["edit", "update"].include?(request.params["action"]) &&
+                                   request.params["controller"] == "users")
+      flash[:notice] = "Please update your profile with valid information."
+      redirect_to edit_user_url(current_user)
+    end
   end
   alias :require_user :login_required
 

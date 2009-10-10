@@ -94,7 +94,8 @@ describe UserMailer do
 
   before(:each) do
     @user = User.create(:login => "Helene", :email => "helene@helene.no",
-                        :password => "1234", :password_confirmation => "1234")
+                        :password => "1234", :password_confirmation => "1234",
+                        :tos => true)
   end
 
   describe "when sending an e-mail" do

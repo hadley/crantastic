@@ -1,5 +1,8 @@
 <% # We only enable live validations for user signups, since the plugin
    # fails on edits. (complains about values already being taken, etc) %>
+
+<%=  error_messages_for 'user' %>
+
 <% form_for(@user, :live_validations => (@user.new_record? ? true : false)) do |f| -%>
 <p><label for="user_login">User name</label>
 <%= error_message_for @user, :login %><br/>
@@ -38,14 +41,12 @@
 <%= f.check_box :remember %>
 <em>Automatically login in the future; not for shared computers!</em></p>
 
-<% if @user.new_record? -%>
 <p><label for="user_tos">My contributed texts (package reviews, etc) will be
     available under Creative Commons Attribution 3.0 except private data
     (password, email address)</label>
 <%= error_message_for @user, :tos  %><br/>
 <%= f.check_box :tos %>
-<em>You must accepts the license terms before continuing.</em></p>
-<% end %>
+<em>You must accept the license terms.</em></p>
 
 <p><%= f.submit(@user.new_record? ? 'Sign up' : 'Save details') %></p>
 <% end -%>

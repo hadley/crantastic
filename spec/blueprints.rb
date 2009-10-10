@@ -16,6 +16,7 @@ User.blueprint do
   email
   password { "test" }
   password_confirmation { "test" }
+  tos { true }
 end
 
 Version.blueprint do
