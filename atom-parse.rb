@@ -61,7 +61,7 @@ unless to_update.empty?
       puts "Exit status: #{exit_status}"
 
       if exit_status != 0
-        File.open("faillog", "a") { |f| f.puts("#{title} failed") }
+        File.open("faillog", "a") { |f| f.puts("#{pkg_title} (#{title}) failed") }
         exit 1
       end
     end
