@@ -4,6 +4,6 @@ class AddTosToUsers < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :user, :tos, :boolean
+    remove_column :user, :tos
   end
 end
