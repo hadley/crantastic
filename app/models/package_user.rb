@@ -35,6 +35,6 @@ class PackageUser < ActiveRecord::Base
   validates_existence_of :user_id
 
   # Can't use counter cache because it makes the attribute read-only
-  after_create lambda { |obj| obj.package.increment(:package_users_count) }
+  after_create lambda { |obj| obj.package.increment(:package_users_count); obj.package.save }
 
 end
