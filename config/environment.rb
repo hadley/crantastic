@@ -26,15 +26,14 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
+  config.gem 'authlogic', :version => '= 2.1.2'
   config.gem 'haml', :version => '>= 2.2.0'
   config.gem 'maruku'
+  config.gem 'searchlogic', :version => '= 2.3.5'
   config.gem 'twitter'
 
-  config.github_gem '47primes-amatch'
   config.github_gem 'Chrononaut-aegis', :version => '>= 1.2.0'
   config.github_gem 'Chrononaut-rpx_now', :version => '= 0.5.9'
-  config.github_gem 'binarylogic-authlogic'
-  config.github_gem 'binarylogic-searchlogic'
   config.github_gem 'chrislloyd-gravtastic', :version => '>= 2.1.2'
   config.github_gem 'giraffesoft-resource_controller'
   config.github_gem 'giraffesoft-timeline_fu', :version => ">= 0.3.0"

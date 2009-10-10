@@ -1,11 +1,10 @@
+authlogic --version "= 2.1.2"
 haml --version ">= 2.2.0"
 maruku
+searchlogic --version "= 2.3.5"
 twitter
-47primes-amatch --source http://gems.github.com
 Chrononaut-aegis --version ">= 1.2.0" --source http://gems.github.com
 Chrononaut-rpx_now --version "= 0.5.9" --source http://gems.github.com
-binarylogic-authlogic --source http://gems.github.com
-binarylogic-searchlogic --source http://gems.github.com
 chrislloyd-gravtastic --version ">= 2.1.2" --source http://gems.github.com
 giraffesoft-resource_controller --source http://gems.github.com
 giraffesoft-timeline_fu --version ">= 0.3.0" --source http://gems.github.com
