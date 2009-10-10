@@ -71,13 +71,13 @@ class Package < ActiveRecord::Base
   def self.per_page; 50; end
 
   ## Search On Name of Package.
-  def self.paginating_search(q, search_results_page)
+  def self.paginating_search(q, search_results_page, options={})
     q.strip.downcase!
 
     paginate({ :conditions => [ 'LOWER(package.name) LIKE ?', '%' + q + '%'],
                :include => [{:latest_version => :maintainer}],
                :order => 'LOWER(package.name)',
-               :page => search_results_page })
+               :page => search_results_page }.update(options))
   end
 
   def self.search(q, limit=self.per_page)
