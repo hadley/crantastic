@@ -29,11 +29,11 @@ Rails::Initializer.run do |config|
   config.gem 'authlogic', :version => '= 2.1.2'
   config.gem 'haml', :version => '>= 2.2.0'
   config.gem 'maruku'
+  config.gem 'rpx_now', :version => '= 0.6.5'
   config.gem 'searchlogic', :version => '= 2.3.5'
   config.gem 'twitter'
 
   config.github_gem 'Chrononaut-aegis', :version => '>= 1.2.0'
-  config.github_gem 'Chrononaut-rpx_now', :version => '= 0.5.9'
   config.github_gem 'chrislloyd-gravtastic', :version => '>= 2.1.2'
   config.github_gem 'giraffesoft-resource_controller'
   config.github_gem 'giraffesoft-timeline_fu', :version => ">= 0.3.0"
@@ -60,6 +60,10 @@ Rails::Initializer.run do |config|
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
+
+  config.after_initialize do # so rake gems:install works
+    RPXNow.api_key = ENV['RPX_API_KEY']
+  end
 end
 
 ActionView::Base.field_error_proc = Proc.new do |html, instance|

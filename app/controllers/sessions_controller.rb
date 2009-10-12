@@ -1,6 +1,8 @@
 # This controller handles the login/logout function of the site.
 class SessionsController < ApplicationController
 
+  # RPX does not pass Rails form tokens...
+  skip_before_filter :verify_authenticity_token, :only => [:rpx_token]
   before_filter :require_no_user, :only => [ :new, :create, :rpx_token ]
   before_filter :require_user, :only => :destroy
 
