@@ -1,14 +1,14 @@
 authlogic --version "= 2.1.2"
-haml --version ">= 2.2.0"
-maruku
+gravtastic --version "= 2.1.3"
+haml --version "= 2.2.8"
+maruku --version "= 0.6.0"
 rpx_now --version "= 0.6.5"
 searchlogic --version "= 2.3.5"
-twitter
-Chrononaut-aegis --version ">= 1.2.0" --source http://gems.github.com
-chrislloyd-gravtastic --version ">= 2.1.2" --source http://gems.github.com
-giraffesoft-resource_controller --source http://gems.github.com
-giraffesoft-timeline_fu --version ">= 0.3.0" --source http://gems.github.com
-mislav-will_paginate --source http://gems.github.com
-hpricot
-treetop
-Chrononaut-treetop-dcf --version ">= 0.2.0" --source http://gems.github.com
+twitter --version "= 0.6.15"
+will_paginate --version "= 2.3.11"
+Chrononaut-aegis --version "= 1.2.0" --source http://gems.github.com
+giraffesoft-resource_controller --version "= 0.6.5" --source http://gems.github.com
+giraffesoft-timeline_fu --version "= 0.3.0" --source http://gems.github.com
+hpricot --version "= 0.8.1"
+treetop --version "= 1.4.2"
+Chrononaut-treetop-dcf --version "= 0.2.0" --source http://gems.github.com
