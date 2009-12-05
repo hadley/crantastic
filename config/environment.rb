@@ -28,10 +28,10 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem 'authlogic',     :version => '= 2.1.2'
   config.gem 'gravtastic',    :version => '= 2.1.3'
-  config.gem 'haml',          :version => '= 2.2.8'
+  config.gem 'haml',          :version => '= 2.2.15'
   config.gem 'maruku',        :version => '= 0.6.0'
   config.gem 'rpx_now',       :version => '= 0.6.5'
-  config.gem 'searchlogic',   :version => '= 2.3.5'
+  config.gem 'searchlogic',   :version => '= 2.3.9'
   config.gem 'twitter',       :version => '= 0.6.15'
   config.gem 'will_paginate', :version => '= 2.3.11'
 
@@ -40,10 +40,10 @@ Rails::Initializer.run do |config|
   config.github_gem 'giraffesoft-timeline_fu', :version => '= 0.3.0'
 
   # Required, but do not attempt to load
-  config.gem 'hpricot', :version => '= 0.8.1', :lib => false
+  config.gem 'hpricot', :version => '= 0.8.2', :lib => false
   config.gem 'treetop', :version => '= 1.4.2', :lib => false
 
-  config.github_gem 'Chrononaut-treetop-dcf', :version => '= 0.2.0', :lib => false
+  config.gem 'treetop-dcf', :version => '= 0.2.0', :lib => false
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

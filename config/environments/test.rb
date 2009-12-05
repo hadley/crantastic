@@ -25,8 +25,7 @@ config.gem "webrat"
 config.gem "markup_validity"
 config.gem "faker"
 
-config.gem "remarkable_rails",  :lib => false
-config.gem "rspec",             :lib => false
-config.gem "rspec-rails",       :lib => false
-config.gem "notahat-machinist", :lib => false,
-                                :source => "http://gems.github.com"
+config.gem "remarkable_rails", :lib => false
+config.gem "rspec",            :lib => false
+config.gem "rspec-rails",      :lib => false
+config.gem "machinist",        :lib => false
