@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
                              :requirements => { :type => "task_view" }
   map.resources :timeline_events, :only => [ :index, :show ]
   map.resources :users, :except => [ :destroy ],
-                        :member => { :regenerate_api_key => :get }
+                        :member => { :regenerate_api_key => :post }
   map.resources :versions, :only => [ :index, :create ],
                            :collection => { :feed => :get }
   map.resources :votes, :only => [ :create ]
@@ -53,8 +53,6 @@ ActionController::Routing::Routes.draw do |map|
   map.login    '/login', :controller => 'sessions', :action => 'new'
   map.logout   '/logout', :controller => 'sessions', :action => 'destroy'
   map.popcon   '/popcon', :controller => 'packages', :action => 'index', :popcon => '1'
-
-  map.connect ':controller/:action/:id.:format'
 
   map.error '*url', :controller => 'static', :action => 'error_404'
 

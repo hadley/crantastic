@@ -5,7 +5,7 @@ include AuthHelper
 describe RatingsController do
 
   it "should require login" do
-    post :create
+    post :create, :package_id => "aaMI"
     response.should be_redirect
   end
 

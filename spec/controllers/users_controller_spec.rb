@@ -56,7 +56,7 @@ describe UsersController do
   describe "#regenerate_api_key" do
 
     it "should require login" do
-      post :regenerate_api_key
+      post :regenerate_api_key, :id => "2"
       response.should be_redirect
     end
 
