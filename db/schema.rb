@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091012101842) do
+ActiveRecord::Schema.define(:version => 20091207195137) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20091012101842) do
   end
 
   add_index "package_rating", ["aspect"], :name => "index_package_rating_on_aspect"
+  add_index "package_rating", ["package_id"], :name => "index_package_rating_on_package_id"
   add_index "package_rating", ["user_id"], :name => "index_package_rating_on_user_id"
 
   create_table "package_user", :force => true do |t|
@@ -102,6 +103,10 @@ ActiveRecord::Schema.define(:version => 20091012101842) do
     t.integer  "version_id"
     t.integer  "cached_rating"
   end
+
+  add_index "review", ["package_id"], :name => "index_review_on_package_id"
+  add_index "review", ["user_id"], :name => "index_review_on_user_id"
+  add_index "review", ["version_id"], :name => "index_review_on_version_id"
 
   create_table "review_comment", :force => true do |t|
     t.integer  "review_id",                :null => false
@@ -247,6 +252,9 @@ ActiveRecord::Schema.define(:version => 20091012101842) do
     t.string   "priority"
     t.datetime "publicized_or_packaged"
   end
+
+  add_index "version", ["maintainer_id"], :name => "index_version_on_maintainer_id"
+  add_index "version", ["package_id"], :name => "index_version_on_package_id"
 
   create_table "weekly_digest", :force => true do |t|
     t.string   "param",      :null => false
