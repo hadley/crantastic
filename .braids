@@ -9,7 +9,7 @@ vendor/plugins/hoptoad_notifier:
 vendor/plugins/db_branch: 
   squashed: true
   branch: master
-  url: git://github.com/Chrononaut/db_branch.git
+  url: git://github.com/bmaland/db_branch.git
   type: git
   revision: 3af36e317ebfe018cadf6f204b077e08450ddbfa
   remote: braid/vendor/plugins/db-branch
