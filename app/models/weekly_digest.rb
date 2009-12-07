@@ -28,8 +28,6 @@ class WeeklyDigest < ActiveRecord::Base
 
   default_scope :order => "id DESC" # Newest digests first
 
-  after_create :deliver_digest
-
   # Just to keep the API consistent
   def self.find_by_param(param)
     self.find_by_param!(param)
@@ -88,12 +86,6 @@ class WeeklyDigest < ActiveRecord::Base
 
   def week_num
     created_at.to_date.cweek
-  end
-
-  protected
-
-  def deliver_digest
-    DigestMailer.deliver_weekly_digest(self)
   end
 
 end
