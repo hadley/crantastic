@@ -1,7 +1,7 @@
 - @title = "Write a review"
 %h1
-  A review of #{package_version(@review.package)}
-= render :partial => "form" , :locals => { :review => @review }
+  A review of #{package_version(@package)}
+= render :partial => "form" , :locals => { :review => @review, :package => @package }
 .box
   %p{ :style => "margin-bottom: 5px;" }
     %strong

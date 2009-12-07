@@ -179,7 +179,7 @@ class Package < ActiveRecord::Base
       :order      => "count DESC"
     }.update(options)
 
-    self.class.find(:all, conditions)
+    Package.find(:all, conditions)
   end
 
   # Package score, calculated from average ratings and number of package users

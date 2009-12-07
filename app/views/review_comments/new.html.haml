@@ -1,4 +1,4 @@
 - @title = "Write a review comment"
 %h1
   A comment on #{@review.user}'s review of #{package_version(@review.package)}
-= render :partial => "form" , :locals => { :review_comment => @review_comment }
+= render :partial => "form" , :locals => { :review_comment => @review_comment, :review => @review }

@@ -27,10 +27,10 @@ class TaggingsController < ApplicationController
   create do
     flash 'Package tagged succesfully'
 
-    wants.html { redirect_to(@tagging.package) }
+    wants.html { redirect_to(@package) }
 
     wants.xml do
-      render :xml => @tagging, :status => :created, :location => @tagging.package
+      render :xml => @tagging, :status => :created, :location => @package
     end
 
     failure do

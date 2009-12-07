@@ -1,8 +1,8 @@
 %div#uses-button.button
-  %span.users= pluralize(@package.package_users_count, "user")
-  - if logged_in? && current_user.uses?(@package)
-    - form_tag(toggle_usage_package_path(@package)) do
+  %span.users= pluralize(package.package_users_count, "user")
+  - if logged_in? && current_user.uses?(package)
+    - form_tag(toggle_usage_package_path(package)) do
       %div= submit_tag("Un-use", :class => "red", :style => "width: 50px")
   - else
-    - form_tag(toggle_usage_package_path(@package)) do
+    - form_tag(toggle_usage_package_path(package)) do
       %div= submit_tag("I use this!", :class => "red", :style => "width: 70px")

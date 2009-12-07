@@ -16,9 +16,11 @@ describe "/packages" do
 
   before(:each) do
     @pkg = Package.find_by_param("mypkg")
+    @tagging = Tagging.new
+    @tagging.package = @pkg
     assigns[:package] = @pkg
     assigns[:version] = @pkg.latest
-    assigns[:tagging] = Tagging.new
+    assigns[:tagging] = @tagging
     render 'packages/show'
   end
 
