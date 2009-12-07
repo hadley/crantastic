@@ -3,11 +3,16 @@ module Recaptcha
     # Your private API can be specified in the +options+ hash or preferably
     # the environment variable +RECAPTCHA_PUBLIC_KEY+.
     def verify_recaptcha(options = {})
-      return true if SKIP_VERIFY_ENV.include? ENV['RAILS_ENV']
-      model = options.is_a?(Hash)? options[:model] : options
-      private_key = options[:private_key] if options.is_a?(Hash)
-      private_key ||= ENV['RECAPTCHA_PRIVATE_KEY']
+      if !options.is_a? Hash
+        options = {:model => options}
+      end
+      
+      env = options[:env] || ENV['RAILS_ENV']
+      return true if SKIP_VERIFY_ENV.include? env
+      model = options[:model]
+      private_key = options[:private_key] || ENV['RECAPTCHA_PRIVATE_KEY']
       raise RecaptchaError, "No private key specified." unless private_key
+      
       begin
         recaptcha = nil
         Timeout::timeout(options[:timeout] || 3) do
@@ -20,21 +25,21 @@ module Recaptcha
         end
         answer, error = recaptcha.body.split.map { |s| s.chomp }
         unless answer == 'true'
-          session[:recaptcha_error] = error
+          flash[:recaptcha_error] = error
           if model
             model.valid?
-            model.errors.add :base, options[:message] || "Captcha response is incorrect, please try again."
+            model.errors.add :base, options[:message] || "Word verification response is incorrect, please try again."
           end
           return false
         else
-          session[:recaptcha_error] = nil
+          flash[:recaptcha_error] = nil
           return true
         end
       rescue Timeout::Error 
-        session[:recaptcha_error] = "recaptcha-not-reachable"
+        flash[:recaptcha_error] = "recaptcha-not-reachable"
         if model
           model.valid?
-          model.errors.add :base, options[:message] || "Oops, we failed to validate your Captcha. Please try again."
+          model.errors.add :base, options[:message] || "Oops, we failed to validate your word verification response. Please try again."
         end
         return false
       rescue Exception => e
