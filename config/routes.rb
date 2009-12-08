@@ -54,6 +54,8 @@ ActionController::Routing::Routes.draw do |map|
   map.logout   '/logout', :controller => 'sessions', :action => 'destroy'
   map.popcon   '/popcon', :controller => 'packages', :action => 'index', :popcon => '1'
 
+  map.version_extras '/versions/:id/:action', :controller => 'versions'
+
   map.error '*url', :controller => 'static', :action => 'error_404'
 
 end

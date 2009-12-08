@@ -8,6 +8,8 @@ class VersionsController < ApplicationController
 
   before_filter :admin_required, :only => :create
 
+  protect_from_forgery :except => :trigger
+
   index.wants.html { rescue_404 }
   index.wants.xml { render :xml => collection }
 
@@ -21,6 +23,11 @@ class VersionsController < ApplicationController
     respond_to do |format|
       format.atom
     end
+  end
+
+  def trigger
+    Version.find(params[:id]).serialize_data
+    render :nothing => true
   end
 
   private

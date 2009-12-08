@@ -52,6 +52,8 @@ class Version < ActiveRecord::Base
                           :join_table => "suggested_package_version"
   alias :suggests :suggested_packages
 
+  serialize :version_changes, Hash
+
   named_scope :recent, :include => :package,
                        :order => "created_at DESC",
                        :conditions => "created_at IS NOT NULL",
@@ -71,6 +73,35 @@ class Version < ActiveRecord::Base
 
   def to_s
     version
+  end
+
+  # For now this just stores changes from the previous version
+  def serialize_data
+    return unless self.version_changes.nil? && previous
+
+    db = CouchRest.database("http://127.0.0.1:5984/packages")
+    current = db.get(vname)
+    prev = db.get(previous.vname)
+
+    current_functions = current["function_hashes"].keys
+    prev_functions = prev["function_hashes"].keys
+
+    changes = {}
+    changes[:removed] = (prev_functions - current_functions).sort
+    changes[:added]   = (current_functions - prev_functions).sort
+    changes[:changed] = []
+
+    current_functions.each do |f|
+      changes[:changed] << f if current["function_hashes"][f] != prev["function_hashes"][f]
+    end
+    changes[:changed].sort!
+
+    self.version_changes = changes
+
+  rescue RestClient::ResourceNotFound
+    self.version_changes = {}
+  ensure
+    save!
   end
 
   # Prefer publication/package date over the regular date field
