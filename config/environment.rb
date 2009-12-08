@@ -41,9 +41,7 @@ Rails::Initializer.run do |config|
   config.github_gem 'giraffesoft-timeline_fu', :version => '= 0.3.0'
 
   # Required, but do not attempt to load
-  config.gem 'hpricot', :version => '= 0.8.2', :lib => false
-  config.gem 'treetop', :version => '= 1.4.2', :lib => false
-
+  config.gem 'hpricot',     :version => '= 0.8.2', :lib => false
   config.gem 'treetop-dcf', :version => '= 0.2.0', :lib => false
 
   # Only load the plugins named here, in the order given (default is alphabetical).

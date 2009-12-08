@@ -11,5 +11,4 @@ Chrononaut-aegis --version "= 1.2.0" --source http://gems.github.com
 giraffesoft-resource_controller --version "= 0.6.5" --source http://gems.github.com
 giraffesoft-timeline_fu --version "= 0.3.0" --source http://gems.github.com
 hpricot --version "= 0.8.2"
-treetop --version "= 1.4.2"
 treetop-dcf --version "= 0.2.0"
