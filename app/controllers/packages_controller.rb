@@ -29,6 +29,10 @@ class PackagesController < ApplicationController
     end
   end
 
+  def search
+    index
+  end
+
   def feed
     @packages = Package.recent
     respond_to do |format|

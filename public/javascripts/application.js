@@ -29,8 +29,8 @@ $(document).ready(function() {
                           });
 
     $('input#package-search').delayedObserver(function(value, object) {
-        $("#packages_list").load('/packages',
-                                 { search: escape($(this).val()) });
+            $("#packages_list").load('/packages/search',
+                                     { 'search': escape($(this).val()) });
         $('#spinner').hide();
     }, 0.5);
 
