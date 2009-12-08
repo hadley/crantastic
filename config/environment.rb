@@ -27,6 +27,7 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem 'authlogic',     :version => '= 2.1.3'
+  config.gem 'couchrest',     :version => '= 0.33'
   config.gem 'gravtastic',    :version => '= 2.1.3'
   config.gem 'haml',          :version => '= 2.2.15'
   config.gem 'maruku',        :version => '= 0.6.0'
