@@ -128,18 +128,24 @@ class Version < ActiveRecord::Base
     author.split(",").map { |name| Author.new_from_string(name.strip) } rescue []
   end
 
-  def as_json(options) 
-    { :type => "software", 
+  def as_json(options)
+    { :type => "software",
       :id => name + "_" + version,
-      :title => name, 
+      :title => name,
       :version => version,
       :authors => author,
       :maintainer => maintainer,
       :keywords => package.tags.map{|t| t.name},
       :description => description
     }
-  end  
-  
+  end
+
+  # Finds the previous version
+  # @return [Version]
+  def previous
+    Version.find(:last, :conditions => ["package_id = ? AND id < ?",
+                                        package_id, id])
+  end
 
   private
 
