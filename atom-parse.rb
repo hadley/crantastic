@@ -2,6 +2,7 @@
 
 # Required Ruby gems:
 # * atom-tools
+# * rest-client
 # * treetop-dcf
 #
 # Required R packages:
@@ -14,6 +15,7 @@ require "rubygems"
 require "atom/feed"
 require "dcf"
 require "open-uri"
+require "rest_client"
 
 f = Atom::Feed.new("http://feeds.feedburner.com/NewPackageVersionsOnCrantastic")
 
@@ -36,7 +38,7 @@ unless to_update.empty?
   to_update.reverse.each do |pkg|
     # The main package title. Can be a package bundle.
     pkg_title = pkg.title.to_s.split[0]
-    id = pkg.id.scan(/\d+\Z/)[0].to_i
+    id = pkg.id.scan(/\d+\Z/)[0].to_i # Version ID on Crantastic
 
     description = Dcf.parse(open("http://cran.r-project.org/web/packages/#{pkg_title}/DESCRIPTION").read)[0]
     if description.has_key? "Contains"
@@ -63,6 +65,8 @@ unless to_update.empty?
 
       if exit_status != 0
         File.open("faillog", "a") { |f| f.puts("#{Time.now}: #{pkg_title} (#{title}) failed") }
+      else # Success, trigger update on the website
+        RestClient.get "http://crantastic.org/versions/#{id}/trigger"
       end
     end
     File.open("last_id", "w") { |f| f.puts(id) }
