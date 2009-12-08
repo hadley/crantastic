@@ -1,5 +1,7 @@
 #!/usr/bin/env Rscript
 
+# Assumes that the package is already installed
+
 source("couchdb.R")
 source("function-hashes.R")
 source("hop.R")
@@ -21,6 +23,7 @@ name <- commandArgs()[6]
 pkg <- commandArgs()[7]
 id <- commandArgs()[8]
 
+# TODO: catch errors that occur here (e.g. library(x) may fail)
 key <- paste(pkg, "_", PkgVersion(pkg), sep="")
 value <- list(package=name,
               version_id=id,
@@ -28,7 +31,7 @@ value <- list(package=name,
               data_hashes=data_hashes(pkg),
               vignette_hashes=vignette_hashes(pkg))
 
-db <- Database("http://208.78.99.54:5984/", "packages")
+db <- Database("http://127.0.0.1:5984/", "packages")
 
 result <- Insert(key, value, db)
 

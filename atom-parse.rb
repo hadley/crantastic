@@ -2,12 +2,13 @@
 
 # Required Ruby gems:
 # * atom-tools
-# * Chrononaut-treetop-dcf
+# * treetop-dcf
 #
 # Required R packages:
 # * digest
 # * RCurl
 # * rjson
+# * yaml
 
 require "rubygems"
 require "atom/feed"
@@ -46,7 +47,7 @@ unless to_update.empty?
 
     deb_pkg_name = "r-cran-" + pkg_title.downcase
     if `apt-cache search --names-only #{deb_pkg_name}$` == ""
-      File.open("skiplog", "a") { |f| f.puts("#{pkg_title} was not found by apt") }
+      File.open("skiplog", "a") { |f| f.puts("#{Time.now}: #{pkg_title} was not found by apt") }
       next
     end
 
@@ -61,8 +62,7 @@ unless to_update.empty?
       puts "Exit status: #{exit_status}"
 
       if exit_status != 0
-        File.open("faillog", "a") { |f| f.puts("#{pkg_title} (#{title}) failed") }
-        exit 1
+        File.open("faillog", "a") { |f| f.puts("#{Time.now}: #{pkg_title} (#{title}) failed") }
       end
     end
     File.open("last_id", "w") { |f| f.puts(id) }
