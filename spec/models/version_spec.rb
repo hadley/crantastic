@@ -27,6 +27,14 @@ describe Version do
     pkg.latest_version.should == ver2
   end
 
+  it "should know its previous version" do
+    pkg = Package.first
+    ver1 = pkg.versions.first
+    ver2 = Version.create!(:package => pkg, :name => pkg.name, :version => "3.0")
+
+    ver2.previous.should == ver1
+  end
+
   it "should use its version as a string representation" do
     Version.first.to_s.should == Version.first.version
   end
