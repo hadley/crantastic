@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091207195137) do
+ActiveRecord::Schema.define(:version => 20091208173029) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -251,6 +251,7 @@ ActiveRecord::Schema.define(:version => 20091207195137) do
     t.text     "enhances"
     t.string   "priority"
     t.datetime "publicized_or_packaged"
+    t.text     "version_changes"
   end
 
   add_index "version", ["maintainer_id"], :name => "index_version_on_maintainer_id"
