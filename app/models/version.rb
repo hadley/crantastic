@@ -79,7 +79,7 @@ class Version < ActiveRecord::Base
   def serialize_data
     return unless self.version_changes.nil? && previous
 
-    db = CouchRest.database("http://127.0.0.1:5984/packages")
+    db = CouchRest.database("http://208.78.99.54:5984/packages")
     current = db.get(vname)
     prev = db.get(previous.vname)
 
