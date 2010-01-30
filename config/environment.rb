@@ -30,6 +30,7 @@ Rails::Initializer.run do |config|
   config.gem 'couchrest',     :version => '= 0.34'
   config.gem 'gravtastic',    :version => '= 2.2.0'
   config.gem 'haml',          :version => '>= 2.2.17'
+  config.gem 'hoptoad_notifier'
   config.gem 'maruku',        :version => '= 0.6.0'
   config.gem 'rpx_now',       :version => '= 0.6.12'
   config.gem 'searchlogic',   :version => '= 2.3.16'
