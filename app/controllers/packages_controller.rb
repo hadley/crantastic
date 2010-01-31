@@ -4,7 +4,8 @@ class PackagesController < ApplicationController
   before_filter :admin_required, :only => :create
 
   def index
-    page_no = params[:page] || 1
+    page_no = (params[:page] || 1).to_i
+    page_no = 1 if page_no == 0
     @search_term = String(params[:search]) || ''
 
     # Handle nonce values, this is required for clients without JS
