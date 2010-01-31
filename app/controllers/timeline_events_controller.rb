@@ -12,7 +12,8 @@ class TimelineEventsController < ApplicationController
 
   private
   def collection
-    @page = params[:page] || 1
+    @page = (params[:page] || 1).to_i
+    @page = 1 if @page == 0
     TimelineEvent.paginate_filtered_events(@page)
   end
 
