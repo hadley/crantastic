@@ -8,6 +8,15 @@
   <br />
   <%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %><br />
+  <% unless @user.tos? %>
+    <br />
+    <p><label for="user_tos">My contributed texts (package reviews, etc) will be
+    available under Creative Commons Attribution 3.0 except private data
+    (password, email address)</label>
+<%= error_message_for @user, :tos  %><br/>
+<%= f.check_box :tos %>
+<em>You must accept the license terms.</em></p>
+  <% end %>
   <br />
   <%= f.submit "Update my password and log me in" %>
 <% end %>
