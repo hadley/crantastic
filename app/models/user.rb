@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
     c.merge_validates_format_of_email_field_options :if => Proc.new { |user| !user.from_rpx }
     c.merge_validates_length_of_email_field_options :if => Proc.new { |user| !user.from_rpx }
     c.merge_validates_format_of_login_field_options :if => Proc.new { |user| !user.from_rpx }
+    c.merge_validates_length_of_login_field_options :if => Proc.new { |user| !user.from_rpx }
   end
 
   validates_acceptance_of :tos, :allow_nil => false, :accept => true,
