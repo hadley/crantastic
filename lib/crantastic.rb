@@ -98,7 +98,9 @@ module Crantastic
 
         cur = crantastic_pkgs.find { |pkg| pkg.name == package }
         if cur
-          if cur.latest_version.version != version
+          if cur.latest_version.nil?
+            Log.log_and_report! "Problem with package #{package}: latest_version missing!"
+          elsif cur.latest_version.version != version
             Log.log!("Updating package: #{package} (#{version})")
             add_version_to_db(CRAN::CranPackage.new(package, version), cur.id)
           end

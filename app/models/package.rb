@@ -135,6 +135,10 @@ class Package < ActiveRecord::Base
           xml.id self.latest.id, {:type => :integer}
           xml.version self.latest.version
         end
+      else
+        xml.latest_version do
+          nil
+        end
       end
     end
   end
