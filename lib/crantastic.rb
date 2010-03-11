@@ -188,6 +188,7 @@ module Crantastic
       Log.log_and_report! "Problem downloading #{pkg}, skipping to next pkg"
     rescue Exception => e
       Log.log_and_report! "Unknown problem when adding #{pkg}: #{e}"
+      pkg.destroy
     end
 
     def read_from_files(pkgdir, files)
