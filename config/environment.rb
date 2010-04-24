@@ -26,21 +26,21 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem 'authlogic',     :version => '= 2.1.3'
-  config.gem 'couchrest',     :version => '= 0.34'
-  config.gem 'gravtastic',    :version => '= 2.2.0'
-  config.gem 'haml',          :version => '>= 2.2.23'
+  config.gem 'authlogic',           :version => '= 2.1.3'
+  config.gem 'couchrest',           :version => '= 0.34'
+  config.gem 'gravtastic',          :version => '= 2.2.0'
+  config.gem 'haml',                :version => '>= 2.2.23'
   config.gem 'hoptoad_notifier'
-  config.gem 'maruku',        :version => '= 0.6.0'
+  config.gem 'maruku',              :version => '= 0.6.0'
   config.gem 'pg'
-  config.gem 'rails',         :version => '= 2.3.5'  # Required for the gem manifest
-  config.gem 'rpx_now',       :version => '= 0.6.12'
-  config.gem 'searchlogic',   :version => '= 2.3.16'
-  config.gem 'twitter',       :version => '= 0.6.15'
-  config.gem 'will_paginate', :version => '= 2.3.12'
+  config.gem 'rails',               :version => '= 2.3.5'
+  config.gem 'resource_controller', :version => '= 0.6.6'
+  config.gem 'rpx_now',             :version => '= 0.6.12'
+  config.gem 'searchlogic',         :version => '= 2.4.19'
+  config.gem 'twitter',             :version => '= 0.6.15'
+  config.gem 'will_paginate',       :version => '= 2.3.12'
 
   config.github_gem 'Chrononaut-aegis', :version => '= 1.2.0'
-  config.github_gem 'giraffesoft-resource_controller', :version => '= 0.6.5'
   config.github_gem 'giraffesoft-timeline_fu', :version => '= 0.3.0'
 
   # Required, but do not attempt to load
