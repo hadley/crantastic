@@ -1,7 +1,7 @@
 #!/usr/bin/zsh
 
 # Make sure we have a somewhat reasonable PATH
-PATH="/bin:/usr/bin:/usr/local/bin:$PATH"
+PATH="/usr/local/bin:/bin:/usr/bin:$PATH"
 
 # Configuration
 APP=crantastic
