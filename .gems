@@ -1,9 +1,11 @@
 authlogic --version "= 2.1.3"
 couchrest --version "= 0.34"
 gravtastic --version "= 2.2.0"
-haml --version ">= 2.2.22"
+haml --version ">= 2.2.23"
 hoptoad_notifier
 maruku --version "= 0.6.0"
+pg
+rails --version "= 2.3.5"
 rpx_now --version "= 0.6.12"
 searchlogic --version "= 2.3.16"
 twitter --version "= 0.6.15"
