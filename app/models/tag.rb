@@ -45,7 +45,7 @@ class Tag < ActiveRecord::Base
   # operator. The method name is inherited, consider renaming in the future.
   def self.find_or_create_with_like_by_name(name)
     find(:first, :conditions => ["LOWER(name) = LOWER(?) AND type IS NULL", name]) ||
-      create(:name => name)
+      create!(:name => name)
   end
 
   def self.find_by_param(id)
