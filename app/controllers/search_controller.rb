@@ -8,8 +8,8 @@ class SearchController < ApplicationController
     @results = Package.find_by_solr(@search_term, :limit => 50).try(:results) || []
 
     # Redirect to package if the result set was unambiguous
-    if Package.find_by_name(params[:q]) && @results.size == 1
-      redirect_to :controller => "packages", :action => "show", :id => params[:q]
+    if @results.size == 1 && pkg = Package.find_by_name(params[:q])
+      redirect_to(package_path(pkg))
     end
   end
 
