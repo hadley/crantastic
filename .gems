@@ -11,6 +11,7 @@ rpx_now --version "= 0.6.12"
 searchlogic --version "= 2.4.19"
 twitter --version "= 0.6.15"
 will_paginate --version "= 2.3.12"
+yajl-ruby
 Chrononaut-aegis --version "= 1.2.0" --source http://gems.github.com
 giraffesoft-timeline_fu --version "= 0.3.0" --source http://gems.github.com
 hpricot --version "= 0.8.2"

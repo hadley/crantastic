@@ -39,6 +39,7 @@ Rails::Initializer.run do |config|
   config.gem 'searchlogic',         :version => '= 2.4.19'
   config.gem 'twitter',             :version => '= 0.6.15'
   config.gem 'will_paginate',       :version => '= 2.3.12'
+  config.gem 'yajl-ruby',           :lib => 'yajl'
 
   config.github_gem 'Chrononaut-aegis', :version => '= 1.2.0'
   config.github_gem 'giraffesoft-timeline_fu', :version => '= 0.3.0'
