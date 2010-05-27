@@ -1,22 +1,22 @@
 --- 
 vendor/plugins/db_branch: 
-  squashed: true
   branch: master
-  url: git://github.com/bmaland/db_branch.git
-  type: git
-  revision: 3af36e317ebfe018cadf6f204b077e08450ddbfa
   remote: braid/vendor/plugins/db-branch
-vendor/plugins/recaptcha: 
+  revision: 3af36e317ebfe018cadf6f204b077e08450ddbfa
   squashed: true
-  branch: master
-  url: git://github.com/ambethia/recaptcha.git
   type: git
-  revision: 139d81cec8251e55e257682fa03cb0b937b0ea0c
-  remote: braid/vendor/plugins/recaptcha
+  url: git://github.com/bmaland/db_branch.git
 vendor/plugins/live-validations: 
-  squashed: true
-  url: git://github.com/augustl/live-validations.git
   branch: master
-  type: git
-  revision: e6904d149977c991898d416cfd7b5c29f4ada0ba
   remote: braid/vendor/plugins/live-validations
+  revision: 5cc92cac215152713105b96b1ff7cab15322b697
+  squashed: true
+  type: git
+  url: git://github.com/augustl/live-validations.git
+vendor/plugins/recaptcha: 
+  branch: master
+  remote: braid/vendor/plugins/recaptcha
+  revision: 139d81cec8251e55e257682fa03cb0b937b0ea0c
+  squashed: true
+  type: git
+  url: git://github.com/ambethia/recaptcha.git
