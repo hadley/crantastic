@@ -16,7 +16,7 @@ vendor/plugins/live-validations:
 vendor/plugins/recaptcha: 
   branch: master
   remote: braid/vendor/plugins/recaptcha
-  revision: 139d81cec8251e55e257682fa03cb0b937b0ea0c
+  revision: 754d42e88b982dc9b8e1f2aae0ad11b2a537f946
   squashed: true
   type: git
   url: git://github.com/ambethia/recaptcha.git
