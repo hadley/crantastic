@@ -6,7 +6,7 @@ require File.join(File.dirname(__FILE__), '/../lib/github_gem')
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -28,21 +28,22 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem 'authlogic',           :version => '= 2.1.3'
   config.gem 'couchrest',           :version => '= 0.34'
+  config.gem 'erubis'
   config.gem 'gravtastic',          :version => '= 2.2.0'
   config.gem 'haml',                :version => '>= 2.2.23'
   config.gem 'hoptoad_notifier'
   config.gem 'maruku',              :version => '= 0.6.0'
   config.gem 'pg'
-  config.gem 'rails',               :version => '= 2.3.5'
+  config.gem 'rails',               :version => '= 2.3.8'
   config.gem 'resource_controller', :version => '= 0.6.6'
   config.gem 'rpx_now',             :version => '= 0.6.12'
   config.gem 'searchlogic',         :version => '= 2.4.19'
+  config.gem 'timeline_fu',         :version => '= 0.2.0'
   config.gem 'twitter',             :version => '= 0.6.15'
   config.gem 'will_paginate',       :version => '= 2.3.12'
   config.gem 'yajl-ruby',           :lib => 'yajl'
 
   config.github_gem 'Chrononaut-aegis', :version => '= 1.2.0'
-  config.github_gem 'giraffesoft-timeline_fu', :version => '= 0.3.0'
 
   # Required, but do not attempt to load
   config.gem 'hpricot',     :version => '= 0.8.2', :lib => false
