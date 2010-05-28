@@ -2,12 +2,12 @@ Packages found: <%= @packages.total_entries -%>
 
 <% pagination_links = capture do %>
   <div class="float-r">
-    <%= will_paginate @packages %>
+    <%= will_paginate(@packages) %>
   </div>
   <%= clear_div -%>
 <% end -%>
 
-<%= pagination_links-%>
+<%= pagination_links -%>
 
 <% unless @packages.empty? -%>
 <table class="general">

@@ -57,7 +57,6 @@ describe "Authentication" do
       response.should have_tag("a", "Edit your details")
     end
 
-
     it "should redirect to the intended page after login" do
       visit package_path(Package.first)
       click_link "Write one now"

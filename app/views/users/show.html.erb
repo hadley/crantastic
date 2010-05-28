@@ -35,7 +35,7 @@
 
 <% unless @user.authors.count.zero? -%>
   <p>Identified as the following package author:
-    <%= @user.authors.collect { |a| link_to a, a }.join(", ") %></p>
+    <%= @user.authors.collect { |a| link_to a, a }.join(", ").html_safe %></p>
 <% end %>
 
 <% unless @user.profile_html.blank? -%>
@@ -58,7 +58,7 @@
   <p><%= @user.login %> uses <%= pluralize @user.package_users.count, "package" %>:</p>
 
   <p>
-    <%= @user.packages.collect { |package| link_to(package.name, package) }.join(", ") %>.
+    <%= @user.packages.collect { |package| link_to(package.name, package) }.join(", ").html_safe %>.
   </p>
 <% end -%>
 

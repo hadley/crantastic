@@ -26,17 +26,17 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem 'authlogic',           :version => '= 2.1.3'
+  config.gem 'authlogic',           :version => '= 2.1.5'
   config.gem 'couchrest',           :version => '= 0.34'
   config.gem 'erubis'
   config.gem 'gravtastic',          :version => '= 2.2.0'
-  config.gem 'haml',                :version => '>= 2.2.23'
+  config.gem 'haml',                :version => '>= 3.0.6'
   config.gem 'hoptoad_notifier'
-  config.gem 'maruku',              :version => '= 0.6.0'
+  config.gem 'maruku',              :version => '>= 0.6.0'
   config.gem 'pg'
   config.gem 'rails',               :version => '= 2.3.8'
   config.gem 'resource_controller', :version => '= 0.6.6'
-  config.gem 'rpx_now',             :version => '= 0.6.12'
+  config.gem 'rpx_now',             :version => '= 0.6.20'
   config.gem 'searchlogic',         :version => '= 2.4.19'
   config.gem 'timeline_fu',         :version => '= 0.3.0'
   config.gem 'twitter',             :version => '= 0.6.15'

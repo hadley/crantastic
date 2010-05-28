@@ -3,7 +3,7 @@
 - if @tag.full_name
   %h3(style="margin: 0 0 4px 0;")= @tag.full_name
 - if @tag.description
-  %p(style = "margin: 0 0 10px 0;")= auto_link @tag.description
+  %p(style = "margin: 0 0 10px 0;")= auto_link @tag.description.html_safe
 
 - if !@tag.kind_of?(TaskView) && task_view = TaskView.find_by_name(@tag.name)
   %p

@@ -1,31 +1,28 @@
-<% # We only enable live validations for user signups, since the plugin
-   # fails on edits. (complains about values already being taken, etc) %>
+<%= error_messages_for 'user' %>
 
-<%=  error_messages_for 'user' %>
-
-<% form_for(@user, :live_validations => (@user.new_record? ? true : false)) do |f| -%>
+<% form_for(@user) do |f| -%>
 <p><label for="user_login">User name</label>
 <%= error_message_for @user, :login %><br/>
-<%= f.text_field :login %></p>
+<%= raw f.text_field :login %></p>
 
 <p><label for="user_email">Email</label>
 <%= error_message_for @user, :email %><br/>
-<%= f.text_field :email %></p>
+<%= raw f.text_field :email %></p>
 
 <p><label for="user_password">Password</label>
 <%= error_message_for @user, :password  %><br/>
-<%= f.password_field :password %></p>
+<%= raw f.password_field :password %></p>
 
 <p><label for="user_password_confirmation">Confirm password</label>
-<%= error_message_for @user, :password_confirmation  %><br/>
-<%= f.password_field :password_confirmation %></p>
+<%= error_message_for @user, :password_confirmation %><br/>
+<%= raw f.password_field(:password_confirmation) %></p>
 
 <% unless @user.new_record? -%>
 
 <p><label for="user_homepage">Homepage</label>
 <%= error_message_for @user, :homepage %><br/>
-<%= f.text_field :homepage,
-                 :value => @user.homepage.blank? ? "http://" : @user.homepage %>
+<%= raw(f.text_field(:homepage,
+                     :value => (@user.homepage.blank? ? "http://" : @user.homepage))) %>
 </p>
 
 <p><label for="user_profile">Profile</label>

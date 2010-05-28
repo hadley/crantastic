@@ -36,19 +36,20 @@ module ApplicationHelper
       content_tag("code", match.scan(%r{\+BEGIN_SRC(.+)\+END_SRC}m)[0][0],
                   :class => "prettyprint")
     end
-    auto_link(Maruku.new(text).to_html)
+    sanitize(auto_link(Maruku.new(text).to_html))
   end
 
   def markdown_enabled_msg(extra_text=nil)
     out = "(#{link_to "Markdown", "http://daringfireball.net/projects/markdown/basics/"} enabled."
     out += " #{extra_text}" if extra_text
     out + ")"
+    out.html_safe
   end
 
   def rpx_embed_code
     RPXNow.embed_code('crantastic',
                       rpx_token_session_url +
-                      "#{'?return_to='+params[:return_to] if params[:return_to]}")
+                      "#{'?return_to='+params[:return_to] if params[:return_to]}").html_safe
   end
 
 end

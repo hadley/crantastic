@@ -1,17 +1,17 @@
-= error_messages_for :review, :object => review
-- form_for([package, review], :live_validations => true) do |f|
+= error_messages_for(:review, :object => review)
+- form_for([package, review]) do |f|
   %p
     %label{ :for => "review_title" }
       A brief summary
     %br
-    = f.text_field :title, :maxlength => 45
+    = raw(f.text_field(:title, :maxlength => 45))
   %p
     %label{ :for => "review_review" }
       Review
     %small
       = markdown_enabled_msg("Place source between #{content_tag(:em, '+BEGIN_SRC')} and #{content_tag(:em, '+END_SRC')} markers.")
     %br
-    = f.text_area :review
+    = raw(f.text_area :review)
   %p
     = f.submit review.new_record? ? "Enter this review" : "Update"
     = content_tag("small", "(Keep in mind that you can edit it later)") if review.new_record?

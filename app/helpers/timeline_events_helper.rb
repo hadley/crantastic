@@ -12,8 +12,8 @@ module TimelineEventsHelper
       action("tagged") + " " +
         events.map do |e|
         link_to(e.secondary_subject, e.secondary_subject) +
-          " with #{link_to(e.subject.tag, e.subject.tag)}"
-      end.to_sentence
+          " with #{link_to(e.subject.tag, e.subject.tag)}".html_safe
+      end.to_sentence.html_safe
 
     when "new_package_rating" then
 
@@ -22,20 +22,22 @@ module TimelineEventsHelper
         link_to(e.secondary_subject, e.secondary_subject) +
           "#{e.subject.aspect == 'overall' ? '' : '\'s documentation'}" +
           " with " + content_tag("span", "#{e.cached_value} stars", :class => "red")
-      end.to_sentence
+      end.to_sentence.html_safe
 
     when "new_package_user" then
 
       action("uses") + " " +
-        events.map { |e| link_to(e.secondary_subject, e.secondary_subject) }.to_sentence
+        events.map do |e|
+          link_to(e.secondary_subject, e.secondary_subject)
+        end.to_sentence.html_safe
 
     when "new_review" then
 
       action("reviewed") + " " +
         events.map do |e|
-        link_to(e.secondary_subject, e.secondary_subject) +
-          " with " + link_to("these words", [e.subject.package, e.subject])
-      end.to_sentence
+          link_to(e.secondary_subject, e.secondary_subject) +
+            " with " + link_to("these words", [e.subject.package, e.subject])
+        end.to_sentence.html_safe
 
     end
   end
@@ -61,7 +63,7 @@ module TimelineEventsHelper
 
                link_to(item.actor, item.actor) + " " +
                  if item.kind_of? FilteredEvent
-                   item.events.map { |(k,v)| user_action(k, v) }.to_sentence
+                   item.events.map { |(k,v)| user_action(k, v) }.to_sentence.html_safe
                  else
                    user_action(item.event_type, [item])
                  end

@@ -38,7 +38,7 @@
     <div id="container">
       <div id="main">
         <% unless flash[:notice].blank? %>
-          <div class="flash"><%= flash[:notice] %></div>
+          <div class="flash"><%= raw(flash[:notice]) %></div>
         <% end -%>
 
         <%= yield  %>

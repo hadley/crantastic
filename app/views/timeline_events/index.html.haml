@@ -8,7 +8,7 @@
   %ul.tags.cloud
     - Package.most_popular.each_with_index do |pkg, i|
       %li
-        = "#{i+1}. #{link_to pkg, pkg}"
+        = raw "#{i+1}. #{link_to pkg, pkg}"
     %li
       \...#{link_to "more!", popcon_url, :style => "background: transparent"}
 

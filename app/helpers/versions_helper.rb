@@ -3,7 +3,7 @@ module VersionsHelper
   def package_links(packages)
     packages.collect do |p|
       link_to(p.name, p)
-    end.join(", ")
+    end.join(", ").html_safe
   end
 
   def version_uses
@@ -12,7 +12,7 @@ module VersionsHelper
             end + @version.suggests.map do |p|
               content_tag(:em, link_to(p.name, p))
             end).join(", ")
-    uses.blank? ? "Does not use any package" : uses
+    uses.blank? ? "Does not use any package" : uses.html_safe
   end
 
 end

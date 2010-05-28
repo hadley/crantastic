@@ -10,15 +10,17 @@ module PackagesHelper
       opts.merge!({:checked => "checked"}) if i == @package.average_rating(aspect)
       output << tag(:input, opts)
     end
-    content_tag(:div, output.join)
+    content_tag(:div, output.join.html_safe)
   end
 
   ###
   # Helper for displaying "Package (version)"
   def package_version(pkg, version=pkg.latest, link_to_pkg=true, klass="version")
-    out = (link_to_pkg ? link_to(h(pkg.name), pkg) : pkg.name)
-    (out += " " + content_tag(:span, "(#{h(version)})", :class => klass)) if version
-    out
+    out = link_to_pkg ? link_to(pkg.name, pkg) : pkg.name
+    if version
+      (out += " ".html_safe + content_tag(:span, "(#{version})", :class => klass))
+    end
+    out.html_safe
   end
 
   def tag_list
@@ -27,7 +29,7 @@ module PackagesHelper
       out += content_tag("li",
                          link_to(h(tag), tag, :class => tag.type.to_s.underscore))
     end
-    out
+    out.html_safe
   end
 
 end

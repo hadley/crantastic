@@ -1,5 +1,5 @@
-%h1= "A review of #{package_version(@review.package, @review.version)}"
-%span.byline= "by #{link_to @review.user.login, @review.user}"
+%h1= "A review of #{package_version(@review.package, @review.version)}".html_safe
+%span.byline= "by #{link_to @review.user.login, @review.user}".html_safe
 
 - if @review.rating
   %p.rating= @review.rating

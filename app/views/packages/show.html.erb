@@ -105,9 +105,9 @@
         <p><strong><%= h review.title %></strong></p>
         <p><%= markdown(truncate(review.review, :length => 150)) %></p>
         <p><% if review.rating %>
-            <%= link_to review.user.login, review.user  %> gave
+            <%= link_to review.user.login, review.user %> gave
             <%= package_version(review.package, review.version) %> a
-            <%= h review.rating %>.
+            <%= review.rating %>.
           <% else %>
             <%= link_to review.user.login, review.user %> did not rate
             <%= package_version(review.package, review.version) -%>.
