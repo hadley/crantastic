@@ -25,7 +25,7 @@ module ActionView
       end
 
       def simple_format_with_escaping(text, html_options = {})
-        simple_format_without_escaping(ERB::Util.h(text), options)
+        simple_format_without_escaping(ERB::Util.h(text), html_options)
       end
       alias_method_chain :simple_format, :escaping
     end

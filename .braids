@@ -16,7 +16,7 @@ vendor/plugins/live-validations:
 vendor/plugins/rails_xss: 
   branch: master
   remote: braid/vendor/plugins/rails-xss
-  revision: 3480eb775c11ae8178f9381cf77ba4ea58877e8d
+  revision: 79a5ac3b56682374949a4091e80f8a5c790523c8
   squashed: true
   type: git
   url: git://github.com/rails/rails_xss.git
