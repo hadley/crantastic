@@ -35,7 +35,7 @@ Rails::Initializer.run do |config|
   config.gem 'maruku',              :version => '>= 0.6.0'
   config.gem 'pg'
   config.gem 'rails',               :version => '= 2.3.8'
-  config.gem 'recaptcha',           :version => '= 0.2.3'
+  config.gem 'recaptcha',           :version => '= 0.2.3', :lib => 'recaptcha/rails'
   config.gem 'resource_controller', :version => '= 0.6.6'
   config.gem 'rpx_now',             :version => '= 0.6.20'
   config.gem 'searchlogic',         :version => '= 2.4.19'
