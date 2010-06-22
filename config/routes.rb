@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Nested resources
   map.resources :packages,
-                :collection => { :all => :get, :feed => :get, :search => :post },
+                :collection => { :all => :get, :feed => :get, :search => [ :get, :post ] },
                 :member => { :toggle_usage => :post },
                 :except => [ :update, :edit ] do |p|
     p.resources :versions, :only => [ :index, :show ]

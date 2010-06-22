@@ -24,7 +24,7 @@ class PackagesController < ApplicationController
     @title = "#{Package.count} R packages"
 
     respond_to do |format|
-      format.html {}
+      format.html { render :template => "packages/index" }
       format.js { render :partial => "packages/list" }
       format.xml { render :xml => @packages }
     end

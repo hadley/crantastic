@@ -7,8 +7,10 @@ $(document).ready(function() {
     // Try to focus first text input
     $('input[@type=text]:first').focus();
 
+    // hijacks the pagnation links in /packages
     $('div.pagination a').livequery('click', function() {
         var href = this.href;
+
         // Appends the search term to the URL, to facilitate
         // browser history and bookmarking
         if ($("#package-search")[0].value != "" && !href.match(/&search=/)) {
