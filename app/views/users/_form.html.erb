@@ -45,5 +45,6 @@
 <%= f.check_box :tos %>
 <em>You must accept the license terms.</em></p>
 
+<%= hidden_field_tag 'show_rpx', params[:show_rpx] %>
 <p><%= f.submit(@user.new_record? ? 'Sign up' : 'Save details') %></p>
 <% end -%>
