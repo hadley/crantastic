@@ -20,10 +20,3 @@ vendor/plugins/rails_xss:
   squashed: true
   type: git
   url: git://github.com/rails/rails_xss.git
-vendor/plugins/recaptcha: 
-  branch: master
-  remote: braid/vendor/plugins/recaptcha
-  revision: 754d42e88b982dc9b8e1f2aae0ad11b2a537f946
-  squashed: true
-  type: git
-  url: git://github.com/ambethia/recaptcha.git
