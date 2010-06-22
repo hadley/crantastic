@@ -6,7 +6,7 @@
 
 - form_tag(author_identities_path) do
   %div
-    = recaptcha_tags
+    = raw recaptcha_tags
     %br
     = hidden_field_tag "author_id", @author.id
     = submit_tag "Submit"
