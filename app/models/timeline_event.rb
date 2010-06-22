@@ -81,7 +81,7 @@ class TimelineEvent < ActiveRecord::Base
   def self.filtered_events(page=1)
     events, result, filtered_events = [], [], []
 
-    until result.size == 25
+    until result.size >= self.per_page # ==
       if events.empty? # fetch another batch of timeline events from the db
         events = self.paginate_recent(page).reverse
         break if events.empty? # break out if we are truely out of events
