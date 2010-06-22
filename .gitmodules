@@ -1,3 +1,0 @@
-[submodule "vendor/plugins/parallel_specs"]
-	path = vendor/plugins/parallel_specs
-	url = git://github.com/grosser/parallel_specs.git
