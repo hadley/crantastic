@@ -22,6 +22,8 @@ config.gem 'compass',
            :version => '>= 0.8.17',
            :lib => false
 
+config.gem 'query_diet'
+
 # Require conditionally, until ruby-debug works with 1.9
 config.gem 'ruby-debug' unless RUBY_VERSION =~ /1.9/
 
