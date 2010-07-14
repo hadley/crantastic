@@ -72,5 +72,5 @@ Rails::Initializer.run do |config|
 end
 
 ActionView::Base.field_error_proc = Proc.new do |html, instance|
-  %{<div class="fieldWithErrors">#{html} <small class="error">&bull; #{[instance.error_message].flatten.first}</small></div>}
+  %{<div class="fieldWithErrors">#{html} <small class="error">&bull; #{[instance.error_message].flatten.first}</small></div>}.html_safe
 end
