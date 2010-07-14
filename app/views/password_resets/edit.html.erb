@@ -1,8 +1,7 @@
 <h1>Change My Password</h1>
 
-<% form_for @user, :url => password_reset_path, :method => :put,
-  :live_validations => true, :html => {:id => "user_74"} do |f| %>
-  <%= f.error_messages %>
+<% form_for @user, :url => password_reset_path, :html => { :method => :put } do |f| %>
+  <%= raw f.error_messages %>
   <%= f.label :password %><br />
   <%= f.password_field :password %><br />
   <br />
