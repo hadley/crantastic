@@ -17,6 +17,9 @@ is usued for documentation, whenever it feels necessary.
 
 ## Development
 
+Ruby 1.8.7 is recommended (we use the latest Ruby Enterprise version on the live
+site). 1.9.x will not work (yet).
+
 Copy `config/database.sample.yml` to `config/database.yml`. It defaults to
 SQLite, so no additional configuration of this file is necessary unless you want
 to use PostgreSQL (which the site runs on in production).
