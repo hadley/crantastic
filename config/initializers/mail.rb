@@ -4,6 +4,7 @@ ActionMailer::Base.smtp_settings = {
   :port => 587,
   :domain => 'crantastic.org',
   :authentication => :plain,
+  :enable_starttls_auto => true,
   :user_name => 'cranatic',
   :password => ENV['GMAIL']
 }
