@@ -5,7 +5,9 @@ PATH="/usr/local/bin:/bin:/usr/bin:$PATH"
 
 cd crantastic
 
+git reset --hard HEAD # avoids problems with git pull executing cleanly
 git pull
+sudo rake gems:install # makes sure latest gems are available
 
 # Lets make sure that the password is set
 export CRANTASTIC_PASSWORD=[FILTERED]
