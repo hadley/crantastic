@@ -1,11 +1,4 @@
 --- 
-vendor/plugins/db_branch: 
-  branch: master
-  remote: braid/vendor/plugins/db-branch
-  revision: 3af36e317ebfe018cadf6f204b077e08450ddbfa
-  squashed: true
-  type: git
-  url: git://github.com/bmaland/db_branch.git
 vendor/plugins/live-validations: 
   branch: master
   remote: braid/vendor/plugins/live-validations
