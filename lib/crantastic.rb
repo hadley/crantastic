@@ -102,21 +102,27 @@ module Crantastic
             Log.log_and_report! "Problem with package #{package}: latest_version missing!"
           elsif cur.latest_version.version != version
             Log.log!("Updating package: #{package} (#{version})")
-            add_version_to_db(CRAN::CranPackage.new(package, version), cur.id)
+            begin
+              add_version_to_db(CRAN::CranPackage.new(package, version), cur.id)
+            rescue Exception => e
+              # we can ignore the fact that the version upgrade failed, it will
+              # be retried the next time the updater runs.
+            end
           end
         else
           Log.log!("New package: #{package} (#{version})")
           # ActiveResource doesn't support transactions so this is a bit scary
           pkg = Resources::Package.create(:name => package)
+          # We must delete the package if the version creation fails, as we cant
+          # have packages without any versions in the db.
           begin
             ver = add_version_to_db(CRAN::CranPackage.new(package, version), pkg.id)
-            if ver.blank?
+            if ver.nil?
               Log.log_and_report! "Problem with package #{package}: could not store #{version}"
-              pkg.destroy
+              pkg.delete
             end
           rescue Exception => e
-            pkg.destroy
-            throw e
+            pkg.delete
           end
         end
       end
@@ -186,9 +192,10 @@ module Crantastic
       return version
     rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError, Timeout::Error
       Log.log_and_report! "Problem downloading #{pkg}, skipping to next pkg"
+      raise
     rescue Exception => e
       Log.log_and_report! "Unknown problem when adding #{pkg}: #{e}"
-      pkg.destroy
+      raise
     end
 
     def read_from_files(pkgdir, files)
