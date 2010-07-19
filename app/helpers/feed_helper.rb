@@ -21,7 +21,7 @@ module FeedHelper
           content = sanitize(event_html, :tags => %w(a href p span))
 
           if event.package_event?
-            content += "<br /><h3>Package description:</h3><p>#{event.subject.description}</p>"
+            content += "<br /><h3>Package description:</h3><p>#{event.subject.description}</p>".html_safe
           end
 
           entry.content(content, :type => 'html')
