@@ -1,5 +1,6 @@
 authlogic --version "= 2.1.5"
-couchrest --version "= 0.34"
+bitly --version "= 0.5.2"
+couchrest --version "= 0.37"
 erubis
 gravtastic --version "= 2.2.0"
 haml --version ">= 3.0.6"
@@ -9,10 +10,10 @@ pg
 rails --version "= 2.3.8"
 recaptcha --version "= 0.2.3"
 resource_controller --version "= 0.6.6"
-rpx_now --version "= 0.6.20"
+rpx_now --version "= 0.6.23"
 searchlogic --version "= 2.4.19"
 timeline_fu --version "= 0.3.0"
-twitter --version "= 0.6.15"
+twitter --version "= 0.9.8"
 will_paginate --version "= 2.3.14"
 yajl-ruby
 Chrononaut-aegis --version "= 1.2.0" --source http://gems.github.com

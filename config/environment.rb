@@ -28,7 +28,7 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem 'authlogic',           :version => '= 2.1.5'
   config.gem 'bitly',               :version => '= 0.5.2'
-  config.gem 'couchrest',           :version => '= 0.34'
+  config.gem 'couchrest',           :version => '= 0.37'
   config.gem 'erubis'
   config.gem 'gravtastic',          :version => '= 2.2.0'
   config.gem 'haml',                :version => '>= 3.0.6'
@@ -38,10 +38,10 @@ Rails::Initializer.run do |config|
   config.gem 'rails',               :version => '= 2.3.8'
   config.gem 'recaptcha',           :version => '= 0.2.3', :lib => 'recaptcha/rails'
   config.gem 'resource_controller', :version => '= 0.6.6'
-  config.gem 'rpx_now',             :version => '= 0.6.20'
+  config.gem 'rpx_now',             :version => '= 0.6.23'
   config.gem 'searchlogic',         :version => '= 2.4.19'
   config.gem 'timeline_fu',         :version => '= 0.3.0'
-  config.gem 'twitter',             :version => '= 0.6.15'
+  config.gem 'twitter',             :version => '= 0.9.8'
   config.gem 'will_paginate',       :version => '= 2.3.14'
   config.gem 'yajl-ruby',           :lib => 'yajl'
 
