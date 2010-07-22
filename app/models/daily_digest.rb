@@ -25,9 +25,10 @@ class DailyDigest
   def tweets
     def tweet(pre, content)
       return nil if content.empty?
-      str = pre + " " + content.join(", ")
+      str = pre + " " + content[0,20].join(", ")
+      Bitly.use_api_version_3
       bitly = Bitly.new(ENV['BITLY_USERNAME'], ENV['BITLY_API_KEY'])
-      url = bitly.shorten("http://crantastic.org/daily/#{@day}")
+      url = bitly.shorten("http://crantastic.org/daily/#{@day}").short_url
       post = ". #{url} #rstats"
       while (str + post).length > 140
         str = str.gsub(/, \.\.$/, '').gsub(/,[^,.]+$/, ', ..')
