@@ -17,7 +17,7 @@ module WeeklyDigestsHelper
   def versions(versions)
     return "" if versions.empty?
     content_tag(:h2, "Updated packages") +
-    content_tag(:p, versions.collect { |v| package_version(v.package, v, true, '') }.join(", "))
+    content_tag(:p, versions.collect { |v| package_version(v.package, v, true, '') }.join(", ").html_safe)
   end
 
 end
