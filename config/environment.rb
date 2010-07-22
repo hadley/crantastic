@@ -27,6 +27,7 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem 'authlogic',           :version => '= 2.1.5'
+  config.gem 'bitly',               :version => '= 0.5.2'
   config.gem 'couchrest',           :version => '= 0.34'
   config.gem 'erubis'
   config.gem 'gravtastic',          :version => '= 2.2.0'
