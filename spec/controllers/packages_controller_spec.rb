@@ -5,7 +5,7 @@ include AuthHelper
 describe PackagesController do
 
   setup do
-    Version.make
+    Version.make(:package => Package.make(:name => "rJython"))
     Version.make
   end
 
@@ -17,9 +17,14 @@ describe PackagesController do
   end
 
   it "should do a 301 for numerical package ids" do
-    Package.should_receive(:find).with("1")
-    get :show, :id => 1
-    response.should be_redirect
+    get :show, :id => Package.find_by_name("rJython").id.to_s
+    response.should redirect_to("/packages/rJython")
+    response.status.should == "301 Moved Permanently"
+  end
+
+  it "should do a 301 if package name differs in case from id" do
+    get :show, :id => "rjython"
+    response.should redirect_to("/packages/rJython")
     response.status.should == "301 Moved Permanently"
   end
 

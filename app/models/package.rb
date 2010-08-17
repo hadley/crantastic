@@ -60,7 +60,7 @@ class Package < ActiveRecord::Base
                              :limit => 5
 
   validates_presence_of :name
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name, :case_sensitive => false
   validates_length_of :name, :in => 2..255
 
   # We can't validate the presence of a latest_version_id here, since we
@@ -68,8 +68,10 @@ class Package < ActiveRecord::Base
   # to be careful and ideally use transactions when creating packages to avoid
   # inconsistent data in the database.
 
+  ## Note that this method is case insensitive
   def self.find_by_param(id)
-    self.find_by_name(id.gsub("-", ".")) or raise ActiveRecord::RecordNotFound
+    self.first(:conditions => ["LOWER(name) = ?", id.gsub("-", ".").downcase]) or
+      raise ActiveRecord::RecordNotFound
   end
 
   ## No. of packages to show per page.

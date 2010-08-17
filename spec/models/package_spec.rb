@@ -23,6 +23,12 @@ describe Package do
   should_have_many :reviews
   should_have_many :taggings
 
+  it "should be case insensitive on package name" do
+    Package.new(:name => "Bio.infeR").should_not be_valid
+    Package.new(:name => "GGPLOT2").should_not be_valid
+    Package.new(:name => "ggplot3").should be_valid
+  end
+
   it "should use dashes instead of dots for params" do
     p = Package.new(:name => "bio.infer")
     p.to_param.should == "bio-infer"
@@ -30,6 +36,10 @@ describe Package do
 
   it "should have name as to_s representation" do
     Package.new(:name => "bio.infer").to_s.should == "bio.infer"
+  end
+
+  it "should be case insensitive when finding by param" do
+    Package.find_by_param("bio.infer").should == Package.find_by_param("BIO.Infer")
   end
 
   it "should be marked as updated after it receives a new version" do

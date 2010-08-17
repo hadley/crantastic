@@ -59,7 +59,12 @@ class PackagesController < ApplicationController
       return
     end
 
-    @package = Package.find_by_param(id)
+    @package = Package.find_by_param(id) # case-insensitive
+    # Redirect to correct url if e.g. someone accesses /packages/rjython (should be rJython)
+    if @package.name != id
+      redirect_to url_for(@package), :status => 301
+      return
+    end
     @version = @package.latest
     @tagging = Tagging.new(:package => @package)
     @title = "The #{@package} package"
