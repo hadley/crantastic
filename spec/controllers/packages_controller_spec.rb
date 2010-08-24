@@ -6,7 +6,7 @@ describe PackagesController do
 
   setup do
     Version.make(:package => Package.make(:name => "rJython"))
-    Version.make
+    Version.make(:package => Package.make(:name => "data.table"))
   end
 
   integrate_views
@@ -26,6 +26,11 @@ describe PackagesController do
     get :show, :id => "rjython"
     response.should redirect_to("/packages/rJython")
     response.status.should == "301 Moved Permanently"
+  end
+
+  it "should not incorrectly 301 for package names with dots" do
+    get :show, :id => "data-table"
+    response.status.should == "200 OK"
   end
 
   it "should do a 404 for unknown packages" do

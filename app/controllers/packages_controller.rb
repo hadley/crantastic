@@ -61,7 +61,7 @@ class PackagesController < ApplicationController
 
     @package = Package.find_by_param(id) # case-insensitive
     # Redirect to correct url if e.g. someone accesses /packages/rjython (should be rJython)
-    if @package.name != id
+    if @package.to_param != id
       redirect_to url_for(@package), :status => 301
       return
     end
