@@ -147,8 +147,7 @@ module Crantastic
       throw Exception.new("Couldn't parse DESCRIPTION for #{pkg.name}. " +
                           "Look at http://cran.r-project.org/web/packages/#{pkg.name}/DESCRIPTION " +
                           "for clues.") if description.nil?
-      data = description.first
-      data = data.downcase_keys.symbolize_keys
+      data = description[0].downcase_keys.symbolize_keys
 
       fields = [:title, :license, :description, :author, :enhances, :priority,
                 :maintainer, :date, :url, :depends, :suggests, :imports,
@@ -183,7 +182,11 @@ module Crantastic
       data.delete(:packaged)
 
       # Find or create maintainer
-      data[:maintainer_id] = Resources::Author.new_from_string(data[:maintainer]).id
+      begin
+        data[:maintainer_id] = Resources::Author.new_from_string(data[:maintainer]).id
+      rescue Exception => e
+        throw Exception.new("Problem with author #{data[:maintainer]} for #{pkg}")
+      end
       data.delete(:maintainer)
 
       data[:package_id] = crantastic_package_id
@@ -191,10 +194,10 @@ module Crantastic
       FileUtils.rm_rf(pkgdir)
       return version
     rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError, Timeout::Error
-      Log.log_and_report! "Problem downloading #{pkg}, skipping to next pkg"
+      Log.log_and_report!("Problem downloading #{pkg}, skipping to next pkg", data)
       raise
     rescue Exception => e
-      Log.log_and_report! "Unknown problem when adding #{pkg}: #{e}"
+      Log.log_and_report!("Error adding #{pkg}: #{e}", data)
       raise
     end
 
