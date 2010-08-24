@@ -39,7 +39,6 @@ Rails::Initializer.run do |config|
   config.gem 'recaptcha',           :version => '= 0.2.3', :lib => 'recaptcha/rails'
   config.gem 'resource_controller', :version => '= 0.6.6'
   config.gem 'rpx_now',             :version => '= 0.6.23'
-  config.gem 'searchlogic',         :version => '= 2.4.19'
   config.gem 'timeline_fu',         :version => '= 0.3.0'
   config.gem 'twitter',             :version => '= 0.9.8'
   config.gem 'will_paginate',       :version => '= 2.3.14'
