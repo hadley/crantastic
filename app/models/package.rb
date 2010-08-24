@@ -46,6 +46,8 @@ class Package < ActiveRecord::Base
   belongs_to :latest_version, :class_name => "Version"
   alias :latest :latest_version
 
+  delegate :authors, :to => :latest_version
+
   fires :new_package, :on                => :create,
                       :subject           => :self,
                       :secondary_subject => :self # yes 2x package
