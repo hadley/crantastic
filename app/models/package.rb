@@ -101,6 +101,10 @@ class Package < ActiveRecord::Base
     self.name.downcase <=> other.name.downcase
   end
 
+  def ==(other)
+    self.name.downcase == other.name.downcase
+  end
+
   # If updated_at is nil (which is the case for some older records), return
   # created_at as the value for updated_at. This is required because e.g. the
   # sitemap relies on proper updated_at values.

@@ -29,6 +29,11 @@ describe Package do
     Package.new(:name => "ggplot3").should be_valid
   end
 
+  it "should be considered equal if they have the same name" do
+    Package.find_by_name("bio.infer").should == Package.find_by_name("bio.infer")
+    Package.find_by_name("bio.infer").should_not == Package.find_by_name("ggplot2")
+  end
+
   it "should use dashes instead of dots for params" do
     p = Package.new(:name => "bio.infer")
     p.to_param.should == "bio-infer"
