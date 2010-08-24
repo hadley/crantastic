@@ -2,12 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe AuthorsController do
 
-  setup do
-    Version.make
-  end
-
-  before(:each) do
-    @version = Version.first
+  def setup
+    @version = Version.make
     @author = @version.maintainer
   end
 
@@ -26,7 +22,7 @@ describe AuthorsController do
 
   it "should set a singular title for the author pages" do
     get :show, :id => @author.id
-    response.should have_tag('title', "#{@version.maintainer.name}. It's crantastic!")
+    response.should have_tag('title', "#{@author.name}. It's crantastic!")
   end
 
   describe "XHTML Markup" do
