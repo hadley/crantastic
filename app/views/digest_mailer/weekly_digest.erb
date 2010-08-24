@@ -5,7 +5,8 @@ New packages
 
 <%- @digest.packages.each do |package| -%>
 * <%= package.name %> (<%= package.latest_version.version %>)
-  <%= package.latest_version.authors %>
+  Maintainer: <%= package.maintainer.to_s %>
+  Author(s): <%= package.authors.wrap(70, 13).html_safe %>
   http://crantastic.org<%= url_for(package) %>
 
   <%= package.description.wrap(70, 2) rescue "" %>

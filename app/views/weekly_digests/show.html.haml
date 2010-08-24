@@ -1,5 +1,5 @@
 - if object.kind_of? WeeklyDigest
-  %h1= "Cran updates #{object.start_date.to_time.strftime("%d %b")}&#150;#{object.end_date.to_time.strftime("%d %b")}"
+  %h1= "Cran updates<br />#{object.start_date.to_time.strftime("%d %b")}&#150;#{object.end_date.to_time.strftime("%d %b")} #{Time.now.year}".html_safe
 - elsif object.kind_of? DailyDigest
   %h1= object.title
 
