@@ -7,19 +7,15 @@ class VersionObserver < ActiveRecord::Observer
     version.package.latest_version = version
     version.package.description = version.description
 
-    # Store associations for depends, enhances, suggests, and authors
+    # Store associations for depends, enhances and suggests
     version.required_packages = version.parse_depends
     version.enhanced_packages = version.parse_enhances
     version.suggested_packages = version.parse_suggests
-    # version.authors = (version.parse_authors + [version.maintainer]).compact.uniq
-    version.authors = [version.maintainer].compact
 
     version.package.save! # no need to explicitly update updated_at
 
-    # Update the author's updated_at attribute
-    unless version.authors.empty?
-      version.authors.each(&:touch)
-    end
+    # Update the maintainer's updated_at attribute
+    version.maintainer.touch
 
     # Create/Update Priority taggings
     if version.priority.blank?

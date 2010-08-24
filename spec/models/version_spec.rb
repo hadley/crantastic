@@ -4,6 +4,7 @@ describe Version do
 
   setup do
     Version.make
+    Author.make
     User.make(:id => 146)
   end
 
@@ -23,14 +24,16 @@ describe Version do
     pkg = Package.first
     pkg.latest_version.should == ver1
 
-    ver2 = Version.create!(:package => pkg, :name => pkg.name, :version => "2.0")
+    ver2 = Version.create!(:package => pkg, :name => pkg.name, :version => "2.0",
+                           :maintainer => Author.first)
     pkg.latest_version.should == ver2
   end
 
   it "should know its previous version" do
     pkg = Package.first
     ver1 = pkg.versions.first
-    ver2 = Version.create!(:package => pkg, :name => pkg.name, :version => "3.0")
+    ver2 = Version.create!(:package => pkg, :name => pkg.name, :version => "3.0",
+                           :maintainer => Author.first)
 
     ver2.previous.should == ver1
   end

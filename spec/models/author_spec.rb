@@ -6,7 +6,7 @@ describe Author do
   should_validate_length_of :name, :minimum => 2, :maximum => 255
   should_allow_values_for :email, "john@doe.co.uk", "", "X", :allow_nil => true
   should_validate_length_of :email, :minimum => 0, :maximum => 255
-  should_have_many :maintained_versions
+  should_have_many :versions
 
   it "should have unique values for email scoped on name" do
     Author.new_from_string("John Doe <john.doe@acme.co.uk>")
@@ -37,6 +37,13 @@ describe Author do
 
     Author.find_or_create("Harry", nil).should == h
     Author.find_or_create(nil, h.email).should == h
+  end
+
+  it "should be connected with versions and packages" do
+    v = Version.make
+    a = v.maintainer
+    a.versions.should == [v]
+    a.packages.should == [v.package]
   end
 
 end

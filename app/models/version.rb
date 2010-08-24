@@ -35,8 +35,6 @@ class Version < ActiveRecord::Base
   belongs_to :package
   belongs_to :maintainer, :class_name => "Author"
 
-  has_and_belongs_to_many :authors
-
   has_and_belongs_to_many :required_packages, :class_name => "Package",
                           :association_foreign_key => "required_package_id",
                           :join_table => "required_package_version"
@@ -73,6 +71,11 @@ class Version < ActiveRecord::Base
 
   def to_s
     version
+  end
+
+  # The CRAN package field is singular, we add a pluralised alias
+  def authors
+    author
   end
 
   # For now this just stores changes from the previous version

@@ -47,6 +47,7 @@ class Package < ActiveRecord::Base
   alias :latest :latest_version
 
   delegate :authors, :to => :latest_version
+  delegate :maintainer, :to => :latest_version
 
   fires :new_package, :on                => :create,
                       :subject           => :self,
