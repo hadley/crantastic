@@ -251,7 +251,7 @@ module Crantastic
               # the task view.
               (existing_packages - view.packagelist).each do |removed_package|
                 Log.log! "Removed: #{removed_package}"
-                Tagging.delete_all(["package_id = ? AND tag_id = ?",
+                Tagging.destroy_all(["package_id = ? AND tag_id = ?",
                                     Package.find_by_name(removed_package).id, tag.id])
               end
             end
