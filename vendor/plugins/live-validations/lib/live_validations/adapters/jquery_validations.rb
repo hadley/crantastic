@@ -36,7 +36,7 @@ module LiveValidations
         
         if v.callback.options[:is]
           length = v.callback.options[:is]
-          add_custom_rule(v, attribute, "lengthIs#{length}", "return value.length == #{length}", "Please enter exactly #{length} characters.")
+          add_custom_rule(v, "lengthIs#{length}", "return value.length == #{length}", "Please enter exactly #{length} characters.")
         end
       end
       
@@ -98,7 +98,7 @@ module LiveValidations
         
         %{
           #{custom_rules(a)}
-          $('##{dom_id}').validate(#{to_json_with_function_awareness(validator_options)})
+          $('##{dom_id}').validate(#{validator_options.to_json})
         }
       end
       
@@ -113,19 +113,6 @@ module LiveValidations
       
       def self.custom_rules(a)
         a[:declarations].join("\n")
-      end
-
-      def self.to_json_with_function_awareness(validator_options)
-        functions = {}
-        function_strings = validator_options.select { |k, v| v.is_a?(String) && v.starts_with?('function') }
-        function_strings.each_with_index do |function_string, i|
-          function_key = "%function_#{i + 1}%"
-          functions[function_key] = function_string.last
-          validator_options[function_string.first] = function_key
-        end
-        functions.inject(validator_options.to_json) do |json, function|
-          json.gsub(/"#{function.first}"/i, function.last)
-        end
       end
     end
   end
