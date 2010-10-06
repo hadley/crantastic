@@ -17,9 +17,9 @@
       %li.comment{:class => "#{@klass}"}
         %strong= comment.title
         = markdown(comment.comment)
-        %em.byline= "- #{link_to comment.user, comment.user} (#{comment.created_at})"
+        %em.byline= "- #{link_to comment.user, comment.user} (#{comment.created_at})".html_safe
 
 - if logged_in?
   %p= link_to 'Comment on this review', new_review_review_comment_path(@review)
-  - if current_user.may_edit?(@review)
+  - if can? :edit, @review
     = link_to 'Edit', edit_package_review_path(@review.package, @review)
