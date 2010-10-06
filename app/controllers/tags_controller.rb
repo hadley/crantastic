@@ -15,8 +15,6 @@ class TagsController < ApplicationController
     @tag = klass.find_by_param(params[:id])
     @events = TimelineEvent.recent_for_tag(@tag)
     set_atom_link(self, @tag)
-  rescue ActiveRecordNotFound
-    rescue_404
   end
 
   def create

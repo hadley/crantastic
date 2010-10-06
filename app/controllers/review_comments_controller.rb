@@ -12,8 +12,6 @@ class ReviewCommentsController < ApplicationController
     respond_to do |format|
       format.html { }
     end
-  rescue ActiveRecord::RecordNotFound
-    rescue_404
   end
 
   def create

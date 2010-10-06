@@ -14,8 +14,6 @@ class VersionsController < ApplicationController
   def show
     @version = Version.find(params[:id])
     @package = @version.package
-  rescue ActiveRecord::RecordNotFound
-    rescue_404
   end
 
   def create
