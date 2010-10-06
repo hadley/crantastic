@@ -1,21 +1,32 @@
 class TimelineEventsController < ApplicationController
 
-  resource_controller
-
-  actions :index, :show
-
   before_filter :set_atom
 
-  show.failure.wants.html { rescue_404 }
-  index.wants.atom { @events = TimelineEvent.recent }
-  index.wants.js { render :partial => "paginated_events", :locals => { :events => @timeline_events } }
-
-  private
-  def collection
+  def index
     @page = (params[:page] || 1).to_i
     @page = 1 if @page == 0
-    TimelineEvent.paginate_filtered_events(@page)
+
+    respond_to do |format|
+      format.html { @timeline_events = TimelineEvent.paginate_filtered_events(@page) }
+      format.atom { @timeline_events = TimelineEvent.recent }
+      format.js do
+        @timeline_events = TimelineEvent.paginate_filtered_events(@page)
+        render :partial => "paginated_events",
+               :locals => { :timeline_events => @timeline_events }
+      end
+    end
   end
+
+  def show
+    @timeline_event = TimelineEvent.find(params[:id])
+    respond_to do |format|
+      format.html { }
+    end
+  rescue ActiveRecord::RecordNotFound
+    rescue_404
+  end
+
+  private
 
   def set_atom
     @atom = {
