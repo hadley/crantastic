@@ -1,6 +1,6 @@
 %h1
   = @title
-- unless parent_object
+- unless @package
   %p
     crantastic users have written #{pluralize Review.count, 'review'}.
     These are the most recent reviews:
