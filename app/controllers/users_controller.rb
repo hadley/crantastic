@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
 
   before_filter :require_no_user, :only => [ :new, :create, :activate ]
-  before_filter [ :require_user, :check_permissions ],
-                :only => [ :edit, :update, :regenerate_api_key ]
+  before_filter :require_user, :only => [:regenerate_api_key, :edit]
+
+  load_and_authorize_resource
 
   def index
     @users = User.all
@@ -11,12 +12,7 @@ class UsersController < ApplicationController
 
   def show
     @events = TimelineEvent.recent_for_user(object)
-    respond_to do |format|
-      format.html { set_atom_link(self, object) }
-      format.atom {}
-    end
-  rescue
-    rescue_404
+    set_atom_link(self, object)
   end
 
   def new
