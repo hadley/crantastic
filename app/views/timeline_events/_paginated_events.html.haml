@@ -1,4 +1,4 @@
 %ul.timeline
-  - for event in events
+  - for event in timeline_events
     = timeline_event(event)
 = link_to "More", "/timeline_events?page=#{@page.to_i+1}", :id => 'more', :class => 'box'

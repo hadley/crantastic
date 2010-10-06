@@ -1,8 +1,8 @@
-- if object.kind_of? WeeklyDigest
-  %h1= "Cran updates<br />#{object.start_date.to_time.strftime("%d %b")}&#150;#{object.end_date.to_time.strftime("%d %b")} #{Time.now.year}".html_safe
-- elsif object.kind_of? DailyDigest
-  %h1= object.title
+- if @digest.kind_of? WeeklyDigest
+  %h1= "Cran updates<br />#{@digest.start_date.to_time.strftime("%d %b")}&#150;#{@digest.end_date.to_time.strftime("%d %b")} #{Time.now.year}".html_safe
+- elsif @digest.kind_of? DailyDigest
+  %h1= @digest.title
 
-= packages(object.packages)
-= versions(object.versions)
-= reviews(object.reviews)
+= packages(@digest.packages)
+= versions(@digest.versions)
+= reviews(@digest.reviews)
