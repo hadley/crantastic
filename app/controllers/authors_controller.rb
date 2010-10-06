@@ -1,30 +1,48 @@
 class AuthorsController < ApplicationController
 
-  resource_controller
-
-  actions :index, :show, :create
+  # TODO remove create method after the data import script is rewritten
 
   before_filter :admin_required, :only => :create
 
-  index.wants.html { @title = "Package Maintainers" }
-  index.wants.xml { render :xml => @authors }
-  show.before { @events = TimelineEvent.recent_for_author(@author) }
-  show.wants.html do
+  def index
+    conditions = params.dup.delete_if { |k,v| !["name", "email"].include?(k) }
+    @authors = Author.all(:conditions => conditions)
+    @title = "Package Maintainers"
+
+    respond_to do |format|
+      format.html { }
+      format.xml { render :xml => @authors }
+    end
+  end
+
+  def show
+    @author = Author.find(params[:id])
+    @events = TimelineEvent.recent_for_author(@author)
+
     set_atom_link(self, @author)
     @plural = false
     @title = @author.name
+
+    respond_to do |format|
+      format.html { }
+      format.atom { }
+      format.xml { render :xml => @author }
+    end
   end
-  show.wants.atom {}
-  show.wants.xml { render :xml => @author }
 
-  show.failure.wants.html { rescue_404 }
-
-  create.wants.xml { render :xml => @author }
-  create.failure.wants.xml { render :nothing => true, :status => :conflict }
-
-  def collection
-    conditions = params.dup.delete_if { |k,v| !["name", "email"].include?(k) }
-    Author.all(:conditions => conditions)
+  def create
+    @author = Author.create!(params[:author])
+    respond_to do |format|
+      format.xml do
+        render :xml => @author
+      end
+    end
+  rescue # TODO use more fine-grained error checking
+    respond_to do |format|
+      format.xml do
+        render :nothing => true, :status => :conflict
+      end
+    end
   end
 
 end
