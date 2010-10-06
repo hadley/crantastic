@@ -9,7 +9,7 @@ vendor/plugins/live-validations:
 vendor/plugins/rack-bug: 
   branch: master
   remote: braid/vendor/plugins/rack-bug
-  revision: 64c67f40c143db4dfaf328a5bc469e85bc47be95
+  revision: f15849bec3ebfe20eb28bd5b1ac161f74369a56d
   squashed: true
   type: git
   url: git://github.com/brynary/rack-bug.git
