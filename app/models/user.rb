@@ -56,8 +56,6 @@ class User < ActiveRecord::Base
   validates_acceptance_of :tos, :allow_nil => false, :accept => true,
                           :if => Proc.new { |user| !user.from_rpx }
 
-  has_role
-
   is_gravtastic # Enables the Gravtastic plugin for the User model
 
   default_scope :order => "id ASC"
