@@ -15,6 +15,11 @@ describe AuthorsController do
     response.should render_template("static/error_404")
   end
 
+  it "should have a atom feed for author activity" do
+    get :show, :id => @author.id, :format => "atom"
+    response.status.should == "200 OK"
+  end
+
   it "should pluralize the title" do
     get :index
     response.should have_tag('title', "Package Maintainers. They're crantastic!")

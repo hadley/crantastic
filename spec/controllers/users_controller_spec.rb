@@ -11,6 +11,12 @@ describe UsersController do
     response.should render_template(:index)
   end
 
+  it "should have a atom feed for user activity" do
+    User.should_receive(:find).twice.with("2").and_return(stub_model(User))
+    get :show, :id => "2", :format => "atom"
+    response.status.should == "200 OK"
+  end
+
   it "should do a 404 for unknown users" do
     get :show, :id => 9999
     response.status.should == "404 Not Found"
