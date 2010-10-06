@@ -40,7 +40,7 @@
 
 <% unless @user.profile_html.blank? -%>
   <h2>Profile</h2>
-  <%= @user.profile_html %>
+  <%= @user.profile_html.html_safe %>
 <% end -%>
 
 <h2>Latest activity</h2>
