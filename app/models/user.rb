@@ -27,6 +27,8 @@
 #  current_login_ip    :string(255)
 #
 
+require "rpx_now/user_integration"
+
 class User < ActiveRecord::Base
 
   include RPXNow::UserIntegration # Adds rpx.identifiers, rpx.map, and rpx.unmap
