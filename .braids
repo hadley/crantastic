@@ -5,7 +5,7 @@ vendor/plugins/live-validations:
   revision: 5cc92cac215152713105b96b1ff7cab15322b697
   squashed: true
   type: git
-  url: git://github.com/augustl/live-validations.git
+  url: git://github.com/jrmey/live-validations.git
 vendor/plugins/rack-bug: 
   branch: master
   remote: braid/vendor/plugins/rack-bug
