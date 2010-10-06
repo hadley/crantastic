@@ -173,4 +173,8 @@ class User < ActiveRecord::Base
     UserMailer.deliver_password_reset_instructions(self)
   end
 
+  def admin?
+    self.role_name == "administrator"
+  end
+
 end
