@@ -6,12 +6,12 @@ module FeedHelper
     root = obj.nil? ? root_url : polymorphic_url(obj)
     raw(atom_feed(:root_url => root) do |feed|
       feed.title("Latest activity " + (obj.nil? ? "on crantastic" : "for #{obj}"))
-      feed.updated(obj.nil? ? @timeline_events.first.updated_at : obj.updated_at)
+      feed.updated(obj.nil? ? @events.first.updated_at : obj.updated_at)
       feed.author do |author|
         author.name("crantastic.org")
       end
 
-      for event in @timeline_events
+      for event in @events
         feed.entry(event) do |entry|
           event_html = timeline_event(event, false) # don't include time ago in feeds
           next if event_html.blank? # Skip e.g. double entries for new packages

@@ -11,8 +11,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @events = TimelineEvent.recent_for_user(object)
-    set_atom_link(self, object)
+    @user = User.find(params[:id])
+    @events = TimelineEvent.recent_for_user(@user)
+    set_atom_link(self, @user)
   end
 
   def new
@@ -35,9 +36,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    if object.update_attributes(params[:user])
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
       flash[:notice] = "Updated succesfully!"
-      redirect_to user_url(object)
+      redirect_to user_url(@user)
     else
       flash[:notice] = "The form did not pass validation."
       render :action => :edit
@@ -67,12 +69,6 @@ class UsersController < ApplicationController
 
   def thanks
     render
-  end
-
-  private
-
-  def object
-    @user ||= User.find(params[:id])
   end
 
 end
