@@ -2,7 +2,6 @@ class TaggingsController < ApplicationController
 
   protect_from_forgery :except => :create
   before_filter :login_required, :set_object
-  before_filter :check_permissions, :only => [ :destroy ]
 
   def create
     # params[:tag_name] might be a list of tags, an array of tag instances is
@@ -38,6 +37,7 @@ class TaggingsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, object
     object.destroy
 
     respond_to do |format|
