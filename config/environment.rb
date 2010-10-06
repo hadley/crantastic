@@ -1,12 +1,11 @@
 # Be sure to restart your server when you modify this file
-require File.join(File.dirname(__FILE__), '/../lib/github_gem')
 
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.9' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -24,31 +23,6 @@ Rails::Initializer.run do |config|
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
-
-  # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem 'authlogic',           :version => '= 2.1.5'
-  config.gem 'bitly',               :version => '= 0.5.2'
-  config.gem 'couchrest',           :version => '= 0.37'
-  config.gem 'erubis'
-  config.gem 'gravtastic',          :version => '= 2.2.0'
-  config.gem 'haml',                :version => '>= 3.0.6'
-  config.gem 'hoptoad_notifier'
-  config.gem 'maruku',              :version => '>= 0.6.0'
-  config.gem 'pg'
-  config.gem 'rails',               :version => '= 2.3.8'
-  config.gem 'recaptcha',           :version => '= 0.2.3', :lib => 'recaptcha/rails'
-  config.gem 'resource_controller', :version => '= 0.6.6'
-  config.gem 'rpx_now',             :version => '= 0.6.23'
-  config.gem 'timeline_fu',         :version => '= 0.3.0'
-  config.gem 'twitter',             :version => '= 0.9.8'
-  config.gem 'will_paginate',       :version => '= 2.3.14'
-  config.gem 'yajl-ruby',           :lib => 'yajl'
-
-  config.github_gem 'Chrononaut-aegis', :version => '= 1.2.0'
-
-  # Required, but do not attempt to load
-  config.gem 'hpricot',     :version => '= 0.8.2', :lib => false
-  config.gem 'treetop-dcf', :version => '= 0.2.0', :lib => false
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
