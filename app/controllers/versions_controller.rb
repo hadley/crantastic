@@ -1,22 +1,31 @@
 class VersionsController < ApplicationController
 
-  resource_controller
-
-  actions :index, :show, :create
-
-  belongs_to :package
-
   before_filter :admin_required, :only => :create
 
   protect_from_forgery :except => :trigger
 
-  index.wants.html { rescue_404 }
-  index.wants.xml { render :xml => collection }
+  def index
+    respond_to do |format|
+      format.html { rescue_404 }
+      format.xml { render :xml => Version.all }
+    end
+  end
 
-  show.failure.wants.html { rescue_404 }
+  def show
+    @version = Version.find(params[:id])
+    @package = @version.package
+  rescue ActiveRecord::RecordNotFound
+    rescue_404
+  end
 
-  create.wants.xml { render :xml => object }
-  create.failure.wants.xml { render :nothing => true, :status => :conflict }
+  def create
+    @version = Version.new(params[:version])
+    if @version.save
+      render :xml => @version
+    else
+      render :nothing => true, :status => :conflict
+    end
+  end
 
   def feed
     @versions = Version.recent
@@ -28,12 +37,6 @@ class VersionsController < ApplicationController
   def trigger
     Version.find(params[:id]).serialize_data
     render :nothing => true
-  end
-
-  private
-  def parent_object
-    # Find the parent package object with the param instead of numeric id
-    Package.find_by_param(params[:package_id])
   end
 
 end
