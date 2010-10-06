@@ -34,7 +34,8 @@ describe ReviewsController do
 
   it "should let logged in users edit their own reviews" do
     user = login_as_user(:id => 1, :login => "test")
-    Review.should_receive(:find).with("1").and_return(mock_model(Review, :user => user))
+    Review.should_receive(:find).with("1").and_return(mock_model(Review, :user => user,
+                                                                         :user_id => user.id))
     get :edit, :id => 1
     response.should be_success
     response.should render_template("edit")
@@ -42,7 +43,8 @@ describe ReviewsController do
 
   it "should not let logged in users edit other peoples reviews" do
     user = login_as_user(:id => 1, :login => "test")
-    Review.should_receive(:find).once.with("1").and_return(mock_model(Review, :user => User.new))
+    Review.should_receive(:find).once.with("1").and_return(mock_model(Review, :user => User.new,
+                                                                              :user_id => nil))
     get :edit, :id => 1
     response.should_not be_success
     response.status.should == "403 Forbidden"

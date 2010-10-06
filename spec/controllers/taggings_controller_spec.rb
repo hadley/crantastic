@@ -15,7 +15,7 @@ describe TaggingsController do
 
   it "should allow users to delete their own taggings" do
     tagging = Tagging.first
-    tagging.user.should_receive(:may_destroy!).with(tagging).and_return(true)
+    #tagging.user.should_receive(:may_destroy!).with(tagging).and_return(true)
     controller.instance_variable_set(:@current_user, tagging.user)
     delete :destroy, :package_id => tagging.package.name, :id => tagging.id
     Tagging.count(:conditions => { :id => tagging.id }).should == 0
@@ -24,8 +24,8 @@ describe TaggingsController do
   it "should not allow users to delete others taggings" do
     user = User.find_by_login("malicious")
     tagging = Tagging.first
-    user.should_receive(:may_destroy!).with(tagging).and_raise(Aegis::PermissionError)
-    controller.instance_variable_set '@current_user', user
+    #user.should_receive(:may_destroy!).with(tagging).and_raise(CanCan::AccessDenied)
+    controller.instance_variable_set(:@current_user, user)
     delete :destroy, :package_id => tagging.package.name, :id => tagging.id
     Tagging.count(:conditions => { :id => tagging.id }).should == 1
     response.status.should == "403 Forbidden"
