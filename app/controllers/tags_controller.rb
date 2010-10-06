@@ -1,33 +1,35 @@
 class TagsController < ApplicationController
 
-  resource_controller
+  authorize_resource
 
-  actions :index, :show, :edit, :update
-
-  before_filter [ :login_required, :check_permissions ], :except => [ :index, :show ]
-
-  index.wants.html do
+  def index
+    @tags = Tag.ordered
     @title = if params[:type].nil?
                "Tags"
              else
                params[:type].split('_').map(&:capitalize).join(" ").pluralize
              end
   end
-  show.before { @events = TimelineEvent.recent_for_tag(@tag) }
-  show.wants.html { set_atom_link(self, @tag) }
-  show.wants.atom {}
-  show.failure.wants.html { rescue_404 }
+
+  def show
+    @tag = klass.find_by_param(params[:id])
+    @events = TimelineEvent.recent_for_tag(@tag)
+    set_atom_link(self, @tag)
+  rescue ActiveRecordNotFound
+    rescue_404
+  end
+
+  def create
+    @tag = Tag.new(params[:tag])
+    @tag.save!
+  end
+
+  def update
+    @tag = Tag.find_by_param(params[:id])
+    @tag.update_attributes(params[:tag])
+  end
 
   private
-
-  def collection
-    klass.ordered
-  end
-
-  def object
-    # Need to use =find_by_param= since we don't use numeric ids for tags.
-    klass.find_by_param(params[:id])
-  end
 
   # Finds the correct ActiveRecord class for the current scope, based on the
   # 'type' param which is specified in =routes.rb=.
