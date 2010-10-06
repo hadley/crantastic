@@ -1,31 +1,59 @@
 class ReviewsController < ApplicationController
 
-  resource_controller
+  before_filter :require_user, :only => [:new, :edit]
 
-  belongs_to :user, :package
+  load_and_authorize_resource
 
-  before_filter [ :login_required, :check_permissions ], :except => [ :index, :show ]
-
-  index.wants.html do
-    @title = (parent_object.nil?) ? "Recent reviews" : "Reviews for #{parent_object}"
+  def index
+    @reviews = Review.recent
+    @package = parent_object
+    @title = (@package.nil?) ? "Recent reviews" : "Reviews for #{@package}"
     @plural = true
+
+    respond_to do |format|
+      format.html { }
+    end
   end
 
-  show.wants.html { @title = object.to_s }
-
-  show.failure.wants.html { rescue_404 }
-
-  create.before do
-    object.user = current_user # Set Review ownership
+  def new
+    @package = parent_object
   end
 
-  create.flash "Your review has been saved. Thank you!"
+  def show
+    @review = Review.find(params[:id])
+    @title = @review.to_s
+
+    respond_to do |format|
+      format.html { }
+    end
+  end
+
+  def create
+    @review = Review.new(params[:review])
+    @review.package = parent_object
+    @review.user = current_user
+
+    if @review.save
+      flash[:notice] = "Your review has been saved. Thank you!"
+      redirect_to @review
+    else
+      flash[:notice] = "The form did not pass validation."
+      render :action => :edit
+    end
+  end
+
+  def update
+    @review = Review.find(params[:id])
+    if @review.update_attributes(params[:review])
+      flash[:notice] = "Your review has been updated!"
+      redirect_to @review
+    else
+      flash[:notice] = "The form did not pass validation."
+      render :action => :edit
+    end
+  end
 
   private
-  def collection
-    @collection ||= end_of_association_chain.recent
-  end
-
   def parent_object
     return nil if params[:package_id].blank?
     if params[:package_id].to_i == 0
