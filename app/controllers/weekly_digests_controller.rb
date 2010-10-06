@@ -1,25 +1,31 @@
 class WeeklyDigestsController < ApplicationController
 
-  resource_controller
-
-  actions :index, :show, :daily
-
   before_filter :set_atom
 
-  index.wants.html { @title = @atom[:title] }
-  index.wants.atom { }
-  show.wants.html { @title = object.title }
-  show.wants.text {}
-  show.failure.wants.html { rescue_404 }
+  def index
+    @weekly_digests = WeeklyDigest.all
+    @title = @atom[:title]
+    respond_to do |format|
+      format.html { }
+      format.text { }
+    end
+  end
+
+  def show
+    @digest = object
+    @title = @digest.title
+    respond_to do |format|
+      format.html { }
+      format.text { }
+    end
+  end
 
   # Feels dirty to render the daily digests from here, but a separate controller
   # would be overkill. Leaving it like this for now.
+  # TODO should have .txt as well
   def daily
-    object # Initializing to make sure that the passed in day is
-    # acceptable. Else a 404 will be raised.
+    @digest = object
     render :template => "weekly_digests/show"
-  rescue ActiveRecord::RecordNotFound
-    rescue_404
   end
 
   private
