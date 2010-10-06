@@ -6,69 +6,6 @@ require "twitter"
 
 module Crantastic
 
-  module Resources
-
-    class Package < ActiveResource::Base
-      self.site = "http://crantastic:#{ENV['CRANTASTIC_PASSWORD']}@#{APP_CONFIG[:site_domain]}/"
-
-      def self.find_by_name(name)
-        self.find(name)
-      rescue ActiveResource::ResourceNotFound
-        nil
-      end
-
-      def self.all
-        self.find(:all, :from => :all)
-      end
-    end
-
-    class Version < ActiveResource::Base
-      self.site = "http://crantastic:#{ENV['CRANTASTIC_PASSWORD']}@#{APP_CONFIG[:site_domain]}/"
-    end
-
-    class Author < ActiveResource::Base
-      self.site = "http://crantastic:#{ENV['CRANTASTIC_PASSWORD']}@#{APP_CONFIG[:site_domain]}/"
-
-      def self.find_by_name(name)
-        self.find(:first, :params => { :name => name })
-      rescue ActiveResource::ResourceNotFound
-        nil
-      end
-
-      def self.find_by_email(email)
-        self.find(:first, :params => { :email => email })
-      rescue ActiveResource::ResourceNotFound
-        nil
-      end
-
-      def self.find_or_create(name = nil, email = nil)
-        author = email.nil? ? nil : Author.find_by_email(email)
-        author = self.find_by_name(name) unless author
-        author.nil? ? self.create(:name => name, :email => email) : author
-      end
-
-      # Input is mainly from the "Maintainer"-field in CRAN's DESCRIPTION
-      # files. E.g. "Christian Buchta <christian.buchta at wu-wien.ac.at>".
-      # E-mail address is not guaranteed to be valid, as can be seen above.
-      #
-      # @return [Author] An Author-object corresponding to the input string
-      def self.new_from_string(string)
-        name, email = string.mb_chars.split(/[<>]/).map(&:strip)
-        if name =~ /@/
-          email = name
-          name = nil
-        end
-
-        return self.find_by_name("Unknown") if name.blank?
-
-        email.downcase! unless email.blank? # NOTE: is this necessary?
-
-        Author.find_or_create(name, email)
-      end
-    end
-
-  end
-
   class UpdatePackages
     def start
       Log.log!("Starting task: UpdatePackages")
@@ -88,7 +25,7 @@ module Crantastic
         return true
       end
 
-      crantastic_pkgs = Resources::Package.all
+      crantastic_pkgs = Package.all
 
       packages.split("\n\n").each do |entry|
         package = entry.scan(/Package: (.+)/)[0][0]
@@ -112,7 +49,7 @@ module Crantastic
         else
           Log.log!("New package: #{package} (#{version})")
           # ActiveResource doesn't support transactions so this is a bit scary
-          pkg = Resources::Package.create(:name => package)
+          pkg = Package.create(:name => package)
           # We must delete the package if the version creation fails, as we cant
           # have packages without any versions in the db.
           begin
@@ -183,14 +120,14 @@ module Crantastic
 
       # Find or create maintainer
       begin
-        data[:maintainer_id] = Resources::Author.new_from_string(data[:maintainer]).id
+        data[:maintainer_id] = Author.new_from_string(data[:maintainer]).id
       rescue Exception => e
         throw Exception.new("Problem with author #{data[:maintainer]} for #{pkg}")
       end
       data.delete(:maintainer)
 
       data[:package_id] = crantastic_package_id
-      version = Resources::Version.create(data)
+      version = Version.create(data)
       FileUtils.rm_rf(pkgdir)
       return version
     rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError, Timeout::Error
