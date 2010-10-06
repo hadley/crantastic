@@ -1,17 +1,34 @@
 class ReviewCommentsController < ApplicationController
 
-  resource_controller
+  load_and_authorize_resource
 
-  belongs_to :review
+  def new
+    @review = Review.find(params[:review_id])
+    @review_comment = ReviewComment.new
+  end
 
-  before_filter :login_required, :except => :show
+  def show
+    @review_comment = ReviewComment.find(params[:id])
+    respond_to do |format|
+      format.html { }
+    end
+  rescue ActiveRecord::RecordNotFound
+    rescue_404
+  end
 
-  show.failure.wants.html { rescue_404 }
+  def create
+    @review = Review.find(params[:review_id])
+    @review_comment = ReviewComment.new(params[:review_comment])
+    @review_comment.user = current_user
+    @review_comment.review = @review
 
-  create.before { object.user = current_user }
-
-  create.wants.html { redirect_to package_review_url(@review.package, @review) }
-
-  create.flash "Your review comment has been saved. Thank you!"
+    if @review_comment.save
+      flash[:notice] = "Your review comment has been saved. Thank you!"
+      redirect_to package_review_url(@review.package, @review)
+    else
+      flash[:notice] = "The form did not pass validation."
+      render :action => :new
+    end
+  end
 
 end
