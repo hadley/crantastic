@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Package do
 
-  setup do
+  def setup
     User.make
     User.make(:login => "somethingelse")
 
@@ -10,6 +10,7 @@ describe Package do
                  :maintainer => Author.make)
     Version.make(:package => Package.make(:name => "ggplot2", :updated_at => 2.days.ago),
                  :maintainer => Author.make)
+    @pkg = Package.first
   end
 
   should_have_scope :recent
@@ -83,6 +84,22 @@ describe Package do
     pkg.reload
     pkg.attributes["updated_at"].should == nil
     pkg.updated_at.should == pkg.created_at
+  end
+
+  describe "Delegation" do
+
+    it "should delegate authors to latest version" do
+      @pkg.authors.should == @pkg.latest_version.authors
+    end
+
+    it "should delegate license to latest version" do
+      @pkg.license.should == @pkg.latest_version.license
+    end
+
+    it "should delegate maintainer to latest version" do
+      @pkg.maintainer.should == @pkg.latest_version.maintainer
+    end
+
   end
 
   describe "Package ratings" do
