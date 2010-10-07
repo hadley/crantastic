@@ -1,5 +1,6 @@
 CRAN (and crantastic) updates this week
 
+<% unless @digest.packages.empty? %>
 New packages
 ------------
 
@@ -7,17 +8,21 @@ New packages
 * <%= package.name %> (<%= package.latest_version.version %>)
   Maintainer: <%= package.maintainer.to_s %>
   Author(s): <%= package.authors.wrap(70, 13).html_safe %>
+  License: <%= package.license.html_safe %>
   http://crantastic.org<%= url_for(package) %>
 
   <%= package.description.wrap(70, 2) rescue "" %>
 
 <%- end -%>
+<%- end -%>
 
+<% unless @digest.versions.empty? %>
 Updated packages
 ----------------
 
 <%= @digest.versions.map{|v| "#{v.name} (#{v.version})"}.join(", ").wrap(70) %>
 
+<%- end -%>
 <% unless @digest.reviews.empty? %>
 New reviews
 -----------

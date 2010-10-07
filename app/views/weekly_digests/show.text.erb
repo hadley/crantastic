@@ -8,9 +8,11 @@ New packages
 * <%= package.name %> (<%= package.latest_version.version %>)
   Maintainer: <%= package.maintainer.to_s %>
   Author(s): <%= package.authors.wrap(70, 13).html_safe %>
+  License: <%= package.license.html_safe %>
   http://crantastic.org<%= url_for(package) %>
 
   <%= package.description.wrap(70, 2) rescue "" %>
+
 <%- end -%>
 <%- end -%>
 
