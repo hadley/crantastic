@@ -25,7 +25,6 @@ GEM
       mime-types (>= 1.15)
       rest-client (>= 0.5)
     crack (0.1.8)
-    diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     faker (0.3.1)
@@ -77,18 +76,10 @@ GEM
       mime-types (>= 1.16)
     rpx_now (0.6.23)
       json_pure
-    rspec (2.0.0)
-      rspec-core (= 2.0.0)
-      rspec-expectations (= 2.0.0)
-      rspec-mocks (= 2.0.0)
-    rspec-core (2.0.0)
-    rspec-expectations (2.0.0)
-      diff-lcs (>= 1.1.2)
-    rspec-mocks (2.0.0)
-      rspec-core (= 2.0.0)
-      rspec-expectations (= 2.0.0)
-    rspec-rails (2.0.1)
-      rspec (~> 2.0.0)
+    rspec (1.3.1)
+    rspec-rails (1.3.3)
+      rack (>= 1.0.0)
+      rspec (= 1.3.1)
     ruby-debug (0.10.3)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.3.0)
@@ -123,27 +114,27 @@ DEPENDENCIES
   compass (~> 0.10.5)
   couchrest (= 0.37)
   erubis (= 2.6.6)
-  faker
+  faker (= 0.3.1)
   gravtastic (= 2.2.0)
   haml (~> 3.0.21)
   hoptoad_notifier (~> 2.3)
   hpricot (= 0.8.2)
-  machinist
-  markup_validity
+  machinist (= 1.0.6)
+  markup_validity (= 1.1.0)
   maruku (= 0.6.0)
-  mysql
+  mysql (~> 2.8.1)
   query_diet
   rails (= 2.3.10)
   recaptcha (~> 0.2.3)
-  remarkable_rails
+  remarkable_rails (= 3.1.13)
   rpx_now (= 0.6.23)
-  rspec
-  rspec-rails
+  rspec (= 1.3.1)
+  rspec-rails (= 1.3.3)
   ruby-debug
   timeline_fu (= 0.3.0)
   treetop-dcf (= 0.2.0)
   twitter (= 0.9.12)
-  webrat
+  webrat (= 0.7.1)
   will_paginate (= 2.3.15)
   wirble
-  yajl-ruby
+  yajl-ruby (~> 0.7.8)

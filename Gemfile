@@ -19,8 +19,8 @@ gem 'timeline_fu', '0.3.0'
 gem 'treetop-dcf', '0.2.0'
 gem 'twitter', '0.9.12'
 gem 'will_paginate', '2.3.15'
-gem 'yajl-ruby', :require => 'yajl'
-gem 'mysql'
+gem 'yajl-ruby', '~> 0.7.8', :require => 'yajl'
+gem 'mysql', '~> 2.8.1'
 
 group :production do
 
@@ -36,12 +36,12 @@ end
 
 group :test do
 
-  gem 'faker'
-  gem 'machinist'
-  gem 'markup_validity'
-  gem 'remarkable_rails'
-  gem 'rspec'
-  gem 'rspec-rails'
-  gem 'webrat'
+  gem 'faker', '0.3.1'
+  gem 'machinist', '1.0.6'
+  gem 'markup_validity', '1.1.0'
+  gem 'remarkable_rails', '3.1.13'
+  gem 'rspec', '1.3.1'
+  gem 'rspec-rails', '1.3.3'
+  gem 'webrat', '0.7.1'
 
 end
