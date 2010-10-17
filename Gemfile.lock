@@ -110,6 +110,7 @@ PLATFORMS
 DEPENDENCIES
   authlogic (= 2.1.5)
   bitly (= 0.5.3)
+  bundler (~> 1.0.3)
   cancan (= 1.4.0)
   compass (~> 0.10.5)
   couchrest (= 0.37)

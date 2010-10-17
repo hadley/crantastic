@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'rails', '2.3.10'
+gem 'bundler', '~> 1.0.3'
 
 gem 'authlogic', '2.1.5'
 gem 'bitly', '0.5.3'
@@ -21,10 +22,6 @@ gem 'twitter', '0.9.12'
 gem 'will_paginate', '2.3.15'
 gem 'yajl-ruby', '~> 0.7.8', :require => 'yajl'
 gem 'mysql', '~> 2.8.1'
-
-group :production do
-
-end
 
 group :development do
 
