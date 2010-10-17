@@ -25,8 +25,8 @@ class Author < ActiveRecord::Base
                       :order => "LOWER(name) ASC, id DESC"
 
   has_many :packages, :finder_sql =>
-    'SELECT DISTINCT "package".* FROM "package" ' +
-    'INNER JOIN "version" ON "package".id = "version".package_id ' +
+    'SELECT DISTINCT package.* FROM package ' +
+    'INNER JOIN version ON package.id = version.package_id ' +
     'WHERE (version.maintainer_id = #{id})', :uniq => true
 
   default_scope :order => "LOWER(name)"
