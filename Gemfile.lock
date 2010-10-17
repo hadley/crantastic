@@ -2,16 +2,16 @@ GEM
   remote: http://rubygems.org/
   specs:
     abstract (1.0.0)
-    actionmailer (2.3.9)
-      actionpack (= 2.3.9)
-    actionpack (2.3.9)
-      activesupport (= 2.3.9)
+    actionmailer (2.3.10)
+      actionpack (= 2.3.10)
+    actionpack (2.3.10)
+      activesupport (= 2.3.10)
       rack (~> 1.1.0)
-    activerecord (2.3.9)
-      activesupport (= 2.3.9)
-    activeresource (2.3.9)
-      activesupport (= 2.3.9)
-    activesupport (2.3.9)
+    activerecord (2.3.10)
+      activesupport (= 2.3.10)
+    activeresource (2.3.10)
+      activesupport (= 2.3.10)
+    activesupport (2.3.10)
     authlogic (2.1.5)
       activesupport
     bitly (0.5.3)
@@ -25,13 +25,14 @@ GEM
       mime-types (>= 1.15)
       rest-client (>= 0.5)
     crack (0.1.8)
+    diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     faker (0.3.1)
     gravtastic (2.2.0)
-    haml (3.0.18)
+    haml (3.0.21)
     hashie (0.4.0)
-    hoptoad_notifier (2.3.7)
+    hoptoad_notifier (2.3.8)
       activesupport
     hpricot (0.8.2)
     httparty (0.6.1)
@@ -45,20 +46,20 @@ GEM
       syntax (>= 1.0.0)
     mime-types (1.16)
     multi_json (0.0.4)
+    mysql (2.8.1)
     nokogiri (1.4.3.1)
     oauth (0.4.3)
-    pg (0.9.0)
     polyglot (0.3.1)
     query_diet (0.2.0)
     rack (1.1.0)
-    rack-test (0.5.5)
+    rack-test (0.5.6)
       rack (>= 1.0)
-    rails (2.3.9)
-      actionmailer (= 2.3.9)
-      actionpack (= 2.3.9)
-      activerecord (= 2.3.9)
-      activeresource (= 2.3.9)
-      activesupport (= 2.3.9)
+    rails (2.3.10)
+      actionmailer (= 2.3.10)
+      actionpack (= 2.3.10)
+      activerecord (= 2.3.10)
+      activeresource (= 2.3.10)
+      activesupport (= 2.3.10)
       rake (>= 0.8.3)
     rake (0.8.7)
     recaptcha (0.2.3)
@@ -76,10 +77,18 @@ GEM
       mime-types (>= 1.16)
     rpx_now (0.6.23)
       json_pure
-    rspec (1.3.0)
-    rspec-rails (1.3.2)
-      rack (>= 1.0.0)
-      rspec (>= 1.3.0)
+    rspec (2.0.0)
+      rspec-core (= 2.0.0)
+      rspec-expectations (= 2.0.0)
+      rspec-mocks (= 2.0.0)
+    rspec-core (2.0.0)
+    rspec-expectations (2.0.0)
+      diff-lcs (>= 1.1.2)
+    rspec-mocks (2.0.0)
+      rspec-core (= 2.0.0)
+      rspec-expectations (= 2.0.0)
+    rspec-rails (2.0.1)
+      rspec (~> 2.0.0)
     ruby-debug (0.10.3)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.3.0)
@@ -102,7 +111,7 @@ GEM
       rack-test (>= 0.5.3)
     will_paginate (2.3.15)
     wirble (0.1.3)
-    yajl-ruby (0.7.7)
+    yajl-ruby (0.7.8)
 
 PLATFORMS
   ruby
@@ -113,18 +122,18 @@ DEPENDENCIES
   cancan (= 1.4.0)
   compass (~> 0.10.5)
   couchrest (= 0.37)
-  erubis
+  erubis (= 2.6.6)
   faker
   gravtastic (= 2.2.0)
-  haml (~> 3.0.18)
+  haml (~> 3.0.21)
   hoptoad_notifier (~> 2.3)
-  hpricot
+  hpricot (= 0.8.2)
   machinist
   markup_validity
-  maruku
-  pg
+  maruku (= 0.6.0)
+  mysql
   query_diet
-  rails (= 2.3.9)
+  rails (= 2.3.10)
   recaptcha (~> 0.2.3)
   remarkable_rails
   rpx_now (= 0.6.23)
@@ -132,7 +141,7 @@ DEPENDENCIES
   rspec-rails
   ruby-debug
   timeline_fu (= 0.3.0)
-  treetop-dcf
+  treetop-dcf (= 0.2.0)
   twitter (= 0.9.12)
   webrat
   will_paginate (= 2.3.15)
