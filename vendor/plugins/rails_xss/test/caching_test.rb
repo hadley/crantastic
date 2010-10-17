@@ -27,6 +27,17 @@ class FragmentCachingTest < ActionController::TestCase
     @controller.send(:assign_shortcuts, @request, @response)
   end
 
+  def test_fragment_for
+    @store.write('views/expensive', 'fragment content')
+    fragment_computed = false
+
+    buffer = 'generated till now -> '.html_safe
+    @controller.fragment_for(buffer, 'expensive') { fragment_computed = true }
+
+    assert !fragment_computed
+    assert_equal 'generated till now -> fragment content', buffer
+  end
+
   def test_html_safety
     assert_nil @store.read('views/name')
     content = 'value'.html_safe
