@@ -39,10 +39,6 @@ Rails::Initializer.run do |config|
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
-
-  config.after_initialize do # so rake gems:install works
-    RPXNow.api_key = ENV['RPX_API_KEY']
-  end
 end
 
 ActionView::Base.field_error_proc = Proc.new do |html, instance|
