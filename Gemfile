@@ -39,6 +39,6 @@ group :test do
   gem 'remarkable_rails', '3.1.13'
   gem 'rspec', '1.3.1'
   gem 'rspec-rails', '1.3.3'
-  gem 'webrat', '0.7.1'
+  gem 'webrat', '0.7.2'
 
 end

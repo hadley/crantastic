@@ -96,7 +96,7 @@ GEM
       httparty (~> 0.6.1)
       multi_json (~> 0.0.4)
       oauth (~> 0.4.3)
-    webrat (0.7.1)
+    webrat (0.7.2)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
@@ -135,7 +135,7 @@ DEPENDENCIES
   timeline_fu (= 0.3.0)
   treetop-dcf (= 0.2.0)
   twitter (= 0.9.12)
-  webrat (= 0.7.1)
+  webrat (= 0.7.2)
   will_paginate (= 2.3.15)
   wirble
   yajl-ruby (~> 0.7.8)
