@@ -17,6 +17,7 @@ GEM
     bitly (0.5.3)
       crack (>= 0.1.4)
       httparty (>= 0.5.2)
+    builder (2.1.2)
     cancan (1.4.0)
     columnize (0.3.1)
     compass (0.10.5)
@@ -29,10 +30,11 @@ GEM
       abstract (>= 1.0.0)
     faker (0.3.1)
     gravtastic (2.2.0)
-    haml (3.0.21)
+    haml (3.0.22)
     hashie (0.4.0)
-    hoptoad_notifier (2.3.8)
+    hoptoad_notifier (2.3.11)
       activesupport
+      builder
     hpricot (0.8.2)
     httparty (0.6.1)
       crack (= 0.1.8)
