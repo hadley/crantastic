@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: package_rating
+#
+#  id         :integer(4)      not null, primary key
+#  package_id :integer(4)
+#  user_id    :integer(4)
+#  rating     :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#  aspect     :string(25)      default("overall"), not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PackageRating do

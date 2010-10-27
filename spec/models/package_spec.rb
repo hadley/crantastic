@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: package
+#
+#  id                  :integer(4)      not null, primary key
+#  name                :string(255)
+#  description         :text
+#  created_at          :datetime
+#  latest_version_id   :integer(4)
+#  updated_at          :datetime
+#  package_users_count :integer(4)      default(0), not null
+#  score               :float           default(0.0)
+#
+
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Package do

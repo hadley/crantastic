@@ -1,9 +1,8 @@
 # == Schema Information
-# Schema version: 20090702113720
 #
 # Table name: tag
 #
-#  id          :integer         not null, primary key
+#  id          :integer(4)      not null, primary key
 #  name        :string(255)     not null
 #  full_name   :string(255)
 #  description :text

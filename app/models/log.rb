@@ -1,9 +1,8 @@
 # == Schema Information
-# Schema version: 20090613223342
 #
 # Table name: log
 #
-#  id         :integer         not null, primary key
+#  id         :integer(4)      not null, primary key
 #  message    :string(255)     not null
 #  created_at :datetime
 #  updated_at :datetime

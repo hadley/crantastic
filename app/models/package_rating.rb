@@ -1,12 +1,11 @@
 # == Schema Information
-# Schema version: 20090615123240
 #
 # Table name: package_rating
 #
-#  id         :integer         not null, primary key
-#  package_id :integer
-#  user_id    :integer
-#  rating     :integer
+#  id         :integer(4)      not null, primary key
+#  package_id :integer(4)
+#  user_id    :integer(4)
+#  rating     :integer(4)
 #  created_at :datetime
 #  updated_at :datetime
 #  aspect     :string(25)      default("overall"), not null

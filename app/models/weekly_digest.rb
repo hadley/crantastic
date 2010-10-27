@@ -1,9 +1,8 @@
 # == Schema Information
-# Schema version: 20090803134959
 #
 # Table name: weekly_digest
 #
-#  id         :integer         not null, primary key
+#  id         :integer(4)      not null, primary key
 #  param      :string(255)     not null
 #  created_at :datetime
 #  updated_at :datetime

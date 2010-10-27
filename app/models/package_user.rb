@@ -1,14 +1,13 @@
 # == Schema Information
-# Schema version: 20090731172118
 #
 # Table name: package_user
 #
-#  id         :integer         not null, primary key
-#  package_id :integer
-#  user_id    :integer
+#  id         :integer(4)      not null, primary key
+#  package_id :integer(4)
+#  user_id    :integer(4)
 #  created_at :datetime
 #  updated_at :datetime
-#  active     :boolean         default(TRUE), not null
+#  active     :boolean(1)      default(TRUE), not null
 #
 
 # Parts of this code has been derived from the vote_fu plugin

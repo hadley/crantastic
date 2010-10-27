@@ -1,3 +1,33 @@
+# == Schema Information
+#
+# Table name: version
+#
+#  id                     :integer(4)      not null, primary key
+#  package_id             :integer(4)
+#  name                   :string(255)
+#  title                  :string(255)
+#  description            :text
+#  license                :text
+#  version                :string(255)
+#  depends                :text
+#  suggests               :text
+#  author                 :text
+#  url                    :string(255)
+#  date                   :date
+#  readme                 :text
+#  changelog              :text
+#  news                   :text
+#  diff                   :text
+#  created_at             :datetime
+#  updated_at             :datetime
+#  maintainer_id          :integer(4)
+#  imports                :text
+#  enhances               :text
+#  priority               :string(255)
+#  publicized_or_packaged :datetime
+#  version_changes        :text
+#
+
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Version do

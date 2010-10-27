@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: weekly_digest
+#
+#  id         :integer(4)      not null, primary key
+#  param      :string(255)     not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe WeeklyDigest do

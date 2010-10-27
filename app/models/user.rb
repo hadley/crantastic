@@ -1,9 +1,8 @@
 # == Schema Information
-# Schema version: 20090731172118
 #
 # Table name: user
 #
-#  id                  :integer         not null, primary key
+#  id                  :integer(4)      not null, primary key
 #  login               :string(255)
 #  email               :string(255)
 #  crypted_password    :string(255)
@@ -11,7 +10,7 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  activated_at        :datetime
-#  remember            :boolean         not null
+#  remember            :boolean(1)      default(FALSE), not null
 #  homepage            :string(255)
 #  profile             :text
 #  profile_html        :text
@@ -19,12 +18,13 @@
 #  role_name           :string(40)
 #  perishable_token    :string(40)
 #  persistence_token   :string(128)     default(""), not null
-#  login_count         :integer         default(0), not null
+#  login_count         :integer(4)      default(0), not null
 #  last_request_at     :datetime
 #  last_login_at       :datetime
 #  current_login_at    :datetime
 #  last_login_ip       :string(255)
 #  current_login_ip    :string(255)
+#  tos                 :boolean(1)
 #
 
 require "rpx_now/user_integration"

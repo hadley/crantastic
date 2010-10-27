@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: timeline_event
+#
+#  id                     :integer(4)      not null, primary key
+#  event_type             :string(255)
+#  subject_type           :string(255)
+#  actor_type             :string(255)
+#  secondary_subject_type :string(255)
+#  subject_id             :integer(4)
+#  actor_id               :integer(4)
+#  secondary_subject_id   :integer(4)
+#  created_at             :datetime
+#  updated_at             :datetime
+#  cached_value           :string(255)
+#
+
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe TimelineEvent do

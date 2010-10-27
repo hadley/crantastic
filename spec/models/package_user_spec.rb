@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: package_user
+#
+#  id         :integer(4)      not null, primary key
+#  package_id :integer(4)
+#  user_id    :integer(4)
+#  created_at :datetime
+#  updated_at :datetime
+#  active     :boolean(1)      default(TRUE), not null
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PackageUser do

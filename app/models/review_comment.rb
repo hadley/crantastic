@@ -1,13 +1,12 @@
 # == Schema Information
-# Schema version: 20090729182846
 #
 # Table name: review_comment
 #
-#  id         :integer         not null, primary key
-#  review_id  :integer         not null
-#  user_id    :integer         not null
+#  id         :integer(4)      not null, primary key
+#  review_id  :integer(4)      not null
+#  user_id    :integer(4)      not null
 #  title      :string(45)      not null
-#  comment    :text            not null
+#  comment    :text            default(""), not null
 #  created_at :datetime
 #  updated_at :datetime
 #
