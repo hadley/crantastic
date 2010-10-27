@@ -35,6 +35,13 @@ describe UsersController do
     response.should be_redirect
   end
 
+  it "should require no user for the thanks page" do
+    login_as_user
+    get :thanks
+    response.should_not render_template
+    response.should be_redirect
+  end
+
   describe "edit/update" do
 
     it "should require login for the edit page" do

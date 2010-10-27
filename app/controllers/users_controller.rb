@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-  before_filter :require_no_user, :only => [ :new, :create, :activate ]
-  before_filter :require_user, :only => [:regenerate_api_key, :edit]
+  before_filter :require_no_user, :only => [ :new, :create, :activate, :thanks ]
+  before_filter :require_user, :only => [ :regenerate_api_key, :edit ]
 
   load_and_authorize_resource
 

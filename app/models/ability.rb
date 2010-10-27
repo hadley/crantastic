@@ -21,6 +21,8 @@ class Ability
       can :read, :all
 
       can :create, User
+      can :thanks, User
+      can :activate, User
 
     end
   end
