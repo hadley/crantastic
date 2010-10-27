@@ -12,6 +12,7 @@ GEM
     activeresource (2.3.10)
       activesupport (= 2.3.10)
     activesupport (2.3.10)
+    annotate (2.4.0)
     authlogic (2.1.5)
       activesupport
     bitly (0.5.3)
@@ -110,6 +111,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   authlogic (= 2.1.5)
   bitly (= 0.5.3)
   bundler (~> 1.0.3)
