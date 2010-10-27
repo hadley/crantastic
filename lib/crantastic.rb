@@ -153,7 +153,6 @@ module Crantastic
     end
   end
 
-  # NOTE: This still runs on Heroku (and there is no reason why it shouldn't)
   class UpdateTaskViews
     def start
       Log.log!("Starting task: UpdateTaskViews")

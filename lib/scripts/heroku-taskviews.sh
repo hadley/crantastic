@@ -3,7 +3,8 @@
 # Make sure we have a somewhat reasonable PATH
 PATH="/usr/local/bin:/bin:/usr/bin:$PATH"
 
-# Configuration
-APP=crantastic
+cd ~/crantastic
 
-heroku rake crantastic:update_taskviews --app $APP || exit 1
+git pull
+
+RAILS_ENV=production rake crantastic:update_taskviews

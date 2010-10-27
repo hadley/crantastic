@@ -1,8 +1,8 @@
 Scripts that reside on the Crantastic VPS, triggered by various cron tasks:
 
 # m h  dom mon dow   command
-07 16 * * * /home/crantastic/backup/heroku-db-backup.sh
-30 23 * * * /home/crantastic/heroku-tweet.sh
-40 23 * * 0 /home/crantastic/heroku-weekly.sh
-10,30,50 * * * * /home/crantastic/update-packages.sh
-15 2,6,10,14,18,22 * * * /home/crantastic/heroku-taskviews.sh
+07 16 * * * /home/crantastic/crantastic/lib/scripts/backup/heroku-db-backup.sh
+30 23 * * * /home/crantastic/crantastic/lib/scripts/heroku-tweet.sh
+40 23 * * 0 /home/crantastic/crantastic/lib/scripts/heroku-weekly.sh
+10,30,50 * * * * /home/crantastic/crantastic/lib/scripts/update-packages.sh
+15 2,6,10,14,18,22 * * * /home/crantastic/crantastic/lib/scripts/heroku-taskviews.sh
