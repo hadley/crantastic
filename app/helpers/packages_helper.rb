@@ -32,4 +32,8 @@ module PackagesHelper
     out.html_safe
   end
 
+  def rating(pkg)
+    pkg.rating_count.zero? ? "" : "#{pkg.average_rating}/5"
+  end
+
 end
