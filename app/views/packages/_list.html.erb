@@ -15,7 +15,8 @@ Packages found: <%= @packages.total_entries -%>
     <th style="width:35%">Package Name</th>
     <th style="width:20%">Version</th>
     <th style="width:30%">Author</th>
-    <th style="width:15%">Rating</th>
+    <th style="width:8%">Rating</th>
+    <th style="width:7%">Users</th>
   </tr>
   <%- for package in @packages -%>
   <tr class="<%=cycle("odd", "even")-%>">
@@ -29,6 +30,7 @@ Packages found: <%= @packages.total_entries -%>
         <%= package.average_rating %>/5
       <% end -%>
     </td>
+    <td><%= package.package_users_count %></td>
   </tr>
   <%- end -%>
 </table>
