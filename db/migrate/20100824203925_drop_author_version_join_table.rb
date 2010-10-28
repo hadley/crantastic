@@ -10,7 +10,5 @@ class DropAuthorVersionJoinTable < ActiveRecord::Migration
     end
 
     add_index :author_version, [:author_id, :version_id], :unique => true
-
-    Version.all.each { |v| v.authors = [v.maintainer].compact; v.save }
   end
 end
