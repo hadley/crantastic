@@ -27,6 +27,10 @@ class Package < ActiveRecord::Base
 
   has_many :versions, :order => "id DESC", :dependent => :destroy
   has_many :package_ratings, :dependent => :destroy
+  has_many :overall_package_ratings, :class_name => "PackageRating",
+                                     :conditions => "aspect = 'overall'"
+  has_many :documentation_package_ratings, :class_name => "PackageRating",
+                                           :conditions => "aspect = 'documentation'"
   has_many :package_users, :dependent => :destroy
   alias :users :package_users
   has_many :reviews, :dependent => :destroy

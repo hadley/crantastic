@@ -35,6 +35,8 @@ describe Package do
 
   should_have_many :versions
   should_have_many :package_ratings
+  should_have_many :overall_package_ratings
+  should_have_many :documentation_package_ratings
   should_have_many :reviews
   should_have_many :taggings
 
@@ -127,6 +129,10 @@ describe Package do
       p.average_rating.should == 1
       u2.rate!(p, 5)
       p.average_rating.should == 3
+      # also check relation counts
+      p.package_ratings.count.should == 2
+      p.overall_package_ratings.count.should == 2
+      p.documentation_package_ratings.count.should == 0
     end
 
     it "should discard old ratings" do
