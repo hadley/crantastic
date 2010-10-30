@@ -30,7 +30,7 @@ describe "/packages" do
 
   it "should display ratings" do
     response.should have_tag('h2', 'Ratings')
-    response.should have_tag('span', /0\/5\s* \(0 votes\)/)
+    response.should have_tag('span', /\(0 votes\)/)
   end
 
   it "should show used packages" do

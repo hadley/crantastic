@@ -16,7 +16,7 @@ describe PackagesHelper do
     it "should return the avg if there are ratings" do
       @pkg.stub(:rating_count).and_return(2)
       @pkg.stub(:average_rating).and_return(4)
-      helper.rating(@pkg).should == "4/5"
+      helper.rating(@pkg).should == "4.0/5"
     end
 
   end

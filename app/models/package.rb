@@ -124,9 +124,22 @@ class Package < ActiveRecord::Base
                                         self.id, aspect])
   end
 
-  # Rounded average rating for this package
   def average_rating(aspect="overall")
-    PackageRating.calculate_average(self, aspect).round
+    aspect == "overall" ? overall_average_rating : documentation_average_rating
+  end
+
+  # Unrounded overall avg rating
+  def overall_average_rating
+    PackageRating.calculate_average(self, "overall")
+  end
+
+  # Unrounded documentation avg rating
+  def documentation_average_rating
+    PackageRating.calculate_average(self, "documentation")
+  end
+
+  def combined_average_rating
+    PackageRating.calculate_average(self)
   end
 
   def to_param
@@ -202,7 +215,7 @@ class Package < ActiveRecord::Base
 
   # Package score, calculated from average ratings and number of package users
   def calculate_score
-    rating = (average_rating("overall").to_f +
+    rating = (average_rating("overall") +
               average_rating("documentation")) / 2
     score = (rating / 5) * 100
 

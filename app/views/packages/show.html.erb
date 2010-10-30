@@ -51,7 +51,7 @@
         <% end %>
       </div>&nbsp;
       <span id="overall-rating">
-        <%= @package.average_rating -%>/5
+        <%= rating(@package, "overall") -%>
         (<%= pluralize(@package.rating_count.to_s, "vote") -%>)
       </span>
 
@@ -72,8 +72,10 @@
         <% end %>
       </div>
       &nbsp;
-      <span id="documentation-rating"><%= @package.average_rating("documentation") %>/5
-        (<%= pluralize(@package.rating_count("documentation").to_s, " vote") %>)</span>
+      <span id="documentation-rating">
+        <%= rating(@package, "documentation") -%>
+        (<%= pluralize(@package.rating_count("documentation").to_s, "vote") %>)
+      </span>
 
       <br />
       <span class="your-rating">

@@ -25,7 +25,7 @@ Packages found: <%= @packages.total_entries -%>
     <%- maintainer = latest_package.try(:maintainer) -%>
     <td><%= latest_package.version unless latest_package.nil? -%></td>
     <td><%= link_to maintainer.name, maintainer unless maintainer.nil? -%></td>
-    <td><%= rating(package) %></td>
+    <td><%= combined_rating(package) %></td>
     <td><%= package.package_users_count %></td>
   </tr>
   <%- end -%>

@@ -32,8 +32,12 @@ module PackagesHelper
     out.html_safe
   end
 
-  def rating(pkg)
-    pkg.rating_count.zero? ? "" : "#{pkg.average_rating}/5"
+  def rating(pkg, aspect="overall")
+    pkg.rating_count.zero? ? "" : sprintf('%.1f/5', pkg.average_rating(aspect))
+  end
+
+  def combined_rating(pkg)
+    pkg.rating_count.zero? ? "" : sprintf('%.1f/5', pkg.combined_average_rating)
   end
 
 end
