@@ -1,5 +1,5 @@
 require "rubygems"
-require "hpricot"
+require "nokogiri"
 
 module CRAN
 
@@ -44,7 +44,7 @@ module CRAN
     attr_reader :name, :topic, :version, :packagelist
 
     def initialize(ctv)
-      doc = Hpricot::XML(ctv)
+      doc = Nokogiri::XML(ctv)
       @name = (doc/"name").inner_text
       @topic = (doc/"topic").inner_text
       @version = (doc/"version").inner_text
