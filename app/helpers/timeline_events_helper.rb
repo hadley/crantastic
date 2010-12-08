@@ -48,7 +48,7 @@ module TimelineEventsHelper
                case item.event_type
 
                when "new_package" then
-
+                 return "" if item.subject.nil?
                  # Maybe include version number here
                  link_to(item.subject, item.subject) + " was " + action("released")
 
