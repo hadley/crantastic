@@ -53,15 +53,16 @@ class PackagesController < ApplicationController
   end
 
   def show
-    id = params[:id]
+    id = params[:id].clone
     if id.to_i != 0
       redirect_to url_for(Package.find(id)), :status => 301
       return
     end
 
+    id.chop! if id.end_with?(".")
     @package = Package.find_by_param(id) # case-insensitive
     # Redirect to correct url if e.g. someone accesses /packages/rjython (should be rJython)
-    if @package.to_param != id
+    if @package.to_param != params[:id]
       redirect_to url_for(@package), :status => 301
       return
     end

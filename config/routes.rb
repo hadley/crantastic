@@ -17,6 +17,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :weekly_digests, :only => [ :index, :show ]
 
   # Nested resources
+  # The following rule allows us to capture links such as /packages/data.table,
+  # before redirecting them to the correct URL. Note the negative lookahead for
+  # valid formats, so that we don't break e.g. .xml urls.
+  map.connect '/packages/:id', :controller => 'packages',
+    :action => 'show',
+    :requirements => { :id => /.+\.(?!xml|atom|html|bibjs).*/ }
   map.resources :packages,
                 :collection => { :all => :get, :feed => :get, :search => [ :get, :post ] },
                 :member => { :toggle_usage => :post },
