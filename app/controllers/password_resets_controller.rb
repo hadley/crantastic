@@ -28,7 +28,9 @@ class PasswordResetsController < ApplicationController
     @user.tos = params[:user][:tos] if params[:user][:tos]
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
-    if @user.save
+    @user.valid? # force validation of attributes
+    if @user.errors.on(:password).nil? # we only care about the password here,
+      @user.save_without_validation    # some old accounts can have invalid usernames
       UserSession.create(@user)
       flash[:notice] = "Password successfully updated"
       redirect_to user_url(@user)
