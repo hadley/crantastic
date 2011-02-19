@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '2.3.10'
+gem 'rails', '2.3.11'
 gem 'bundler', '~> 1.0.3'
 gem 'mysql', '~> 2.8.1'
 
@@ -12,7 +12,7 @@ gem 'couchrest', '~> 0.37'
 gem 'erubis', '~> 2.6.6'
 gem 'gravtastic', '~> 2.2.0'
 gem 'haml', '~> 3.0.22'
-gem 'hoptoad_notifier', '~> 2.3'
+gem 'hoptoad_notifier', '~> 2.4'
 gem 'maruku', '~> 0.6.0'
 gem 'nokogiri', '~> 1.4.4'
 gem 'recaptcha', '~> 0.2.3', :require => 'recaptcha/rails'
