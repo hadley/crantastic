@@ -181,8 +181,6 @@ class Version < ActiveRecord::Base
                                         package_id, id])
   end
 
-  private
-
   def parse_requirements(reqs)
     reqs.split(",").map{|full| full.split(" ")[0]}.map do |name|
       Package.find_by_name name
@@ -190,9 +188,14 @@ class Version < ActiveRecord::Base
   end
 
   def reverse(key)
+    pkgs = reverse_versions(key).sort.map(&:package).uniq
+    return pkgs.select { |p| !p.nil? } # temporary fix ..
+  end
+
+  def reverse_versions(key)
     Version.find(:all, :include => :package, :conditions =>
                  ["id IN (SELECT version_id FROM #{key}_version WHERE #{key}_id = ?)",
-                  self.package.id]).sort.map(&:package).uniq
+                  self.package.id])
   end
 
 end
