@@ -33,7 +33,7 @@ class VersionsController < ApplicationController
   end
 
   def trigger
-    Version.find(params[:id]).serialize_data
+    #Version.find(params[:id]).serialize_data
     render :nothing => true
   end
 

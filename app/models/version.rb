@@ -50,7 +50,7 @@ class Version < ActiveRecord::Base
                           :join_table => "suggested_package_version"
   alias :suggests :suggested_packages
 
-  serialize :version_changes, Hash
+  #serialize :version_changes, Hash
 
   named_scope :recent, :include => :package,
                        :order => "created_at DESC",
