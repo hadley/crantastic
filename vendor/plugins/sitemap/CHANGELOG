@@ -1,0 +1,21 @@
+==== 0.3    10/23/2008
+****  WARNING ****  Database schema change, be sure to add username and password to the SitemapSetting table.
+* Added password support to the plugin.  Uses basic http auth, leave usename and password blank to leave the http auth turned off.
+
+==== 0.2    6/14/2008
+
+* Changed the directory structure to be more MVC like...  Almost like engines without extra plugins :)
+
+* Added the start of password requiring, but it appears more investigation is needed on the rails side of plugin handling
+
+* Fixed the sitemap_plugin layout footer url to point to our real domain
+
+* Add delete support to widgets and static links in the plugin admin area
+
+* Add Matt Polito's patch for dynamic copyright years
+
+* Fix the custom_finder to work with Rails 2.1
+
+==== 0.1    3/23/2008
+
+Released the first version!

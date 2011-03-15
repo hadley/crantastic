@@ -1,0 +1,38 @@
+<h2>Editing <%= @widget.widget_model %></h2>
+
+<% form_for(@widget) do |f| %>
+<p>
+	<%= f.label :widget_model, "The model for the widget" %>
+	<%= f.text_field :widget_model %>
+</p>
+
+<p>
+	<%= f.label :index_named_route, "The named route for the widget index page" %>
+	<%= f.text_field :index_named_route %>
+</p>
+
+<p>
+	<%= f.label :custom_finder, "A custom ActiveRecord finder method, leave blank for find(:all)" %>
+	<%= f.text_field :custom_finder %>
+</p>
+
+<p>
+	<%= f.label :frequency_index, "How often does the widget index page change?" %>
+	<%= f.select :frequency_index, SitemapWidget.frequencies %>
+</p>
+
+<p>
+	<%= f.label :frequency_show, "How often do the widget show pages change?" %>
+	<%= f.select :frequency_show, SitemapWidget.frequencies %>
+</p>
+
+<p>
+	<%= f.label :priority, "How important is this widget to your site?" %>
+	<%= f.select :priority, SitemapWidget.priorities %>
+</p>
+
+<div id="save_actions">
+	<p><%= f.submit "Save this widget" %> or <%= link_to "Cancel", sitemap_widgets_url %></p>
+</div>
+
+<% end %>
