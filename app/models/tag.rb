@@ -8,7 +8,7 @@
 #  description :text
 #  created_at  :datetime
 #  updated_at  :datetime
-#  type        :string(255)
+#  type        :string(25)
 #  version     :string(10)
 #
 

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100824203925) do
+ActiveRecord::Schema.define(:version => 20110315153114) do
 
   create_table "author", :force => true do |t|
     t.string   "name"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20100824203925) do
     t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "use_index"
   end
 
   create_table "sitemap_static_link", :force => true do |t|
