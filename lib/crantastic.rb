@@ -49,7 +49,7 @@ module Crantastic
         else
           Log.log!("New package: #{package} (#{version})")
           # ActiveResource doesn't support transactions so this is a bit scary
-          pkg = Package.create(:name => package)
+          pkg = Package.create!(:name => package)
           # We must delete the package if the version creation fails, as we cant
           # have packages without any versions in the db.
           begin
@@ -120,14 +120,16 @@ module Crantastic
 
       # Find or create maintainer
       begin
-        data[:maintainer_id] = Author.new_from_string(data[:maintainer]).id
+        maintainer = Author.new_from_string(data[:maintainer])
+        data[:maintainer_id] = maintainer.id.to_s
+        raise Exception if data[:maintainer_id].blank?
       rescue Exception => e
         throw Exception.new("Problem with author #{data[:maintainer]} for #{pkg}")
       end
       data.delete(:maintainer)
 
       data[:package_id] = crantastic_package_id
-      version = Version.create(data)
+      version = Version.create!(data)
       FileUtils.rm_rf(pkgdir)
       return version
     rescue OpenURI::HTTPError, SocketError, URI::InvalidURIError, Timeout::Error
