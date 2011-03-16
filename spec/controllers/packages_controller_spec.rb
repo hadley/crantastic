@@ -60,6 +60,12 @@ describe PackagesController do
     response.should be_redirect
   end
 
+  it "should have an atom feed" do
+    get :feed, :format => "atom"
+    response.should have_tag('title', "New packages on crantastic")
+    response.should be_success
+  end
+
   describe "Routes" do
 
     it "should have routes for package usage" do

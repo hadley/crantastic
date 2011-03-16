@@ -53,8 +53,8 @@ class Version < ActiveRecord::Base
   #serialize :version_changes, Hash
 
   named_scope :recent, :include => :package,
-                       :order => "created_at DESC",
-                       :conditions => "created_at IS NOT NULL",
+                       :order => "version.created_at DESC",
+                       :conditions => "version.created_at IS NOT NULL",
                        :limit => 50
 
   validates_existence_of :package_id
