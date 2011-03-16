@@ -33,7 +33,7 @@ module Crantastic
 
         next if package == "orientlib" && version == "0.10.1" # known bad entry
 
-        cur = crantastic_pkgs.find { |pkg| pkg.name == package }
+        cur = crantastic_pkgs.find { |pkg| pkg.name.downcase == package.downcase }
         if cur
           if cur.latest_version.nil?
             Log.log_and_report! "Problem with package #{package}: latest_version missing!"
