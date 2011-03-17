@@ -18,20 +18,23 @@ production:
   database: db/production.sqlite3
   timeout: 5000
 
-# The production server runs PostgreSQL, so it might be useful to run it
+# The production server runs MySQL, so it might be useful to run it
 # locally as well. Example configuration follows below:
 #
 # development:
-#   adapter: postgresql
+#   adapter: mysql
 #   database: crantastic
-#   encoding: unicode
+#   encoding: utf8
+#   user:
 
 # test:
-#   adapter: postgresql
+#   adapter: mysql
 #   database: crantastic_test
-#   encoding: unicode
+#   encoding: utf8
+#   user:
 
 # production:
-#   adapter: postgresql
+#   adapter: mysql
 #   database: crantastic
-#   encoding: unicode
+#   encoding: utf8
+#   user:

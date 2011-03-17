@@ -22,11 +22,11 @@ site). 1.9.x will not work (yet).
 
 Copy `config/database.sample.yml` to `config/database.yml`. It defaults to
 SQLite, so no additional configuration of this file is necessary unless you want
-to use PostgreSQL (which the site runs on in production).
+to use MySQL (which the site runs on in production). It's important that the
+encoding flag is set to utf8, or you'll run into subtle bugs.
 
-Run `rake gems:install` to install gem dependencies for the main site.
-Do `RAILS_ENV=test rake gems:install` to install the dependencies for the
-testing environment (required for running `rake spec`).
+We use bundler to manage gems, so simply run `bundle install` to install all
+required gem dependencies.
 
 Using `autospec` while doing changes to the source code is highly recommended,
 as this is very helpful for catching accidental regressions.
@@ -57,31 +57,9 @@ repository. Use the following steps to check out the source:
     git fetch origin R-package
     git checkout --track -b R-package origin/R-package
 
-## Working with Heroku
-
-### Setting up the Heroku remote
-
-    git remote add heroku git@heroku.com:crantastic.git
-
-Confirm that it's working by running `heroku info`.
-
-### Pulling the latest database from crantastic.org
-
-    heroku db:pull
-
-This will overwrite `db/development.sqlite3`.
-
-### Pushing your work to Heroku
-
-    git push heroku master
-
-Personally I use an alias so I don't have to type as much:
-
-    alias gph='git push heroku master'
-
 ## Updating packages from CRAN
 
-Run `rake crantastic:cron` or `rake crantastic:update_all_packages`. Look in the
+Run `rake crantastic:cron` or `rake crantastic:update_packages`. Look in the
 `lib/scripts` folder for scripts and cron tasks.
 
 ## License
