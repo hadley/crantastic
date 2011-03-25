@@ -3,6 +3,7 @@ source :rubygems
 gem 'rails', '2.3.11'
 gem 'bundler', '~> 1.0.3'
 gem 'mysql', '~> 2.8.1'
+gem 'passenger', '3.0.5'
 
 gem 'authlogic', '~> 2.1.6'
 gem 'bitly', '~> 0.5.3'
