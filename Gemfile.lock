@@ -38,7 +38,7 @@ GEM
     gravtastic (2.2.0)
     haml (3.0.25)
     hashie (0.4.0)
-    hoptoad_notifier (2.4.7)
+    hoptoad_notifier (2.4.9)
       activesupport
       builder
     httparty (0.6.1)
