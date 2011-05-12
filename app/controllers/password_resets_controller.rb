@@ -25,6 +25,8 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
+    # Activate user now unless already activated
+    @user.activated_at = Time.now.utc unless @user.active?
     @user.tos = params[:user][:tos] if params[:user][:tos]
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
