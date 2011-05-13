@@ -234,7 +234,7 @@ module Crantastic
       # now create the access token object from passed values
       token_hash = {
         :oauth_token => ENV['TWITTER_OAUTH_TOKEN'],
-        :oauth_token_secret => ENV['TWITTER_AUTH_TOKEN_SECRET']
+        :oauth_token_secret => ENV['TWITTER_OAUTH_TOKEN_SECRET']
       }
       access_token = OAuth::AccessToken.from_hash(consumer, token_hash )
       return access_token
