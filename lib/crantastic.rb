@@ -220,16 +220,43 @@ module Crantastic
   class Tweet
     def initialize
       @daily = DailyDigest.new(Time.zone.now.strftime("%Y%m%d"))
-      httpauth = Twitter::HTTPAuth.new("cranatic", ENV['TWITTER_PASSWORD'])
-      @client = Twitter::Base.new(httpauth)
-      Twitter::HTTPAuth.base_uri "http://identi.ca/api"
+      @access_token = prepare_access_token
+    end
+
+    def prepare_access_token
+      consumer = OAuth::Consumer.new(
+        ENV['TWITTER_CONSUMER_KEY'],
+        ENV['TWITTER_CONSUMER_SECRET'],
+        { :site => "http://api.twitter.com",
+          :scheme => :header
+        })
+
+      # now create the access token object from passed values
+      token_hash = {
+        :oauth_token => ENV['TWITTER_OAUTH_TOKEN'],
+        :oauth_token_secret => ENV['TWITTER_AUTH_TOKEN_SECRET']
+      }
+      access_token = OAuth::AccessToken.from_hash(consumer, token_hash )
+      return access_token
     end
 
     def start
       Log.log!("Starting task: Tweet")
       tweets = @daily.tweets
-      @client.update(tweets[:packages]) unless tweets[:packages].blank?
-      @client.update(tweets[:versions]) unless tweets[:versions].blank?
+      unless tweets[:packages].blank?
+        @access_token.request(
+          :post,
+          "http://api.twitter.com/1/statuses/update.json?status=" + \
+            URI.encode(tweets[:packages])
+          )
+      end
+      unless tweets[:versions].blank?
+        @access_token.request(
+          :post,
+          "http://api.twitter.com/1/statuses/update.json?status=" + \
+            URI.encode(tweets[:versions])
+          )
+      end
       Log.log!("Finished task: Tweet")
     end
   end
