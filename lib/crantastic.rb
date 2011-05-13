@@ -2,7 +2,7 @@ require "fileutils"
 require "digest/md5"
 require "cran"
 require "dcf"
-require "twitter"
+require "oauth"
 
 module Crantastic
 
