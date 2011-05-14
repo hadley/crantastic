@@ -4,8 +4,8 @@ module WeeklyDigestsHelper
     return "" if reviews.empty?
     content_tag(:h2, "Reviews") +
       content_tag(:ul, reviews.map do |r|
-                         content_tag(:li, link_to("#{r.user}'s review of #{r.package}", r))
-                       end)
+                         content_tag(:li, link_to("#{r.user}'s review of #{r.package}".html_safe, r))
+                       end.join("").html_safe)
   end
 
   def packages(packages)
