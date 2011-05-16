@@ -1,5 +1,10 @@
 Scripts that reside on the Crantastic VPS, triggered by various cron tasks:
 
+NOTE: It's important to note that the crantastic app uses UTC, so the times for
+the tweet.sh and weekly.sh cronjobs has to be adjusted if the server clock is in
+a different timezone. E.g. if the server is on EDT, the hour has to be adjusted
+to 19 (EDT is 4 hours behind UTC).
+
 # m h  dom mon dow   command
 30 23 * * * /home/crantastic/crantastic/lib/scripts/tweet.sh
 40 23 * * 0 /home/crantastic/crantastic/lib/scripts/weekly.sh
