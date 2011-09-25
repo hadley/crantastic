@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '2.3.11'
+gem 'rails', '2.3.14'
 gem 'bundler', '~> 1.0.3'
 gem 'mysql', '~> 2.8.1'
 gem 'passenger', '3.0.5'
