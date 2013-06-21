@@ -63,7 +63,7 @@ class Package < ActiveRecord::Base
                        :conditions => "#{self.table_name}.created_at IS NOT NULL",
                        :limit => 50
 
-  named_scope :most_popular, :order => "score DESC, package_users_count DESC",
+  named_scope :most_popular, :order => "score DESC * package_users_count DESC",
                              :include => :latest_version,
                              :limit => 5
 
