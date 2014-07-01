@@ -13,7 +13,7 @@ developers/contributors.
 ## Coding conventions
 
 The [YARD](http://github.com/lsegal/yard/tree/master) meta-tag formatting format
-is usued for documentation, whenever it feels necessary.
+is used for documentation, whenever it feels necessary.
 
 ## Development
 
@@ -32,7 +32,7 @@ Using `autospec` while doing changes to the source code is highly recommended,
 as this is very helpful for catching accidental regressions.
 
 Note that you should only add/edit stylesheets in the `app/stylesheets` folder.
-`public/stylesheets` should only contain compiled Sass styhesleets.
+`public/stylesheets` should only contain compiled Sass stylesheets.
 
 ### Solr
 

@@ -15,7 +15,7 @@ module ApplicationHelper
   def title
     plural = @plural
     plural = (@title.pluralize == @title) unless @title.nil? or plural == false
-    "#{@title + ". " if @title}#{plural ? "They're" : "It's"} crantastic!"
+    "#{@title + ". " if @title}#{plural ? "They're" : "It's"} crantastic!".html_safe
   end
 
   def this_is_me?
