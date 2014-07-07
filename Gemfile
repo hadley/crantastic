@@ -26,6 +26,7 @@ gem 'yajl-ruby', '~> 0.7.8', :require => 'yajl'
 
 group :development, :test do
   gem 'rspec-rails', '~> 1.3.4'
+  gem 'pry', '~> 0.9.12.6'
 end
 
 group :development do
