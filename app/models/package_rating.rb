@@ -42,6 +42,11 @@ class PackageRating < ActiveRecord::Base
                                    package_id]).to_f
     end
   end
+  
+  #Package ratings should take into account number of users and their ratings
+  def self.calculate_rating(package_id, aspect=nil)
+      self.sum(sqrt('rating'*count('users'))).to_f
+  end
 
   def to_s
     rating.to_s
