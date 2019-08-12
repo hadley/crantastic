@@ -22,7 +22,7 @@ gem 'rpx_now', '~> 0.6.23'
 gem 'timeline_fu', '~> 0.3.0'
 gem 'treetop-dcf', '~> 0.2.1'
 gem 'will_paginate', '~> 2.3.15'
-gem 'yajl-ruby', '~> 0.7.8', :require => 'yajl'
+gem 'yajl-ruby', '~> 1.3.1', :require => 'yajl'
 
 group :development, :test do
   gem 'rspec-rails', '~> 1.3.4'
