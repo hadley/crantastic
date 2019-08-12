@@ -21,7 +21,7 @@ gem 'recaptcha', '~> 0.2.3', :require => 'recaptcha/rails'
 gem 'rpx_now', '~> 0.6.23'
 gem 'timeline_fu', '~> 0.3.0'
 gem 'treetop-dcf', '~> 0.2.1'
-gem 'will_paginate', '~> 2.3.15'
+gem 'will_paginate', '~> 3.0.5'
 gem 'yajl-ruby', '~> 0.7.8', :require => 'yajl'
 
 group :development, :test do
