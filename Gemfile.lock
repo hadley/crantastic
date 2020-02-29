@@ -38,8 +38,8 @@ GEM
       spruz (>= 0.1.0)
     gravtastic (2.2.0)
     haml (3.0.25)
-    hoe (3.12.0)
-      rake (>= 0.8, < 11.0)
+    hoe (3.22.1)
+      rake (>= 0.8, < 15.0)
     hoptoad_notifier (2.4.9)
       activesupport
       builder
@@ -84,7 +84,7 @@ GEM
       activeresource (= 2.3.18)
       activesupport (= 2.3.18)
       rake (>= 0.8.3)
-    rake (10.3.2)
+    rake (13.0.1)
     rdoc (2.4.3)
       hoe (>= 1.12.1)
       minitest (~> 1.3)
