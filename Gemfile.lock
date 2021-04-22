@@ -58,7 +58,7 @@ GEM
     minitest (1.7.2)
     mysql (2.8.1)
     nokogiri (1.4.4)
-    oauth (0.4.4)
+    oauth (0.5.5)
     passenger (3.0.5)
       daemon_controller (>= 0.2.5)
       fastthread (>= 1.0.1)
@@ -148,7 +148,7 @@ DEPENDENCIES
   maruku (~> 0.6.0)
   mysql (~> 2.8.1)
   nokogiri (~> 1.4.4)
-  oauth (~> 0.4.4)
+  oauth (~> 0.5.5)
   passenger (= 3.0.5)
   pry (~> 0.9.12.6)
   query_diet
