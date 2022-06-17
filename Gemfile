@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '2.3.18'
 gem 'mysql', '~> 2.8.1'
-gem 'passenger', '3.0.5'
+gem 'passenger', '5.3.2'
 
 gem 'authlogic', '~> 2.1.6'
 gem 'bitly', '~> 0.5.3'
